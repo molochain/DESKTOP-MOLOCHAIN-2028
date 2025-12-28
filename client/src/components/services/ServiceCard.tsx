@@ -14,6 +14,7 @@ interface ServiceCardProps {
   icon: React.ReactNode;
   features: string[];
   tags?: string[];
+  imageUrl?: string;
 }
 
 const ServiceCard = ({ 
@@ -22,20 +23,41 @@ const ServiceCard = ({
   description, 
   icon, 
   features,
-  tags
+  tags,
+  imageUrl
 }: ServiceCardProps) => {
   return (
     <AnimatedCard 
       effect="lift" 
       clickEffect="push"
-      className="h-full border"
+      className="h-full border overflow-hidden"
     >
-      <CardHeader>
-        <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary mb-4 group">
-          <div className={cn(iconAnimation({ effect: 'scale' }))}>
-            {icon}
-          </div>
+      {imageUrl && (
+        <div className="relative w-full aspect-video overflow-hidden" data-testid={`service-image-${id}`}>
+          <img 
+            src={imageUrl} 
+            alt={title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
         </div>
+      )}
+      <CardHeader className={imageUrl ? "pt-4" : ""}>
+        {!imageUrl && (
+          <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary mb-4 group">
+            <div className={cn(iconAnimation({ effect: 'scale' }))}>
+              {icon}
+            </div>
+          </div>
+        )}
+        {imageUrl && (
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-8 h-8 flex items-center justify-center rounded-md bg-primary/10 text-primary">
+              {icon}
+            </div>
+          </div>
+        )}
         <CardTitle>{title}</CardTitle>
         <CardDescription className="mt-2">{description}</CardDescription>
       </CardHeader>
