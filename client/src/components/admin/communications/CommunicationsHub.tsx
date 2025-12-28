@@ -62,7 +62,8 @@ interface AnalyticsOverview {
   }>;
 }
 
-const COMMS_API_BASE = '/api/communications';
+const COMMS_HUB_URL = import.meta.env.VITE_COMMS_HUB_URL || '';
+const COMMS_API_BASE = COMMS_HUB_URL ? `${COMMS_HUB_URL}/api` : '/api/communications';
 
 export function CommunicationsHub() {
   const { toast } = useToast();

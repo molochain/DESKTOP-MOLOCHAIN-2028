@@ -44,6 +44,7 @@ export class MessageQueue {
   private readonly PROCESSING_KEY = 'comms:processing';
   private readonly SCHEDULED_KEY = 'comms:scheduled';
   private readonly DEAD_LETTER_KEY = 'comms:dead-letter';
+  private readonly STATS_KEY = 'comms:stats';
 
   constructor(channelManager: ChannelManager) {
     this.channelManager = channelManager;
@@ -62,8 +63,10 @@ export class MessageQueue {
         logger.info('Connected to Redis');
       });
 
+      await this.syncStatsFromRedis();
       this.startProcessing();
       this.startScheduledCheck();
+      this.startStatsPersistence();
       
       logger.info('Message queue initialized');
     } catch (error) {
@@ -226,12 +229,49 @@ export class MessageQueue {
     return await this.redis.zcard(this.QUEUE_KEY);
   }
 
+  private async syncStatsFromRedis(): Promise<void> {
+    if (!this.redis) return;
+    
+    try {
+      const storedStats = await this.redis.get(this.STATS_KEY);
+      if (storedStats) {
+        const parsed = JSON.parse(storedStats);
+        this.stats.completed = parsed.completed || 0;
+        this.stats.failed = parsed.failed || 0;
+        logger.info('Stats synced from Redis', this.stats);
+      }
+      
+      this.stats.pending = await this.redis.zcard(this.QUEUE_KEY);
+      this.stats.scheduled = await this.redis.zcard(this.SCHEDULED_KEY);
+    } catch (error) {
+      logger.error('Failed to sync stats from Redis:', error);
+    }
+  }
+
+  private startStatsPersistence(): void {
+    setInterval(async () => {
+      if (!this.redis) return;
+      try {
+        await this.redis.set(this.STATS_KEY, JSON.stringify({
+          completed: this.stats.completed,
+          failed: this.stats.failed,
+        }));
+      } catch (error) {
+        logger.error('Failed to persist stats:', error);
+      }
+    }, 30000);
+  }
+
   async shutdown(): Promise<void> {
     if (this.processInterval) {
       clearInterval(this.processInterval);
     }
     
     if (this.redis) {
+      await this.redis.set(this.STATS_KEY, JSON.stringify({
+        completed: this.stats.completed,
+        failed: this.stats.failed,
+      }));
       await this.redis.quit();
     }
     

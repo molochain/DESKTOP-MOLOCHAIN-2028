@@ -25,12 +25,18 @@ export class EmailChannel implements ChannelInterface {
         return;
       }
 
+      const skipTlsVerify = process.env.SMTP_SKIP_TLS_VERIFY === 'true';
+      
+      if (skipTlsVerify) {
+        logger.warn('TLS verification disabled for SMTP - use only in development');
+      }
+
       const transportOptions: nodemailer.TransportOptions = {
         host,
         port,
         secure: port === 465,
         tls: {
-          rejectUnauthorized: false,
+          rejectUnauthorized: !skipTlsVerify,
         },
       } as nodemailer.TransportOptions;
 

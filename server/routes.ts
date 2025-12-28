@@ -84,6 +84,7 @@ import favoritesRoutes from "./routes/favorites";
 import bookingsRoutes from "./routes/bookings";
 import jobsRoutes from "./routes/jobs";
 import otmsPublicRoutes from "./api/otms/otms-public.routes";
+import communicationsProxyRoutes from "./routes/communications-proxy";
 
 // Query parameter schemas
 const paginationSchema = z.object({
@@ -297,6 +298,9 @@ export async function registerRoutes(
 
   // Email settings and template management routes
   app.use("/api/admin/email", emailSettingsRouter);
+
+  // Communications Hub proxy routes (forwards to microservice on port 7020)
+  app.use("/api/communications", communicationsProxyRoutes);
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION: Public Email API (Cross-Subdomain Access)
