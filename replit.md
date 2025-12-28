@@ -125,6 +125,17 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
   5. `pm2 restart molochain-core --update-env`
 - **Session Storage:** `connect-redis@9.0.0` (named export: `{ RedisStore }`)
 
+**Server Management Scripts (Dec 28, 2025):**
+- **Location:** `scripts/`
+- **Purpose:** Production server monitoring, analysis, and maintenance
+- **Scripts:**
+  - `server-health-check.ts` - SSH connection test and system health overview (CPU, memory, disk, PM2, Docker, SSL)
+  - `server-deep-scan.ts` - Comprehensive analysis of subdomains, Docker containers, databases, configs, API gateway
+  - `cleanup-old-backups.ts` - Automated cleanup of old backups (freed ~10GB, reduced disk from 79% to 61%)
+- **Usage:** `npx tsx scripts/<script-name>.ts`
+- **Requirements:** `SERVER_SSH_PASSWORD` secret must be set
+- **Production Server:** 31.186.24.19 (AlmaLinux 9.7, 4 CPU cores, 7.5GB RAM, 152GB disk)
+
 ### External Dependencies
 
 - **Core Frameworks**: Express, React, Vite, TypeScript
