@@ -47,21 +47,31 @@ router.get('/services/:id/pricing', async (req: Request, res: Response) => {
       });
     }
 
-    const pricingTiers = await db
-      .select()
-      .from(servicePricingTiers)
-      .where(
-        and(
-          eq(servicePricingTiers.serviceId, id),
-          eq(servicePricingTiers.isActive, true)
+    let pricingTiers: ServicePricingTier[] = [];
+    
+    try {
+      pricingTiers = await db
+        .select()
+        .from(servicePricingTiers)
+        .where(
+          and(
+            eq(servicePricingTiers.serviceId, id),
+            eq(servicePricingTiers.isActive, true)
+          )
         )
-      )
-      .orderBy(servicePricingTiers.priority);
+        .orderBy(servicePricingTiers.priority);
+    } catch (dbError) {
+      console.warn('Database query failed for pricing tiers, returning empty:', dbError);
+      pricingTiers = [];
+    }
 
     if (pricingTiers.length === 0) {
-      return res.status(404).json({ 
-        success: false, 
-        error: 'No pricing tiers found for this service' 
+      return res.json({
+        success: true,
+        serviceId: id,
+        tiers: [],
+        count: 0,
+        message: 'No pricing tiers configured for this service. Contact sales for a quote.'
       });
     }
 
@@ -78,7 +88,7 @@ router.get('/services/:id/pricing', async (req: Request, res: Response) => {
     return res.json({
       success: true,
       serviceId: id,
-      pricingTiers: validTiers,
+      tiers: validTiers,
       count: validTiers.length
     });
   } catch (error) {
@@ -115,38 +125,72 @@ router.post('/services/calculate-price', async (req: Request, res: Response) => 
 
     let tier: ServicePricingTier | undefined;
 
-    if (tierId) {
-      const tiers = await db
-        .select()
-        .from(servicePricingTiers)
-        .where(
-          and(
-            eq(servicePricingTiers.id, tierId),
-            eq(servicePricingTiers.serviceId, serviceId),
-            eq(servicePricingTiers.isActive, true)
+    try {
+      if (tierId) {
+        const tiers = await db
+          .select()
+          .from(servicePricingTiers)
+          .where(
+            and(
+              eq(servicePricingTiers.id, tierId),
+              eq(servicePricingTiers.serviceId, serviceId),
+              eq(servicePricingTiers.isActive, true)
+            )
           )
-        )
-        .limit(1);
-      tier = tiers[0];
-    } else {
-      const tiers = await db
-        .select()
-        .from(servicePricingTiers)
-        .where(
-          and(
-            eq(servicePricingTiers.serviceId, serviceId),
-            eq(servicePricingTiers.isActive, true)
+          .limit(1);
+        tier = tiers[0];
+      } else {
+        const tiers = await db
+          .select()
+          .from(servicePricingTiers)
+          .where(
+            and(
+              eq(servicePricingTiers.serviceId, serviceId),
+              eq(servicePricingTiers.isActive, true)
+            )
           )
-        )
-        .orderBy(servicePricingTiers.priority)
-        .limit(1);
-      tier = tiers[0];
+          .orderBy(servicePricingTiers.priority)
+          .limit(1);
+        tier = tiers[0];
+      }
+    } catch (dbError) {
+      console.warn('Database query failed for pricing, using default pricing:', dbError);
+      tier = undefined;
     }
 
+    const DEFAULT_BASE_PRICE = 100;
+    const RATE_PER_KM = 0.15;
+    const RATE_PER_KG = 0.50;
+    const INSURANCE_RATE = 0.02;
+    const EXPRESS_MULTIPLIER = 1.5;
+    const SPECIAL_HANDLING_FEE = 25;
+
     if (!tier) {
-      return res.status(404).json({ 
-        success: false, 
-        error: 'No pricing tier found for this service' 
+      const basePrice = DEFAULT_BASE_PRICE;
+      const quantityTotal = basePrice * quantity;
+      const distanceFee = distance ? distance * RATE_PER_KM : 0;
+      const weightFee = weight ? weight * RATE_PER_KG : 0;
+      const insuranceFee = insurance ? quantityTotal * INSURANCE_RATE : 0;
+      const expressDeliveryFee = expressDelivery ? quantityTotal * (EXPRESS_MULTIPLIER - 1) : 0;
+      const specialHandlingFee = specialHandling ? SPECIAL_HANDLING_FEE : 0;
+      const total = quantityTotal + distanceFee + weightFee + insuranceFee + expressDeliveryFee + specialHandlingFee;
+
+      return res.json({
+        success: true,
+        serviceId,
+        basePrice,
+        totalPrice: Math.round(total * 100) / 100,
+        currency: 'USD',
+        isEstimate: true,
+        message: 'This is an estimate based on default pricing. Contact sales for accurate quotes.',
+        breakdown: {
+          base: quantityTotal,
+          distance: distanceFee,
+          weight: weightFee,
+          insurance: insuranceFee,
+          expressDelivery: expressDeliveryFee,
+          specialHandling: specialHandlingFee
+        }
       });
     }
 
@@ -181,12 +225,6 @@ router.post('/services/calculate-price', async (req: Request, res: Response) => 
     const basePrice = parseFloat(tier.basePrice);
     const setupFee = tier.setupFee ? parseFloat(tier.setupFee) : 0;
     const currency = tier.currency || 'USD';
-
-    const RATE_PER_KM = 0.15;
-    const RATE_PER_KG = 0.50;
-    const INSURANCE_RATE = 0.02;
-    const EXPRESS_MULTIPLIER = 1.5;
-    const SPECIAL_HANDLING_FEE = 25;
 
     const quantityTotal = basePrice * quantity;
     const distanceFee = distance ? distance * RATE_PER_KM : 0;
