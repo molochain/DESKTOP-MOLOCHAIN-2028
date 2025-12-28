@@ -1,0 +1,224 @@
+/api/auth/me:1  Failed to load resource: the server responded with a status of 401 ()
+index-DE8xx3yc.js:2 WebSocket connection to 'wss://molochain.com/ws/main' failed: 
+(anonymous) @ index-DE8xx3yc.js:2
+connect @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+[Violation] Forced reflow while executing JavaScript took 60ms
+[Violation] Forced reflow while executing JavaScript took 84ms
+index-DE8xx3yc.js:2 WebSocket connection to 'wss://molochain.com/ws/main' failed: 
+(anonymous) @ index-DE8xx3yc.js:2
+connect @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+[Violation] Forced reflow while executing JavaScript took 109ms
+Contact-CROvfAz7.js:232  GET https://molochain.com/api/contact/agents 401 (Unauthorized)
+(anonymous) @ Contact-CROvfAz7.js:232
+(anonymous) @ Contact-CROvfAz7.js:232
+(anonymous) @ Contact-CROvfAz7.js:232
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+index-DE8xx3yc.js:2  GET https://molochain.com/api/guides/categories 500 (Internal Server Error)
+queryFn @ index-DE8xx3yc.js:2
+i @ vendor-utils-CZDLP0Js.js:1
+y @ vendor-utils-CZDLP0Js.js:1
+start @ vendor-utils-CZDLP0Js.js:1
+fetch @ vendor-utils-CZDLP0Js.js:1
+Ft @ vendor-utils-CZDLP0Js.js:1
+onSubscribe @ vendor-utils-CZDLP0Js.js:1
+subscribe @ vendor-utils-CZDLP0Js.js:1
+(anonymous) @ vendor-utils-CZDLP0Js.js:1
+oa @ vendor-react-NiwesDMA.js:30
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+Navigated to https://molochain.com/login
+index-DE8xx3yc.js:2  GET https://molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+Navigated to https://molochain.com/performance
+index-DE8xx3yc.js:2  GET https://molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+Navigated to https://molochain.com/login
+index-DE8xx3yc.js:2  GET https://molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+Navigated to https://molochain.com/
+index-DE8xx3yc.js:2  GET https://molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+[Violation] Forced reflow while executing JavaScript took 57ms
+[Violation] Forced reflow while executing JavaScript took 65ms
+Navigated to https://molochain.com/login
+index-DE8xx3yc.js:2  GET https://molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+Navigated to https://molochain.com/ecosystem
+index-DE8xx3yc.js:2  GET https://molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+Navigated to https://molochain.com/login
+index-DE8xx3yc.js:2  GET https://molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+Navigated to https://molochain.com/quote
+index-DE8xx3yc.js:2  GET https://molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+me:1  Failed to load resource: the server responded with a status of 401 ()
+me:1  Failed to load resource: the server responded with a status of 401 ()
+Contact-CROvfAz7.js:232  GET https://molochain.com/api/contact/agents 401 (Unauthorized)
+(anonymous) @ Contact-CROvfAz7.js:232
+(anonymous) @ Contact-CROvfAz7.js:232
+(anonymous) @ Contact-CROvfAz7.js:232
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+api/contact/agents:1  Failed to load resource: the server responded with a status of 401 ()
+api/contact/agents:1  Failed to load resource: the server responded with a status of 401 ()
+index-DE8xx3yc.js:2 WebSocket connection to 'wss://molochain.com/ws/main' failed: 
+(anonymous) @ index-DE8xx3yc.js:2
+connect @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+index-DE8xx3yc.js:2 WebSocket connection to 'wss://molochain.com/ws/main' failed: 
+(anonymous) @ index-DE8xx3yc.js:2
+connect @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+index-DE8xx3yc.js:2 WebSocket connection to 'wss://molochain.com/ws/main' failed: 
+(anonymous) @ index-DE8xx3yc.js:2
+connect @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+Navigated to https://molochain.com/register
+index-DE8xx3yc.js:2  GET https://molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+register:1 [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) <input type=​"password" class=​"flex h-10 w-full rounded-md border bg-background px-3 py-2 text-base ring-offset-background file:​border-0 file:​bg-transparent file:​text-sm file:​font-medium file:​text-foreground placeholder:​text-muted-foreground focus-visible:​outline-none focus-visible:​ring-2 focus-visible:​ring-ring focus-visible:​ring-offset-2 disabled:​cursor-not-allowed disabled:​opacity-50 md:​text-sm border-gray-300 focus:​ring-primary focus:​border-primary" placeholder=​"Password123!" name=​"password" id=​":​r2:​-form-item" aria-describedby=​":​r2:​-form-item-description" aria-invalid=​"false" value>​flex
+Navigation to https://molochain.com/tracking was restored from back/forward cache (see https://web.dev/bfcache/)
+Navigated to https://molochain.com/login
+index-DE8xx3yc.js:2  GET https://molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ua @ vendor-react-NiwesDMA.js:32
+E @ vendor-react-NiwesDMA.js:17
+ot @ vendor-react-NiwesDMA.js:17
+Navigation to https://molochain.com/tracking was restored from back/forward cache (see https://web.dev/bfcache/)
+[Violation] Forced reflow while executing JavaScript took 113ms
+Contact-CROvfAz7.js:232  GET https://molochain.com/api/contact/agents 401 (Unauthorized)
+(anonymous) @ Contact-CROvfAz7.js:232
+(anonymous) @ Contact-CROvfAz7.js:232
+(anonymous) @ Contact-CROvfAz7.js:232
+ol @ vendor-react-NiwesDMA.js:32
+Gn @ vendor-react-NiwesDMA.js:32
+id @ vendor-react-NiwesDMA.js:32
+gn @ vendor-react-NiwesDMA.js:32
+Ii @ vendor-react-NiwesDMA.js:32
+mn @ vendor-react-NiwesDMA.js:30
+(anonymous) @ vendor-react-NiwesDMA.js:32
+index-DE8xx3yc.js:2  GET https://molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-DE8xx3yc.js:2
+(anonymous) @ index-DE8xx3yc.js:2

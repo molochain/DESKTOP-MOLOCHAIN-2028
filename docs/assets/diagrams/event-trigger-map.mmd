@@ -1,0 +1,256 @@
+%% Event & Trigger Map - Comprehensive Server Module Coverage
+%% Molochain Platform - All Events, Triggers, and Scheduled Tasks
+
+flowchart TB
+    subgraph Scheduled["SCHEDULED EVENTS"]
+        direction TB
+        CRON1[("5 min")]-->CMS_SYNC["CMS Sync Service"]
+        CRON2[("5 min")]-->SYS_MON["System Monitor"]
+        CRON3[("5 sec")]-->PERF_MET["Performance Metrics"]
+        CRON4[("5 sec")]-->CPU_OPT["CPU Optimizer"]
+        CRON5[("2 min")]-->SVC_HEALTH["Service Health Monitor"]
+        CRON6[("Daily 9AM")]-->SALES_WF["Sales Operations Workflow"]
+        CRON7[("Scheduled")]-->COMPLY_RPT["Compliance Reports"]
+        CRON8[("1 min")]-->ESCAL_CHECK["Escalation Check"]
+        CRON9[("5 min")]-->INC_METRICS["Incident Metrics"]
+        CRON10[("24 hr")]-->DATA_CLEANUP["Data Cleanup"]
+        CRON11[("Weekly")]-->COMPLY_GEN["Compliance Generation"]
+        CRON12[("1 hr")]-->ACT_CLEANUP["Activity Log Cleanup"]
+    end
+
+    subgraph WebSocket["WEBSOCKET NAMESPACES & EVENTS"]
+        direction TB
+        subgraph WS_Main["/ws/main"]
+            WS_STATUS["status"]
+            WS_PING["ping/pong"]
+            WS_AUTH["auth"]
+        end
+        subgraph WS_Collab["/ws/collaboration"]
+            COLLAB_JOIN["join-room"]
+            COLLAB_MSG["message"]
+            COLLAB_LEAVE["leave-room"]
+            USER_JOINED["user-joined"]
+            USER_LEFT["user-left"]
+        end
+        subgraph WS_Track["/ws/tracking"]
+            TRACK_SUB["subscribe-tracking"]
+            TRACK_LOC["location-update"]
+            TRACK_UNSUB["unsubscribe-tracking"]
+        end
+        subgraph WS_Molo["/ws/mololink"]
+            MOLO_MKT["marketplace-update"]
+            MOLO_AUC["auction-bid"]
+            MOLO_COMP["company-update"]
+        end
+        subgraph WS_Activity["/ws/activity-logs"]
+            ACT_LOG["log-activity"]
+            ACT_FILTER["filter-activities"]
+            ACT_HIST["activity-history"]
+        end
+        subgraph WS_Commodity["/ws/commodity-chat"]
+            COMM_JOIN["join-commodity"]
+            COMM_MSG["send-message"]
+            COMM_PRICE["price-alert"]
+            COMM_LEAVE["leave-commodity"]
+        end
+        subgraph WS_Notify["/ws/notifications"]
+            NOTIFY_SUB["subscribe"]
+            NOTIFY_SEND["send-notification"]
+            NOTIFY_BCAST["broadcast"]
+        end
+        subgraph WS_Project["/ws/project-updates"]
+            PROJ_SUB["subscribe-project"]
+            PROJ_UPD["project-update"]
+            PROJ_MILE["milestone-update"]
+        end
+    end
+
+    subgraph Auth["AUTHENTICATION EVENTS"]
+        direction TB
+        LOGIN_REQ["User Login"]-->AUTH_VAL{"Validate"}
+        AUTH_VAL-->|Valid|JWT_GEN["JWT + Session"]
+        AUTH_VAL-->|Invalid|AUTH_FAIL["Fail + Audit"]
+        JWT_GEN-->AUDIT_LOG["Audit Log"]
+        
+        REG_REQ["Registration"]-->USER_CREATE["Create User"]
+        USER_CREATE-->WELCOME_EMAIL["Welcome Email"]
+        
+        PW_RESET["Password Reset"]-->TOKEN_GEN["Generate Token"]
+        TOKEN_GEN-->RESET_EMAIL["Reset Email"]
+        
+        TFA_SETUP["2FA Setup"]-->QR_GEN["QR Code"]
+        TFA_VERIFY["2FA Verify"]-->TFA_AUDIT["Audit Log"]
+        
+        TOKEN_REF["Token Refresh"]-->TOKEN_ROT["Rotation"]
+        TOKEN_ROT-->REF_AUDIT["Audit Log"]
+        
+        LOGOUT["Logout"]-->SESSION_INV["Invalidate"]
+        SESSION_INV-->TOKEN_REV["Revoke Tokens"]
+    end
+
+    subgraph Email["EMAIL TRIGGERS (18 Form Types)"]
+        direction TB
+        FORM_QUOTE["Quote Request"]
+        FORM_CONTACT["Contact Form"]
+        FORM_SUPPORT["Support Request"]
+        FORM_PARTNER["Partner Inquiry"]
+        FORM_CAREER["Career Application"]
+        FORM_FEEDBACK["Feedback Form"]
+        CROSSDOM_API["Cross-Subdomain API"]
+        COMPLY_MAIL["Compliance Distribution"]
+        
+        FORM_QUOTE-->RATE_LIMIT{"Rate Limit"}
+        RATE_LIMIT-->|OK|EMAIL_QUEUE["Queue Email"]
+        RATE_LIMIT-->|Exceeded|RATE_REJECT["Reject"]
+        EMAIL_QUEUE-->MONITOR["Email Monitor"]
+    end
+
+    subgraph System["SYSTEM EVENTS"]
+        direction TB
+        SIG_TERM["SIGTERM/SIGINT"]-->GRACEFUL["Graceful Shutdown"]
+        GRACEFUL-->CLOSE_CONN["Close Connections"]
+        CLOSE_CONN-->SAVE_STATE["Save State"]
+        
+        UNCAUGHT["Uncaught Exception"]-->ERR_LOG["Error Logging"]
+        ERR_LOG-->ERR_RECOVER["Recovery Attempt"]
+        
+        HIGH_CPU["CPU >70%"]-->BG_SUSPEND["Suspend Background"]
+        CRIT_CPU["CPU >85%"]-->EMERGENCY["Emergency Throttle"]
+        
+        MEM_HIGH["Memory High"]-->MEM_CLEAN["Memory Cleanup"]
+        MEM_CLEAN-->GC_RUN["Garbage Collection"]
+    end
+
+    subgraph Service["SERVICE HEALTH EVENTS"]
+        direction TB
+        SVC_FAIL["Service Failure"]-->RETRY["Retry"]
+        SVC_FAIL-->FALLBACK["Fallback"]
+        SVC_FAIL-->CIRCUIT["Circuit Break"]
+        
+        SVC_DEGRADE["Degraded"]-->SVC_ALERT["Alert"]
+        SVC_RECOVER["Recovery"]-->SVC_LOG["Log Recovery"]
+    end
+
+    subgraph Security["SECURITY EVENTS"]
+        direction TB
+        THREAT_DET["Threat Detection"]-->INC_CREATE["Create Incident"]
+        INC_CREATE-->INC_ESCAL["Escalation"]
+        INC_CREATE-->INC_NOTIFY["Notification"]
+        
+        SEC_POLICY["Policy Engine"]-->POLICY_ENF["Enforcement"]
+        POLICY_ENF-->SEC_AUDIT["Security Audit"]
+        
+        WS_SEC["WS Security"]-->WS_AUDIT["Audit Logger"]
+        SUSP_ACT["Suspicious Activity"]-->SEC_LOG["Security Log"]
+    end
+
+    subgraph Instagram["INSTAGRAM SERVICES"]
+        direction TB
+        IG_POST["Post Publishing"]
+        IG_REEL["Reel Publishing"]
+        IG_STORY["Story Publishing"]
+        IG_ANALYTICS["Analytics Collection"]
+        IG_COMPETE["Competitor Analysis"]
+        IG_AI["Content AI Generation"]
+        IG_INFLUENCER["Influencer Tracking"]
+        
+        IG_POST-->IG_ANALYTICS
+        IG_REEL-->IG_ANALYTICS
+        IG_STORY-->IG_ANALYTICS
+    end
+
+    subgraph AI["AI / RAYANAVA EVENTS"]
+        direction TB
+        SALES_AGENT["Sales Agent"]
+        BIZ_INTEL["Business Intelligence"]
+        OPS_MON["Operations Monitoring"]
+        SALES_OPP["Sales Opportunity"]
+        EMAIL_TOOL["Email Notification Tool"]
+        
+        SALES_WF-->SALES_AGENT
+        SALES_AGENT-->BIZ_INTEL
+        SALES_AGENT-->OPS_MON
+        OPS_MON-->SALES_OPP
+        SALES_OPP-->EMAIL_TOOL
+    end
+
+    subgraph Database["DATABASE EVENTS"]
+        direction TB
+        CONN_POOL["Connection Pool"]
+        DB_OPT["Database Optimizer"]
+        DB_BACKUP["Database Backup"]
+        DB_MIGRATE["Migrations"]
+        DB_PERF["Performance Monitor"]
+        
+        DB_OPT-->CONN_POOL
+        DB_OPT-->DB_PERF
+    end
+
+    subgraph Cache["CACHE EVENTS"]
+        direction TB
+        CACHE_WARM["Cache Warming"]
+        CACHE_EXP["Cache Expiry"]
+        CACHE_CLEAN["Cache Cleanup"]
+        CMS_CACHE["CMS Cache Sync"]
+        
+        CMS_SYNC-->CMS_CACHE
+        CACHE_EXP-->CACHE_CLEAN
+    end
+
+    subgraph Carriers["CARRIER INTEGRATION"]
+        direction TB
+        FEDEX["FedEx API"]
+        UPS["UPS API"]
+        RATE_CALC["Rate Calculation"]
+        SHIP_TRACK["Shipment Tracking"]
+        LABEL_GEN["Label Generation"]
+        ADDR_VAL["Address Validation"]
+        
+        RATE_CALC-->FEDEX
+        RATE_CALC-->UPS
+        SHIP_TRACK-->TRACK_LOC
+    end
+
+    subgraph CMS["CMS INTEGRATION"]
+        direction TB
+        LARAVEL["Laravel CMS Client"]
+        OTMS["OTMS Client"]
+        SYNC_SVC["CMS Sync Service"]
+        
+        SYNC_SVC-->LARAVEL
+        SYNC_SVC-->OTMS
+        SYNC_SVC-->CMS_CACHE
+    end
+
+    subgraph Identity["IDENTITY & ACCESS"]
+        direction TB
+        ID_MGR["Identity Manager"]
+        ACCESS_CTRL["Access Control Manager"]
+        ROLE_TMPL["Role Template Manager"]
+        AUDIT_COMP["Audit Compliance"]
+        
+        ID_MGR-->ACCESS_CTRL
+        ACCESS_CTRL-->ROLE_TMPL
+        ROLE_TMPL-->AUDIT_COMP
+    end
+
+    subgraph Monitoring["MONITORING & OPTIMIZATION"]
+        direction TB
+        PROD_MON["Production Monitor"]
+        MEM_OPT["Memory Optimizer"]
+        PERF_ENH["Performance Enhancements"]
+        STARTUP_VAL["Startup Validator"]
+        
+        PROD_MON-->MEM_OPT
+        MEM_OPT-->PERF_ENH
+    end
+
+    %% Key Connections
+    SVC_HEALTH-->SVC_FAIL
+    SVC_HEALTH-->SVC_DEGRADE
+    CPU_OPT-->HIGH_CPU
+    CPU_OPT-->CRIT_CPU
+    PERF_MET-->PROD_MON
+    THREAT_DET-->INC_CREATE
+    AUTH_FAIL-->THREAT_DET
+    WS_AUTH-->AUTH_VAL

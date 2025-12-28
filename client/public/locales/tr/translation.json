@@ -1,0 +1,206 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "services": "Hizmetler",
+    "quote": "Teklif Al",
+    "contact": "İletişim",
+    "getStarted": "Başla",
+    "tools": "Araçlar"
+  },
+  "hero": {
+    "title": "Modern Lojistik",
+    "subtitle": "Modern İşletmeler İçin",
+    "description": "Kapsamlı lojistik çözümlerimizle tedarik zincirinizi optimize edin. İster işletme ister bireysel olun, yanınızdayız.",
+    "getQuote": "Teklif Al",
+    "learnMore": "Daha Fazla Bilgi"
+  },
+  "services": {
+    "title": "Hizmetlerimiz",
+    "subtitle": "İşletmenizin ihtiyaçları için kapsamlı lojistik çözümler",
+    "viewAll": "Tüm Hizmetleri Gör",
+    "freight": {
+      "title": "Yük Taşımacılığı",
+      "description": "Her ölçekteki işletme için küresel nakliye çözümleri",
+      "features": {
+        "global": "Küresel Kapsama",
+        "tracking": "Gerçek Zamanlı Takip",
+        "customs": "Gümrük Yönetimi",
+        "insurance": "Kargo Sigortası"
+      },
+      "benefits": {
+        "reliability": "Güvenilirlik",
+        "speed": "Hızlı Teslimat",
+        "cost": "Rekabetçi Fiyatlar",
+        "expertise": "Sektör Uzmanlığı"
+      }
+    },
+    "warehouse": {
+      "title": "Depolama",
+      "description": "Güvenli depolama ve envanter yönetimi",
+      "features": {
+        "security": "7/24 Güvenlik",
+        "inventory": "Envanter Yönetimi",
+        "climate": "Sıcaklık Kontrolü",
+        "handling": "Modern Ekipman"
+      }
+    },
+    "distribution": {
+      "title": "Dağıtım",
+      "description": "Dünya çapında verimli dağıtım ağları",
+      "features": {
+        "network": "Geniş Ağ",
+        "optimization": "Rota Optimizasyonu",
+        "delivery": "Zamanında Teslimat",
+        "tracking": "Canlı Takip"
+      }
+    },
+    "customs": {
+      "title": "Gümrük İşlemleri",
+      "description": "Uzman gümrük ve belge yönetimi",
+      "features": {
+        "clearance": "Hızlı Gümrükleme",
+        "documentation": "Belge Yönetimi",
+        "compliance": "Mevzuat Uyumu",
+        "consulting": "Uzman Danışmanlık"
+      }
+    },
+    "shipping": {
+      "title": "Deniz Taşımacılığı",
+      "description": "Küresel deniz taşımacılığı hizmetleri",
+      "features": {
+        "container": "Konteyner Taşımacılığı",
+        "bulk": "Dökme Yük",
+        "scheduling": "Düzenli Seferler",
+        "ports": "Ana Limanlara Erişim"
+      }
+    },
+    "air": {
+      "title": "Hava Taşımacılığı",
+      "description": "Hızlı hava taşımacılığı hizmetleri",
+      "features": {
+        "express": "Ekspres Teslimat",
+        "worldwide": "Küresel Kapsama",
+        "handling": "Hassas Kargo İşleme",
+        "tracking": "Hassas Takip"
+      }
+    }
+  },
+  "tools": {
+    "title": "Taşıma Araçları",
+    "freightCalculator": "Navlun Hesaplayıcı",
+    "freightCalculatorDesc": "Ağırlık, boyut ve varış yerine göre nakliye maliyetlerini hesaplayın",
+    "dimensionalWeight": "Hacimsel Ağırlık Hesaplayıcı",
+    "dimensionalWeightDesc": "Gönderileriniz için hacimsel ağırlığı hesaplayın",
+    "packagingGuide": "Paketleme Kılavuzu",
+    "packagingGuideDesc": "Optimal paketleme çözümleri için öneriler alın",
+    "routePlanner": "Rota Planlayıcı",
+    "routePlannerDesc": "Verimli teslimat rotaları planlayın ve transit süreleri tahmin edin",
+    "transitTime": "Transit Süre Tahmini",
+    "transitTimeDesc": "Gönderileriniz için tahmini teslimat sürelerini alın",
+    "vehicleSelector": "Araç Seçici",
+    "vehicleSelectorDesc": "Kargonuz için doğru araç tipini bulun"
+  },
+  "whyUs": {
+    "title": "Neden Biz?",
+    "description": "Yılların deneyimi ve global ağımızla, işletmenizin büyümesine yardımcı olan güvenilir ve verimli lojistik çözümler sunuyoruz.",
+    "cta": "Hemen Başlayın",
+    "imageAlt": "Nakliye Konteynerleri"
+  },
+  "auth": {
+    "login": {
+      "title": "Tekrar Hoşgeldiniz",
+      "email": "E-posta",
+      "password": "Şifre",
+      "submit": "Giriş Yap",
+      "loggingIn": "Giriş yapılıyor...",
+      "forgotPassword": "Şifremi Unuttum",
+      "noAccount": "Hesabınız yok mu?",
+      "register": "Kayıt Ol"
+    },
+    "register": {
+      "title": "Hesap Oluştur",
+      "username": "Kullanıcı Adı",
+      "email": "E-posta",
+      "password": "Şifre",
+      "fullName": "Ad Soyad",
+      "company": "Şirket (İsteğe bağlı)",
+      "phone": "Telefon Numarası (İsteğe bağlı)",
+      "submit": "Hesap Oluştur",
+      "creating": "Hesap oluşturuluyor...",
+      "haveAccount": "Zaten hesabınız var mı?",
+      "login": "Giriş Yap"
+    }
+  },
+  "about": {
+    "title": "Molo Lojistik Hakkında",
+    "subtitle": "Küresel lojistik ve taşımacılıkta öncü güç",
+    "approach": {
+      "title": "Yaklaşımımız",
+      "description": "Molo'da insan odaklı ve işbirlikçi bir yaklaşıma inanıyoruz. Her müşteri sadece bir müşteri değil, aynı zamanda bir ortak ve dosttur. Şeffaflık, güven ve kaliteli hizmet sunumuna olan bağlılığımız, bizi küresel taşımacılık sektöründe güvenilir bir marka haline getirdi.",
+      "cta": "Bizimle İletişime Geçin"
+    },
+    "features": {
+      "globalNetwork": {
+        "title": "Küresel Ağ",
+        "description": "Avrupa, Afrika, Rusya, ABD, Kanada, Brezilya ve Meksika'da faaliyet gösteriyoruz"
+      },
+      "trackRecord": {
+        "title": "Kanıtlanmış Başarı",
+        "description": "Yıllık 60.000'den fazla TEU konteyner ihracatı ve 18.000 TEU konteyner ithalatı"
+      },
+      "humanCentric": {
+        "title": "İnsan Odaklı",
+        "description": "İşbirlikçi müşteri ilişkileriyle kalıcı ortaklıklar kuruyoruz"
+      },
+      "partnerships": {
+        "title": "Stratejik Ortaklıklar",
+        "description": "Dünya çapında büyük ticari şirketlerle işbirliği"
+      }
+    },
+    "globalPresence": {
+      "title": "Küresel Varlık",
+      "description": "Depo ve nakliye rotalarımızın stratejik ağı, başlıca küresel ticaret merkezlerini kapsayarak dünya çapında verimli ve güvenilir lojistik çözümler sunuyor."
+    },
+    "expertise": {
+      "title": "Uzmanlığımız",
+      "description1": "Molo, İran ve Türkiye'de resmi lisanslara sahip, uluslararası taşımacılık, lojistik ve dış ticaret alanında önde gelen kuruluşlardan biridir. Şirketimiz, önemli küresel destinasyonlara kapsamlı lojistik ve ticaret hizmetleri sunmaktadır.",
+      "description2": "Şirketin İran, Türkiye, Birleşik Krallık, BAE ve Çin'deki varlığı, küresel bağlantılarını ve hizmet kapasitesini güçlendiriyor. Ayrıca, Molo'nun saygın uluslararası birliklerdeki üyeliği, hızlı ve etkili iletişimi sağlayarak genel müşteri deneyimini artırıyor.",
+      "description3": "Deniz taşımacılığı ve nakliye alanındaki uzmanlığımız, güvenli, ekonomik ve verimli küresel taşımacılık için karmaşık becerileri, özel bilgi ve operasyonel uygulamayı birleştiriyor."
+    },
+    "metrics": {
+      "exportedContainers": {
+        "value": "60.000+",
+        "label": "Yıllık İhraç Edilen TEU Konteyner"
+      },
+      "importedContainers": {
+        "value": "18.000+",
+        "label": "İthal Edilen TEU Konteyner"
+      },
+      "bulkProjects": {
+        "value": "800+",
+        "label": "Yıllık Dökme Yük Projesi"
+      },
+      "globalPorts": {
+        "value": "350+",
+        "label": "Hizmet Verilen Küresel Liman"
+      }
+    },
+    "pricing": {
+      "title": "Fiyatlandırma",
+      "description1": "Fiyatlandırma politikamız pazar ihtiyaçları ve müşteri talepleri analizine dayanır.",
+      "description2": "Pazarı değerlendirmek ve fiyatları optimize etmek için analitik araçlar ve güncel veriler kullanıyoruz.",
+      "description3": "Bu yaklaşım müşterilerimizin güvenini ve sadakatini kazanmamıza yardımcı oluyor."
+    },
+    "growth": {
+      "title": "Stratejik Büyüme",
+      "description1": "Molo Lojistik sürekli olarak hizmetlerini ve küresel erişimini genişletiyor.",
+      "description2": "Müşterilerimize en iyi hizmeti sunmaya kararlıyız.",
+      "description3": "Büyümemiz müşterilerimizin başarısıyla yönlendiriliyor.",
+      "description4": "Odak alanlarımız şunları içerir:",
+      "list1": "Küresel ortak ağımızı genişletmek",
+      "list2": "Verimliliği artırmak için yeni teknolojilere yatırım yapmak",
+      "list3": "Yeni ve yenilikçi lojistik çözümler geliştirmek",
+      "description5": "Sürekli büyümemizin müşterilerimize ve küresel lojistik sektörüne fayda sağlayacağından eminiz."
+    }
+  }
+}

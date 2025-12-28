@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOLOLINK - Professional Logistics Network | MoloChain</title>
+  <meta name="description" content="MOLOLINK is the premier professional networking platform for the global cargo and logistics industry. Connect with professionals, find jobs, and grow your business.">
+  <meta property="og:title" content="MOLOLINK - Professional Logistics Network">
+  <meta property="og:description" content="Connect, collaborate, and grow with logistics professionals worldwide.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .skeleton {
+      background: linear-gradient(90deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mobile-nav {
+      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #475569;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
+    .toast {
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .modal-backdrop {
+      animation: fadeInBackdrop 0.2s ease-out;
+    }
+
+    @keyframes fadeInBackdrop {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect, createContext, useContext, useCallback } = React;
+
+    // API Configuration
+    const API_BASE = '';
+    const getToken = () => localStorage.getItem('mololink_token');
+    const setToken = (token) => localStorage.setItem('mololink_token', token);
+    const removeToken = () => localStorage.removeItem('mololink_token');
+
+    // API Helper with GET, POST, and PATCH methods
+    const api = {
+      async get(endpoint) {
+        try {
+          const res = await fetch(`${API_BASE}${endpoint}`, {
+            headers: { 'Authorization': `Bearer ${getToken()}` }
+          });
+          return res.json();
+        } catch (error) {
+          console.error('API GET error:', error);
+          return { success: false, error: error.message };
+        }
+      },
+      async post(endpoint, data) {
+        try {
+          const res = await fetch(`${API_BASE}${endpoint}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+            body: JSON.stringify(data)
+          });
+          return res.json();
+        } catch (error) {
+          console.error('API POST error:', error);
+          return { success: false, error: error.message };
+        }
+      },
+      async patch(endpoint, data) {
+        try {
+          const res = await fetch(`${API_BASE}${endpoint}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+            body: JSON.stringify(data)
+          });
+          return res.json();
+        } catch (error) {
+          console.error('API PATCH error:', error);
+          return { success: false, error: error.message };
+        }
+      },
+      async uploadFile(url, file, fieldName = 'image') {
+        try {
+          const formData = new FormData();
+          formData.append(fieldName, file);
+          const res = await fetch(`${API_BASE}${url}`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${getToken()}` },
+            body: formData
+          });
+          return res.json();
+        } catch (error) {
+          console.error('API Upload error:', error);
+          return { success: false, error: error.message };
+        }
+      },
+      // SSO & Auth methods
+      getSsoConfig: () => fetch(`${API_BASE}/api/sso/config`).then(r => r.json()).catch(() => ({ success: false })),
+      verifyToken: function() { return this.get('/api/auth/verify'); },
+      // Connections methods
+      getConnections: function() { return this.get('/api/connections'); },
+      createConnection: function(userId) { return this.post('/api/connections', { userId }); },
+      // Marketplace methods
+      getAuctions: function() { return this.get('/api/marketplace/auctions'); },
+      getServices: function() { return this.get('/api/marketplace/services'); },
+    };
+
+    // Toast Context for notifications
+    const ToastContext = createContext(null);
+
+    const ToastProvider = ({ children }) => {
+      const [toasts, setToasts] = useState([]);
+
+      const showToast = (message, type = 'success') => {
+        const id = Date.now();
+        setToasts(prev => [...prev, { id, message, type }]);
+        setTimeout(() => {
+          setToasts(prev => prev.filter(t => t.id !== id));
+        }, 4000);
+      };
+
+      return (
+        <ToastContext.Provider value={{ showToast }}>
+          {children}
+          <div className="toast-container">
+            {toasts.map(toast => (
+              <div key={toast.id} className={`toast mb-2 px-4 py-3 rounded-lg shadow-lg flex items-center gap-2 ${
+                toast.type === 'success' ? 'bg-green-600' : toast.type === 'error' ? 'bg-red-600' : 'bg-blue-600'
+              } text-white`}>
+                {toast.type === 'success' && <span className="w-5 h-5"><Icons.Check /></span>}
+                {toast.type === 'error' && <span className="w-5 h-5"><Icons.X /></span>}
+                {toast.message}
+              </div>
+            ))}
+          </div>
+        </ToastContext.Provider>
+      );
+    };
+
+    const useToast = () => useContext(ToastContext);
+
+    // Icons as SVG components
+    const Icons = {
+      Network: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="5" r="3"/><circle cx="19" cy="12" r="3"/><circle cx="5" cy="12" r="3"/><circle cx="12" cy="19" r="3"/>
+          <line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="5.5" x2="5" y2="9"/><line x1="16" y1="5.5" x2="19" y2="9"/><line x1="5" y1="15" x2="8" y2="18.5"/><line x1="19" y1="15" x2="16" y2="18.5"/>
+        </svg>
+      ),
+      Home: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/>
+        </svg>
+      ),
+      Building: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>
+        </svg>
+      ),
+      Briefcase: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        </svg>
+      ),
+      ShoppingBag: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+      ),
+      Users: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      ),
+      User: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      ),
+      Search: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+      ),
+      Mail: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      ),
+      Lock: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      ),
+      ArrowRight: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      ),
+      Globe: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>
+        </svg>
+      ),
+      Handshake: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/>
+        </svg>
+      ),
+      TrendingUp: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+        </svg>
+      ),
+      Shield: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+        </svg>
+      ),
+      Loader: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin">
+          <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+        </svg>
+      ),
+      Check: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 6 9 17l-5-5"/>
+        </svg>
+      ),
+      X: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+        </svg>
+      ),
+      Plus: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 12h14"/><path d="M12 5v14"/>
+        </svg>
+      ),
+      MapPin: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+      ),
+      Clock: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      ),
+      DollarSign: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      ),
+      BadgeCheck: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/>
+        </svg>
+      ),
+      Bookmark: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+        </svg>
+      ),
+      BookmarkFilled: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+        </svg>
+      ),
+      Menu: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+        </svg>
+      ),
+      Heart: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+        </svg>
+      ),
+      MessageCircle: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+        </svg>
+      ),
+      Share: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/>
+        </svg>
+      ),
+      Edit: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+      ),
+      Key: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m21 2-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+        </svg>
+      ),
+      UserPlus: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/>
+        </svg>
+      ),
+      Gavel: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m14 13-7.5 7.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L11 10"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/>
+        </svg>
+      ),
+      Wrench: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+        </svg>
+      ),
+      Bell: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+        </svg>
+      ),
+      MessageSquare: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      ),
+      Settings: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>
+        </svg>
+      ),
+      HelpCircle: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>
+        </svg>
+      ),
+      LogOut: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>
+        </svg>
+      ),
+      ChevronDown: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m6 9 6 6 6-6"/>
+        </svg>
+      ),
+    };
+
+    // Router Hook
+    const useRouter = () => {
+      const [route, setRoute] = useState(window.location.hash.slice(1) || '/');
+
+      useEffect(() => {
+        const handleHashChange = () => {
+          setRoute(window.location.hash.slice(1) || '/');
+        };
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+      }, []);
+
+      const navigate = (path) => {
+        window.location.hash = path;
+      };
+
+      return { route, navigate };
+    };
+
+    // Auth Context
+    const AuthContext = createContext(null);
+
+    const AuthProvider = ({ children }) => {
+      const [user, setUser] = useState(null);
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState(null);
+      const [ssoConfig, setSsoConfig] = useState(null);
+      const [authType, setAuthType] = useState('local');
+
+      useEffect(() => {
+        const initAuth = async () => {
+          // Load SSO config
+          const configResult = await api.getSsoConfig();
+          if (configResult.success && configResult.config) {
+            setSsoConfig(configResult.config);
+          }
+          // Check existing token
+          const token = getToken();
+          if (token) {
+            const result = await api.verifyToken();
+            if (result.success && result.user) {
+              setUser(result.user);
+              setAuthType(result.authType || 'local');
+            } else {
+              // Fallback to /api/auth/me
+              const meResult = await api.get('/api/auth/me');
+              if (meResult.success && meResult.data) {
+                setUser(meResult.data);
+              } else {
+                removeToken();
+              }
+            }
+          }
+          setLoading(false);
+        };
+        initAuth();
+      }, []);
+
+      const login = async (email, password) => {
+        setLoading(true);
+        setError(null);
+        const result = await api.post('/api/auth/login', { email, password });
+        if (result.success && result.token) {
+          setToken(result.token);
+          setUser(result.user);
+          window.location.hash = '/';
+        } else {
+          setError(result.error || result.message || 'Login failed');
+        }
+        setLoading(false);
+      };
+
+      const register = async (data) => {
+        setLoading(true);
+        setError(null);
+        const result = await api.post('/api/auth/register', data);
+        if (result.success && result.token) {
+          setToken(result.token);
+          setUser(result.user);
+          window.location.hash = '/';
+        } else {
+          setError(result.error || result.message || 'Registration failed');
+        }
+        setLoading(false);
+      };
+
+      const logout = () => {
+        removeToken();
+        setUser(null);
+        window.location.hash = '/';
+      };
+
+      const refreshUser = async () => {
+        const result = await api.get('/api/auth/me');
+        if (result.success && result.data) {
+          setUser(result.data);
+        }
+      };
+
+      const isSsoEnabled = !!(ssoConfig && ssoConfig.issuer);
+
+      return (
+        <AuthContext.Provider value={{ user, loading, error, login, register, logout, refreshUser, ssoConfig, authType, isSsoEnabled }}>
+          {children}
+        </AuthContext.Provider>
+      );
+    };
+
+    const useAuth = () => useContext(AuthContext);
+
+    // UI Components
+    const Card = ({ children, className = '', ...props }) => (
+      <div className={`bg-slate-800/50 border border-slate-700/50 rounded-2xl backdrop-blur-sm ${className}`} {...props}>
+        {children}
+      </div>
+    );
+
+    const Button = ({ children, variant = 'primary', size = 'md', className = '', disabled, ...props }) => {
+      const variants = {
+        primary: 'bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-lg shadow-primary-500/25',
+        secondary: 'bg-slate-700 hover:bg-slate-600 text-white',
+        outline: 'border border-slate-600 hover:bg-slate-700/50 text-slate-300',
+        ghost: 'hover:bg-slate-700/50 text-slate-400',
+      };
+      const sizes = {
+        sm: 'px-3 py-1.5 text-sm',
+        md: 'px-4 py-2',
+        lg: 'px-6 py-3 text-lg',
+      };
+      return (
+        <button
+          className={`inline-flex items-center justify-center rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${variants[variant]} ${sizes[size]} ${className}`}
+          disabled={disabled}
+          {...props}
+        >
+          {children}
+        </button>
+      );
+    };
+
+    const Badge = ({ children, variant = 'default', className = '' }) => {
+      const variants = {
+        default: 'bg-primary-500/20 text-primary-400 border-primary-500/30',
+        secondary: 'bg-slate-700 text-slate-300 border-slate-600',
+        success: 'bg-green-500/20 text-green-400 border-green-500/30',
+        outline: 'border-slate-600 text-slate-400',
+      };
+      return (
+        <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${variants[variant]} ${className}`}>
+          {children}
+        </span>
+      );
+    };
+
+    const Input = ({ label, icon: Icon, className = '', ...props }) => (
+      <div className={className}>
+        {label && <label className="block text-sm font-medium text-slate-300 mb-2">{label}</label>}
+        <div className="relative">
+          {Icon && (
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <span className="text-slate-500 w-5 h-5"><Icon /></span>
+            </div>
+          )}
+          <input
+            className={`w-full bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${Icon ? 'pl-10' : ''}`}
+            {...props}
+          />
+        </div>
+      </div>
+    );
+
+    const Textarea = ({ label, className = '', ...props }) => (
+      <div className={className}>
+        {label && <label className="block text-sm font-medium text-slate-300 mb-2">{label}</label>}
+        <textarea
+          className="w-full bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
+          {...props}
+        />
+      </div>
+    );
+
+    const Select = ({ label, options = [], className = '', ...props }) => (
+      <div className={className}>
+        {label && <label className="block text-sm font-medium text-slate-300 mb-2">{label}</label>}
+        <select
+          className="w-full bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+          {...props}
+        >
+          <option value="">Select...</option>
+          {options.map(opt => (
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
+      </div>
+    );
+
+    const Skeleton = ({ className = '' }) => (
+      <div className={`skeleton rounded-lg ${className}`}></div>
+    );
+
+    const Modal = ({ isOpen, onClose, title, children }) => {
+      if (!isOpen) return null;
+
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="modal-backdrop fixed inset-0 bg-black/60" onClick={onClose}></div>
+          <div className="relative bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b border-slate-700">
+              <h2 className="text-xl font-semibold text-white">{title}</h2>
+              <button onClick={onClose} className="text-slate-200 hover:text-white p-1 rounded-lg hover:bg-slate-700">
+                <span className="w-5 h-5"><Icons.X /></span>
+              </button>
+            </div>
+            <div className="p-6">
+              {children}
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // Ecosystem Navigation - Shared across all Molochain apps
+    const EcosystemNav = () => {
+      const apps = [
+        { name: "Molochain", url: "https://molochain.com", active: false },
+        { name: "MOLOLINK", url: "https://mololink.molochain.com", active: true },
+        { name: "OTMS", url: "https://opt.molochain.com", active: false },
+        { name: "CMS", url: "https://cms.molochain.com", active: false },
+      ];
+
+      return (
+        <div className="bg-slate-800/95 border-b border-slate-600">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-10">
+              <div className="flex items-center gap-1">
+                <span className="text-slate-300 text-xs font-medium mr-2 hidden sm:inline">ECOSYSTEM</span>
+                {apps.map((app) => (
+                  <a
+                    key={app.name}
+                    href={app.url}
+                    className={`px-3 py-1.5 text-xs font-medium rounded transition-colors ${
+                      app.active
+                        ? "bg-primary-500/20 text-primary-400 border border-primary-500/30"
+                        : "text-slate-200 hover:text-white hover:bg-slate-800"
+                    }`}
+                  >
+                    {app.name}
+                  </a>
+                ))}
+              </div>
+              <a 
+                href="https://auth.molochain.com" 
+                className="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-1"
+              >
+                <span className="w-3 h-3">
+                  <Icons.Lock />
+                </span>
+                <span className="hidden sm:inline">SSO</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // Header Component - Redesigned Professional Navbar
+    const Header = ({ navigate }) => {
+      const { user, logout } = useAuth();
+      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+      const [userMenuOpen, setUserMenuOpen] = useState(false);
+      const [searchOpen, setSearchOpen] = useState(false);
+      const [searchQuery, setSearchQuery] = useState('');
+
+      const navItems = [
+        { label: 'Companies', path: '/companies', icon: Icons.Building, description: 'Browse logistics companies' },
+        { label: 'Jobs', path: '/jobs', icon: Icons.Briefcase, description: 'Find career opportunities' },
+        { label: 'Marketplace', path: '/marketplace', icon: Icons.ShoppingBag, description: 'B2B equipment & services' },
+        { label: 'Network', path: '/network', icon: Icons.Users, description: 'Connect with professionals' },
+      ];
+
+      const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+          console.log('Searching for:', searchQuery);
+          setSearchOpen(false);
+        }
+      };
+
+      return (
+        <header className="sticky top-0 z-50">
+          {/* Main Navbar */}
+          <div className="bg-slate-900/95 backdrop-blur-xl border-b border-slate-700/50 shadow-lg">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-16">
+                {/* Left Section - Logo & Navigation */}
+                <div className="flex items-center gap-10">
+                  {/* Logo */}
+                  <div 
+                    className="flex items-center cursor-pointer group" 
+                    onClick={() => navigate('/')}
+                  >
+                    <img 
+                      src="/molochain-logo.png" 
+                      alt="MOLOLINK by MoloChain" 
+                      className="h-10 w-auto object-contain group-hover:opacity-90 transition-opacity"
+                    />
+                  </div>
+
+                  {/* Desktop Navigation */}
+                  <nav className="hidden lg:flex items-center gap-1">
+                    {navItems.map((item) => (
+                      <button
+                        key={item.path}
+                        onClick={() => navigate(item.path)}
+                        className="group relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all duration-200"
+                      >
+                        <span className="w-5 h-5 text-slate-400 group-hover:text-primary-400 transition-colors"><item.icon /></span>
+                        <span className="font-medium">{item.label}</span>
+                      </button>
+                    ))}
+                  </nav>
+                </div>
+
+                {/* Right Section - Search, Actions & User */}
+                <div className="flex items-center gap-2">
+                  {/* Search Button */}
+                  <button
+                    onClick={() => setSearchOpen(!searchOpen)}
+                    className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-white hover:border-slate-600 transition-all"
+                  >
+                    <span className="w-4 h-4"><Icons.Search /></span>
+                    <span className="text-sm hidden md:inline">Search...</span>
+                    <kbd className="hidden md:inline-flex items-center px-1.5 py-0.5 text-[10px] font-medium text-slate-500 bg-slate-700/50 rounded">⌘K</kbd>
+                  </button>
+
+                  {user ? (
+                    <>
+                      {/* Notifications */}
+                      <button className="relative p-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+                        <span className="w-5 h-5"><Icons.Bell /></span>
+                        <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary-500 rounded-full"></span>
+                      </button>
+
+                      {/* Messages */}
+                      <button className="p-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+                        <span className="w-5 h-5"><Icons.MessageSquare /></span>
+                      </button>
+
+                      {/* User Menu */}
+                      <div className="relative ml-2">
+                        <button
+                          onClick={() => setUserMenuOpen(!userMenuOpen)}
+                          className="flex items-center gap-2 p-1.5 pr-3 rounded-xl bg-slate-800/50 border border-slate-700/50 hover:border-slate-600 transition-all"
+                        >
+                          <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-purple-500 rounded-lg flex items-center justify-center text-white font-semibold text-sm">
+                            {(user.first_name || user.firstName || 'U').charAt(0).toUpperCase()}
+                          </div>
+                          <span className="hidden md:block text-sm font-medium text-white">{user.first_name || user.firstName || 'User'}</span>
+                          <span className="w-4 h-4 text-slate-400"><Icons.ChevronDown /></span>
+                        </button>
+
+                        {/* User Dropdown */}
+                        {userMenuOpen && (
+                          <div className="absolute right-0 mt-2 w-64 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl overflow-hidden">
+                            <div className="p-4 border-b border-slate-700">
+                              <p className="text-white font-medium">{user.first_name || user.firstName} {user.last_name || user.lastName}</p>
+                              <p className="text-sm text-slate-400">{user.email}</p>
+                            </div>
+                            <div className="py-2">
+                              <button 
+                                onClick={() => { navigate('/profile'); setUserMenuOpen(false); }}
+                                className="w-full flex items-center gap-3 px-4 py-2.5 text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors"
+                              >
+                                <span className="w-5 h-5"><Icons.User /></span>
+                                <span>My Profile</span>
+                              </button>
+                              <button className="w-full flex items-center gap-3 px-4 py-2.5 text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors">
+                                <span className="w-5 h-5"><Icons.Settings /></span>
+                                <span>Settings</span>
+                              </button>
+                              <button className="w-full flex items-center gap-3 px-4 py-2.5 text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors">
+                                <span className="w-5 h-5"><Icons.HelpCircle /></span>
+                                <span>Help & Support</span>
+                              </button>
+                            </div>
+                            <div className="border-t border-slate-700 py-2">
+                              <button 
+                                onClick={() => { logout(); setUserMenuOpen(false); }}
+                                className="w-full flex items-center gap-3 px-4 py-2.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors"
+                              >
+                                <span className="w-5 h-5"><Icons.LogOut /></span>
+                                <span>Sign Out</span>
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex items-center gap-3 ml-2">
+                      <Button 
+                        variant="ghost" 
+                        onClick={() => navigate('/login')}
+                        className="text-slate-300 hover:text-white"
+                      >
+                        Sign In
+                      </Button>
+                      <Button 
+                        onClick={() => navigate('/register')}
+                        className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-medium px-5 shadow-lg shadow-primary-500/25"
+                      >
+                        Join Now
+                      </Button>
+                    </div>
+                  )}
+
+                  {/* Mobile Menu Button */}
+                  <button 
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    className="lg:hidden p-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors ml-1"
+                  >
+                    <span className="w-6 h-6">{mobileMenuOpen ? <Icons.X /> : <Icons.Menu />}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Search Overlay */}
+            {searchOpen && (
+              <div className="absolute inset-x-0 top-full bg-slate-900/98 backdrop-blur-xl border-b border-slate-700/50 p-4 shadow-2xl">
+                <div className="max-w-2xl mx-auto">
+                  <form onSubmit={handleSearch} className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"><Icons.Search /></span>
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Search companies, jobs, marketplace..."
+                      className="w-full pl-12 pr-4 py-3.5 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
+                      autoFocus
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => setSearchOpen(false)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                    >
+                      <kbd className="px-2 py-1 text-xs bg-slate-700 rounded">ESC</kbd>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            )}
+
+            {/* Mobile Menu */}
+            {mobileMenuOpen && (
+              <div className="lg:hidden border-t border-slate-700/50 bg-slate-900/98">
+                <div className="px-4 py-4 space-y-1">
+                  {navItems.map((item) => (
+                    <button
+                      key={item.path}
+                      onClick={() => { navigate(item.path); setMobileMenuOpen(false); }}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+                    >
+                      <span className="w-5 h-5 text-slate-400"><item.icon /></span>
+                      <div className="text-left">
+                        <span className="font-medium">{item.label}</span>
+                        <p className="text-xs text-slate-500">{item.description}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+                {!user && (
+                  <div className="px-4 py-4 border-t border-slate-700/50 flex gap-3">
+                    <Button 
+                      variant="outline" 
+                      className="flex-1"
+                      onClick={() => { navigate('/login'); setMobileMenuOpen(false); }}
+                    >
+                      Sign In
+                    </Button>
+                    <Button 
+                      className="flex-1 bg-gradient-to-r from-primary-500 to-primary-600"
+                      onClick={() => { navigate('/register'); setMobileMenuOpen(false); }}
+                    >
+                      Join Now
+                    </Button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </header>
+      );
+    };
+
+    // Footer Component
+    const Footer = ({ navigate }) => (
+      <footer className="bg-slate-900 border-t border-slate-700/50 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center mb-4">
+                <img 
+                  src="/molochain-logo.png" 
+                  alt="MOLOLINK by MoloChain" 
+                  className="h-8 w-auto object-contain"
+                />
+              </div>
+              <p className="text-slate-400 text-sm">The professional network for the global cargo and logistics industry.</p>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Platform</h4>
+              <ul className="space-y-2">
+                <li><button onClick={() => navigate('/companies')} className="text-slate-200 hover:text-white text-sm">Companies</button></li>
+                <li><button onClick={() => navigate('/jobs')} className="text-slate-200 hover:text-white text-sm">Jobs</button></li>
+                <li><button onClick={() => navigate('/marketplace')} className="text-slate-200 hover:text-white text-sm">Marketplace</button></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Support</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-slate-200 hover:text-white text-sm">Help Center</a></li>
+                <li><a href="#" className="text-slate-200 hover:text-white text-sm">Contact Us</a></li>
+                <li><a href="#" className="text-slate-200 hover:text-white text-sm">Privacy Policy</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Connect</h4>
+              <p className="text-slate-400 text-sm mb-4">Part of the MoloChain ecosystem</p>
+              <a href="https://molochain.com" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:text-primary-300 text-sm">Visit MoloChain →</a>
+            </div>
+          </div>
+          <div className="border-t border-slate-700/50 mt-8 pt-8 text-center">
+            <p className="text-slate-500 text-sm">© 2025 MOLOLINK by MoloChain. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    );
+
+    // Mobile Navigation
+    const MobileNav = ({ navigate }) => {
+      const { user } = useAuth();
+      const { route } = useRouter();
+      const currentPath = route.split('?')[0];
+
+      const navItems = [
+        { label: 'Home', path: '/', icon: Icons.Home },
+        { label: 'Jobs', path: '/jobs', icon: Icons.Briefcase },
+        { label: 'Network', path: '/network', icon: Icons.Users },
+        { label: 'Profile', path: user ? '/profile' : '/login', icon: Icons.User },
+      ];
+
+      return (
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 mobile-nav border-t border-slate-700/50 z-50">
+          <div className="flex items-center justify-around py-2">
+            {navItems.map((item) => (
+              <button
+                key={item.path}
+                onClick={() => navigate(item.path)}
+                className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-colors ${
+                  currentPath === item.path ? 'text-primary-400' : 'text-slate-200 hover:text-white'
+                }`}
+              >
+                <span className="w-6 h-6"><item.icon /></span>
+                <span className="text-xs">{item.label}</span>
+              </button>
+            ))}
+          </div>
+        </nav>
+      );
+    };
+
+    // Landing Page
+    const LandingPage = ({ navigate }) => {
+      const features = [
+        { icon: Icons.Globe, title: 'Global Network', description: 'Connect with logistics professionals across 150+ countries.', color: 'bg-blue-500/20 text-blue-400' },
+        { icon: Icons.Briefcase, title: 'Career Opportunities', description: 'Find your next role in the logistics and supply chain industry.', color: 'bg-green-500/20 text-green-400' },
+        { icon: Icons.Handshake, title: 'Business Connections', description: 'Partner with companies and expand your business network.', color: 'bg-purple-500/20 text-purple-400' },
+        { icon: Icons.TrendingUp, title: 'Industry Insights', description: 'Stay updated with the latest trends and market analysis.', color: 'bg-orange-500/20 text-orange-400' },
+        { icon: Icons.ShoppingBag, title: 'Marketplace', description: 'Buy, sell, and trade logistics equipment and services.', color: 'bg-pink-500/20 text-pink-400' },
+        { icon: Icons.Shield, title: 'Verified Profiles', description: 'Trust verified companies and professionals.', color: 'bg-cyan-500/20 text-cyan-400' },
+      ];
+
+      return (
+        <div className="fade-in">
+          <section className="relative py-20 lg:py-32 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-600/20 via-transparent to-purple-600/20"></div>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+              <div className="text-center max-w-4xl mx-auto">
+                <Badge className="mb-6">Welcome to the Future of Logistics Networking</Badge>
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+                  <span className="text-white">Connect. Grow.</span>
+                  <br />
+                  <span className="gradient-text">Transform Logistics.</span>
+                </h1>
+                <p className="text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
+                  Join the largest professional network for the global cargo and logistics industry.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button size="lg" onClick={() => navigate('/register')}>
+                    Join MOLOLINK Free
+                    <span className="w-5 h-5 ml-2"><Icons.ArrowRight /></span>
+                  </Button>
+                  <Button variant="outline" size="lg" onClick={() => navigate('/companies')}>
+                    Explore Companies
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="py-20 bg-slate-800/30">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-16">
+                <Badge variant="outline" className="mb-4">Features</Badge>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                  Everything You Need to Succeed
+                </h2>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {features.map((feature, index) => (
+                  <Card key={index} className="p-6 card-hover">
+                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${feature.color} mb-4`}>
+                      <span className="w-6 h-6"><feature.icon /></span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
+                    <p className="text-slate-400">{feature.description}</p>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+      );
+    };
+
+    // Companies Page with Create Form
+    const CompaniesPage = ({ navigate }) => {
+      const { user } = useAuth();
+      const { showToast } = useToast();
+      const [search, setSearch] = useState('');
+      const [loading, setLoading] = useState(true);
+      const [companies, setCompanies] = useState([]);
+      const [showModal, setShowModal] = useState(false);
+      const [submitting, setSubmitting] = useState(false);
+      const [formData, setFormData] = useState({
+        name: '', description: '', industry: '', headquarters: '', size: '', website: ''
+      });
+
+      const fetchCompanies = async () => {
+        setLoading(true);
+        const result = await api.get('/api/companies');
+        if (result.success && result.data) {
+          setCompanies(result.data);
+        } else {
+          setCompanies([]);
+        }
+        setLoading(false);
+      };
+
+      useEffect(() => { fetchCompanies(); }, []);
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!formData.name.trim()) {
+          showToast('Company name is required', 'error');
+          return;
+        }
+        setSubmitting(true);
+        const result = await api.post('/api/companies', formData);
+        if (result.success) {
+          showToast('Company created successfully!', 'success');
+          setShowModal(false);
+          setFormData({ name: '', description: '', industry: '', headquarters: '', size: '', website: '' });
+          fetchCompanies();
+        } else {
+          showToast(result.error || result.message || 'Failed to create company', 'error');
+        }
+        setSubmitting(false);
+      };
+
+      const filtered = companies.filter(c => 
+        c.name?.toLowerCase().includes(search.toLowerCase()) ||
+        c.industry?.toLowerCase().includes(search.toLowerCase())
+      );
+
+      return (
+        <div className="fade-in max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex justify-between items-start mb-8">
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-2">Companies</h1>
+              <p className="text-slate-400">Discover and connect with logistics & supply chain companies</p>
+            </div>
+            {user && (
+              <Button onClick={() => setShowModal(true)}>
+                <span className="w-4 h-4 mr-2"><Icons.Plus /></span>
+                Create Company
+              </Button>
+            )}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <Input
+              placeholder="Search companies by name or industry..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              icon={Icons.Search}
+              className="flex-1"
+            />
+          </div>
+
+          {loading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <Card key={i} className="p-6">
+                  <Skeleton className="h-12 w-12 mb-4" />
+                  <Skeleton className="h-6 w-3/4 mb-2" />
+                  <Skeleton className="h-4 w-full mb-4" />
+                  <Skeleton className="h-4 w-1/2" />
+                </Card>
+              ))}
+            </div>
+          ) : filtered.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filtered.map((company) => (
+                <Card key={company.id} className="p-6 card-hover cursor-pointer" onClick={() => navigate(`/company/${company.id}`)}>
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="w-12 h-12 bg-primary-500/20 rounded-xl flex items-center justify-center">
+                      <span className="text-primary-400"><Icons.Building /></span>
+                    </div>
+                    {company.verified && (
+                      <span className="text-primary-400 w-5 h-5"><Icons.BadgeCheck /></span>
+                    )}
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-1">{company.name}</h3>
+                  <p className="text-sm text-slate-400 mb-3 line-clamp-2">{company.description || 'No description'}</p>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary">{company.industry || 'Logistics'}</Badge>
+                    {company.headquarters && (
+                      <span className="text-xs text-slate-500 flex items-center gap-1">
+                        <span className="w-3 h-3"><Icons.MapPin /></span>
+                        {company.headquarters}
+                      </span>
+                    )}
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card className="p-12 text-center">
+              <span className="text-slate-500 w-12 h-12 mx-auto block mb-4"><Icons.Building /></span>
+              <h3 className="text-lg font-semibold text-white mb-2">No companies found</h3>
+              <p className="text-slate-400">Try a different search term or create a new company</p>
+            </Card>
+          )}
+
+          <Modal isOpen={showModal} onClose={() => setShowModal(false)} title="Create Company">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <Input label="Company Name *" placeholder="Enter company name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
+              <Textarea label="Description" placeholder="Tell us about the company..." rows={3} value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} />
+              <Input label="Industry" placeholder="e.g., Freight Forwarding, Logistics" value={formData.industry} onChange={(e) => setFormData({...formData, industry: e.target.value})} />
+              <Input label="Headquarters" placeholder="City, Country" value={formData.headquarters} onChange={(e) => setFormData({...formData, headquarters: e.target.value})} />
+              <Select label="Company Size" value={formData.size} onChange={(e) => setFormData({...formData, size: e.target.value})} options={[{value: '1-10', label: '1-10 employees'}, {value: '11-50', label: '11-50 employees'}, {value: '51-200', label: '51-200 employees'}, {value: '201-500', label: '201-500 employees'}, {value: '500+', label: '500+ employees'}]} />
+              <Input label="Website" placeholder="https://..." value={formData.website} onChange={(e) => setFormData({...formData, website: e.target.value})} />
+              <div className="flex justify-end gap-3 pt-4">
+                <Button type="button" variant="outline" onClick={() => setShowModal(false)}>Cancel</Button>
+                <Button type="submit" disabled={submitting}>
+                  {submitting && <span className="w-4 h-4 mr-2"><Icons.Loader /></span>}
+                  Create Company
+                </Button>
+              </div>
+            </form>
+          </Modal>
+        </div>
+      );
+    };
+
+    // Company Detail Page
+    const CompanyDetailPage = ({ navigate, id }) => {
+      const [company, setCompany] = useState(null);
+      const [loading, setLoading] = useState(true);
+
+      useEffect(() => {
+        const fetchCompany = async () => {
+          setLoading(true);
+          const result = await api.get(`/api/companies/${id}`);
+          if (result.success && result.data) {
+            setCompany(result.data);
+          }
+          setLoading(false);
+        };
+        fetchCompany();
+      }, [id]);
+
+      if (loading) {
+        return (
+          <div className="max-w-7xl mx-auto px-4 py-8">
+            <Card className="p-8">
+              <div className="flex items-center gap-4">
+                <Skeleton className="w-24 h-24 rounded-2xl" />
+                <div className="flex-1">
+                  <Skeleton className="h-8 w-1/2 mb-2" />
+                  <Skeleton className="h-4 w-1/3" />
+                </div>
+              </div>
+            </Card>
+          </div>
+        );
+      }
+
+      if (!company) {
+        return (
+          <div className="max-w-7xl mx-auto px-4 py-8 text-center">
+            <h1 className="text-2xl font-bold text-white mb-4">Company Not Found</h1>
+            <Button onClick={() => navigate('/companies')}>Back to Companies</Button>
+          </div>
+        );
+      }
+
+      return (
+        <div className="fade-in max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Card className="p-8 mb-8">
+            <div className="flex flex-col md:flex-row gap-6">
+              <div className="w-24 h-24 bg-primary-500/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <span className="text-primary-400 w-12 h-12"><Icons.Building /></span>
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <h1 className="text-3xl font-bold text-white">{company.name}</h1>
+                  {company.verified && <span className="text-primary-400 w-6 h-6"><Icons.BadgeCheck /></span>}
+                </div>
+                <Badge variant="secondary" className="mb-4">{company.industry || 'Logistics'}</Badge>
+                <p className="text-slate-400 mb-4">{company.description || 'No description available'}</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      );
+    };
+
+    // Jobs Page with Create Form
+    const JobsPage = ({ navigate }) => {
+      const { user } = useAuth();
+      const { showToast } = useToast();
+      const [search, setSearch] = useState('');
+      const [location, setLocation] = useState('');
+      const [saved, setSaved] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [jobs, setJobs] = useState([]);
+      const [companies, setCompanies] = useState([]);
+      const [showModal, setShowModal] = useState(false);
+      const [submitting, setSubmitting] = useState(false);
+      const [formData, setFormData] = useState({
+        title: '', description: '', company_id: '', location: '', employment_type: 'Full-time', experience_level: 'Mid-level', salary_range: '', skills_required: ''
+      });
+
+      const fetchJobs = async () => {
+        setLoading(true);
+        const result = await api.get('/api/jobs');
+        if (result.success && result.data) {
+          setJobs(result.data);
+        } else {
+          setJobs([]);
+        }
+        setLoading(false);
+      };
+
+      const fetchCompanies = async () => {
+        const result = await api.get('/api/companies');
+        if (result.success && result.data) {
+          setCompanies(result.data);
+        }
+      };
+
+      useEffect(() => {
+        fetchJobs();
+        fetchCompanies();
+      }, []);
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!formData.title.trim()) {
+          showToast('Job title is required', 'error');
+          return;
+        }
+        setSubmitting(true);
+        const submitData = {
+          ...formData,
+          skills_required: formData.skills_required ? formData.skills_required.split(',').map(s => s.trim()) : []
+        };
+        const result = await api.post('/api/jobs', submitData);
+        if (result.success) {
+          showToast('Job posted successfully!', 'success');
+          setShowModal(false);
+          setFormData({ title: '', description: '', company_id: '', location: '', employment_type: 'Full-time', experience_level: 'Mid-level', salary_range: '', skills_required: '' });
+          fetchJobs();
+        } else {
+          showToast(result.error || result.message || 'Failed to post job', 'error');
+        }
+        setSubmitting(false);
+      };
+
+      const toggleSave = (jobId) => {
+        setSaved(prev => prev.includes(jobId) ? prev.filter(id => id !== jobId) : [...prev, jobId]);
+      };
+
+      const filtered = jobs.filter(job => 
+        (job.title?.toLowerCase().includes(search.toLowerCase()) ||
+         job.company_name?.toLowerCase().includes(search.toLowerCase())) &&
+        (!location || job.location?.toLowerCase().includes(location.toLowerCase()))
+      );
+
+      return (
+        <div className="fade-in max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex justify-between items-start mb-8">
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-2">Jobs</h1>
+              <p className="text-slate-400">Find your next opportunity in logistics</p>
+            </div>
+            {user && (
+              <Button onClick={() => setShowModal(true)}>
+                <span className="w-4 h-4 mr-2"><Icons.Plus /></span>
+                Post a Job
+              </Button>
+            )}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <Input placeholder="Search jobs..." value={search} onChange={(e) => setSearch(e.target.value)} icon={Icons.Search} className="flex-1" />
+            <Input placeholder="Location..." value={location} onChange={(e) => setLocation(e.target.value)} icon={Icons.MapPin} className="sm:w-64" />
+          </div>
+
+          {loading ? (
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <Card key={i} className="p-6">
+                  <div className="flex gap-4">
+                    <Skeleton className="w-16 h-16 rounded-xl" />
+                    <div className="flex-1">
+                      <Skeleton className="h-6 w-1/2 mb-2" />
+                      <Skeleton className="h-4 w-1/3 mb-4" />
+                      <Skeleton className="h-4 w-full" />
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : filtered.length > 0 ? (
+            <div className="space-y-4">
+              {filtered.map((job) => (
+                <Card key={job.id} className="p-6 card-hover cursor-pointer" onClick={() => navigate(`/job/${job.id}`)}>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="w-16 h-16 bg-primary-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <span className="text-primary-400"><Icons.Briefcase /></span>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h3 className="text-lg font-semibold text-white">{job.title}</h3>
+                          <p className="text-slate-400">{job.company_name || 'Company'}</p>
+                        </div>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); toggleSave(job.id); }}
+                          className="text-slate-400 hover:text-primary-400"
+                        >
+                          <span className="w-5 h-5">
+                            {saved.includes(job.id) ? <Icons.BookmarkFilled /> : <Icons.Bookmark />}
+                          </span>
+                        </button>
+                      </div>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        <span className="flex items-center gap-1 text-sm text-slate-500">
+                          <span className="w-4 h-4"><Icons.MapPin /></span>
+                          {job.location || 'Remote'}
+                        </span>
+                        <span className="flex items-center gap-1 text-sm text-slate-500">
+                          <span className="w-4 h-4"><Icons.Clock /></span>
+                          {job.employment_type || 'Full-time'}
+                        </span>
+                        {job.salary_range && (
+                          <span className="flex items-center gap-1 text-sm text-slate-500">
+                            <span className="w-4 h-4"><Icons.DollarSign /></span>
+                            {job.salary_range}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-slate-400 line-clamp-2">{job.description || 'No description'}</p>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card className="p-12 text-center">
+              <span className="text-slate-500 w-12 h-12 mx-auto block mb-4"><Icons.Briefcase /></span>
+              <h3 className="text-lg font-semibold text-white mb-2">No jobs found</h3>
+              <p className="text-slate-400">Try adjusting your search or post a new job</p>
+            </Card>
+          )}
+
+          <Modal isOpen={showModal} onClose={() => setShowModal(false)} title="Post a Job">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <Input label="Job Title *" placeholder="e.g., Logistics Manager" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} />
+              <Textarea label="Description" placeholder="Describe the role and responsibilities..." rows={3} value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} />
+              <Select label="Company" value={formData.company_id} onChange={(e) => setFormData({...formData, company_id: e.target.value})} options={companies.map(c => ({ value: c.id.toString(), label: c.name }))} />
+              <Input label="Location" placeholder="City, Country or Remote" value={formData.location} onChange={(e) => setFormData({...formData, location: e.target.value})} />
+              <div className="grid grid-cols-2 gap-4">
+                <Select label="Employment Type" value={formData.employment_type} onChange={(e) => setFormData({...formData, employment_type: e.target.value})} options={[{value: 'Full-time', label: 'Full-time'}, {value: 'Part-time', label: 'Part-time'}, {value: 'Contract', label: 'Contract'}, {value: 'Remote', label: 'Remote'}]} />
+                <Select label="Experience Level" value={formData.experience_level} onChange={(e) => setFormData({...formData, experience_level: e.target.value})} options={[{value: 'Entry-level', label: 'Entry-level'}, {value: 'Mid-level', label: 'Mid-level'}, {value: 'Senior', label: 'Senior'}, {value: 'Executive', label: 'Executive'}]} />
+              </div>
+              <Input label="Salary Range" placeholder="e.g., $50,000 - $70,000" value={formData.salary_range} onChange={(e) => setFormData({...formData, salary_range: e.target.value})} />
+              <Input label="Skills Required" placeholder="Comma-separated skills" value={formData.skills_required} onChange={(e) => setFormData({...formData, skills_required: e.target.value})} />
+              <div className="flex justify-end gap-3 pt-4">
+                <Button type="button" variant="outline" onClick={() => setShowModal(false)}>Cancel</Button>
+                <Button type="submit" disabled={submitting}>
+                  {submitting && <span className="w-4 h-4 mr-2"><Icons.Loader /></span>}
+                  Post Job
+                </Button>
+              </div>
+            </form>
+          </Modal>
+        </div>
+      );
+    };
+
+    // Job Detail Page
+    const JobDetailPage = ({ navigate, id }) => {
+      const [job, setJob] = useState(null);
+      const [loading, setLoading] = useState(true);
+
+      useEffect(() => {
+        const fetchJob = async () => {
+          setLoading(true);
+          const result = await api.get(`/api/jobs/${id}`);
+          if (result.success && result.data) {
+            setJob(result.data);
+          }
+          setLoading(false);
+        };
+        fetchJob();
+      }, [id]);
+
+      if (loading) {
+        return (
+          <div className="max-w-4xl mx-auto px-4 py-8">
+            <Card className="p-8">
+              <Skeleton className="h-8 w-1/2 mb-4" />
+              <Skeleton className="h-4 w-1/3 mb-8" />
+              <Skeleton className="h-4 w-full mb-2" />
+              <Skeleton className="h-4 w-full mb-2" />
+              <Skeleton className="h-4 w-3/4" />
+            </Card>
+          </div>
+        );
+      }
+
+      if (!job) {
+        return (
+          <div className="max-w-4xl mx-auto px-4 py-8 text-center">
+            <h1 className="text-2xl font-bold text-white mb-4">Job Not Found</h1>
+            <Button onClick={() => navigate('/jobs')}>Back to Jobs</Button>
+          </div>
+        );
+      }
+
+      return (
+        <div className="fade-in max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Card className="p-8">
+            <div className="flex flex-col md:flex-row gap-6 mb-8">
+              <div className="w-20 h-20 bg-primary-500/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <span className="text-primary-400 w-10 h-10"><Icons.Briefcase /></span>
+              </div>
+              <div className="flex-1">
+                <h1 className="text-3xl font-bold text-white mb-2">{job.title}</h1>
+                <p className="text-lg text-slate-400 mb-4">{job.company_name || 'Company'}</p>
+                <div className="flex flex-wrap gap-3">
+                  <Badge variant="secondary">{job.location || 'Remote'}</Badge>
+                  <Badge variant="secondary">{job.employment_type || 'Full-time'}</Badge>
+                  {job.salary_range && <Badge variant="success">{job.salary_range}</Badge>}
+                </div>
+              </div>
+            </div>
+
+            <div className="prose prose-invert max-w-none">
+              <h2 className="text-xl font-semibold text-white mb-4">Description</h2>
+              <p className="text-slate-400 whitespace-pre-line">{job.description || 'No description provided.'}</p>
+            </div>
+
+            <div className="mt-8 pt-8 border-t border-slate-700">
+              <Button size="lg" className="w-full sm:w-auto">Apply Now</Button>
+            </div>
+          </Card>
+        </div>
+      );
+    };
+
+    // Marketplace Page with Tabs (All/Listings/Auctions/Services)
+    const MarketplacePage = ({ navigate }) => {
+      const { user } = useAuth();
+      const { showToast } = useToast();
+      const [search, setSearch] = useState('');
+      const [category, setCategory] = useState('');
+      const [loading, setLoading] = useState(true);
+      const [listings, setListings] = useState([]);
+      const [auctions, setAuctions] = useState([]);
+      const [services, setServices] = useState([]);
+      const [activeTab, setActiveTab] = useState('all');
+      const [showModal, setShowModal] = useState(false);
+      const [submitting, setSubmitting] = useState(false);
+      const [formData, setFormData] = useState({
+        title: '', description: '', category: '', price: '', currency: 'USD', condition: '', location: ''
+      });
+
+      const fetchAll = async () => {
+        setLoading(true);
+        const [listingsRes, auctionsRes, servicesRes] = await Promise.all([
+          api.get('/api/marketplace/listings'),
+          api.getAuctions(),
+          api.getServices()
+        ]);
+        setListings(listingsRes.success && listingsRes.data ? listingsRes.data : []);
+        setAuctions(auctionsRes.success && auctionsRes.data ? auctionsRes.data : []);
+        setServices(servicesRes.success && servicesRes.data ? servicesRes.data : []);
+        setLoading(false);
+      };
+
+      useEffect(() => { fetchAll(); }, []);
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!formData.title.trim()) {
+          showToast('Title is required', 'error');
+          return;
+        }
+        setSubmitting(true);
+        const submitData = {
+          ...formData,
+          price: formData.price ? parseFloat(formData.price) : null
+        };
+        const result = await api.post('/api/marketplace/listings', submitData);
+        if (result.success) {
+          showToast('Listing created successfully!', 'success');
+          setShowModal(false);
+          setFormData({ title: '', description: '', category: '', price: '', currency: 'USD', condition: '', location: '' });
+          fetchListings();
+        } else {
+          showToast(result.error || result.message || 'Failed to create listing', 'error');
+        }
+        setSubmitting(false);
+      };
+
+      const formatPrice = (listing) => {
+        if (!listing.price) return 'Contact for price';
+        return new Intl.NumberFormat('en-US', { style: 'currency', currency: listing.currency || 'USD' }).format(listing.price);
+      };
+
+      const getActiveData = () => {
+        if (activeTab === 'auctions') return auctions;
+        if (activeTab === 'services') return services;
+        if (activeTab === 'listings') return listings.filter(l => l.category !== 'Auction' && l.category !== 'Service');
+        return listings;
+      };
+
+      const filtered = getActiveData().filter(l =>
+        (l.title?.toLowerCase().includes(search.toLowerCase()) ||
+         l.description?.toLowerCase().includes(search.toLowerCase())) &&
+        (!category || l.category === category)
+      );
+
+      const getCategoryBadge = (cat) => {
+        if (cat === 'Auction') return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
+        if (cat === 'Service') return 'bg-green-500/20 text-green-400 border-green-500/30';
+        return 'bg-primary-500/20 text-primary-400 border-primary-500/30';
+      };
+
+      const tabs = [
+        { id: 'all', label: 'All', count: listings.length },
+        { id: 'listings', label: 'Listings', count: listings.filter(l => l.category !== 'Auction' && l.category !== 'Service').length },
+        { id: 'auctions', label: 'Auctions', count: auctions.length, icon: Icons.Gavel },
+        { id: 'services', label: 'Services', count: services.length, icon: Icons.Wrench },
+      ];
+
+      return (
+        <div className="fade-in max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex justify-between items-start mb-8">
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-2">Marketplace</h1>
+              <p className="text-slate-400">Buy, sell, and trade logistics equipment and services</p>
+            </div>
+            {user && (
+              <Button onClick={() => setShowModal(true)} data-testid="btn-create-listing">
+                <span className="w-4 h-4 mr-2"><Icons.Plus /></span>
+                Create Listing
+              </Button>
+            )}
+          </div>
+
+          <div className="flex flex-wrap gap-2 mb-6">
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                data-testid={`tab-marketplace-${tab.id}`}
+                className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
+                  activeTab === tab.id
+                    ? 'bg-primary-500 text-white'
+                    : 'bg-slate-700/50 text-slate-400 hover:bg-slate-700'
+                }`}
+              >
+                {tab.icon && <span className="w-4 h-4"><tab.icon /></span>}
+                {tab.label}
+                <span className={`text-xs px-2 py-0.5 rounded-full ${activeTab === tab.id ? 'bg-white/20' : 'bg-slate-600'}`}>{tab.count}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <Input placeholder="Search listings..." value={search} onChange={(e) => setSearch(e.target.value)} icon={Icons.Search} className="flex-1" data-testid="input-search-marketplace" />
+            <Select className="sm:w-48" value={category} onChange={(e) => setCategory(e.target.value)} options={[{value: 'Equipment', label: 'Equipment'}, {value: 'Vehicles', label: 'Vehicles'}, {value: 'Software', label: 'Software'}, {value: 'Services', label: 'Services'}, {value: 'Auction', label: 'Auction'}]} />
+          </div>
+
+          {loading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <Card key={i} className="p-6">
+                  <Skeleton className="h-6 w-3/4 mb-2" />
+                  <Skeleton className="h-4 w-full mb-4" />
+                  <Skeleton className="h-8 w-1/2" />
+                </Card>
+              ))}
+            </div>
+          ) : filtered.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filtered.map((listing) => (
+                <Card key={listing.id} className="p-6 card-hover">
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-lg font-semibold text-white">{listing.title}</h3>
+                    <Badge variant="secondary">{listing.category || 'General'}</Badge>
+                  </div>
+                  <p className="text-sm text-slate-400 mb-4 line-clamp-2">{listing.description || 'No description'}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-2xl font-bold text-primary-400">{formatPrice(listing)}</span>
+                    <Button size="sm">View Details</Button>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card className="p-12 text-center">
+              <span className="text-slate-500 w-12 h-12 mx-auto block mb-4"><Icons.ShoppingBag /></span>
+              <h3 className="text-lg font-semibold text-white mb-2">No listings yet</h3>
+              <p className="text-slate-400">Be the first to create a listing on MOLOLINK Marketplace</p>
+            </Card>
+          )}
+
+          <Modal isOpen={showModal} onClose={() => setShowModal(false)} title="Create Listing">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <Input label="Title *" placeholder="What are you selling?" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} />
+              <Textarea label="Description" placeholder="Describe your item or service..." rows={3} value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} />
+              <Select label="Category" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} options={[{value: 'Equipment', label: 'Equipment'}, {value: 'Vehicles', label: 'Vehicles'}, {value: 'Software', label: 'Software'}, {value: 'Services', label: 'Services'}]} />
+              <div className="grid grid-cols-2 gap-4">
+                <Input label="Price" type="number" placeholder="0.00" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} />
+                <Select label="Currency" value={formData.currency} onChange={(e) => setFormData({...formData, currency: e.target.value})} options={[{value: 'USD', label: 'USD'}, {value: 'EUR', label: 'EUR'}, {value: 'GBP', label: 'GBP'}]} />
+              </div>
+              <Select label="Condition" value={formData.condition} onChange={(e) => setFormData({...formData, condition: e.target.value})} options={[{value: 'New', label: 'New'}, {value: 'Like New', label: 'Like New'}, {value: 'Used', label: 'Used'}, {value: 'Refurbished', label: 'Refurbished'}]} />
+              <Input label="Location" placeholder="City, Country" value={formData.location} onChange={(e) => setFormData({...formData, location: e.target.value})} />
+              <div className="flex justify-end gap-3 pt-4">
+                <Button type="button" variant="outline" onClick={() => setShowModal(false)}>Cancel</Button>
+                <Button type="submit" disabled={submitting}>
+                  {submitting && <span className="w-4 h-4 mr-2"><Icons.Loader /></span>}
+                  Create Listing
+                </Button>
+              </div>
+            </form>
+          </Modal>
+        </div>
+      );
+    };
+
+    // Network Page with Tabs (Feed/Connections)
+    const NetworkPage = ({ navigate }) => {
+      const { user } = useAuth();
+      const { showToast } = useToast();
+      const [posts, setPosts] = useState([]);
+      const [connections, setConnections] = useState([]);
+      const [suggestedProfiles, setSuggestedProfiles] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [connectionsLoading, setConnectionsLoading] = useState(true);
+      const [postContent, setPostContent] = useState('');
+      const [submitting, setSubmitting] = useState(false);
+      const [activeTab, setActiveTab] = useState('feed');
+      const [pendingConnections, setPendingConnections] = useState(new Set());
+
+      const fetchPosts = async () => {
+        if (user) {
+          setLoading(true);
+          const result = await api.get('/api/posts');
+          if (result.success && result.data) {
+            setPosts(result.data);
+          } else {
+            setPosts([]);
+          }
+          setLoading(false);
+        }
+      };
+
+      const fetchConnections = async () => {
+        if (user) {
+          setConnectionsLoading(true);
+          const result = await api.getConnections();
+          if (result.success && result.data) {
+            setConnections(result.data);
+          } else {
+            setConnections([]);
+          }
+          setConnectionsLoading(false);
+        }
+      };
+
+      const fetchSuggestedProfiles = async () => {
+        const result = await api.get('/api/profiles');
+        if (result.success && result.data) {
+          const connectedIds = new Set(connections.map(c => c.connected_user_id || c.user_id));
+          const filtered = result.data.filter(p => p.id !== user?.id && !connectedIds.has(p.id)).slice(0, 5);
+          setSuggestedProfiles(filtered);
+        }
+      };
+
+      const handleConnect = async (userId) => {
+        if (pendingConnections.has(userId)) return;
+        setPendingConnections(prev => new Set([...prev, userId]));
+        const result = await api.createConnection(userId);
+        if (result.success) {
+          showToast('Connection request sent!', 'success');
+          fetchConnections();
+          fetchSuggestedProfiles();
+        } else {
+          showToast(result.error || 'Failed to send request', 'error');
+          setPendingConnections(prev => { const n = new Set(prev); n.delete(userId); return n; });
+        }
+      };
+
+      useEffect(() => { fetchPosts(); fetchConnections(); }, [user]);
+      useEffect(() => { if (connections.length >= 0) fetchSuggestedProfiles(); }, [connections, user]);
+
+      const handleCreatePost = async () => {
+        if (!postContent.trim()) {
+          showToast('Please enter some content', 'error');
+          return;
+        }
+        setSubmitting(true);
+        const result = await api.post('/api/posts', { content: postContent });
+        if (result.success) {
+          showToast('Post created successfully!', 'success');
+          setPostContent('');
+          fetchPosts();
+        } else {
+          showToast(result.error || result.message || 'Failed to create post', 'error');
+        }
+        setSubmitting(false);
+      };
+
+      if (!user) {
+        return (
+          <div className="max-w-7xl mx-auto px-4 py-8 text-center">
+            <Card className="p-12">
+              <span className="text-slate-500 w-16 h-16 mx-auto block mb-4"><Icons.Users /></span>
+              <h2 className="text-2xl font-bold text-white mb-4">Join the Network</h2>
+              <p className="text-slate-400 mb-6">Sign in to connect with logistics professionals worldwide</p>
+              <div className="flex justify-center gap-4">
+                <Button onClick={() => navigate('/login')}>Sign In</Button>
+                <Button variant="outline" onClick={() => navigate('/register')}>Create Account</Button>
+              </div>
+            </Card>
+          </div>
+        );
+      }
+
+      const getAuthorName = (post) => {
+        if (post.first_name || post.last_name) {
+          return `${post.first_name || ''} ${post.last_name || ''}`.trim() || 'User';
+        }
+        return post.author || 'User';
+      };
+
+      const getAuthorInitial = (post) => {
+        if (post.first_name) return post.first_name[0];
+        if (post.author) return post.author[0];
+        return 'U';
+      };
+
+      return (
+        <div className="fade-in max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex gap-4 mb-6">
+            <button onClick={() => setActiveTab('feed')} data-testid="tab-network-feed" className={`px-4 py-2 rounded-lg font-medium transition-all ${activeTab === 'feed' ? 'bg-primary-500 text-white' : 'bg-slate-700/50 text-slate-400 hover:bg-slate-700'}`}>
+              <span className="flex items-center gap-2"><Icons.Users /> Feed ({posts.length})</span>
+            </button>
+            <button onClick={() => setActiveTab('connections')} data-testid="tab-network-connections" className={`px-4 py-2 rounded-lg font-medium transition-all ${activeTab === 'connections' ? 'bg-primary-500 text-white' : 'bg-slate-700/50 text-slate-400 hover:bg-slate-700'}`}>
+              <span className="flex items-center gap-2"><Icons.Network /> My Connections ({connections.length})</span>
+            </button>
+          </div>
+
+          <div className="grid lg:grid-cols-4 gap-6">
+            <div className="lg:col-span-1">
+              <Card className="p-6 text-center">
+                <div className="w-20 h-20 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-primary-400 text-2xl font-bold">{user.first_name?.[0] || user.firstName?.[0] || 'U'}{user.last_name?.[0] || user.lastName?.[0] || ''}</span>
+                </div>
+                <h3 className="text-lg font-semibold text-white">{user.first_name || user.firstName || 'User'} {user.last_name || user.lastName || ''}</h3>
+                <p className="text-sm text-slate-400 mb-4">{user.headline || user.title || 'Logistics Professional'}</p>
+                <div className="text-sm text-slate-500">{connections.length} connections</div>
+              </Card>
+            </div>
+
+            <div className="lg:col-span-2 space-y-6">
+              {activeTab === 'feed' ? (
+                <>
+                  <Card className="p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span className="text-primary-400 font-medium">{user.first_name?.[0] || user.firstName?.[0] || 'U'}</span>
+                      </div>
+                      <div className="flex-1">
+                        <textarea placeholder="Share an update with your network..." className="w-full bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none" rows={3} value={postContent} onChange={(e) => setPostContent(e.target.value)} data-testid="textarea-post" />
+                        <div className="flex justify-end mt-3">
+                          <Button size="sm" disabled={submitting || !postContent.trim()} onClick={handleCreatePost} data-testid="btn-create-post">
+                            {submitting && <span className="w-4 h-4 mr-2"><Icons.Loader /></span>}
+                            Post
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                  {loading ? (
+                    <div className="space-y-4">{[1, 2, 3].map(i => (<Card key={i} className="p-6"><div className="flex gap-3 mb-4"><Skeleton className="w-10 h-10 rounded-full" /><div><Skeleton className="h-4 w-32 mb-1" /><Skeleton className="h-3 w-24" /></div></div><Skeleton className="h-4 w-full mb-2" /><Skeleton className="h-4 w-3/4" /></Card>))}</div>
+                  ) : posts.length > 0 ? (
+                    <div className="space-y-4">
+                      {posts.map(post => (
+                        <Card key={post.id} className="p-6" data-testid={`post-${post.id}`}>
+                          <div className="flex items-start gap-3 mb-4">
+                            <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center flex-shrink-0"><span className="text-primary-400 font-medium">{getAuthorInitial(post)}</span></div>
+                            <div><h4 className="font-semibold text-white">{getAuthorName(post)}</h4><p className="text-xs text-slate-500">{new Date(post.created_at).toLocaleDateString()}</p></div>
+                          </div>
+                          <p className="text-slate-300 whitespace-pre-line">{post.content}</p>
+                          <div className="flex items-center gap-4 mt-4 pt-4 border-t border-slate-700">
+                            <button className="flex items-center gap-1 text-slate-400 hover:text-primary-400"><span className="w-4 h-4"><Icons.Heart /></span><span className="text-sm">Like</span></button>
+                            <button className="flex items-center gap-1 text-slate-400 hover:text-primary-400"><span className="w-4 h-4"><Icons.MessageCircle /></span><span className="text-sm">Comment</span></button>
+                            <button className="flex items-center gap-1 text-slate-400 hover:text-primary-400"><span className="w-4 h-4"><Icons.Share /></span><span className="text-sm">Share</span></button>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  ) : (<Card className="p-8 text-center"><p className="text-slate-400">No posts yet. Be the first to share something!</p></Card>)}
+                </>
+              ) : (
+                <>
+                  <h2 className="text-xl font-semibold text-white mb-4">My Connections</h2>
+                  {connectionsLoading ? (
+                    <div className="grid sm:grid-cols-2 gap-4">{[1, 2, 3, 4].map(i => (<Card key={i} className="p-4"><div className="flex gap-3"><Skeleton className="w-12 h-12 rounded-full" /><div><Skeleton className="h-4 w-28 mb-2" /><Skeleton className="h-3 w-36" /></div></div></Card>))}</div>
+                  ) : connections.length > 0 ? (
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {connections.map(conn => (
+                        <Card key={conn.id} className="p-4 card-hover" data-testid={`connection-${conn.id}`}>
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-primary-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                              <span className="text-primary-400 font-medium">{conn.first_name?.[0] || 'U'}</span>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-semibold text-white truncate">{conn.first_name || ''} {conn.last_name || ''}</h4>
+                              <p className="text-sm text-slate-400 truncate">{conn.headline || 'Logistics Professional'}</p>
+                            </div>
+                            <Badge variant="success">Connected</Badge>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  ) : (<Card className="p-8 text-center"><span className="text-slate-500 w-12 h-12 mx-auto block mb-4"><Icons.Users /></span><h3 className="text-lg font-semibold text-white mb-2">No connections yet</h3><p className="text-slate-400">Start connecting with professionals in your network</p></Card>)}
+                </>
+              )}
+            </div>
+
+            <div className="lg:col-span-1 space-y-6">
+              <Card className="p-6">
+                <h3 className="font-semibold text-white mb-4 flex items-center gap-2"><Icons.UserPlus /> Suggested Connections</h3>
+                {suggestedProfiles.length > 0 ? (
+                  <div className="space-y-4">
+                    {suggestedProfiles.map(profile => (
+                      <div key={profile.id} className="flex items-center gap-3" data-testid={`suggested-${profile.id}`}>
+                        <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                          <span className="text-primary-400 text-sm font-medium">{profile.first_name?.[0] || 'U'}</span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-white truncate">{profile.first_name || ''} {profile.last_name || ''}</p>
+                          <p className="text-xs text-slate-400 truncate">{profile.headline || profile.industry || 'Professional'}</p>
+                        </div>
+                        <Button size="sm" variant={pendingConnections.has(profile.id) ? 'secondary' : 'outline'} onClick={() => handleConnect(profile.id)} disabled={pendingConnections.has(profile.id)} data-testid={`btn-connect-${profile.id}`}>
+                          {pendingConnections.has(profile.id) ? 'Pending' : 'Connect'}
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (<p className="text-sm text-slate-400">No suggestions available at the moment.</p>)}
+              </Card>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // Profile Page with Edit Profile Modal
+    const ProfilePage = ({ navigate }) => {
+      const { user, logout, loading: authLoading, refreshUser } = useAuth();
+      const { showToast } = useToast();
+      const [showEditModal, setShowEditModal] = useState(false);
+      const [submitting, setSubmitting] = useState(false);
+      const [profileImage, setProfileImage] = useState(null);
+      const [uploading, setUploading] = useState(false);
+      const [profileData, setProfileData] = useState({
+        first_name: '',
+        last_name: '',
+        headline: '',
+        summary: '',
+        industry: '',
+        location: ''
+      });
+
+      useEffect(() => {
+        if (user) {
+          setProfileData({
+            first_name: user.first_name || user.firstName || '',
+            last_name: user.last_name || user.lastName || '',
+            headline: user.headline || user.title || '',
+            summary: user.summary || user.bio || '',
+            industry: user.industry || '',
+            location: user.location || ''
+          });
+        }
+      }, [user]);
+
+      const handleEditProfile = async (e) => {
+        e.preventDefault();
+        setSubmitting(true);
+        const result = await api.patch(`/api/profiles/${user.id}`, profileData);
+        if (result.success) {
+          showToast('Profile updated successfully!', 'success');
+          setShowEditModal(false);
+          await refreshUser();
+        } else {
+          showToast(result.error || result.message || 'Failed to update profile', 'error');
+        }
+        setSubmitting(false);
+      };
+
+      const handleImageUpload = async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        
+        const allowed = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        if (!allowed.includes(file.type)) {
+          showToast('Please select a valid image file (JPEG, PNG, GIF, or WebP)', 'error');
+          return;
+        }
+        
+        if (file.size > 5 * 1024 * 1024) {
+          showToast('Image must be less than 5MB', 'error');
+          return;
+        }
+        
+        setUploading(true);
+        const result = await api.uploadFile(`/api/profiles/${user.id}/image`, file, 'image');
+        if (result.success) {
+          showToast('Profile image updated!', 'success');
+          setProfileImage(result.data.profile_image_url);
+          await refreshUser();
+        } else {
+          showToast(result.error || 'Failed to upload image', 'error');
+        }
+        setUploading(false);
+      };
+
+      if (authLoading) {
+        return (
+          <div className="max-w-4xl mx-auto px-4 py-8">
+            <Card className="p-8">
+              <div className="flex items-center gap-6">
+                <Skeleton className="w-32 h-32 rounded-full" />
+                <div className="flex-1">
+                  <Skeleton className="h-8 w-1/2 mb-2" />
+                  <Skeleton className="h-4 w-1/3" />
+                </div>
+              </div>
+            </Card>
+          </div>
+        );
+      }
+
+      if (!user) {
+        navigate('/login');
+        return null;
+      }
+
+      return (
+        <div className="fade-in max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Card className="p-8 mb-8">
+            <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+              {(profileImage || user.profile_image_url) ? (
+                <img 
+                  src={profileImage || user.profile_image_url} 
+                  alt="Profile" 
+                  className="w-32 h-32 rounded-full object-cover border-4 border-primary-500/30"
+                />
+              ) : (
+                <div className="w-32 h-32 bg-primary-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-primary-400 text-4xl font-bold">{user.first_name?.[0] || user.firstName?.[0] || 'U'}{user.last_name?.[0] || user.lastName?.[0] || ''}</span>
+                </div>
+              )}
+              <div className="flex-1 text-center md:text-left">
+                <h1 className="text-3xl font-bold text-white mb-2">{user.first_name || user.firstName || 'User'} {user.last_name || user.lastName || ''}</h1>
+                <p className="text-slate-400 mb-2">{user.headline || user.title || 'Logistics Professional'}</p>
+                {user.location && <p className="text-slate-500 text-sm mb-2 flex items-center gap-1 justify-center md:justify-start"><span className="w-4 h-4"><Icons.MapPin /></span>{user.location}</p>}
+                {user.industry && <Badge variant="secondary" className="mb-4">{user.industry}</Badge>}
+                <p className="text-slate-500 text-sm">{user.email}</p>
+                {user.summary && <p className="text-slate-400 mt-4">{user.summary}</p>}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Button variant="outline" onClick={() => setShowEditModal(true)}>
+                  <span className="w-4 h-4 mr-2"><Icons.Edit /></span>
+                  Edit Profile
+                </Button>
+                <Button variant="ghost" onClick={logout}>Sign Out</Button>
+              </div>
+            </div>
+          </Card>
+
+          <Modal isOpen={showEditModal} onClose={() => setShowEditModal(false)} title="Edit Profile">
+            <form onSubmit={handleEditProfile} className="space-y-4">
+              <div className="flex flex-col items-center mb-6">
+                <div className="relative">
+                  {(profileImage || user.profile_image_url) ? (
+                    <img 
+                      src={profileImage || user.profile_image_url} 
+                      alt="Profile" 
+                      className="w-24 h-24 rounded-full object-cover border-4 border-primary-500/30"
+                    />
+                  ) : (
+                    <div className="w-24 h-24 bg-primary-500/20 rounded-full flex items-center justify-center">
+                      <span className="text-primary-400 text-2xl font-bold">{user.first_name?.[0] || 'U'}{user.last_name?.[0] || ''}</span>
+                    </div>
+                  )}
+                  <label className="absolute bottom-0 right-0 p-2 bg-primary-500 rounded-full cursor-pointer hover:bg-primary-600 transition-colors">
+                    <input 
+                      type="file" 
+                      accept="image/jpeg,image/jpg,image/png,image/gif,image/webp" 
+                      onChange={handleImageUpload} 
+                      className="hidden" 
+                      disabled={uploading}
+                    />
+                    {uploading ? (
+                      <span className="w-4 h-4 text-white"><Icons.Loader /></span>
+                    ) : (
+                      <span className="w-4 h-4 text-white"><Icons.Camera /></span>
+                    )}
+                  </label>
+                </div>
+                <p className="text-sm text-slate-400 mt-2">Click the camera icon to change photo</p>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <Input 
+                  label="First Name" 
+                  placeholder="John" 
+                  value={profileData.first_name} 
+                  onChange={(e) => setProfileData({...profileData, first_name: e.target.value})} 
+                />
+                <Input 
+                  label="Last Name" 
+                  placeholder="Doe" 
+                  value={profileData.last_name} 
+                  onChange={(e) => setProfileData({...profileData, last_name: e.target.value})} 
+                />
+              </div>
+              <Input 
+                label="Headline" 
+                placeholder="e.g., Senior Logistics Manager" 
+                value={profileData.headline} 
+                onChange={(e) => setProfileData({...profileData, headline: e.target.value})} 
+              />
+              <Textarea 
+                label="Summary" 
+                placeholder="Tell us about yourself..." 
+                rows={4} 
+                value={profileData.summary} 
+                onChange={(e) => setProfileData({...profileData, summary: e.target.value})} 
+              />
+              <Select 
+                label="Industry" 
+                value={profileData.industry} 
+                onChange={(e) => setProfileData({...profileData, industry: e.target.value})} 
+                options={[
+                  {value: 'Freight Forwarding', label: 'Freight Forwarding'},
+                  {value: 'Shipping', label: 'Shipping'},
+                  {value: 'Logistics', label: 'Logistics'},
+                  {value: 'Supply Chain', label: 'Supply Chain'},
+                  {value: 'Warehousing', label: 'Warehousing'},
+                  {value: 'Transportation', label: 'Transportation'},
+                  {value: 'Customs Brokerage', label: 'Customs Brokerage'},
+                  {value: 'E-commerce', label: 'E-commerce'},
+                  {value: 'Other', label: 'Other'}
+                ]} 
+              />
+              <Input 
+                label="Location" 
+                placeholder="City, Country" 
+                value={profileData.location} 
+                onChange={(e) => setProfileData({...profileData, location: e.target.value})} 
+                icon={Icons.MapPin}
+              />
+              <div className="flex justify-end gap-3 pt-4">
+                <Button type="button" variant="outline" onClick={() => setShowEditModal(false)}>Cancel</Button>
+                <Button type="submit" disabled={submitting}>
+                  {submitting && <span className="w-4 h-4 mr-2"><Icons.Loader /></span>}
+                  Save Changes
+                </Button>
+              </div>
+            </form>
+          </Modal>
+        </div>
+      );
+    };
+
+    // Login Page with Forgot Password
+    const LoginPage = ({ navigate }) => {
+      const { login, loading, error } = useAuth();
+      const { showToast } = useToast();
+      const [email, setEmail] = useState('');
+      const [password, setPassword] = useState('');
+      const [showForgotModal, setShowForgotModal] = useState(false);
+      const [forgotEmail, setForgotEmail] = useState('');
+      const [forgotSubmitting, setForgotSubmitting] = useState(false);
+      const [devToken, setDevToken] = useState(null);
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        await login(email, password);
+      };
+
+      const handleForgotPassword = async (e) => {
+        e.preventDefault();
+        if (!forgotEmail.trim()) {
+          showToast('Please enter your email', 'error');
+          return;
+        }
+        setForgotSubmitting(true);
+        setDevToken(null);
+        const result = await api.post('/api/auth/forgot-password', { email: forgotEmail });
+        if (result.success) {
+          showToast('If the email exists, a reset link has been sent', 'success');
+          if (result.dev_token) {
+            setDevToken(result.dev_token);
+          }
+        } else {
+          showToast('If the email exists, a reset link has been sent', 'success');
+        }
+        setForgotSubmitting(false);
+      };
+
+      return (
+        <div className="fade-in min-h-[80vh] flex items-center justify-center px-4">
+          <Card className="p-8 w-full max-w-md">
+            <div className="text-center mb-8">
+              <div className="w-16 h-16 bg-gradient-to-r from-primary-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-white w-8 h-8"><Icons.Network /></span>
+              </div>
+              <h1 className="text-2xl font-bold text-white">Welcome Back</h1>
+              <p className="text-slate-400 mt-2">Sign in to your MOLOLINK account</p>
+            </div>
+
+            {error && (
+              <div className="bg-red-500/20 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg mb-6 text-sm">
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <Input label="Email" type="email" placeholder="your@email.com" value={email} onChange={(e) => setEmail(e.target.value)} icon={Icons.Mail} required />
+              <Input label="Password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} icon={Icons.Lock} required />
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? <><span className="w-4 h-4 mr-2"><Icons.Loader /></span>Signing in...</> : 'Sign In'}
+              </Button>
+            </form>
+
+            <div className="text-center mt-4">
+              <button 
+                onClick={() => setShowForgotModal(true)} 
+                className="text-primary-400 hover:text-primary-300 text-sm"
+              >
+                Forgot Password?
+              </button>
+            </div>
+
+            <p className="text-center text-slate-400 text-sm mt-6">
+              Don't have an account? <button onClick={() => navigate('/register')} className="text-primary-400 hover:text-primary-300">Create one</button>
+            </p>
+          </Card>
+
+          <Modal isOpen={showForgotModal} onClose={() => { setShowForgotModal(false); setDevToken(null); }} title="Forgot Password">
+            <form onSubmit={handleForgotPassword} className="space-y-4">
+              <p className="text-slate-400 text-sm mb-4">Enter your email address and we'll send you a link to reset your password.</p>
+              <Input 
+                label="Email" 
+                type="email" 
+                placeholder="your@email.com" 
+                value={forgotEmail} 
+                onChange={(e) => setForgotEmail(e.target.value)} 
+                icon={Icons.Mail} 
+                required 
+              />
+              {devToken && (
+                <div className="bg-yellow-500/20 border border-yellow-500/50 text-yellow-400 px-4 py-3 rounded-lg text-sm">
+                  <p className="font-semibold mb-1">Development Token:</p>
+                  <p className="break-all font-mono text-xs">{devToken}</p>
+                  <button 
+                    type="button"
+                    onClick={() => navigate('/reset-password')}
+                    className="mt-2 text-yellow-300 hover:text-yellow-200 underline text-xs"
+                  >
+                    Go to Reset Password Page →
+                  </button>
+                </div>
+              )}
+              <div className="flex justify-end gap-3 pt-4">
+                <Button type="button" variant="outline" onClick={() => { setShowForgotModal(false); setDevToken(null); }}>Cancel</Button>
+                <Button type="submit" disabled={forgotSubmitting}>
+                  {forgotSubmitting && <span className="w-4 h-4 mr-2"><Icons.Loader /></span>}
+                  Send Reset Link
+                </Button>
+              </div>
+            </form>
+          </Modal>
+        </div>
+      );
+    };
+
+    // Reset Password Page
+    const ResetPasswordPage = ({ navigate }) => {
+      const { showToast } = useToast();
+      const [token, setToken] = useState('');
+      const [newPassword, setNewPassword] = useState('');
+      const [confirmPassword, setConfirmPassword] = useState('');
+      const [submitting, setSubmitting] = useState(false);
+      const [success, setSuccess] = useState(false);
+
+      useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
+        const urlToken = urlParams.get('token');
+        if (urlToken) {
+          setToken(urlToken);
+        }
+      }, []);
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!token.trim()) {
+          showToast('Please enter the reset token', 'error');
+          return;
+        }
+        if (newPassword.length < 8) {
+          showToast('Password must be at least 8 characters', 'error');
+          return;
+        }
+        if (newPassword !== confirmPassword) {
+          showToast('Passwords do not match', 'error');
+          return;
+        }
+        setSubmitting(true);
+        const result = await api.post('/api/auth/reset-password', { token, newPassword });
+        if (result.success) {
+          setSuccess(true);
+          showToast('Password reset successfully!', 'success');
+          setTimeout(() => navigate('/login'), 2000);
+        } else {
+          showToast(result.error || result.message || 'Failed to reset password', 'error');
+        }
+        setSubmitting(false);
+      };
+
+      if (success) {
+        return (
+          <div className="fade-in min-h-[80vh] flex items-center justify-center px-4">
+            <Card className="p-8 w-full max-w-md text-center">
+              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-green-400 w-8 h-8"><Icons.Check /></span>
+              </div>
+              <h1 className="text-2xl font-bold text-white mb-2">Password Reset!</h1>
+              <p className="text-slate-400 mb-6">Your password has been reset successfully. Redirecting to login...</p>
+              <Button onClick={() => navigate('/login')}>Go to Login</Button>
+            </Card>
+          </div>
+        );
+      }
+
+      return (
+        <div className="fade-in min-h-[80vh] flex items-center justify-center px-4">
+          <Card className="p-8 w-full max-w-md">
+            <div className="text-center mb-8">
+              <div className="w-16 h-16 bg-gradient-to-r from-primary-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-white w-8 h-8"><Icons.Key /></span>
+              </div>
+              <h1 className="text-2xl font-bold text-white">Reset Password</h1>
+              <p className="text-slate-400 mt-2">Enter your reset token and new password</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <Input 
+                label="Reset Token" 
+                type="text" 
+                placeholder="Paste your reset token here" 
+                value={token} 
+                onChange={(e) => setToken(e.target.value)} 
+                icon={Icons.Key} 
+                required 
+              />
+              <Input 
+                label="New Password" 
+                type="password" 
+                placeholder="Min. 8 characters" 
+                value={newPassword} 
+                onChange={(e) => setNewPassword(e.target.value)} 
+                icon={Icons.Lock} 
+                required 
+              />
+              <Input 
+                label="Confirm Password" 
+                type="password" 
+                placeholder="Re-enter new password" 
+                value={confirmPassword} 
+                onChange={(e) => setConfirmPassword(e.target.value)} 
+                icon={Icons.Lock} 
+                required 
+              />
+              <Button type="submit" className="w-full" disabled={submitting}>
+                {submitting ? <><span className="w-4 h-4 mr-2"><Icons.Loader /></span>Resetting...</> : 'Reset Password'}
+              </Button>
+            </form>
+
+            <p className="text-center text-slate-400 text-sm mt-6">
+              Remember your password? <button onClick={() => navigate('/login')} className="text-primary-400 hover:text-primary-300">Sign in</button>
+            </p>
+          </Card>
+        </div>
+      );
+    };
+
+    // Register Page
+    const RegisterPage = ({ navigate }) => {
+      const { register, loading, error } = useAuth();
+      const [formData, setFormData] = useState({ email: '', password: '', first_name: '', last_name: '', company: '', title: '' });
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        await register(formData);
+      };
+
+      return (
+        <div className="fade-in min-h-[80vh] flex items-center justify-center px-4 py-8">
+          <Card className="p-8 w-full max-w-md">
+            <div className="text-center mb-8">
+              <div className="w-16 h-16 bg-gradient-to-r from-primary-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-white w-8 h-8"><Icons.Network /></span>
+              </div>
+              <h1 className="text-2xl font-bold text-white">Join MOLOLINK</h1>
+              <p className="text-slate-400 mt-2">Create your professional account</p>
+            </div>
+
+            {error && (
+              <div className="bg-red-500/20 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg mb-6 text-sm">
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <Input label="First Name" placeholder="John" value={formData.first_name} onChange={(e) => setFormData({...formData, first_name: e.target.value})} required />
+                <Input label="Last Name" placeholder="Doe" value={formData.last_name} onChange={(e) => setFormData({...formData, last_name: e.target.value})} required />
+              </div>
+              <Input label="Email" type="email" placeholder="your@email.com" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} icon={Icons.Mail} required />
+              <Input label="Password" type="password" placeholder="Min. 8 characters" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} icon={Icons.Lock} required />
+              <Input label="Company (Optional)" placeholder="Your company name" value={formData.company} onChange={(e) => setFormData({...formData, company: e.target.value})} icon={Icons.Building} />
+              <Input label="Job Title (Optional)" placeholder="Your position" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} icon={Icons.Briefcase} />
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? <><span className="w-4 h-4 mr-2"><Icons.Loader /></span>Creating account...</> : 'Create Account'}
+              </Button>
+            </form>
+
+            <p className="text-center text-slate-400 text-sm mt-6">
+              Already have an account? <button onClick={() => navigate('/login')} className="text-primary-400 hover:text-primary-300">Sign in</button>
+            </p>
+          </Card>
+        </div>
+      );
+    };
+
+    // Not Found Page
+    const NotFoundPage = ({ navigate }) => (
+      <div className="min-h-[80vh] flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-6xl font-bold text-primary-400 mb-4">404</h1>
+          <p className="text-xl text-slate-400 mb-8">Page not found</p>
+          <Button onClick={() => navigate('/')}>Go Home</Button>
+        </div>
+      </div>
+    );
+
+    // Main App
+    const App = () => {
+      const { route, navigate } = useRouter();
+
+      const getRouteComponent = () => {
+        const path = route.split('?')[0];
+        
+        if (path === '/' || path === '') return <LandingPage navigate={navigate} />;
+        if (path === '/companies') return <CompaniesPage navigate={navigate} />;
+        if (path.startsWith('/company/')) {
+          const id = path.split('/')[2];
+          return <CompanyDetailPage navigate={navigate} id={id} />;
+        }
+        if (path === '/jobs') return <JobsPage navigate={navigate} />;
+        if (path.startsWith('/job/')) {
+          const id = path.split('/')[2];
+          return <JobDetailPage navigate={navigate} id={id} />;
+        }
+        if (path === '/marketplace') return <MarketplacePage navigate={navigate} />;
+        if (path === '/network') return <NetworkPage navigate={navigate} />;
+        if (path === '/profile') return <ProfilePage navigate={navigate} />;
+        if (path === '/login') return <LoginPage navigate={navigate} />;
+        if (path === '/register') return <RegisterPage navigate={navigate} />;
+        if (path === '/reset-password') return <ResetPasswordPage navigate={navigate} />;
+        return <NotFoundPage navigate={navigate} />;
+      };
+
+      return (
+        <ToastProvider>
+          <AuthProvider>
+            <div className="min-h-screen flex flex-col">
+              {/* EcosystemNav hidden */}
+              <Header navigate={navigate} />
+              <main className="flex-1">
+                {getRouteComponent()}
+              </main>
+              <Footer navigate={navigate} />
+              <MobileNav navigate={navigate} />
+              <div className="md:hidden h-20"></div>
+            </div>
+          </AuthProvider>
+        </ToastProvider>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

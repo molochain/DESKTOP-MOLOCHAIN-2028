@@ -1,0 +1,34 @@
+flowchart TD
+    A[User Visits Login Page] --> B{Has Account?}
+    B -->|No| C[Register New Account]
+    C --> D[Validate Email/Password]
+    D --> E[Hash Password with bcrypt]
+    E --> F[Store in Database]
+    F --> G[Send Welcome Email]
+    
+    B -->|Yes| H[Enter Credentials]
+    H --> I{Valid Credentials?}
+    I -->|No| J[Show Error Message]
+    J --> H
+    
+    I -->|Yes| K{2FA Enabled?}
+    K -->|No| L[Generate JWT Token]
+    K -->|Yes| M[Request TOTP Code]
+    M --> N{Valid Code?}
+    N -->|No| O[Show 2FA Error]
+    O --> M
+    N -->|Yes| L
+    
+    L --> P[Create Refresh Token]
+    P --> Q[Hash Token SHA-256]
+    Q --> R[Store in Database]
+    R --> S[Set HttpOnly Cookies]
+    S --> T[Redirect to Dashboard]
+    
+    T --> U{Token Expired?}
+    U -->|Yes| V[Use Refresh Token]
+    V --> W{Valid Refresh?}
+    W -->|Yes| X[Rotate Token]
+    X --> L
+    W -->|No| Y[Logout User]
+    Y --> A

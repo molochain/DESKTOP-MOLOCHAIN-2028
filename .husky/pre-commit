@@ -1,0 +1,16 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run TypeScript type checking
+echo "🔍 Running TypeScript checks..."
+npm run check
+
+# Run cleanup script
+echo "🧹 Running cleanup..."
+./scripts/cleanup.sh
+
+# Check for large files
+echo "📦 Checking file sizes..."
+find . -type f -size +5M -not -path "./node_modules/*" -not -path "./.git/*" -exec echo "Warning: Large file detected: {}" \;
+
+echo "✅ Pre-commit checks passed!"

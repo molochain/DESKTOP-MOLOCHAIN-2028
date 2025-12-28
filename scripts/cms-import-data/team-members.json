@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Alexander Voronov",
+    "position": "Chief Executive Officer",
+    "department": "Executive",
+    "bio": "Alexander brings over 25 years of experience in global logistics and supply chain management. He founded Molochain with a vision to revolutionize international trade through technology and exceptional service.",
+    "email": "alexander@molochain.com",
+    "linkedin_url": "https://linkedin.com/in/alexandervoronov",
+    "sort_order": 1,
+    "is_active": true
+  },
+  {
+    "name": "Maria Santos",
+    "position": "Chief Operations Officer",
+    "department": "Operations",
+    "bio": "Maria oversees all operational aspects of Molochain, ensuring seamless coordination across our global network. Her expertise in process optimization has driven significant efficiency improvements.",
+    "email": "maria@molochain.com",
+    "linkedin_url": "https://linkedin.com/in/mariasantos",
+    "sort_order": 2,
+    "is_active": true
+  },
+  {
+    "name": "Thomas Mueller",
+    "position": "Chief Technology Officer",
+    "department": "Technology",
+    "bio": "Thomas leads our digital transformation initiatives, including the OTMS platform and blockchain solutions. He previously built logistics systems for Fortune 500 companies.",
+    "email": "thomas@molochain.com",
+    "linkedin_url": "https://linkedin.com/in/thomasmueller",
+    "sort_order": 3,
+    "is_active": true
+  },
+  {
+    "name": "Jennifer Park",
+    "position": "VP of Sales & Business Development",
+    "department": "Sales",
+    "bio": "Jennifer drives our global expansion strategy and client relationships. Her deep understanding of customer needs helps shape our service offerings and partnership programs.",
+    "email": "jennifer@molochain.com",
+    "linkedin_url": "https://linkedin.com/in/jenniferpark",
+    "sort_order": 4,
+    "is_active": true
+  },
+  {
+    "name": "Ahmed Hassan",
+    "position": "Director of Customs & Compliance",
+    "department": "Customs",
+    "bio": "Ahmed leads our customs brokerage team, ensuring smooth clearance across 150+ countries. His expertise in trade regulations and compliance keeps our clients' shipments moving.",
+    "email": "ahmed@molochain.com",
+    "linkedin_url": "https://linkedin.com/in/ahmedhassan",
+    "sort_order": 5,
+    "is_active": true
+  },
+  {
+    "name": "Lisa Chen",
+    "position": "Head of Customer Success",
+    "department": "Customer Service",
+    "bio": "Lisa ensures every Molochain client receives exceptional service. Her team provides 24/7 support and proactive communication throughout the shipping journey.",
+    "email": "lisa@molochain.com",
+    "linkedin_url": "https://linkedin.com/in/lisachen",
+    "sort_order": 6,
+    "is_active": true
+  },
+  {
+    "name": "Roberto Gonzalez",
+    "position": "Director of Warehousing",
+    "department": "Warehousing",
+    "bio": "Roberto manages our global network of distribution centers. His focus on automation and inventory optimization delivers significant value to e-commerce and retail clients.",
+    "email": "roberto@molochain.com",
+    "linkedin_url": "https://linkedin.com/in/robertogonzalez",
+    "sort_order": 7,
+    "is_active": true
+  },
+  {
+    "name": "Sophie Williams",
+    "position": "Sustainability Manager",
+    "department": "Operations",
+    "bio": "Sophie leads our green logistics initiatives, developing carbon-neutral shipping options and sustainable practices across our operations.",
+    "email": "sophie@molochain.com",
+    "linkedin_url": "https://linkedin.com/in/sophiewilliams",
+    "sort_order": 8,
+    "is_active": true
+  }
+]

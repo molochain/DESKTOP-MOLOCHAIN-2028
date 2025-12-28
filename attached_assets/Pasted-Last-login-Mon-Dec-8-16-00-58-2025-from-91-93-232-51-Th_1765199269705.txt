@@ -1,0 +1,52 @@
+Last login: Mon Dec  8 16:00:58 2025 from 91.93.232.51
+
+This server is powered by Plesk.
+
+Run the 'plesk login' command and log in by browsing either of the links received in the output.
+Use the 'plesk' command to manage the server. Run 'plesk help' for more info.
+
+[root@zen-agnesi ~]# # Test if OTMS is actually responding on port 7020
+curl http://localhost:7020/v1
+
+# Check what's on port 7081 (probably nothing)
+curl http://localhost:7081/v1
+ss -tlnp | grep 7081
+{"success":false,"error":"Not found","path":"/v1","message":"The requested endpoint does not exist"}<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>400 Bad Request</title>
+</head><body>
+<h1>Bad Request</h1>
+<p>Your browser sent a request that this server could not understand.<br />
+Reason: You're speaking plain HTTP to an SSL-enabled server port.<br />
+ Instead use the HTTPS scheme to access this URL, please.<br />
+</p>
+</body></html>
+LISTEN 0      511                                      127.0.0.1:7081       0.0.0.0:*    users:(("httpd",pid=3600849,fd=4),("httpd",pid=3413158,fd=4),("httpd",pid=3413139,fd=4),("httpd",pid=3413136,fd=4),("httpd",pid=3413135,fd=4),("httpd",pid=3413134,fd=4),("httpd",pid=3413115,fd=4),("httpd",pid=316164,fd=4))
+[root@zen-agnesi ~]# # Check if there's a custom nginx config you can edit
+cat /var/www/vhosts/system/opt.molochain.com/conf/vhost_nginx.conf
+location /api/ {
+    proxy_pass http://127.0.0.1:3009;
+    proxy_http_version 1.1;
+
+    proxy_set_header Host              $host;
+    proxy_set_header X-Real-IP         $remote_addr;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    proxy_set_header Upgrade           $http_upgrade;
+    proxy_set_header Connection        "upgrade";
+}
+[root@zen-agnesi ~]# nano /var/www/vhosts/system/opt.molochain.com/conf/vhost_nginx.conf
+[root@zen-agnesi ~]# nginx -t && systemctl reload nginx
+nginx: [warn] the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/cdn.molochain.com.conf:2
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+[root@zen-agnesi ~]# curl https://opt.molochain.com/v1
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+[root@zen-agnesi ~]# 

@@ -1,0 +1,37 @@
+{
+  "filePermissions": {
+    "logs": "0640",
+    "certificates": "0600",
+    "config": "0644",
+    "scripts": "0755"
+  },
+  "allowedExtensions": [
+    ".js",
+    ".ts",
+    ".tsx",
+    ".json",
+    ".md",
+    ".css",
+    ".html"
+  ],
+  "blockedPaths": [
+    "/logs/",
+    "/certs/",
+    "/temp/",
+    "/.env",
+    "/node_modules/"
+  ],
+  "scanSchedule": {
+    "daily": [
+      "vulnerability",
+      "dependency"
+    ],
+    "weekly": [
+      "code-quality",
+      "security-audit"
+    ],
+    "monthly": [
+      "full-security-scan"
+    ]
+  }
+}

@@ -1,0 +1,326 @@
+Failed to load resource: the server responded with a status of 502 ()Understand this error
+login:1  Failed to load resource: the server responded with a status of 502 ()Understand this error
+login:1  GET https://admin.molochain.com/login 502 (Bad Gateway)Understand this error
+Navigated to https://admin.molochain.com/login
+favicon.ico:1  GET https://admin.molochain.com/favicon.ico 502 (Bad Gateway)Understand this error
+login:1  GET https://admin.molochain.com/login 502 (Bad Gateway)Understand this error
+Navigated to https://admin.molochain.com/login
+favicon.ico:1  GET https://admin.molochain.com/favicon.ico 502 (Bad Gateway)Understand this error
+2login:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was receivedUnderstand this error
+Navigated to https://admin.molochain.com/login
+index-wyQCPHLS.js:2  GET https://admin.molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-wyQCPHLS.js:2
+(anonymous) @ index-wyQCPHLS.js:2
+ol @ vendor-react-BBQ8aeLp.js:32
+Xt @ vendor-react-BBQ8aeLp.js:32
+Ii @ vendor-react-BBQ8aeLp.js:32
+pt @ vendor-react-BBQ8aeLp.js:30
+id @ vendor-react-BBQ8aeLp.js:32
+yt @ vendor-react-BBQ8aeLp.js:32
+Ua @ vendor-react-BBQ8aeLp.js:32
+E @ vendor-react-BBQ8aeLp.js:17
+un @ vendor-react-BBQ8aeLp.js:17Understand this error
+index-wyQCPHLS.js:15 Fetch finished loading: GET "https://admin.molochain.com/locales/en/translation.json".
+_n @ index-wyQCPHLS.js:15
+Hf @ index-wyQCPHLS.js:15
+Bf @ index-wyQCPHLS.js:15
+value @ index-wyQCPHLS.js:15
+(anonymous) @ index-wyQCPHLS.js:15
+Promise.then
+value @ index-wyQCPHLS.js:15
+value @ index-wyQCPHLS.js:15
+read @ index-wyQCPHLS.js:15
+loadOne @ index-wyQCPHLS.js:15
+(anonymous) @ index-wyQCPHLS.js:15
+prepareLoading @ index-wyQCPHLS.js:15
+load @ index-wyQCPHLS.js:15
+loadResources @ index-wyQCPHLS.js:15
+l @ index-wyQCPHLS.js:15
+changeLanguage @ index-wyQCPHLS.js:15
+u @ index-wyQCPHLS.js:15
+setTimeout
+init @ index-wyQCPHLS.js:15
+(anonymous) @ index-wyQCPHLS.js:15
+index-wyQCPHLS.js:2 Fetch failed loading: GET "https://admin.molochain.com/api/auth/me".
+(anonymous) @ index-wyQCPHLS.js:2
+(anonymous) @ index-wyQCPHLS.js:2
+ol @ vendor-react-BBQ8aeLp.js:32
+Xt @ vendor-react-BBQ8aeLp.js:32
+Ii @ vendor-react-BBQ8aeLp.js:32
+pt @ vendor-react-BBQ8aeLp.js:30
+id @ vendor-react-BBQ8aeLp.js:32
+yt @ vendor-react-BBQ8aeLp.js:32
+Ua @ vendor-react-BBQ8aeLp.js:32
+E @ vendor-react-BBQ8aeLp.js:17
+un @ vendor-react-BBQ8aeLp.js:17
+Login-BSsu1W84.js:1 Fetch finished loading: POST "https://admin.molochain.com/api/auth/login".
+mutationFn @ Login-BSsu1W84.js:1
+fn @ vendor-utils-CAhs-Gf8.js:1
+m @ vendor-utils-CAhs-Gf8.js:1
+start @ vendor-utils-CAhs-Gf8.js:1
+execute @ vendor-utils-CAhs-Gf8.js:1
+await in execute
+mutate @ vendor-utils-CAhs-Gf8.js:1
+(anonymous) @ vendor-utils-CAhs-Gf8.js:1
+b @ Login-BSsu1W84.js:1
+Pf @ vendor-react-BBQ8aeLp.js:29
+zf @ vendor-react-BBQ8aeLp.js:29
+Tf @ vendor-react-BBQ8aeLp.js:29
+ui @ vendor-react-BBQ8aeLp.js:29
+Ws @ vendor-react-BBQ8aeLp.js:29
+(anonymous) @ vendor-react-BBQ8aeLp.js:29
+Eo @ vendor-react-BBQ8aeLp.js:32
+ms @ vendor-react-BBQ8aeLp.js:29
+Rl @ vendor-react-BBQ8aeLp.js:29
+Gu @ vendor-react-BBQ8aeLp.js:29
+Qf @ vendor-react-BBQ8aeLp.js:29
+Navigated to https://admin.molochain.com/login
+index-wyQCPHLS.js:15 Fetch finished loading: GET "https://admin.molochain.com/locales/en/translation.json".
+_n @ index-wyQCPHLS.js:15
+Hf @ index-wyQCPHLS.js:15
+Bf @ index-wyQCPHLS.js:15
+value @ index-wyQCPHLS.js:15
+(anonymous) @ index-wyQCPHLS.js:15
+Promise.then
+value @ index-wyQCPHLS.js:15
+value @ index-wyQCPHLS.js:15
+read @ index-wyQCPHLS.js:15
+loadOne @ index-wyQCPHLS.js:15
+(anonymous) @ index-wyQCPHLS.js:15
+prepareLoading @ index-wyQCPHLS.js:15
+load @ index-wyQCPHLS.js:15
+loadResources @ index-wyQCPHLS.js:15
+l @ index-wyQCPHLS.js:15
+changeLanguage @ index-wyQCPHLS.js:15
+u @ index-wyQCPHLS.js:15
+setTimeout
+init @ index-wyQCPHLS.js:15
+(anonymous) @ index-wyQCPHLS.js:15
+index-wyQCPHLS.js:2 Fetch finished loading: GET "https://admin.molochain.com/api/auth/me".
+(anonymous) @ index-wyQCPHLS.js:2
+(anonymous) @ index-wyQCPHLS.js:2
+ol @ vendor-react-BBQ8aeLp.js:32
+Xt @ vendor-react-BBQ8aeLp.js:32
+Ii @ vendor-react-BBQ8aeLp.js:32
+pt @ vendor-react-BBQ8aeLp.js:30
+id @ vendor-react-BBQ8aeLp.js:32
+yt @ vendor-react-BBQ8aeLp.js:32
+Ua @ vendor-react-BBQ8aeLp.js:32
+E @ vendor-react-BBQ8aeLp.js:17
+un @ vendor-react-BBQ8aeLp.js:17
+Login-BSsu1W84.js:1 Fetch finished loading: POST "https://admin.molochain.com/api/auth/login".
+mutationFn @ Login-BSsu1W84.js:1
+fn @ vendor-utils-CAhs-Gf8.js:1
+m @ vendor-utils-CAhs-Gf8.js:1
+start @ vendor-utils-CAhs-Gf8.js:1
+execute @ vendor-utils-CAhs-Gf8.js:1
+await in execute
+mutate @ vendor-utils-CAhs-Gf8.js:1
+(anonymous) @ vendor-utils-CAhs-Gf8.js:1
+b @ Login-BSsu1W84.js:1
+Pf @ vendor-react-BBQ8aeLp.js:29
+zf @ vendor-react-BBQ8aeLp.js:29
+Tf @ vendor-react-BBQ8aeLp.js:29
+ui @ vendor-react-BBQ8aeLp.js:29
+Ws @ vendor-react-BBQ8aeLp.js:29
+(anonymous) @ vendor-react-BBQ8aeLp.js:29
+Eo @ vendor-react-BBQ8aeLp.js:32
+ms @ vendor-react-BBQ8aeLp.js:29
+Rl @ vendor-react-BBQ8aeLp.js:29
+Gu @ vendor-react-BBQ8aeLp.js:29
+Qf @ vendor-react-BBQ8aeLp.js:29
+Navigated to https://admin.molochain.com/admin
+33Fetch finished loading: GET "<URL>".
+Dashboard-DWVpgmYz.js:1  GET https://admin.molochain.com/api/health-recommendations 503 (Service Unavailable)
+queryFn @ Dashboard-DWVpgmYz.js:1
+i @ vendor-utils-CAhs-Gf8.js:1
+m @ vendor-utils-CAhs-Gf8.js:1
+start @ vendor-utils-CAhs-Gf8.js:1
+fetch @ vendor-utils-CAhs-Gf8.js:1
+Qt @ vendor-utils-CAhs-Gf8.js:1
+onSubscribe @ vendor-utils-CAhs-Gf8.js:1
+subscribe @ vendor-utils-CAhs-Gf8.js:1
+(anonymous) @ vendor-utils-CAhs-Gf8.js:1
+oa @ vendor-react-BBQ8aeLp.js:30
+ol @ vendor-react-BBQ8aeLp.js:32
+Xt @ vendor-react-BBQ8aeLp.js:32
+id @ vendor-react-BBQ8aeLp.js:32
+yt @ vendor-react-BBQ8aeLp.js:32
+Ii @ vendor-react-BBQ8aeLp.js:32
+pt @ vendor-react-BBQ8aeLp.js:30
+(anonymous) @ vendor-react-BBQ8aeLp.js:32
+setTimeout
+Ci @ vendor-utils-CAhs-Gf8.js:1
+a @ vendor-utils-CAhs-Gf8.js:1
+batch @ vendor-utils-CAhs-Gf8.js:1
+Oe @ vendor-utils-CAhs-Gf8.js:1
+fetch @ vendor-utils-CAhs-Gf8.js:1
+await in fetch
+Qt @ vendor-utils-CAhs-Gf8.js:1
+onSubscribe @ vendor-utils-CAhs-Gf8.js:1
+subscribe @ vendor-utils-CAhs-Gf8.js:1
+(anonymous) @ vendor-utils-CAhs-Gf8.js:1
+oa @ vendor-react-BBQ8aeLp.js:30
+ol @ vendor-react-BBQ8aeLp.js:32
+Xt @ vendor-react-BBQ8aeLp.js:32
+Ii @ vendor-react-BBQ8aeLp.js:32
+pt @ vendor-react-BBQ8aeLp.js:30
+id @ vendor-react-BBQ8aeLp.js:32
+yt @ vendor-react-BBQ8aeLp.js:32
+Ua @ vendor-react-BBQ8aeLp.js:32
+E @ vendor-react-BBQ8aeLp.js:17
+un @ vendor-react-BBQ8aeLp.js:17Understand this error
+Dashboard-DWVpgmYz.js:1 Fetch failed loading: GET "https://admin.molochain.com/api/health-recommendations".
+queryFn @ Dashboard-DWVpgmYz.js:1
+i @ vendor-utils-CAhs-Gf8.js:1
+m @ vendor-utils-CAhs-Gf8.js:1
+start @ vendor-utils-CAhs-Gf8.js:1
+fetch @ vendor-utils-CAhs-Gf8.js:1
+Qt @ vendor-utils-CAhs-Gf8.js:1
+onSubscribe @ vendor-utils-CAhs-Gf8.js:1
+subscribe @ vendor-utils-CAhs-Gf8.js:1
+(anonymous) @ vendor-utils-CAhs-Gf8.js:1
+oa @ vendor-react-BBQ8aeLp.js:30
+ol @ vendor-react-BBQ8aeLp.js:32
+Xt @ vendor-react-BBQ8aeLp.js:32
+id @ vendor-react-BBQ8aeLp.js:32
+yt @ vendor-react-BBQ8aeLp.js:32
+Ii @ vendor-react-BBQ8aeLp.js:32
+pt @ vendor-react-BBQ8aeLp.js:30
+(anonymous) @ vendor-react-BBQ8aeLp.js:32
+setTimeout
+Ci @ vendor-utils-CAhs-Gf8.js:1
+a @ vendor-utils-CAhs-Gf8.js:1
+batch @ vendor-utils-CAhs-Gf8.js:1
+Oe @ vendor-utils-CAhs-Gf8.js:1
+fetch @ vendor-utils-CAhs-Gf8.js:1
+await in fetch
+Qt @ vendor-utils-CAhs-Gf8.js:1
+onSubscribe @ vendor-utils-CAhs-Gf8.js:1
+subscribe @ vendor-utils-CAhs-Gf8.js:1
+(anonymous) @ vendor-utils-CAhs-Gf8.js:1
+oa @ vendor-react-BBQ8aeLp.js:30
+ol @ vendor-react-BBQ8aeLp.js:32
+Xt @ vendor-react-BBQ8aeLp.js:32
+Ii @ vendor-react-BBQ8aeLp.js:32
+pt @ vendor-react-BBQ8aeLp.js:30
+id @ vendor-react-BBQ8aeLp.js:32
+yt @ vendor-react-BBQ8aeLp.js:32
+Ua @ vendor-react-BBQ8aeLp.js:32
+E @ vendor-react-BBQ8aeLp.js:17
+un @ vendor-react-BBQ8aeLp.js:17
+index-wyQCPHLS.js:2  GET https://admin.molochain.com/api/admin/branding/assets 500 (Internal Server Error)
+queryFn @ index-wyQCPHLS.js:2
+i @ vendor-utils-CAhs-Gf8.js:1
+m @ vendor-utils-CAhs-Gf8.js:1
+start @ vendor-utils-CAhs-Gf8.js:1
+fetch @ vendor-utils-CAhs-Gf8.js:1
+Qt @ vendor-utils-CAhs-Gf8.js:1
+onSubscribe @ vendor-utils-CAhs-Gf8.js:1
+subscribe @ vendor-utils-CAhs-Gf8.js:1
+(anonymous) @ vendor-utils-CAhs-Gf8.js:1
+oa @ vendor-react-BBQ8aeLp.js:30
+ol @ vendor-react-BBQ8aeLp.js:32
+Xt @ vendor-react-BBQ8aeLp.js:32
+Ii @ vendor-react-BBQ8aeLp.js:32
+pt @ vendor-react-BBQ8aeLp.js:30
+id @ vendor-react-BBQ8aeLp.js:32
+yt @ vendor-react-BBQ8aeLp.js:32
+Ua @ vendor-react-BBQ8aeLp.js:32
+E @ vendor-react-BBQ8aeLp.js:17
+un @ vendor-react-BBQ8aeLp.js:17Understand this error
+index-wyQCPHLS.js:2 Fetch failed loading: GET "https://admin.molochain.com/api/admin/branding/assets".
+queryFn @ index-wyQCPHLS.js:2
+i @ vendor-utils-CAhs-Gf8.js:1
+m @ vendor-utils-CAhs-Gf8.js:1
+start @ vendor-utils-CAhs-Gf8.js:1
+fetch @ vendor-utils-CAhs-Gf8.js:1
+Qt @ vendor-utils-CAhs-Gf8.js:1
+onSubscribe @ vendor-utils-CAhs-Gf8.js:1
+subscribe @ vendor-utils-CAhs-Gf8.js:1
+(anonymous) @ vendor-utils-CAhs-Gf8.js:1
+oa @ vendor-react-BBQ8aeLp.js:30
+ol @ vendor-react-BBQ8aeLp.js:32
+Xt @ vendor-react-BBQ8aeLp.js:32
+Ii @ vendor-react-BBQ8aeLp.js:32
+pt @ vendor-react-BBQ8aeLp.js:30
+id @ vendor-react-BBQ8aeLp.js:32
+yt @ vendor-react-BBQ8aeLp.js:32
+Ua @ vendor-react-BBQ8aeLp.js:32
+E @ vendor-react-BBQ8aeLp.js:17
+un @ vendor-react-BBQ8aeLp.js:17
+11Fetch finished loading: GET "<URL>?".
+Navigated to https://admin.molochain.com/portal
+index-wyQCPHLS.js:15 Fetch finished loading: GET "https://admin.molochain.com/locales/en/translation.json".
+_n @ index-wyQCPHLS.js:15
+Hf @ index-wyQCPHLS.js:15
+Bf @ index-wyQCPHLS.js:15
+value @ index-wyQCPHLS.js:15
+(anonymous) @ index-wyQCPHLS.js:15
+Promise.then
+value @ index-wyQCPHLS.js:15
+value @ index-wyQCPHLS.js:15
+read @ index-wyQCPHLS.js:15
+loadOne @ index-wyQCPHLS.js:15
+(anonymous) @ index-wyQCPHLS.js:15
+prepareLoading @ index-wyQCPHLS.js:15
+load @ index-wyQCPHLS.js:15
+loadResources @ index-wyQCPHLS.js:15
+l @ index-wyQCPHLS.js:15
+changeLanguage @ index-wyQCPHLS.js:15
+u @ index-wyQCPHLS.js:15
+setTimeout
+init @ index-wyQCPHLS.js:15
+(anonymous) @ index-wyQCPHLS.js:15
+index-wyQCPHLS.js:2 Fetch finished loading: GET "https://admin.molochain.com/api/auth/me".
+(anonymous) @ index-wyQCPHLS.js:2
+(anonymous) @ index-wyQCPHLS.js:2
+ol @ vendor-react-BBQ8aeLp.js:32
+Xt @ vendor-react-BBQ8aeLp.js:32
+Ii @ vendor-react-BBQ8aeLp.js:32
+pt @ vendor-react-BBQ8aeLp.js:30
+id @ vendor-react-BBQ8aeLp.js:32
+yt @ vendor-react-BBQ8aeLp.js:32
+Ua @ vendor-react-BBQ8aeLp.js:32
+E @ vendor-react-BBQ8aeLp.js:17
+un @ vendor-react-BBQ8aeLp.js:17
+index-wyQCPHLS.js:2 Fetch finished loading: GET "https://admin.molochain.com/api/cms/menu".
+queryFn @ index-wyQCPHLS.js:2
+i @ vendor-utils-CAhs-Gf8.js:1
+m @ vendor-utils-CAhs-Gf8.js:1
+start @ vendor-utils-CAhs-Gf8.js:1
+fetch @ vendor-utils-CAhs-Gf8.js:1
+Qt @ vendor-utils-CAhs-Gf8.js:1
+onSubscribe @ vendor-utils-CAhs-Gf8.js:1
+subscribe @ vendor-utils-CAhs-Gf8.js:1
+(anonymous) @ vendor-utils-CAhs-Gf8.js:1
+oa @ vendor-react-BBQ8aeLp.js:30
+ol @ vendor-react-BBQ8aeLp.js:32
+Xt @ vendor-react-BBQ8aeLp.js:32
+Ii @ vendor-react-BBQ8aeLp.js:32
+pt @ vendor-react-BBQ8aeLp.js:30
+id @ vendor-react-BBQ8aeLp.js:32
+yt @ vendor-react-BBQ8aeLp.js:32
+Ua @ vendor-react-BBQ8aeLp.js:32
+E @ vendor-react-BBQ8aeLp.js:17
+un @ vendor-react-BBQ8aeLp.js:17
+index-wyQCPHLS.js:2 Fetch finished loading: GET "https://admin.molochain.com/api/cms/settings".
+queryFn @ index-wyQCPHLS.js:2
+i @ vendor-utils-CAhs-Gf8.js:1
+m @ vendor-utils-CAhs-Gf8.js:1
+start @ vendor-utils-CAhs-Gf8.js:1
+fetch @ vendor-utils-CAhs-Gf8.js:1
+Qt @ vendor-utils-CAhs-Gf8.js:1
+onSubscribe @ vendor-utils-CAhs-Gf8.js:1
+subscribe @ vendor-utils-CAhs-Gf8.js:1
+(anonymous) @ vendor-utils-CAhs-Gf8.js:1
+oa @ vendor-react-BBQ8aeLp.js:30
+ol @ vendor-react-BBQ8aeLp.js:32
+Xt @ vendor-react-BBQ8aeLp.js:32
+Ii @ vendor-react-BBQ8aeLp.js:32
+pt @ vendor-react-BBQ8aeLp.js:30
+id @ vendor-react-BBQ8aeLp.js:32
+yt @ vendor-react-BBQ8aeLp.js:32
+Ua @ vendor-react-BBQ8aeLp.js:32
+E @ vendor-react-BBQ8aeLp.js:17
+un @ vendor-react-BBQ8aeLp.js:17

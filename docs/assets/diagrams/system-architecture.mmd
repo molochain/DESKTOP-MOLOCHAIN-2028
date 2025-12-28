@@ -1,0 +1,48 @@
+graph TB
+    subgraph "Frontend Layer"
+        UI[React 18 + TypeScript]
+        Vite[Vite Build Tool]
+        TailwindCSS[Tailwind CSS]
+        ShadcnUI[shadcn/ui Components]
+    end
+
+    subgraph "Backend Layer"
+        Express[Express.js Server]
+        Routes[API Routes]
+        Middleware[Security Middleware]
+        WebSocket[WebSocket Manager]
+    end
+
+    subgraph "Data Layer"
+        PostgreSQL[(PostgreSQL)]
+        DrizzleORM[Drizzle ORM]
+        Cache[Cache Layer]
+    end
+
+    subgraph "External Services"
+        OpenAI[OpenAI API]
+        CMS[Laravel CMS]
+        OTMS[OTMS Platform]
+        Postfix[Postfix Email]
+    end
+
+    subgraph "Authentication"
+        JWT[JWT Tokens]
+        Passport[Passport.js]
+        TwoFA[2FA TOTP]
+    end
+
+    UI --> Express
+    Express --> Routes
+    Routes --> Middleware
+    Middleware --> DrizzleORM
+    DrizzleORM --> PostgreSQL
+    Express --> WebSocket
+    Express --> Cache
+    Routes --> OpenAI
+    Routes --> CMS
+    Routes --> OTMS
+    Routes --> Postfix
+    Middleware --> JWT
+    JWT --> Passport
+    Passport --> TwoFA

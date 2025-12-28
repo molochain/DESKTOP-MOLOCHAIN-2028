@@ -1,0 +1,32 @@
+{
+  "name": "@molochain/shared-permissions",
+  "version": "1.0.0",
+  "description": "Shared RBAC permission system for MoloChain services",
+  "main": "index.ts",
+  "types": "index.ts",
+  "exports": {
+    ".": {
+      "import": "./index.ts",
+      "require": "./index.ts",
+      "types": "./index.ts"
+    },
+    "./types": {
+      "import": "./types.ts",
+      "require": "./types.ts",
+      "types": "./types.ts"
+    }
+  },
+  "keywords": [
+    "permissions",
+    "rbac",
+    "authorization",
+    "molochain"
+  ],
+  "author": "MoloChain",
+  "license": "UNLICENSED",
+  "private": true,
+  "files": [
+    "index.ts",
+    "types.ts"
+  ]
+}

@@ -1,0 +1,223 @@
+# =============================================================================
+# Molochain Development Docker Compose
+# Development environment with hot-reload and debugging
+# =============================================================================
+version: '3.8'
+
+services:
+  # ---------------------------------------------------------------------------
+  # Main Platform (Development Mode)
+  # ---------------------------------------------------------------------------
+  main:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.main
+      target: deps
+    container_name: molochain-main-dev
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+      - "9229:9229"
+    environment:
+      - NODE_ENV=development
+      - PORT=5000
+      - DATABASE_URL=${DATABASE_URL:-postgresql://molochain:devpassword@postgres:5432/molochain_dev}
+      - SESSION_SECRET=${SESSION_SECRET:-dev-session-secret-change-in-production}
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-change-in-production}
+      - AUTH_SERVICE_URL=http://auth:7010
+      - ADMIN_SERVICE_URL=http://admin:7000
+      - REDIS_URL=redis://redis:6379
+      - DEBUG=molochain:*
+      - LOG_LEVEL=debug
+    volumes:
+      - ../:/app
+      - /app/node_modules
+      - /app/packages/shared-permissions/node_modules
+      - /app/packages/shared-auth/node_modules
+      - /app/packages/shared-audit/node_modules
+    working_dir: /app
+    command: npm run dev
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - molochain-dev
+    stdin_open: true
+    tty: true
+
+  # ---------------------------------------------------------------------------
+  # Admin Microservice (Development Mode)
+  # ---------------------------------------------------------------------------
+  admin:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.admin
+      target: deps
+    container_name: molochain-admin-dev
+    restart: unless-stopped
+    ports:
+      - "7000:7000"
+      - "9230:9229"
+    environment:
+      - NODE_ENV=development
+      - PORT=7000
+      - SERVICE_NAME=admin-service
+      - ADMIN_MODE=standalone
+      - DATABASE_URL=${DATABASE_URL:-postgresql://molochain:devpassword@postgres:5432/molochain_dev}
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-change-in-production}
+      - AUTH_SERVICE_URL=http://auth:7010
+      - REDIS_URL=redis://redis:6379
+      - DEBUG=molochain:admin:*
+      - LOG_LEVEL=debug
+      - RATE_LIMIT_ENABLED=false
+    volumes:
+      - ../server:/app/server
+      - ../shared:/app/shared
+      - ../packages:/app/packages
+      - /app/node_modules
+    working_dir: /app
+    command: npx tsx watch server/index.ts
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - molochain-dev
+    stdin_open: true
+    tty: true
+
+  # ---------------------------------------------------------------------------
+  # Auth Service (Development Mode)
+  # ---------------------------------------------------------------------------
+  auth:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.auth
+      target: deps
+    container_name: molochain-auth-dev
+    restart: unless-stopped
+    ports:
+      - "7010:7010"
+      - "9231:9229"
+    environment:
+      - NODE_ENV=development
+      - PORT=7010
+      - SERVICE_NAME=auth-service
+      - DATABASE_URL=${DATABASE_URL:-postgresql://molochain:devpassword@postgres:5432/molochain_dev}
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-change-in-production}
+      - SESSION_SECRET=${SESSION_SECRET:-dev-session-secret-change-in-production}
+      - REDIS_URL=redis://redis:6379
+      - DEBUG=molochain:auth:*
+      - LOG_LEVEL=debug
+    volumes:
+      - ../server:/app/server
+      - ../shared:/app/shared
+      - ../packages:/app/packages
+      - /app/node_modules
+    working_dir: /app
+    command: npx tsx watch server/index.ts
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - molochain-dev
+    stdin_open: true
+    tty: true
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL (Development)
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:15-alpine
+    container_name: molochain-postgres-dev
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=molochain
+      - POSTGRES_PASSWORD=devpassword
+      - POSTGRES_DB=molochain_dev
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    networks:
+      - molochain-dev
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U molochain -d molochain_dev"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  # ---------------------------------------------------------------------------
+  # Redis (Development)
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: molochain-redis-dev
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_dev_data:/data
+    networks:
+      - molochain-dev
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+  # ---------------------------------------------------------------------------
+  # Adminer (Database Management UI)
+  # ---------------------------------------------------------------------------
+  adminer:
+    image: adminer:latest
+    container_name: molochain-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=postgres
+    depends_on:
+      - postgres
+    networks:
+      - molochain-dev
+
+  # ---------------------------------------------------------------------------
+  # Redis Commander (Redis Management UI)
+  # ---------------------------------------------------------------------------
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: molochain-redis-commander
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    depends_on:
+      - redis
+    networks:
+      - molochain-dev
+
+# =============================================================================
+# Volumes
+# =============================================================================
+volumes:
+  postgres_dev_data:
+    driver: local
+  redis_dev_data:
+    driver: local
+
+# =============================================================================
+# Networks
+# =============================================================================
+networks:
+  molochain-dev:
+    driver: bridge

@@ -1,0 +1,400 @@
+Last login: Mon Dec  8 16:04:55 2025 from 91.93.232.51
+
+This server is powered by Plesk.
+
+Run the 'plesk login' command and log in by browsing either of the links received in the output.
+Use the 'plesk' command to manage the server. Run 'plesk help' for more info.
+
+[root@zen-agnesi ~]# # Check what's at the cms.molochain.com document root
+ls -la /var/www/vhosts/molochain.com/cms.molochain.com/
+
+# Check if it's a Laravel project
+cat /var/www/vhosts/molochain.com/cms.molochain.com/composer.json 2>/dev/null | head -30
+
+# Check nginx config for cms.molochain.com
+cat /var/www/vhosts/system/cms.molochain.com/conf/nginx.conf
+
+# Check if there's another PM2 user running it
+pm2 list
+total 3780
+drwxr-xr-x. 22 molochain1 psacln    4096 Dec  6 16:54 .
+drwx--x--x. 39 molochain1 psacln    4096 Dec  6 16:55 ..
+-rw-r--r--.  1 molochain1 psacln     252 Nov  6 20:42 .editorconfig
+-rw-r--r--.  1 molochain1 psacln    1160 Nov 29 15:11 .env
+-rw-r--r--.  1 molochain1 psacln    1137 Nov 29 14:26 .env.bak-2025-11-29-1426
+-rw-r--r--.  1 molochain1 psacln    1160 Nov 29 15:11 .env.bak-2025-11-29-1511
+-rw-r--r--.  1 molochain1 psacln    1086 Nov  6 20:42 .env.example
+-rw-r--r--.  1 molochain1 psacln     186 Nov  6 20:42 .gitattributes
+-rw-r--r--.  1 molochain1 psacln     283 Nov  6 20:42 .gitignore
+-rw-r--r--.  1 molochain1 psacln       3 Nov 29 21:57 .node-version
+lrwxrwxrwx.  1 molochain1 psacln      17 Nov 29 13:42 .php-ini -> ./public/.php-ini
+lrwxrwxrwx.  1 molochain1 psacln      21 Nov 29 13:42 .php-version -> ./public/.php-version
+-rw-r--r--.  1 molochain1 psacln    3911 Nov  6 20:42 README.md
+-rw-r--r--.  1 molochain1 psacln       0 Nov 29 17:34 admin,
+drwxr-xr-x.  7 molochain1 psacln      83 Nov 29 13:45 app
+drwxr-xr-x.  5 molochain1 psacln      49 Nov 29 13:45 app.bak
+-rw-r--r--.  1 molochain1 psacln     425 Nov  6 20:42 artisan
+drwxr-xr-x.  5 molochain1 psacln      54 Nov 29 17:52 backups
+drwxr-xr-x.  3 molochain1 psacln      90 Nov 29 14:33 bootstrap
+drwxr-xr-x.  2 molochain1 psacln       6 Nov 29 12:02 cgi-bin
+drwxr-xr-x.  2 molochain1 psacln       6 Nov 29 13:36 cms-backend
+-rw-r--r--.  1 molochain1 psacln    8867 Nov 30 13:47 cms-backup-2025-11-30-1347.tar.gz
+-rw-r--r--.  1 root       root     10640 Dec  6 16:54 cms_schema.sql
+-rw-r--r--.  1 molochain1 psacln    2930 Nov 30 13:13 composer.json
+-rw-r--r--.  1 molochain1 psacln    2836 Nov 29 15:32 composer.json.bak-2025-11-29-1532
+-rw-r--r--.  1 molochain1 psacln  374965 Nov 30 13:13 composer.lock
+-rw-r--r--.  1 molochain1 psacln 3281712 Nov 30 13:12 composer.phar
+drwxr-xr-x.  4 molochain1 psacln    4096 Nov 30 13:25 config
+drwxr-xr-x.  5 molochain1 psacln      97 Nov 29 14:55 database
+-rw-r--r--.  1 molochain1 psacln       0 Nov 29 17:06 email
+drwxr-xr-x.  3 molochain1 psacln      23 Nov 29 13:42 git
+-rw-r--r--.  1 molochain1 psacln    1653 Nov 29 12:02 index.html
+-rw-r--r--.  1 molochain1 psacln       0 Nov 29 17:06 name
+drwxr-xr-x. 78 molochain1 psacln    4096 Nov 29 15:50 node_modules
+-rw-r--r--.  1 molochain1 psacln   92252 Nov 29 15:50 package-lock.json
+-rw-r--r--.  1 molochain1 psacln     414 Nov  6 20:42 package.json
+-rw-r--r--.  1 molochain1 psacln    1284 Nov  6 20:42 phpunit.xml
+drwxr-xr-x.  8 molochain1 psacln    4096 Nov 30 13:36 public
+drwxr-xr-x.  3 molochain1 psacln     124 Nov 29 13:45 public.bak
+drwxr-xr-x.  5 molochain1 psacln      40 Nov  6 20:42 resources
+drwxr-xr-x.  5 molochain1 psacln      40 Nov 29 13:45 resources.bak
+drwxr-xr-x.  2 molochain1 psacln      90 Nov 29 14:40 routes
+drwxr-xr-x.  2 molochain1 psacln      40 Nov 29 13:45 routes.bak
+drwxrwxr-x.  5 molochain1 psacln      46 Nov  6 20:42 storage
+drwxr-xr-x.  4 molochain1 psacln      53 Nov  6 20:42 tests
+drwxr-xr-x.  2 molochain1 psacln      25 Nov 29 21:56 tmp
+drwxrwxr-x. 49 molochain1 psacln    4096 Nov 30 13:13 vendor
+-rw-r--r--.  1 molochain1 psacln     331 Nov  6 20:42 vite.config.js
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The skeleton application for the Laravel framework.",
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "filament/filament": "^3.2",
+        "laravel/framework": "^12.0",
+        "laravel/sanctum": "^4.0",
+        "laravel/tinker": "^2.10.1"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "laravel/pail": "^1.2.2",
+        "laravel/pint": "^1.24",
+        "laravel/sail": "^1.41",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "phpunit/phpunit": "^11.5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+#ATTENTION!
+#
+#DO NOT MODIFY THIS FILE BECAUSE IT WAS GENERATED AUTOMATICALLY,
+#SO ALL YOUR CHANGES WILL BE LOST THE NEXT TIME THE FILE IS GENERATED.
+
+server {
+        listen 31.186.24.19:443 quic;
+        add_header Alt-Svc 'h3=":443"; ma=86400';
+        listen 31.186.24.19:443 ssl;
+        http2 on;
+
+        server_name cms.molochain.com;
+        server_name www.cms.molochain.com;
+        server_name ipv4.cms.molochain.com;
+
+        ssl_certificate             /usr/local/psa/var/certificates/scfefeilef1ov56cIXaB8H;
+        ssl_certificate_key         /usr/local/psa/var/certificates/scfefeilef1ov56cIXaB8H;
+
+        client_max_body_size 134217728;
+
+        access_log "/var/www/vhosts/system/cms.molochain.com/logs/proxy_access_ssl_log";
+        error_log "/var/www/vhosts/system/cms.molochain.com/logs/proxy_error_log";
+
+        root "/var/www/vhosts/molochain.com/cms.molochain.com/public";
+
+        #extension performance-booster begin
+        # Additional directives added by Plesk Optimization Settings
+
+        # Additional directives added by Plesk Optimization Settings
+        #extension performance-booster end
+
+        #extension sslit begin
+
+        #extension sslit end
+
+        #extension letsencrypt begin
+        location ^~ /.well-known/acme-challenge/ {
+                root /var/www/vhosts/default/htdocs;
+
+                types { }
+                default_type text/plain;
+
+                satisfy any;
+                auth_basic off;
+                allow all;
+
+                location ~ ^/\.well-known/acme-challenge.*/\. {
+                        deny all;
+                }
+        }
+        #extension letsencrypt end
+
+        #extension sectigo begin
+        location ^~ /.well-known/pki-validation/fileauth.txt {
+                try_files $uri $uri/ =404;
+        }
+
+        location ^~ /.well-known/pki-validation/ {
+                root /var/www/vhosts/default/htdocs;
+
+                types { }
+                default_type text/plain;
+
+                satisfy any;
+                auth_basic off;
+                allow all;
+
+                location ~ ^/\.well-known/pki-validation.*/\. {
+                        deny all;
+                }
+        }
+        #extension sectigo end
+
+        location / {
+                proxy_pass https://127.0.0.1:7081;
+                proxy_hide_header upgrade;
+                proxy_ssl_server_name on;
+                proxy_ssl_name $host;
+                proxy_ssl_session_reuse off;
+                proxy_set_header Host             $host;
+                proxy_set_header X-Real-IP        $remote_addr;
+                proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+                proxy_set_header X-Accel-Internal /internal-nginx-static-location;
+                access_log off;
+
+        }
+
+        location ^~ /internal-nginx-static-location/ {
+                alias /var/www/vhosts/molochain.com/cms.molochain.com/public/;
+                internal;
+        }
+
+        location ~ ^/(plesk-stat|awstats-icon|webstat|webstat-ssl|ftpstat|anon_ftpstat) {
+                proxy_pass https://127.0.0.1:7081;
+                proxy_hide_header upgrade;
+                proxy_ssl_server_name on;
+                proxy_ssl_name $host;
+                proxy_ssl_session_reuse off;
+                proxy_set_header Host             $host;
+                proxy_set_header X-Real-IP        $remote_addr;
+                proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+                proxy_set_header X-Accel-Internal /internal-nginx-static-location;
+                access_log off;
+
+        }
+
+        location ~ "^/git/plesk-git($|/)" {
+                auth_basic " ";
+                auth_basic_user_file "/var/www/vhosts/system/cms.molochain.com/pd/d..httpdocs@git@plesk-git";
+
+                proxy_pass https://127.0.0.1:7081;
+                proxy_hide_header upgrade;
+                proxy_ssl_server_name on;
+                proxy_ssl_name $host;
+                proxy_ssl_session_reuse off;
+                proxy_set_header Host             $host;
+                proxy_set_header X-Real-IP        $remote_addr;
+                proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+                proxy_set_header X-Accel-Internal /internal-nginx-static-location;
+                access_log off;
+
+        }
+
+        disable_symlinks if_not_owner "from=/var/www/vhosts/molochain.com";
+
+        add_header X-Powered-By PleskLin;
+
+}
+
+server {
+        listen 31.186.24.19:80;
+
+        server_name cms.molochain.com;
+        server_name www.cms.molochain.com;
+        server_name ipv4.cms.molochain.com;
+
+        client_max_body_size 134217728;
+
+        access_log "/var/www/vhosts/system/cms.molochain.com/logs/proxy_access_log";
+        error_log "/var/www/vhosts/system/cms.molochain.com/logs/proxy_error_log";
+
+        location / {
+                return 301 https://$host$request_uri;
+        }
+}┌────┬─────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼─────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 5  │ auth-service        │ default     │ 1.0.0   │ fork    │ 861566   │ 0      │ 84   │  │ 0%       │ 0b       │ root     │ disabled │
+│ 8  │ molochain-core      │ default     │ 1.0.0   │ fork    │ 284496   │ 3D     │ 445  │ online    │ 0%       │ 144.5mb  │ root     │ disabled │
+└────┴─────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+Modules
+┌────┬──────────────────────────────┬───────────────┬──────────┬──────────┬──────┬──────────┬──────────┬──────────┐
+│ id │ module                       │ version       │ pid      │ status   │ ↺    │ cpu      │ mem      │ user     │
+├────┼──────────────────────────────┼───────────────┼──────────┼──────────┼──────┼──────────┼──────────┼──────────┤
+│ 1  │ pm2-logrotate                │ 3.0.0         │ 272957   │ online   │ 1    │ 0%       │ 40.1mb   │ root     │
+│ 0  │ pm2-server-monit             │ 3.0.0         │ 272951   │ online   │ 1    │ 0%       │ 30.5mb   │ root     │
+└────┴──────────────────────────────┴───────────────┴──────────┴──────────┴──────┴──────────┴──────────┴──────────┘
+[root@zen-agnesi ~]# # Check Apache/PHP-FPM status for this domain
+systemctl status httpd
+
+# Check if Laravel is working directly
+cd /var/www/vhosts/molochain.com/cms.molochain.com
+php artisan --version
+php artisan route:list | head -20
+
+# Check Laravel logs
+tail -50 /var/www/vhosts/molochain.com/cms.molochain.com/storage/logs/laravel.log
+
+# Check file permissions (Laravel needs storage writable)
+ls -la storage/
+ls -la bootstrap/cache/
+
+# Test direct PHP execution
+php public/index.php
+● httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disabled)
+    Drop-In: /usr/lib/systemd/system/httpd.service.d
+             └─php-fpm.conf, respawn.conf
+     Active: active (running) since Fri 2025-12-05 11:36:33 +03; 3 days ago
+       Docs: man:httpd.service(8)
+    Process: 443520 ExecReload=/usr/sbin/httpd $OPTIONS -k graceful (code=exited, status=0/SUCCESS)
+   Main PID: 316164 (httpd)
+     Status: "Total requests: 7419; Idle/Busy workers 100/0;Requests/sec: 0.0269; Bytes served/sec: 1.1KB/sec"
+      Tasks: 54 (limit: 48882)
+     Memory: 43.9M (peak: 58.9M)
+        CPU: 7min 48.578s
+     CGroup: /system.slice/httpd.service
+             ├─316164 /usr/sbin/httpd -DFOREGROUND
+             ├─443677 /usr/sbin/httpd -DFOREGROUND
+             ├─443679 "Passenger watchdog"
+             ├─443683 "Passenger core"
+             ├─443696 /usr/sbin/httpd -DFOREGROUND
+             ├─443697 /usr/sbin/httpd -DFOREGROUND
+             ├─443698 /usr/sbin/httpd -DFOREGROUND
+             ├─443700 /usr/sbin/httpd -DFOREGROUND
+             ├─443701 /usr/sbin/httpd -DFOREGROUND
+             └─449062 /usr/sbin/httpd -DFOREGROUND
+
+Dec 08 04:35:46 zen-agnesi.31-186-24-19.plesk.page systemd[1]: httpd.service: Sent signal SIGUSR1 to main process 316164 (httpd) on client request.
+Dec 08 04:35:50 zen-agnesi.31-186-24-19.plesk.page httpd[316164]: Server configured, listening on: 127.0.0.1 port 7081, ...
+Dec 08 16:11:38 zen-agnesi.31-186-24-19.plesk.page systemd[1]: Reloading The Apache HTTP Server...
+Dec 08 16:11:38 zen-agnesi.31-186-24-19.plesk.page systemd[1]: Reloaded The Apache HTTP Server.
+Dec 08 16:11:41 zen-agnesi.31-186-24-19.plesk.page httpd[316164]: Server configured, listening on: 127.0.0.1 port 7081, ...
+Dec 08 16:11:43 zen-agnesi.31-186-24-19.plesk.page systemd[1]: Reloading The Apache HTTP Server...
+Dec 08 16:11:43 zen-agnesi.31-186-24-19.plesk.page systemd[1]: Reloaded The Apache HTTP Server.
+Dec 08 16:11:47 zen-agnesi.31-186-24-19.plesk.page httpd[316164]: Server configured, listening on: 127.0.0.1 port 7081, ...
+Notice: journal has been rotated since unit was started, output may be incomplete.
+Composer detected issues in your platform:
+
+Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.0.30.
+
+PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.0.30. in /var/www/vhosts/molochain.com/cms.molochain.com/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/composer/autoload_real.php(25): require()
+#1 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /var/www/vhosts/molochain.com/cms.molochain.com/artisan(10): require('...')
+#3 {main}
+  thrown in /var/www/vhosts/molochain.com/cms.molochain.com/vendor/composer/platform_check.php on line 22
+Composer detected issues in your platform:
+
+Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.0.30.
+
+PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.0.30. in /var/www/vhosts/molochain.com/cms.molochain.com/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/composer/autoload_real.php(25): require()
+#1 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /var/www/vhosts/molochain.com/cms.molochain.com/artisan(10): require('...')
+#3 {main}
+  thrown in /var/www/vhosts/molochain.com/cms.molochain.com/vendor/composer/platform_check.php on line 22
+#6 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#7 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then()
+#8 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack()
+#9 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute()
+#10 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute()
+#11 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch()
+#12 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}()
+#13 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/livewire/livewire/src/Features/SupportDisablingBackButtonCache/DisableBackButtonCacheMiddleware.php(19): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}()
+#14 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Livewire\\Features\\SupportDisablingBackButtonCache\\DisableBackButtonCacheMiddleware->handle()
+#15 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#16 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#17 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#18 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#19 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#20 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#21 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#22 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle()
+#23 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#24 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#25 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(61): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#26 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#27 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#28 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#29 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#30 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle()
+#31 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#32 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle()
+#33 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#34 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then()
+#35 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#36 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle()
+#37 /var/www/vhosts/molochain.com/cms.molochain.com/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest()
+#38 {main}
+"} 
+[2025-12-05 14:29:13] local.ERROR: The "--model" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--model\" option does not accept a value. at /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Command/Command.php(289): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Application.php(1103): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/molochain.com/cms.molochain.com/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+total 4
+drwxrwxr-x.  5 molochain1 psacln   46 Nov  6 20:42 .
+drwxr-xr-x. 22 molochain1 psacln 4096 Dec  6 16:54 ..
+drwxrwxr-x.  4 molochain1 psacln   53 Nov  6 20:42 app
+drwxrwxr-x.  6 molochain1 psacln   81 Nov  6 20:42 framework
+drwxrwxr-x.  2 molochain1 psacln   43 Nov 29 13:48 logs
+total 32
+drwxrwxr-x. 2 molochain1 psacln    64 Dec  5 17:45 .
+drwxr-xr-x. 3 molochain1 psacln    90 Nov 29 14:33 ..
+-rwxrwxr-x. 1 molochain1 psacln    14 Nov  6 20:42 .gitignore
+-rwxr-xr-x. 1 molochain1 psacln  3239 Dec  5 17:45 packages.php
+-rwxr-xr-x. 1 molochain1 psacln 23613 Dec  5 17:45 services.php
+Composer detected issues in your platform:
+
+Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.0.30.
+
+PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.0.30. in /var/www/vhosts/molochain.com/cms.molochain.com/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/composer/autoload_real.php(25): require()
+#1 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /var/www/vhosts/molochain.com/cms.molochain.com/public/index.php(14): require('...')
+#3 {main}
+  thrown in /var/www/vhosts/molochain.com/cms.molochain.com/vendor/composer/platform_check.php on line 22
+[root@zen-agnesi cms.molochain.com]# 

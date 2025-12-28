@@ -1,0 +1,72 @@
+[
+  {
+    "question": "What shipping services does Molochain offer?",
+    "answer": "Molochain provides comprehensive logistics solutions including ocean freight (FCL/LCL), air freight, rail transport, trucking, warehousing, customs clearance, and specialized services like project cargo and temperature-controlled shipping.",
+    "category": "Services",
+    "sort_order": 1,
+    "is_active": true
+  },
+  {
+    "question": "How can I track my shipment?",
+    "answer": "You can track your shipment 24/7 through our OTMS (Order & Transport Management System) portal. Simply log in with your credentials and enter your tracking number. You'll see real-time location updates, estimated arrival times, and any status changes.",
+    "category": "Tracking",
+    "sort_order": 1,
+    "is_active": true
+  },
+  {
+    "question": "What documents are required for international shipping?",
+    "answer": "Standard documents include: Commercial Invoice, Packing List, Bill of Lading or Air Waybill, Certificate of Origin, and any product-specific certificates. Our customs experts will guide you through the exact requirements for your specific shipment and destination.",
+    "category": "Documentation",
+    "sort_order": 1,
+    "is_active": true
+  },
+  {
+    "question": "How long does ocean freight take?",
+    "answer": "Transit times vary by route: Asia to Europe is typically 25-35 days, Asia to North America is 14-21 days, and intra-Asian routes range from 3-14 days. These are port-to-port times; add time for customs clearance and inland delivery.",
+    "category": "Shipping",
+    "sort_order": 2,
+    "is_active": true
+  },
+  {
+    "question": "Do you offer insurance for shipments?",
+    "answer": "Yes, we offer comprehensive cargo insurance options to protect your goods against loss or damage during transit. Coverage can be customized based on cargo value, route, and specific risks. Contact our team for a quote.",
+    "category": "Services",
+    "sort_order": 2,
+    "is_active": true
+  },
+  {
+    "question": "What is the difference between FCL and LCL?",
+    "answer": "FCL (Full Container Load) means you book an entire container for your goods. LCL (Less than Container Load) means your cargo shares container space with other shippers. FCL is more cost-effective for larger volumes, while LCL is ideal for smaller shipments.",
+    "category": "Shipping",
+    "sort_order": 1,
+    "is_active": true
+  },
+  {
+    "question": "How do I get a shipping quote?",
+    "answer": "You can request a quote through our website, email, or by calling our sales team. Please provide: origin and destination, cargo details (weight, dimensions, type), desired shipping mode, and timeline. We typically respond within 24 hours.",
+    "category": "Pricing",
+    "sort_order": 1,
+    "is_active": true
+  },
+  {
+    "question": "Can you handle dangerous goods?",
+    "answer": "Yes, Molochain is certified to handle dangerous goods (DG) across all transport modes. Our specialists ensure proper classification, packaging, labeling, and documentation in compliance with IMDG, IATA, and ADR regulations.",
+    "category": "Services",
+    "sort_order": 3,
+    "is_active": true
+  },
+  {
+    "question": "What warehousing services are available?",
+    "answer": "Our warehousing solutions include short and long-term storage, inventory management, pick-and-pack services, cross-docking, and distribution. We have facilities strategically located across major trade hubs with climate-controlled options available.",
+    "category": "Services",
+    "sort_order": 4,
+    "is_active": true
+  },
+  {
+    "question": "How do I become a Molochain partner?",
+    "answer": "We welcome partnerships with carriers, freight forwarders, customs brokers, and other logistics providers. Visit our Partner Network page or contact our business development team to discuss collaboration opportunities.",
+    "category": "Partnership",
+    "sort_order": 1,
+    "is_active": true
+  }
+]

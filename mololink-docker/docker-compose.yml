@@ -1,0 +1,39 @@
+services:
+  mololink-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mololink-service:latest
+    container_name: mololink-app
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      PORT: 5001
+    ports:
+      - "5001:5001"
+    volumes:
+      - mololink_uploads:/app/public/uploads
+    networks:
+      - molochain-core
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:5001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  molochain-core:
+    external: true
+
+volumes:
+  mololink_uploads:
+    driver: local

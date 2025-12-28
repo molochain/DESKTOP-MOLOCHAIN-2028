@@ -1,0 +1,548 @@
+{
+  "generatedAt": "2025-12-08",
+  "version": "1.0",
+  "summary": {
+    "totalFrontendRoutes": 102,
+    "totalBackendEndpoints": 85,
+    "totalDatabaseTables": 78,
+    "routeCategories": ["main", "auth", "admin", "departments", "services", "ecosystem"]
+  },
+  "mappings": [
+    {
+      "frontendRoute": "/",
+      "pageComponent": {
+        "file": "client/src/pages/general/Home.tsx",
+        "name": "Home"
+      },
+      "routeCategory": "main",
+      "usedHooksOrQueries": ["useQuery"],
+      "apiClientCalls": [],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/services"},
+        {"method": "GET", "url": "/api/health"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/api/services/services-inline.routes.ts",
+        "handlerFunction": "getServices"
+      },
+      "databaseAccess": {
+        "tables": ["services"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Homepage with service highlights"
+    },
+    {
+      "frontendRoute": "/about",
+      "pageComponent": {
+        "file": "client/src/pages/general/About.tsx",
+        "name": "About"
+      },
+      "routeCategory": "main",
+      "usedHooksOrQueries": [],
+      "apiClientCalls": [],
+      "httpRequests": [],
+      "backendHandler": null,
+      "databaseAccess": {
+        "tables": [],
+        "schemaFile": null
+      },
+      "notes": "Static content page"
+    },
+    {
+      "frontendRoute": "/contact",
+      "pageComponent": {
+        "file": "client/src/pages/general/Contact.tsx",
+        "name": "Contact"
+      },
+      "routeCategory": "main",
+      "usedHooksOrQueries": ["useMutation"],
+      "apiClientCalls": ["apiRequest"],
+      "httpRequests": [
+        {"method": "POST", "url": "/api/contact"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/routes/contact-agents.ts",
+        "handlerFunction": "submitContact"
+      },
+      "databaseAccess": {
+        "tables": ["contactSubmissions"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Contact form submission"
+    },
+    {
+      "frontendRoute": "/services",
+      "pageComponent": {
+        "file": "client/src/pages/services/Services.tsx",
+        "name": "Services"
+      },
+      "routeCategory": "services",
+      "usedHooksOrQueries": ["useQuery"],
+      "apiClientCalls": [],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/services"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/api/services/services-inline.routes.ts",
+        "handlerFunction": "getServices"
+      },
+      "databaseAccess": {
+        "tables": [],
+        "schemaFile": null,
+        "note": "Uses demo data from server/data/demo-services-data.ts, not database"
+      },
+      "notes": "Service listing page using demo/static data"
+    },
+    {
+      "frontendRoute": "/services/:serviceId",
+      "pageComponent": {
+        "file": "client/src/pages/services/ServicePage.tsx",
+        "name": "ServicePage"
+      },
+      "routeCategory": "services",
+      "usedHooksOrQueries": ["useQuery"],
+      "apiClientCalls": [],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/services/:id"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/api/services/services-inline.routes.ts",
+        "handlerFunction": "getServiceById"
+      },
+      "databaseAccess": {
+        "tables": [],
+        "schemaFile": null,
+        "note": "Uses demo data from server/data/demo-services-data.ts, not database"
+      },
+      "notes": "Individual service detail page using demo/static data"
+    },
+    {
+      "frontendRoute": "/login",
+      "pageComponent": {
+        "file": "client/src/pages/auth/Login.tsx",
+        "name": "Login"
+      },
+      "routeCategory": "auth",
+      "usedHooksOrQueries": ["useAuth", "useMutation"],
+      "apiClientCalls": ["apiRequest"],
+      "httpRequests": [
+        {"method": "POST", "url": "/api/auth/login"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/core/auth/auth.service.ts",
+        "handlerFunction": "login"
+      },
+      "databaseAccess": {
+        "tables": ["users"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "User authentication"
+    },
+    {
+      "frontendRoute": "/register",
+      "pageComponent": {
+        "file": "client/src/pages/auth/Register.tsx",
+        "name": "Register"
+      },
+      "routeCategory": "auth",
+      "usedHooksOrQueries": ["useMutation"],
+      "apiClientCalls": ["apiRequest"],
+      "httpRequests": [
+        {"method": "POST", "url": "/api/auth/register"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/core/auth/auth.service.ts",
+        "handlerFunction": "register"
+      },
+      "databaseAccess": {
+        "tables": ["users"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "User registration"
+    },
+    {
+      "frontendRoute": "/profile",
+      "pageComponent": {
+        "file": "client/src/pages/profile/UserProfile.tsx",
+        "name": "UserProfile"
+      },
+      "routeCategory": "auth",
+      "usedHooksOrQueries": ["useAuth", "useQuery", "useMutation"],
+      "apiClientCalls": ["apiRequest"],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/profile"},
+        {"method": "PUT", "url": "/api/profile"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/routes/profile.ts",
+        "handlerFunction": "getProfile, updateProfile"
+      },
+      "databaseAccess": {
+        "tables": ["users"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "User profile management"
+    },
+    {
+      "frontendRoute": "/admin",
+      "pageComponent": {
+        "file": "client/src/pages/admin/Dashboard.tsx",
+        "name": "Dashboard"
+      },
+      "routeCategory": "admin",
+      "usedHooksOrQueries": ["useQuery"],
+      "apiClientCalls": [],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/admin/stats"},
+        {"method": "GET", "url": "/api/admin/health"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/routes.ts",
+        "handlerFunction": "getAdminStats"
+      },
+      "databaseAccess": {
+        "tables": ["users", "services", "projects"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Admin dashboard with system stats"
+    },
+    {
+      "frontendRoute": "/admin/users",
+      "pageComponent": {
+        "file": "client/src/pages/admin/UserManagement.tsx",
+        "name": "UserManagement"
+      },
+      "routeCategory": "admin",
+      "usedHooksOrQueries": ["useQuery", "useMutation"],
+      "apiClientCalls": ["apiRequest"],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/admin/users"},
+        {"method": "POST", "url": "/api/admin/users"},
+        {"method": "PUT", "url": "/api/admin/users/:id"},
+        {"method": "DELETE", "url": "/api/admin/users/:id"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/api/admin/admin-users.ts",
+        "handlerFunction": "CRUD handlers"
+      },
+      "databaseAccess": {
+        "tables": ["users"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "User CRUD operations"
+    },
+    {
+      "frontendRoute": "/admin/page-modules",
+      "pageComponent": {
+        "file": "client/src/pages/admin/PageModuleManager.tsx",
+        "name": "PageModuleManager"
+      },
+      "routeCategory": "admin",
+      "usedHooksOrQueries": ["useQuery", "useMutation"],
+      "apiClientCalls": ["apiRequest"],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/page-modules"},
+        {"method": "POST", "url": "/api/page-modules"},
+        {"method": "PUT", "url": "/api/page-modules/:id"},
+        {"method": "DELETE", "url": "/api/page-modules/:id"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/routes/page-modules.ts",
+        "handlerFunction": "CRUD handlers"
+      },
+      "databaseAccess": {
+        "tables": ["pageModules", "moduleDependencies", "moduleSettings"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Page and module management"
+    },
+    {
+      "frontendRoute": "/admin/communications",
+      "pageComponent": {
+        "file": "client/src/pages/admin/CommunicationsHub.tsx",
+        "name": "CommunicationsHub"
+      },
+      "routeCategory": "admin",
+      "usedHooksOrQueries": ["useQuery", "useMutation"],
+      "apiClientCalls": ["apiRequest"],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/admin/submissions"},
+        {"method": "GET", "url": "/api/admin/email/settings"},
+        {"method": "PUT", "url": "/api/admin/email/settings"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/routes/admin/form-submissions.routes.ts",
+        "handlerFunction": "getSubmissions, getEmailSettings"
+      },
+      "databaseAccess": {
+        "tables": ["contactSubmissions", "formTypes", "emailSettings", "emailTemplates", "notificationRecipients"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Form submissions and email management"
+    },
+    {
+      "frontendRoute": "/departments",
+      "pageComponent": {
+        "file": "client/src/pages/general/DepartmentNavigator.tsx",
+        "name": "DepartmentNavigator"
+      },
+      "routeCategory": "departments",
+      "usedHooksOrQueries": ["useQuery"],
+      "apiClientCalls": [],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/departments"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/routes/departments.ts",
+        "handlerFunction": "getDepartments"
+      },
+      "databaseAccess": {
+        "tables": ["ecosystemDepartments", "ecosystemSubDepartments"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Department navigation"
+    },
+    {
+      "frontendRoute": "/guides",
+      "pageComponent": {
+        "file": "client/src/pages/guides/index.tsx",
+        "name": "GuidesPage"
+      },
+      "routeCategory": "main",
+      "usedHooksOrQueries": ["useQuery"],
+      "apiClientCalls": [],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/guides"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/routes/guides.ts",
+        "handlerFunction": "getGuides"
+      },
+      "databaseAccess": {
+        "tables": ["guides", "guideCategories"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Guide listing"
+    },
+    {
+      "frontendRoute": "/guides/:id",
+      "pageComponent": {
+        "file": "client/src/pages/guides/[id].tsx",
+        "name": "GuideDetailPage"
+      },
+      "routeCategory": "main",
+      "usedHooksOrQueries": ["useQuery"],
+      "apiClientCalls": [],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/guides/:id"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/routes/guides.ts",
+        "handlerFunction": "getGuideById"
+      },
+      "databaseAccess": {
+        "tables": ["guides", "guideDocuments"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Individual guide view"
+    },
+    {
+      "frontendRoute": "/commodities",
+      "pageComponent": {
+        "file": "client/src/pages/supply-chain/Commodities.tsx",
+        "name": "Commodities"
+      },
+      "routeCategory": "main",
+      "usedHooksOrQueries": ["useQuery"],
+      "apiClientCalls": [],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/commodities"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/api/commodities/commodities.routes.ts",
+        "handlerFunction": "getCommodities"
+      },
+      "databaseAccess": {
+        "tables": ["commodities"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Commodity listing"
+    },
+    {
+      "frontendRoute": "/projects",
+      "pageComponent": {
+        "file": "client/src/pages/general/Projects.tsx",
+        "name": "Projects"
+      },
+      "routeCategory": "main",
+      "usedHooksOrQueries": ["useQuery"],
+      "apiClientCalls": [],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/projects"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/api/projects/projects.routes.ts",
+        "handlerFunction": "getProjects"
+      },
+      "databaseAccess": {
+        "tables": ["projects"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Project listing"
+    },
+    {
+      "frontendRoute": "/tracking",
+      "pageComponent": {
+        "file": "client/src/pages/dashboard/TrackingDashboard.tsx",
+        "name": "TrackingDashboard"
+      },
+      "routeCategory": "main",
+      "usedHooksOrQueries": ["useQuery", "useWebSocket"],
+      "apiClientCalls": [],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/tracking/:trackingNumber"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/api/tracking/tracking.routes.ts",
+        "handlerFunction": "getTracking"
+      },
+      "databaseAccess": {
+        "tables": ["shipments"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Shipment tracking dashboard"
+    },
+    {
+      "frontendRoute": "/ecosystem",
+      "pageComponent": {
+        "file": "client/src/pages/general/EcosystemControlPanel.tsx",
+        "name": "EcosystemControlPanel"
+      },
+      "routeCategory": "ecosystem",
+      "usedHooksOrQueries": ["useQuery"],
+      "apiClientCalls": [],
+      "httpRequests": [
+        {"method": "GET", "url": "/api/ecosystem/departments"},
+        {"method": "GET", "url": "/api/ecosystem/health"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/api/ecosystem/ecosystem.ts",
+        "handlerFunction": "getEcosystemData"
+      },
+      "databaseAccess": {
+        "tables": ["ecosystemDepartments", "ecosystemHealthMetrics", "ecosystemAlerts"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Ecosystem control panel"
+    },
+    {
+      "frontendRoute": "/ai/rayanava",
+      "pageComponent": {
+        "file": "client/src/pages/ai/Rayanava.tsx",
+        "name": "Rayanava"
+      },
+      "routeCategory": "ecosystem",
+      "usedHooksOrQueries": ["useQuery", "useMutation"],
+      "apiClientCalls": ["apiRequest"],
+      "httpRequests": [
+        {"method": "POST", "url": "/api/rayanava/chat"},
+        {"method": "GET", "url": "/api/rayanava/conversations"}
+      ],
+      "backendHandler": {
+        "routeFile": "server/routes/rayanava-routes.ts",
+        "handlerFunction": "chat, getConversations"
+      },
+      "databaseAccess": {
+        "tables": ["rayanavaConversations", "rayanavaMemory"],
+        "schemaFile": "shared/schema.ts"
+      },
+      "notes": "Rayanava AI assistant (requires FEATURE_AI_ENABLED=true)"
+    }
+  ],
+  "frontendOnlyPages": [
+    {
+      "frontendRoute": "/about",
+      "pageComponent": "client/src/pages/general/About.tsx",
+      "reason": "Static content page"
+    },
+    {
+      "frontendRoute": "/success",
+      "pageComponent": "client/src/pages/general/Success.tsx",
+      "reason": "Static success confirmation"
+    },
+    {
+      "frontendRoute": "/tracking-demo",
+      "pageComponent": "client/src/pages/supply-chain/TrackingDemo.tsx",
+      "reason": "Demo with mock data"
+    },
+    {
+      "frontendRoute": "/collaboration-demo",
+      "pageComponent": "client/src/pages/general/CollaborationDemoPage.tsx",
+      "reason": "Demo with mock data"
+    },
+    {
+      "frontendRoute": "/authentication-guide",
+      "pageComponent": "client/src/pages/developer/AuthenticationGuide.tsx",
+      "reason": "Static documentation"
+    },
+    {
+      "frontendRoute": "/terms",
+      "pageComponent": "client/src/pages/general/terms-of-service.tsx",
+      "reason": "Static legal content"
+    },
+    {
+      "frontendRoute": "/privacy",
+      "pageComponent": "client/src/pages/general/privacy-policy.tsx",
+      "reason": "Static legal content"
+    },
+    {
+      "frontendRoute": "/developer",
+      "pageComponent": "client/src/pages/developer/DeveloperPortal.tsx",
+      "reason": "Static developer documentation"
+    },
+    {
+      "frontendRoute": "/sdk-libraries",
+      "pageComponent": "client/src/pages/developer/SDKLibraries.tsx",
+      "reason": "Static SDK documentation"
+    },
+    {
+      "frontendRoute": "/websocket-guide",
+      "pageComponent": "client/src/pages/developer/WebSocketGuide.tsx",
+      "reason": "Static WebSocket documentation"
+    }
+  ],
+  "unusedBackendEndpoints": [
+    {
+      "method": "GET",
+      "url": "/api/carriers",
+      "routeFile": "server/api/tracking/carrier-integration.ts",
+      "reason": "Legacy endpoint, use /api/admin/tracking-providers instead"
+    }
+  ],
+  "unusedDatabaseTables": [
+    {
+      "tableName": "serviceComparisons",
+      "schemaFile": "shared/schema.ts",
+      "reason": "Table defined but no active routes use it"
+    }
+  ],
+  "databaseTablesSummary": {
+    "core": ["users", "services", "projects", "commodities"],
+    "serviceRelated": ["serviceAvailability", "serviceInquiries", "serviceTestimonials", "serviceFaqs", "serviceBookings", "serviceReviews", "servicePricingTiers", "serviceMetrics", "serviceComparisons"],
+    "moduleManagement": ["pageModules", "moduleDependencies", "moduleSettings", "userModuleAccess", "moduleActivityLogs"],
+    "security": ["apiKeys", "apiKeyUsage", "rateLimitOverrides", "securityAudits", "adminActivityLogs", "passwordResetTokens"],
+    "investment": ["investmentRounds", "investors", "investments", "investmentTransactions", "userWallets"],
+    "instagram": ["instagramAccounts", "instagramPosts", "instagramAnalytics", "instagramTemplates", "instagramComments", "instagramCampaigns", "instagramStories", "instagramReels", "instagramInfluencers", "instagramCompetitors", "instagramABTests", "instagramShoppingProducts"],
+    "rayanava": ["rayanavaMemory", "rayanavaConversations", "rayanavaAnalytics", "rayanavaLearning", "rayanavaWorkflows", "rayanavaKnowledgeBase"],
+    "ecosystem": ["ecosystemDepartments", "ecosystemSubDepartments", "ecosystemUnits", "ecosystemSubUnits", "ecosystemDivisions", "ecosystemModules", "ecosystemTeams", "ecosystemHealthMetrics", "ecosystemAlerts", "ecosystemAiConversations", "ecosystemAiMessages", "ecosystemAchievements", "ecosystemUserAchievements", "ecosystemApiKeys"],
+    "mololink": ["mololinkProfiles", "mololinkCompanies", "mololinkCompanyEmployees", "mololinkPosts", "mololinkCompanyPosts", "mololinkComments", "mololinkConnections", "mololinkSkills"],
+    "marketplace": ["marketplaceListings", "marketplaceAuctions", "marketplaceBids", "marketplaceServicePosts"],
+    "collaboration": ["collaborationSessions", "collaborationParticipants", "collaborationMessages"],
+    "contentMedia": ["mediaFiles", "contentAssets", "guides", "guideCategories", "guideDocuments", "guideSearchIndex", "userGuideProgress"],
+    "configuration": ["adminSettings", "emailSettings", "emailTemplates", "notificationRecipients", "trackingProviders"],
+    "analytics": ["performanceMetrics", "healthMetrics", "auditLogs", "analyticsSummary"],
+    "forms": ["formTypes", "contactSubmissions"],
+    "tracking": ["shipments"],
+    "mapping": ["apiRouteMappings"]
+  }
+}

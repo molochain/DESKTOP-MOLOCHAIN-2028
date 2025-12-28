@@ -1,0 +1,47 @@
+{
+  "_comment": "Redis configuration is optional. The application uses in-memory caching (NodeCache) by default. Redis can be enabled for distributed caching in multi-server environments.",
+  "cacheProvider": "memory",
+  "redis": {
+    "enabled": false,
+    "host": "localhost",
+    "port": 6379,
+    "db": 0,
+    "keyPrefix": "molochain:",
+    "retryDelayOnFailover": 100,
+    "enableReadyCheck": false,
+    "maxRetriesPerRequest": 3
+  },
+  "memory": {
+    "maxKeys": 5000,
+    "stdTTL": 600,
+    "checkPeriod": 120
+  },
+  "cache": {
+    "apiResponses": {
+      "ttl": 600
+    },
+    "staticContent": {
+      "ttl": 7200
+    },
+    "services": {
+      "ttl": 1800
+    },
+    "cms": {
+      "ttl": 900
+    },
+    "tracking": {
+      "ttl": 30
+    },
+    "userSessions": {
+      "ttl": 1800
+    },
+    "analytics": {
+      "ttl": 120
+    }
+  },
+  "warming": {
+    "enabled": true,
+    "interval": 300000,
+    "paths": ["/api/services", "/api/cms/menu", "/api/health"]
+  }
+}

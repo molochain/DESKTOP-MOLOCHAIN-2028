@@ -1,0 +1,325 @@
+Last login: Mon Dec  8 17:50:55 2025 from 91.93.232.51
+
+This server is powered by Plesk.
+
+Run the 'plesk login' command and log in by browsing either of the links received in the output.
+Use the 'plesk' command to manage the server. Run 'plesk help' for more info.
+
+[root@zen-agnesi ~]# require __DIR__.'/admin.php';
+-bash: require: command not found
+[root@zen-agnesi ~]# Last failed login: Mon Dec  8 18:14:14 +03 2025 from 80.94.92.63 on ssh:notty
+There was 1 failed login attempt since the last successful login.
+Last login: Mon Dec  8 18:16:52 2025 from 91.93.231.185
+
+This server is powered by Plesk.
+
+Run the 'plesk login' command and log in by browsing either of the links received in the output.
+Use the 'plesk' command to manage the server. Run 'plesk help' for more info.
+
+[root@zen-agnesi ~]# # Navigate to CMS directory
+cd /var/www/vhosts/molochain.com/cms.molochain.com
+# See the folder tree
+ls -la
+# Check specific folders
+ls -la app/Http/Controllers/
+ls -la resources/views/
+ls -la routes/
+total 3780
+drwxr-xr-x. 22 molochain1 psacln    4096 Dec  6 16:54 .
+drwx--x--x. 39 molochain1 psacln    4096 Dec  6 16:55 ..
+-rw-r--r--.  1 molochain1 psacln     252 Nov  6 20:42 .editorconfig
+-rw-r--r--.  1 molochain1 psacln    1160 Nov 29 15:11 .env
+-rw-r--r--.  1 molochain1 psacln    1137 Nov 29 14:26 .env.bak-2025-11-29-1426
+-rw-r--r--.  1 molochain1 psacln    1160 Nov 29 15:11 .env.bak-2025-11-29-1511
+-rw-r--r--.  1 molochain1 psacln    1086 Nov  6 20:42 .env.example
+-rw-r--r--.  1 molochain1 psacln     186 Nov  6 20:42 .gitattributes
+-rw-r--r--.  1 molochain1 psacln     283 Nov  6 20:42 .gitignore
+-rw-r--r--.  1 molochain1 psacln       3 Nov 29 21:57 .node-version
+lrwxrwxrwx.  1 molochain1 psacln      17 Nov 29 13:42 .php-ini -> ./public/.php-ini
+lrwxrwxrwx.  1 molochain1 psacln      21 Nov 29 13:42 .php-version -> ./public/.php-version
+-rw-r--r--.  1 molochain1 psacln    3911 Nov  6 20:42 README.md
+-rw-r--r--.  1 molochain1 psacln       0 Nov 29 17:34 admin,
+drwxr-xr-x.  7 molochain1 psacln      83 Nov 29 13:45 app
+drwxr-xr-x.  5 molochain1 psacln      49 Nov 29 13:45 app.bak
+-rw-r--r--.  1 molochain1 psacln     425 Nov  6 20:42 artisan
+drwxr-xr-x.  5 molochain1 psacln      54 Nov 29 17:52 backups
+drwxr-xr-x.  3 molochain1 psacln      90 Nov 29 14:33 bootstrap
+drwxr-xr-x.  2 molochain1 psacln       6 Nov 29 12:02 cgi-bin
+drwxr-xr-x.  2 molochain1 psacln       6 Nov 29 13:36 cms-backend
+-rw-r--r--.  1 molochain1 psacln    8867 Nov 30 13:47 cms-backup-2025-11-30-1347.tar.gz
+-rw-r--r--.  1 root       root     10640 Dec  6 16:54 cms_schema.sql
+-rw-r--r--.  1 molochain1 psacln    2930 Nov 30 13:13 composer.json
+-rw-r--r--.  1 molochain1 psacln    2836 Nov 29 15:32 composer.json.bak-2025-11-29-1532
+-rw-r--r--.  1 molochain1 psacln  374965 Nov 30 13:13 composer.lock
+-rw-r--r--.  1 molochain1 psacln 3281712 Nov 30 13:12 composer.phar
+drwxr-xr-x.  4 molochain1 psacln    4096 Nov 30 13:25 config
+drwxr-xr-x.  5 molochain1 psacln      97 Nov 29 14:55 database
+-rw-r--r--.  1 molochain1 psacln       0 Nov 29 17:06 email
+drwxr-xr-x.  3 molochain1 psacln      23 Nov 29 13:42 git
+-rw-r--r--.  1 molochain1 psacln    1653 Nov 29 12:02 index.html
+-rw-r--r--.  1 molochain1 psacln       0 Nov 29 17:06 name
+drwxr-xr-x. 78 molochain1 psacln    4096 Nov 29 15:50 node_modules
+-rw-r--r--.  1 molochain1 psacln   92252 Nov 29 15:50 package-lock.json
+-rw-r--r--.  1 molochain1 psacln     414 Nov  6 20:42 package.json
+-rw-r--r--.  1 molochain1 psacln    1284 Nov  6 20:42 phpunit.xml
+drwxr-xr-x.  8 molochain1 psacln    4096 Nov 30 13:36 public
+drwxr-xr-x.  3 molochain1 psacln     124 Nov 29 13:45 public.bak
+drwxr-xr-x.  5 molochain1 psacln      40 Nov  6 20:42 resources
+drwxr-xr-x.  5 molochain1 psacln      40 Nov 29 13:45 resources.bak
+drwxr-xr-x.  2 molochain1 psacln      90 Nov 29 14:40 routes
+drwxr-xr-x.  2 molochain1 psacln      40 Nov 29 13:45 routes.bak
+drwxrwxr-x.  5 molochain1 psacln      46 Nov  6 20:42 storage
+drwxr-xr-x.  4 molochain1 psacln      53 Nov  6 20:42 tests
+drwxr-xr-x.  2 molochain1 psacln      25 Nov 29 21:56 tmp
+drwxrwxr-x. 49 molochain1 psacln    4096 Nov 30 13:13 vendor
+-rw-r--r--.  1 molochain1 psacln     331 Nov  6 20:42 vite.config.js
+total 100
+drwxr-xr-x. 4 molochain1 psacln   159 Nov 29 17:48 .
+drwxr-xr-x. 4 molochain1 psacln    60 Nov 29 13:45 ..
+drwxr-xr-x. 2 molochain1 psacln  4096 Dec  8 17:31 Api
+drwxr-xr-x. 2 molochain1 psacln    35 Nov 29 15:43 Auth
+-rw-r--r--. 1 molochain1 psacln  2232 Nov 29 15:24 AuthController.php
+-rw-r--r--. 1 molochain1 psacln    77 Nov  6 20:42 Controller.php
+-rw-r--r--. 1 molochain1 psacln 30311 Nov 29 13:45 OrderController.php
+-rw-r--r--. 1 molochain1 psacln 27844 Nov 29 13:45 ProductController.php
+-rw-r--r--. 1 molochain1 psacln 26201 Nov 29 13:45 UserController.php
+total 84
+drwxr-xr-x. 2 molochain1 psacln    31 Nov  6 20:42 .
+drwxr-xr-x. 5 molochain1 psacln    40 Nov  6 20:42 ..
+-rw-r--r--. 1 molochain1 psacln 82568 Nov  6 20:42 welcome.blade.php
+total 20
+drwxr-xr-x.  2 molochain1 psacln   90 Nov 29 14:40 .
+drwxr-xr-x. 22 molochain1 psacln 4096 Dec  6 16:54 ..
+-rw-r--r--.  1 molochain1 psacln 2284 Dec  8 17:32 api.php
+-rw-r--r--.  1 molochain1 psacln 4014 Nov 29 14:40 api.php.bak-2025-11-29-1440
+-rw-r--r--.  1 molochain1 psacln  210 Nov  6 20:42 console.php
+-rw-r--r--.  1 molochain1 psacln  108 Nov  6 20:42 web.php
+[root@zen-agnesi cms.molochain.com]# # Navigate to CMS directory
+cd /var/www/vhosts/molochain.com/cms.molochain.com
+
+# Create Admin controller folder
+mkdir -p app/Http/Controllers/Admin
+
+# Create view folders
+mkdir -p resources/views/layouts
+mkdir -p resources/views/admin/settings
+mkdir -p resources/views/admin/menu
+mkdir -p resources/views/admin/home-sections
+
+# Verify folders created
+ls -la app/Http/Controllers/
+ls -la resources/views/
+total 100
+drwxr-xr-x. 5 molochain1 psacln   172 Dec  8 18:30 .
+drwxr-xr-x. 4 molochain1 psacln    60 Nov 29 13:45 ..
+drwxr-xr-x. 2 root       root       6 Dec  8 18:30 Admin
+drwxr-xr-x. 2 molochain1 psacln  4096 Dec  8 17:31 Api
+drwxr-xr-x. 2 molochain1 psacln    35 Nov 29 15:43 Auth
+-rw-r--r--. 1 molochain1 psacln  2232 Nov 29 15:24 AuthController.php
+-rw-r--r--. 1 molochain1 psacln    77 Nov  6 20:42 Controller.php
+-rw-r--r--. 1 molochain1 psacln 30311 Nov 29 13:45 OrderController.php
+-rw-r--r--. 1 molochain1 psacln 27844 Nov 29 13:45 ProductController.php
+-rw-r--r--. 1 molochain1 psacln 26201 Nov 29 13:45 UserController.php
+total 84
+drwxr-xr-x. 4 molochain1 psacln    59 Dec  8 18:30 .
+drwxr-xr-x. 5 molochain1 psacln    40 Nov  6 20:42 ..
+drwxr-xr-x. 5 root       root      55 Dec  8 18:30 admin
+drwxr-xr-x. 2 root       root       6 Dec  8 18:30 layouts
+-rw-r--r--. 1 molochain1 psacln 82568 Nov  6 20:42 welcome.blade.php
+[root@zen-agnesi cms.molochain.com]# # فقط برای چک کردن صاحب فعلی (اختیاری)
+ls -ld /var/www/vhosts/molochain.com/cms.molochain.com
+
+# 1) درست کردن مالکیت پروژه
+# اگر یوزرت چیز دیگه‌ایه، به‌جای molochain1 همونو بذار
+chown -R molochain1:psacln /var/www/vhosts/molochain.com/cms.molochain.com
+
+# 2) درست کردن پرمیشن کلی فایل‌ها و پوشه‌ها
+find /var/www/vhosts/molochain.com/cms.molochain.com -type d -exec chmod 755 {} \;
+find /var/www/vhosts/molochain.com/cms.molochain.com -type f -exec chmod 644 {} \;
+
+# 3) اجازه‌ی نوشتن برای پوشه‌های لازم لاراول
+chmod -R 775 /var/www/vhosts/molochain.com/cms.molochain.com/storage
+chmod -R 775 /var/www/vhosts/molochain.com/cms.molochain.com/bootstrap/cache
+drwxr-xr-x. 22 molochain1 psacln 4096 Dec  6 16:54 /var/www/vhosts/molochain.com/cms.molochain.com
+[root@zen-agnesi cms.molochain.com]# # Add admin routes to web.php
+echo "" >> routes/web.php
+echo "require __DIR__.'/admin.php';" >> routes/web.php
+
+# Verify
+cat routes/web.php
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+require __DIR__.'/admin.php';
+[root@zen-agnesi cms.molochain.com]# /opt/plesk/php/8.4/bin/php artisan cache:clear
+/opt/plesk/php/8.4/bin/php artisan route:clear
+/opt/plesk/php/8.4/bin/php artisan view:clear
+/opt/plesk/php/8.4/bin/php artisan config:clear
+
+   INFO  Application cache cleared successfully.  
+
+
+   INFO  Route cache cleared successfully.  
+
+
+   INFO  Compiled views cleared successfully.  
+
+
+   INFO  Configuration cache cleared successfully.  
+
+[root@zen-agnesi cms.molochain.com]# # Check Controllers
+ls -la app/Http/Controllers/Admin/
+
+# Check Layout
+ls -la resources/views/layouts/
+
+# Check Admin Views
+ls -la resources/views/admin/settings/
+ls -la resources/views/admin/menu/
+ls -la resources/views/admin/home-sections/
+
+# Check Routes
+ls -la routes/admin.php
+
+# Clear cache and test routes
+/opt/plesk/php/8.4/bin/php artisan route:list | grep admin
+total 12
+drwxr-xr-x. 2 molochain1 psacln   96 Dec  8 18:35 .
+drwxr-xr-x. 5 molochain1 psacln  172 Dec  8 18:30 ..
+-rw-r--r--. 1 molochain1 psacln 1422 Dec  8 18:35 HomeSectionsController.php
+-rw-r--r--. 1 molochain1 psacln 1943 Dec  8 18:35 MenuController.php
+-rw-r--r--. 1 molochain1 psacln 1562 Dec  8 18:35 SettingsController.php
+total 4
+drwxr-xr-x. 2 molochain1 psacln   29 Dec  8 18:41 .
+drwxr-xr-x. 4 molochain1 psacln   59 Dec  8 18:30 ..
+-rw-r--r--. 1 molochain1 psacln 3905 Dec  8 18:41 admin.blade.php
+total 12
+drwxr-xr-x. 2 molochain1 psacln   29 Dec  8 18:41 .
+drwxr-xr-x. 5 molochain1 psacln   55 Dec  8 18:30 ..
+-rw-r--r--. 1 molochain1 psacln 8373 Dec  8 18:41 index.blade.php
+total 8
+drwxr-xr-x. 2 molochain1 psacln   29 Dec  8 18:41 .
+drwxr-xr-x. 5 molochain1 psacln   55 Dec  8 18:30 ..
+-rw-r--r--. 1 molochain1 psacln 8013 Dec  8 18:41 index.blade.php
+total 16
+drwxr-xr-x. 2 molochain1 psacln   51 Dec  8 18:40 .
+drwxr-xr-x. 5 molochain1 psacln   55 Dec  8 18:30 ..
+-rw-r--r--. 1 molochain1 psacln 6828 Dec  8 18:40 edit.blade.php
+-rw-r--r--. 1 molochain1 psacln 5348 Dec  8 18:40 index.blade.php
+-rw-r--r--. 1 molochain1 psacln 1726 Dec  8 18:39 routes/admin.php
+  GET|HEAD  admin ............................................................................................... filament.admin.pages.dashboard › Filament\Pages › Dashboard
+  GET|HEAD  admin/home-sections .............................................................................. admin.home-sections.index › Admin\HomeSectionsController@index
+  PUT       admin/home-sections/{id} ....................................................................... admin.home-sections.update › Admin\HomeSectionsController@update
+  GET|HEAD  admin/home-sections/{id}/edit ...................................................................... admin.home-sections.edit › Admin\HomeSectionsController@edit
+  GET|HEAD  admin/login .................................................................................................. filament.admin.auth.login › Filament\Pages › Login
+  POST      admin/logout ...................................................................................... filament.admin.auth.logout › Filament\Http › LogoutController
+  GET|HEAD  admin/menu ........................................................................................................ admin.menu.index › Admin\MenuController@index
+  POST      admin/menu ........................................................................................................ admin.menu.store › Admin\MenuController@store
+  PUT       admin/menu/{id} ................................................................................................. admin.menu.update › Admin\MenuController@update
+  DELETE    admin/menu/{id} ............................................................................................... admin.menu.destroy › Admin\MenuController@destroy
+  GET|HEAD  admin/pages .......................................................... filament.admin.resources.pages.index › App\Filament\Resources\PageResource\Pages\ListPages
+  GET|HEAD  admin/pages/create ................................................. filament.admin.resources.pages.create › App\Filament\Resources\PageResource\Pages\CreatePage
+  GET|HEAD  admin/pages/{record}/edit .............................................. filament.admin.resources.pages.edit › App\Filament\Resources\PageResource\Pages\EditPage
+  GET|HEAD  admin/services .............................................. filament.admin.resources.services.index › App\Filament\Resources\ServiceResource\Pages\ListServices
+  GET|HEAD  admin/services/create ..................................... filament.admin.resources.services.create › App\Filament\Resources\ServiceResource\Pages\CreateService
+  GET|HEAD  admin/services/{record}/edit .................................. filament.admin.resources.services.edit › App\Filament\Resources\ServiceResource\Pages\EditService
+  GET|HEAD  admin/settings ............................................................................................ admin.settings.index › Admin\SettingsController@index
+  POST      admin/settings ............................................................................................ admin.settings.store › Admin\SettingsController@store
+  PUT       admin/settings/{id} ..................................................................................... admin.settings.update › Admin\SettingsController@update
+  DELETE    admin/settings/{id} ................................................................................... admin.settings.destroy › Admin\SettingsController@destroy
+[root@zen-agnesi cms.molochain.com]# # SSH into your server and run:
+cd /var/www/vhosts/molochain.com/cms.molochain.com
+
+# View the current file
+cat routes/admin.php
+<?php
+
+/**
+ * Admin Routes for Molochain CMS
+ * 
+ * Add these routes to your routes/web.php file, inside an auth middleware group.
+ * 
+ * Example:
+ * 
+ * // In routes/web.php, add this at the bottom:
+ * require __DIR__.'/admin.php';
+ * 
+ * Or copy the content below directly into routes/web.php
+ */
+
+use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\HomeSectionsController;
+
+// Admin Routes (protected by auth middleware)
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    
+    // Settings Management
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingsController::class, 'store'])->name('settings.store');
+    Route::put('/settings/{id}', [SettingsController::class, 'update'])->name('settings.update');
+    Route::delete('/settings/{id}', [SettingsController::class, 'destroy'])->name('settings.destroy');
+
+    // Menu Management
+    Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
+    Route::post('/menu', [MenuController::class, 'store'])->name('menu.store');
+    Route::put('/menu/{id}', [MenuController::class, 'update'])->name('menu.update');
+    Route::delete('/menu/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
+
+    // Home Sections Management
+    Route::get('/home-sections', [HomeSectionsController::class, 'index'])->name('home-sections.index');
+    Route::get('/home-sections/{id}/edit', [HomeSectionsController::class, 'edit'])->name('home-sections.edit');
+    Route::put('/home-sections/{id}', [HomeSectionsController::class, 'update'])->name('home-sections.update');
+});
+[root@zen-agnesi cms.molochain.com]# cat > routes/admin.php << 'EOF'
+<?php
+
+/**
+ * Admin Routes for Molochain CMS
+ */
+
+use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\HomeSectionsController;
+use Illuminate\Support\Facades\Route;
+
+// Define login route redirect for auth middleware (redirects to Filament login)
+Route::get('/login', function () {
+    return redirect()->route('filament.admin.auth.login');
+})->name('login');
+
+// Admin Routes (protected by auth middleware)
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    
+    // Settings Management
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingsController::class, 'store'])->name('settings.store');
+    Route::put('/settings/{id}', [SettingsController::class, 'update'])->name('settings.update');
+    Route::delete('/settings/{id}', [SettingsController::class, 'destroy'])->name('settings.destroy');
+
+    // Menu Management
+    Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
+    Route::post('/menu', [MenuController::class, 'store'])->name('menu.store');
+    Route::put('/menu/{id}', [MenuController::class, 'update'])->name('menu.update');
+    Route::delete('/menu/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
+
+    // Home Sections Management
+    Route::get('/home-sections', [HomeSectionsController::class, 'index'])->name('home-sections.index');
+    Route::get('/home-sections/{id}/edit', [HomeSectionsController::class, 'edit'])->name('home-sections.edit');
+    Route::put('/home-sections/{id}', [HomeSectionsController::class, 'update'])->name('home-sections.update');
+});
+EOF
+[root@zen-agnesi cms.molochain.com]# /opt/plesk/php/8.4/bin/php artisan route:clear
+/opt/plesk/php/8.4/bin/php artisan cache:clear
+
+   INFO  Route cache cleared successfully.  
+
+
+   INFO  Application cache cleared successfully.  
+
+[root@zen-agnesi cms.molochain.com]# 

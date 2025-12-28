@@ -1,0 +1,38 @@
+{
+  "shipment": {
+    "weight": {
+      "min": 0.1,
+      "max": 10000
+    },
+    "dimensions": {
+      "length": {
+        "min": 1,
+        "max": 120
+      },
+      "width": {
+        "min": 1,
+        "max": 120
+      },
+      "height": {
+        "min": 1,
+        "max": 120
+      }
+    }
+  },
+  "user": {
+    "email": {
+      "format": "email",
+      "maxLength": 255
+    },
+    "password": {
+      "minLength": 8,
+      "requireSpecialChar": true
+    }
+  },
+  "tracking": {
+    "trackingNumber": {
+      "minLength": 8,
+      "maxLength": 35
+    }
+  }
+}

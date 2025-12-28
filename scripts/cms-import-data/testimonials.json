@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Sarah Chen",
+    "company": "TechGlobal Solutions",
+    "position": "Supply Chain Director",
+    "content": "Molochain transformed our international shipping operations. Their real-time tracking and proactive communication have reduced our delivery issues by 90%. An exceptional partner for any business serious about logistics.",
+    "rating": 5,
+    "is_featured": true,
+    "is_active": true
+  },
+  {
+    "name": "Marcus Weber",
+    "company": "EuroTrade GmbH",
+    "position": "CEO",
+    "content": "We've worked with many logistics providers, but Molochain stands out for their attention to detail and problem-solving abilities. They handled our complex customs requirements flawlessly.",
+    "rating": 5,
+    "is_featured": true,
+    "is_active": true
+  },
+  {
+    "name": "Aisha Patel",
+    "company": "FastFashion Retail",
+    "position": "Operations Manager",
+    "content": "The e-commerce fulfillment services from Molochain have been game-changing for our business. Fast, reliable, and cost-effective. Our customers love the quick delivery times.",
+    "rating": 5,
+    "is_featured": false,
+    "is_active": true
+  },
+  {
+    "name": "James O'Brien",
+    "company": "Industrial Parts Co.",
+    "position": "Procurement Director",
+    "content": "Heavy machinery logistics is challenging, but Molochain's special transport team handled our equipment with expertise. Their project logistics planning was thorough and professional.",
+    "rating": 4,
+    "is_featured": false,
+    "is_active": true
+  },
+  {
+    "name": "Elena Rodriguez",
+    "company": "Fresh Imports LLC",
+    "position": "Founder",
+    "content": "Temperature-controlled shipping for our perishable goods was always stressful until we partnered with Molochain. Their monitoring systems and quick response times give us peace of mind.",
+    "rating": 5,
+    "is_featured": true,
+    "is_active": true
+  },
+  {
+    "name": "David Kim",
+    "company": "AutoParts International",
+    "position": "Logistics Manager",
+    "content": "Molochain's rail freight solutions between Europe and Asia saved us 40% compared to air freight while maintaining reasonable transit times. Highly recommend for cost-conscious shippers.",
+    "rating": 5,
+    "is_featured": false,
+    "is_active": true
+  }
+]

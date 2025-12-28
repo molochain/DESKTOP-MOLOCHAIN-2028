@@ -1,0 +1,31 @@
+Last failed login: Mon Dec  8 20:01:40 +03 2025 from 31.186.24.19 on ssh:notty
+There was 1 failed login attempt since the last successful login.
+Last login: Mon Dec  8 20:01:27 2025 from 91.93.231.185
+
+This server is powered by Plesk.
+
+Run the 'plesk login' command and log in by browsing either of the links received in the output.
+Use the 'plesk' command to manage the server. Run 'plesk help' for more info.
+
+[root@zen-agnesi ~]# cd /var/www/vhosts/molochain.com/molochain-core
+# Download from Replit (you'll need to get the download URL from Replit's Files panel)
+# Or use SFTP/FileZilla to upload the file
+[root@zen-agnesi molochain-core]# scp molochain-deploy-20251208_164939.tar.gz 
+usage: scp [-346ABCOpqRrTv] [-c cipher] [-D sftp_server_path] [-F ssh_config]
+           [-i identity_file] [-J destination] [-l limit]
+           [-o ssh_option] [-P port] [-S program] source ... target
+[root@zen-agnesi molochain-core]# pm2 logs molochain-core --lines 30
+[TAILING] Tailing last 30 lines for [molochain-core] process (change the value with --lines option)
+/root/.pm2/logs/molochain-core-out-12.log last 30 lines:
+/root/.pm2/logs/molochain-core-error-12.log last 30 lines:
+12|molocha | You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+12|molocha | Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@vitejs/plugin-react' imported from /var/www/vhosts/molochain.com/molochain-core/dist/index.js
+12|molocha |     at packageResolve (node:internal/modules/esm/resolve:873:9)
+12|molocha |     at moduleResolve (node:internal/modules/esm/resolve:946:18)
+12|molocha |     at defaultResolve (node:internal/modules/esm/resolve:1188:11)
+12|molocha |     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:708:12)
+12|molocha |     at #cachedDefaultResolve (node:internal/modules/esm/loader:657:25)
+12|molocha |     at ModuleLoader.resolve (node:internal/modules/esm/loader:640:38)
+12|molocha |     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:264:38)
+12|molocha |     at ModuleJob._link (node:internal/modules/esm/module_job:168:49)
+

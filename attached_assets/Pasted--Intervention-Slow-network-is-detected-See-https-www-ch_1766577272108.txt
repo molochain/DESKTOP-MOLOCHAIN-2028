@@ -1,0 +1,94 @@
+[Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Regular.otf
+express-utils.js:18 [Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Bold.otf
+index-WXRNnCjN.js:1430 [Unified Error Handler] Initialized successfully
+mololink.molochain.com/:1 Access to fetch at 'https://api.molochain.com/api/auth/me' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/auth/me:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/stats' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/stats:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/my-bids' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/my-bids:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=live&category=all&search=' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/auctions?status=live&category=all&search=:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=live&category=all&search=' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/auctions?status=live&category=all&search=:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=live&category=all&search=' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/auctions?status=live&category=all&search=:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=live&category=all&search=' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/auctions?status=live&category=all&search=:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/stats' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/stats:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=live&category=all&search=' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/auctions?status=live&category=all&search=:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20:1  Failed to load resource: net::ERR_FAILED
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=live&category=all&search=' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+marketplace-DRIr-Dqk.js:11  GET https://api.molochain.com/api/marketplace/auctions?status=live&category=all&search= net::ERR_FAILED 404 (Not Found)
+queryFn @ marketplace-DRIr-Dqk.js:11
+a @ index-WXRNnCjN.js:49
+v @ index-WXRNnCjN.js:49
+start @ index-WXRNnCjN.js:49
+fetch @ index-WXRNnCjN.js:49
+y1 @ index-WXRNnCjN.js:49
+(anonymous) @ index-WXRNnCjN.js:49
+6Fetch failed loading: GET "<URL>".
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=upcoming&category=all&search=' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+marketplace-DRIr-Dqk.js:11  GET https://api.molochain.com/api/marketplace/auctions?status=upcoming&category=all&search= net::ERR_FAILED 404 (Not Found)
+queryFn @ marketplace-DRIr-Dqk.js:11
+a @ index-WXRNnCjN.js:49
+v @ index-WXRNnCjN.js:49
+start @ index-WXRNnCjN.js:49
+fetch @ index-WXRNnCjN.js:49
+y1 @ index-WXRNnCjN.js:49
+setOptions @ index-WXRNnCjN.js:49
+(anonymous) @ index-WXRNnCjN.js:49
+kN @ index-WXRNnCjN.js:41
+Xv @ index-WXRNnCjN.js:41
+Ide @ index-WXRNnCjN.js:41
+em @ index-WXRNnCjN.js:41
+c8 @ index-WXRNnCjN.js:41
+yp @ index-WXRNnCjN.js:39
+(anonymous) @ index-WXRNnCjN.js:41
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/stats' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+marketplace-DRIr-Dqk.js:11  GET https://api.molochain.com/api/marketplace/stats net::ERR_FAILED 404 (Not Found)
+queryFn @ marketplace-DRIr-Dqk.js:11
+a @ index-WXRNnCjN.js:49
+v @ index-WXRNnCjN.js:49
+start @ index-WXRNnCjN.js:49
+fetch @ index-WXRNnCjN.js:49
+y1 @ index-WXRNnCjN.js:49
+(anonymous) @ index-WXRNnCjN.js:49
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+marketplace-DRIr-Dqk.js:11  GET https://api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20 net::ERR_FAILED 404 (Not Found)
+queryFn @ marketplace-DRIr-Dqk.js:11
+a @ index-WXRNnCjN.js:49
+v @ index-WXRNnCjN.js:49
+start @ index-WXRNnCjN.js:49
+fetch @ index-WXRNnCjN.js:49
+y1 @ index-WXRNnCjN.js:49
+(anonymous) @ index-WXRNnCjN.js:49
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+marketplace-DRIr-Dqk.js:11  GET https://api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20 net::ERR_FAILED 404 (Not Found)
+queryFn @ marketplace-DRIr-Dqk.js:11
+a @ index-WXRNnCjN.js:49
+v @ index-WXRNnCjN.js:49
+(anonymous) @ index-WXRNnCjN.js:49
+Promise.then
+(anonymous) @ index-WXRNnCjN.js:49
+Promise.catch
+v @ index-WXRNnCjN.js:49
+start @ index-WXRNnCjN.js:49
+fetch @ index-WXRNnCjN.js:49
+y1 @ index-WXRNnCjN.js:49
+(anonymous) @ index-WXRNnCjN.js:49
+marketplace:1 Access to fetch at 'https://api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20' from origin 'https://mololink.molochain.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+marketplace-DRIr-Dqk.js:11  GET https://api.molochain.com/api/marketplace/auctions?status=all&category=all&search=&page=1&limit=20 net::ERR_FAILED 404 (Not Found)

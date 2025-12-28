@@ -1,0 +1,600 @@
+[
+  {
+    "slug": "container",
+    "name": "Container Services",
+    "short_description": "Comprehensive container handling and management solutions",
+    "category": "transport",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Container_services_terminal_operations_d7c60d46.png",
+    "features": [
+      "Full container load (FCL)",
+      "Less than container load (LCL)",
+      "Container tracking"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "trucking",
+    "name": "Trucking Services",
+    "short_description": "Reliable road transportation solutions",
+    "category": "transport",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Trucking_transportation_services_f12cdd8e.png",
+    "features": [
+      "Full truckload (FTL)",
+      "Less than truckload (LTL)",
+      "Door-to-door delivery"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "airfreight",
+    "name": "Air Freight Services",
+    "short_description": "Fast and reliable worldwide air cargo transportation solutions",
+    "category": "transport",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Air_freight_cargo_services_6e8765cf.png",
+    "features": [
+      "Express air freight",
+      "Next-flight-out service",
+      "Charter solutions"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "rail",
+    "name": "Rail Services",
+    "short_description": "Efficient rail freight transportation solutions",
+    "category": "transport",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Rail_freight_transportation_04f4bb43.png",
+    "features": [
+      "Intermodal transport",
+      "Container rail freight",
+      "Bulk cargo rail transport"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "warehousing",
+    "name": "Warehousing Services",
+    "short_description": "State-of-the-art storage and inventory management",
+    "category": "warehousing",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Warehousing_storage_services_4cac1c12.png",
+    "features": [
+      "Climate-controlled facilities",
+      "Inventory management",
+      "Order fulfillment"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "bulk",
+    "name": "Bulk Services",
+    "short_description": "Specialized bulk cargo handling solutions",
+    "category": "transport",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Bulk_cargo_handling_5f23ab70.png",
+    "features": [
+      "Dry bulk cargo handling",
+      "Liquid bulk transport",
+      "Specialized equipment"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "special-transport",
+    "name": "Special Transportation",
+    "short_description": "Specialized solutions for unique and challenging cargo",
+    "category": "transport",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Special_transport_services_270c7efc.png",
+    "features": [
+      "Heavy lift and project cargo",
+      "Oversized cargo transport",
+      "Temperature-controlled"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "customs",
+    "name": "Customs Clearance",
+    "short_description": "Expert customs clearance and documentation services",
+    "category": "customs",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Customs_clearance_services_616d889f.png",
+    "features": [
+      "Import/export declarations",
+      "Customs documentation",
+      "Tariff classification"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "drop-shipping",
+    "name": "Drop Shipping Services",
+    "short_description": "Seamless product fulfillment solutions for online retailers",
+    "category": "ecommerce",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Drop_shipping_fulfillment_70aee1b8.png",
+    "features": [
+      "Supplier network management",
+      "E-commerce integration",
+      "Automated order processing"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "port-services",
+    "name": "Port Services",
+    "short_description": "Comprehensive port operations and management solutions",
+    "category": "port",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Port_operations_management_0da75b56.png",
+    "features": [
+      "Vessel berthing management",
+      "Container terminal operations",
+      "Stevedoring services"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "supply-chain",
+    "name": "Supply Chain Services",
+    "short_description": "End-to-end supply chain management and optimization solutions",
+    "category": "logistics",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Supply_chain_management_7023cdd8.png",
+    "features": [
+      "Supply chain design",
+      "Demand forecasting",
+      "Inventory optimization"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "groupage",
+    "name": "Groupage Services",
+    "short_description": "Consolidated shipping solutions",
+    "category": "transport",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Groupage_consolidation_services_45501d59.png",
+    "features": [
+      "Cargo consolidation",
+      "Cost-effective small shipments",
+      "Regular departure schedules"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "finance",
+    "name": "Finance Services",
+    "short_description": "Comprehensive financial solutions for logistics operations",
+    "category": "finance",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Financial_logistics_services_d88547dd.png",
+    "features": [
+      "Trade finance solutions",
+      "Payment processing",
+      "Invoice factoring"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "documentation",
+    "name": "Documentation Services",
+    "short_description": "Expert handling of all shipping and trade documentation",
+    "category": "customs",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Documentation_management_services_1db92a96.png",
+    "features": [
+      "Bill of lading preparation",
+      "Commercial invoice processing",
+      "Certificate of origin"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "consultation",
+    "name": "Logistics Consultation",
+    "short_description": "Expert consulting and optimization services",
+    "category": "consulting",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Logistics_consulting_services_26087bd8.png",
+    "features": [
+      "Supply chain assessment",
+      "Process improvement",
+      "Cost reduction strategies"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "online-shopping",
+    "name": "Online Shopping Integration",
+    "short_description": "Seamless e-commerce and logistics integration solutions",
+    "category": "ecommerce",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/E-commerce_integration_platform_72127fad.png",
+    "features": [
+      "E-commerce platform integration",
+      "Order management",
+      "Inventory synchronization"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "transit",
+    "name": "Transit Services",
+    "short_description": "Seamless transit and cross-border transportation solutions",
+    "category": "transport",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Transit_transport_services_3a5d2c89.png",
+    "features": [
+      "Cross-border transit management",
+      "Transit documentation",
+      "Bonded transport"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "cross-staffing",
+    "name": "Cross Staffing Services",
+    "short_description": "Professional logistics workforce solutions",
+    "category": "hr",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Cross_staffing_workforce_b8f3e210.png",
+    "features": [
+      "Temporary staff placement",
+      "Permanent recruitment",
+      "Skilled workforce training"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "agency",
+    "name": "Agency Services",
+    "short_description": "Comprehensive shipping agency and representation",
+    "category": "agency",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Agency_services_representation_c9a4f312.png",
+    "features": [
+      "Shipping agency representation",
+      "Port agency services",
+      "Vessel husbandry"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "tranship",
+    "name": "Transhipment Services",
+    "short_description": "Expert transhipment and cargo transfer solutions",
+    "category": "transport",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Transhipment_cargo_transfer_d5b6e423.png",
+    "features": [
+      "Transhipment hub operations",
+      "Cargo transfer coordination",
+      "Multi-vessel operations"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "post",
+    "name": "Postal Services",
+    "short_description": "International postal and parcel delivery solutions",
+    "category": "postal",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Postal_service_facility_229acbae.png",
+    "features": [
+      "International mail services",
+      "Express parcel delivery",
+      "Registered mail handling"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "third-party",
+    "name": "Third Party Logistics",
+    "short_description": "Complete 3PL outsourcing solutions",
+    "category": "logistics",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Third_party_logistics_e7f8d534.png",
+    "features": [
+      "Complete logistics outsourcing",
+      "Inventory management",
+      "Order fulfillment"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "auction",
+    "name": "Auction Services",
+    "short_description": "Logistics auction and bidding platform",
+    "category": "marketplace",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Auction_bidding_platform_f2a3b645.png",
+    "features": [
+      "Freight rate auctions",
+      "Service bidding platform",
+      "Reverse auction management"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "blockchain",
+    "name": "Blockchain Solutions",
+    "short_description": "Innovative blockchain-based logistics solutions",
+    "category": "technology",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Blockchain_logistics_technology_g3h5i756.png",
+    "features": [
+      "Smart contract implementation",
+      "Supply chain transparency",
+      "Document authentication"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "business",
+    "name": "Business Services",
+    "short_description": "Comprehensive business support and development",
+    "category": "consulting",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Business_services_support_h4j6k867.png",
+    "features": [
+      "Business plan development",
+      "Market entry strategies",
+      "Partnership facilitation"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "certificates",
+    "name": "Certificate Services",
+    "short_description": "Professional certification and compliance management",
+    "category": "customs",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Certificate_compliance_services_i5k7l978.png",
+    "features": [
+      "Certificate of origin processing",
+      "Quality certificates",
+      "Compliance certifications"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "chartering",
+    "name": "Chartering Services",
+    "short_description": "Vessel and aircraft chartering solutions",
+    "category": "transport",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Chartering_vessel_aircraft_j6l8m089.png",
+    "features": [
+      "Vessel chartering",
+      "Aircraft chartering",
+      "Charter party negotiations"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "companies",
+    "name": "Company Services",
+    "short_description": "Corporate logistics and fleet management",
+    "category": "corporate",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Company_fleet_management_k7m9n190.png",
+    "features": [
+      "Corporate account management",
+      "Fleet management solutions",
+      "Dedicated logistics teams"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "cooperation",
+    "name": "Cooperation Services",
+    "short_description": "International cooperation and joint ventures",
+    "category": "partnership",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Cooperation_joint_ventures_l8n0o201.png",
+    "features": [
+      "Joint venture facilitation",
+      "International partnerships",
+      "Cooperative agreements"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "distribution",
+    "name": "Distribution Services",
+    "short_description": "Comprehensive distribution network management",
+    "category": "logistics",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Distribution_network_services_m9o1p312.png",
+    "features": [
+      "Distribution network design",
+      "Multi-channel distribution",
+      "Regional distribution centers"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "ecosystem",
+    "name": "Ecosystem Services",
+    "short_description": "Integrated logistics ecosystem management",
+    "category": "platform",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Ecosystem_logistics_platform_n0p2q423.png",
+    "features": [
+      "Ecosystem integration",
+      "Platform connectivity",
+      "Partner network access"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "education",
+    "name": "Education Services",
+    "short_description": "Professional logistics training and certification",
+    "category": "training",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Education_training_logistics_o1q3r534.png",
+    "features": [
+      "Professional training programs",
+      "Industry certifications",
+      "Online learning platforms"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "events",
+    "name": "Event Logistics",
+    "short_description": "Specialized event and exhibition logistics",
+    "category": "events",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Event_exhibition_logistics_p2r4s645.png",
+    "features": [
+      "Exhibition logistics",
+      "Trade show management",
+      "Event cargo handling"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "export",
+    "name": "Export Services",
+    "short_description": "Complete export management and facilitation",
+    "category": "customs",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Export_management_services_q3s5t756.png",
+    "features": [
+      "Export documentation",
+      "Export licensing",
+      "Market research"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "growth",
+    "name": "Growth Services",
+    "short_description": "Business growth and expansion solutions",
+    "category": "consulting",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Growth_expansion_services_r4t6u867.png",
+    "features": [
+      "Market expansion strategies",
+      "Growth consulting",
+      "Scalability planning"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "help-develop",
+    "name": "Development Services",
+    "short_description": "Infrastructure and capability development",
+    "category": "consulting",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Development_infrastructure_s5u7v978.png",
+    "features": [
+      "Infrastructure development",
+      "Capability building",
+      "Process improvement"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "investing",
+    "name": "Investment Services",
+    "short_description": "Logistics investment and financial advisory",
+    "category": "finance",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Investment_financial_advisory_t6v8w089.png",
+    "features": [
+      "Investment advisory",
+      "Project financing",
+      "Asset management"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "knowledge",
+    "name": "Knowledge Services",
+    "short_description": "Industry knowledge and information management",
+    "category": "consulting",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Knowledge_information_management_u7w9x190.png",
+    "features": [
+      "Market research",
+      "Industry analysis",
+      "Knowledge management"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "logistics-market",
+    "name": "Logistics Marketplace",
+    "short_description": "Digital marketplace for logistics services",
+    "category": "marketplace",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Logistics_marketplace_platform_v8x0y201.png",
+    "features": [
+      "Service marketplace",
+      "Rate comparison",
+      "Instant booking"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "modernization",
+    "name": "Modernization Services",
+    "short_description": "Digital transformation and modernization solutions",
+    "category": "technology",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Modernization_digital_transformation_w9y1z312.png",
+    "features": [
+      "Digital transformation",
+      "System modernization",
+      "Process automation"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "network",
+    "name": "Network Services",
+    "short_description": "Global logistics network access and management",
+    "category": "logistics",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Network_logistics_global_x0z2a423.png",
+    "features": [
+      "Global network access",
+      "Partner connectivity",
+      "Network optimization"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "organizations",
+    "name": "Organization Services",
+    "short_description": "Organizational development and management",
+    "category": "corporate",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Organization_management_services_y1a3b534.png",
+    "features": [
+      "Organizational design",
+      "Change management",
+      "Process optimization"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "partnership",
+    "name": "Partnership Services",
+    "short_description": "Strategic partnership development and management",
+    "category": "partnership",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Partnership_strategic_alliance_z2b4c645.png",
+    "features": [
+      "Partnership development",
+      "Alliance management",
+      "Joint venture support"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "project",
+    "name": "Project Services",
+    "short_description": "Complex project logistics and management",
+    "category": "logistics",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Project_logistics_management_a3c5d756.png",
+    "features": [
+      "Project cargo handling",
+      "Project planning",
+      "Risk management"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "shopping",
+    "name": "Shopping Services",
+    "short_description": "Personal shopping and procurement services",
+    "category": "ecommerce",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Shopping_procurement_services_b4d6e867.png",
+    "features": [
+      "Personal shopping",
+      "Procurement services",
+      "Product sourcing"
+    ],
+    "is_active": true
+  },
+  {
+    "slug": "trading",
+    "name": "Trading Services",
+    "short_description": "International trade facilitation and support",
+    "category": "trading",
+    "hero_image_url": "https://molochain.com/attached_assets/generated_images/Trading_international_commerce_c5e7f978.png",
+    "features": [
+      "Trade facilitation",
+      "Import/export support",
+      "Trade finance"
+    ],
+    "is_active": true
+  }
+]

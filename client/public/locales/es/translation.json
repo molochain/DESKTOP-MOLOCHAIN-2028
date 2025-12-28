@@ -1,0 +1,273 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "quote": "Cotización",
+    "contact": "Contacto",
+    "getStarted": "Comenzar",
+    "tools": "Herramientas"
+  },
+  "hero": {
+    "title": "Logística Moderna",
+    "subtitle": "para Negocios Modernos",
+    "description": "Optimice su cadena de suministro con nuestras soluciones logísticas integrales. Ya sea una empresa o particular, estamos aquí para ayudarle.",
+    "getQuote": "Solicitar Cotización",
+    "learnMore": "Más Información"
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Soluciones logísticas integrales para las necesidades de su negocio",
+    "viewAll": "Ver Todos los Servicios",
+    "freight": {
+      "title": "Transporte de Carga",
+      "description": "Soluciones globales de transporte para empresas de todos los tamaños"
+    },
+    "warehouse": {
+      "title": "Almacenaje",
+      "description": "Almacenamiento seguro y gestión de inventario"
+    },
+    "distribution": {
+      "title": "Distribución",
+      "description": "Redes de distribución eficientes en todo el mundo"
+    },
+    "customs": {
+      "title": "Despacho Aduanero",
+      "description": "Gestión experta de aduanas y documentación"
+    }
+  },
+  "about": {
+    "title": "Acerca de Molo Logistics",
+    "subtitle": "Una fuerza líder en logística y transporte global",
+    "approach": {
+      "title": "Nuestro Enfoque",
+      "description": "En Molo, creemos en un enfoque colaborativo y centrado en las personas. Cada cliente no es solo un cliente, sino un socio y amigo. Nuestro compromiso con la transparencia, la confianza y la calidad del servicio nos ha convertido en una marca confiable en la industria del transporte global.",
+      "cta": "Conéctese con Nosotros"
+    },
+    "features": {
+      "globalNetwork": {
+        "title": "Red Global",
+        "description": "Operando en Europa, África, Rusia, EE.UU., Canadá, Brasil y México"
+      },
+      "trackRecord": {
+        "title": "Trayectoria Probada",
+        "description": "Más de 60,000 contenedores TEU exportados y 18,000 contenedores TEU importados anualmente"
+      },
+      "humanCentric": {
+        "title": "Centrado en las Personas",
+        "description": "Construyendo asociaciones duraderas a través de relaciones colaborativas con los clientes"
+      },
+      "partnerships": {
+        "title": "Alianzas Estratégicas",
+        "description": "Colaborando con importantes empresas comerciales en todo el mundo"
+      }
+    },
+    "globalPresence": {
+      "title": "Presencia Global",
+      "description": "Nuestra red estratégica de almacenes y rutas de envío abarca los principales centros comerciales globales, permitiendo soluciones logísticas eficientes y confiables en todo el mundo."
+    },
+    "expertise": {
+      "title": "Nuestra Experiencia",
+      "description1": "Molo es una de las organizaciones líderes activas en transporte internacional, logística y comercio exterior, con licencias oficiales en Irán y Turquía. La empresa ofrece servicios logísticos y comerciales integrales desde y hacia destinos globales clave.",
+      "description2": "La presencia de la empresa en Irán, Turquía, Reino Unido, EAU y China fortalece sus conexiones globales y capacidades de servicio. Además, la membresía de Molo en asociaciones internacionales respetadas asegura una comunicación rápida y efectiva, mejorando la experiencia general del cliente.",
+      "description3": "Nuestra experiencia en comercio marítimo y transporte de carga combina habilidades complejas, conocimiento especializado y ejecución operativa para garantizar un transporte global seguro, económico y eficiente."
+    },
+    "metrics": {
+      "exportedContainers": {
+        "value": "60,000+",
+        "label": "Contenedores TEU Exportados Anualmente"
+      },
+      "importedContainers": {
+        "value": "18,000+",
+        "label": "Contenedores TEU Importados"
+      },
+      "bulkProjects": {
+        "value": "800+",
+        "label": "Proyectos de Carga a Granel Anualmente"
+      },
+      "globalPorts": {
+        "value": "350+",
+        "label": "Puertos Globales Atendidos"
+      }
+    },
+    "pricing": {
+      "title": "Precios",
+      "description1": "Nuestra política de precios se basa en el análisis de las necesidades del mercado y los requisitos del cliente.",
+      "description2": "Utilizamos herramientas analíticas y datos actualizados para evaluar el mercado y optimizar los precios.",
+      "description3": "Este enfoque nos ayuda a ganar la confianza y lealtad de nuestros clientes."
+    },
+    "growth": {
+      "title": "Crecimiento y Expansión",
+      "description1": "Molo Logistics está constantemente expandiendo sus servicios y alcance global.",
+      "description2": "Estamos comprometidos a proporcionar el mejor servicio posible a nuestros clientes.",
+      "description3": "Nuestro crecimiento está impulsado por el éxito de nuestros clientes.",
+      "description4": "Nuestras áreas clave de enfoque incluyen:",
+      "list1": "Expandir nuestra red de socios globales",
+      "list2": "Invertir en nuevas tecnologías para mejorar la eficiencia",
+      "list3": "Desarrollar soluciones logísticas nuevas e innovadoras",
+      "description5": "Estamos seguros de que nuestro crecimiento continuo beneficiará a nuestros clientes y a la industria logística global."
+    }
+  },
+  "whyUs": {
+    "title": "¿Por Qué Elegirnos?",
+    "description": "Con años de experiencia y una red global, proporcionamos soluciones logísticas confiables y eficientes que ayudan a crecer su negocio.",
+    "cta": "Comience Hoy",
+    "imageAlt": "Contenedores de Envío"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "close": "Cerrar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "submit": "Enviar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "export": "Exportar",
+    "import": "Importar",
+    "refresh": "Actualizar",
+    "copy": "Copiar",
+    "download": "Descargar",
+    "upload": "Subir",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "dashboard": {
+    "title": "Panel de Control",
+    "overview": "Resumen",
+    "metrics": "Métricas",
+    "notifications": "Notificaciones",
+    "quickActions": "Acciones Rápidas",
+    "recentActivity": "Actividad Reciente",
+    "systemHealth": "Estado del Sistema",
+    "performance": "Rendimiento"
+  },
+  "tracking": {
+    "title": "Seguimiento de Envíos",
+    "trackingNumber": "Número de Seguimiento",
+    "status": "Estado",
+    "location": "Ubicación",
+    "estimatedDelivery": "Entrega Estimada",
+    "shipmentDetails": "Detalles del Envío",
+    "history": "Historial",
+    "documents": "Documentos",
+    "contact": "Contactar"
+  },
+  "projects": {
+    "title": "Gestión de Proyectos",
+    "createProject": "Crear Proyecto",
+    "projectName": "Nombre del Proyecto",
+    "description": "Descripción",
+    "status": "Estado",
+    "progress": "Progreso",
+    "milestones": "Hitos",
+    "team": "Equipo",
+    "timeline": "Cronograma",
+    "budget": "Presupuesto",
+    "resources": "Recursos"
+  },
+  "commodities": {
+    "title": "Comercio de Materias Primas",
+    "prices": "Precios",
+    "market": "Mercado",
+    "trends": "Tendencias",
+    "alerts": "Alertas",
+    "portfolio": "Cartera",
+    "trading": "Comercio",
+    "analysis": "Análisis",
+    "reports": "Informes"
+  },
+  "profile": {
+    "title": "Perfil de Usuario",
+    "personalInfo": "Información Personal",
+    "preferences": "Preferencias",
+    "security": "Seguridad",
+    "notifications": "Notificaciones",
+    "language": "Idioma",
+    "timezone": "Zona Horaria",
+    "avatar": "Avatar",
+    "changePassword": "Cambiar Contraseña"
+  },
+  "admin": {
+    "title": "Panel de Administración",
+    "users": "Usuarios",
+    "system": "Sistema",
+    "logs": "Registros",
+    "settings": "Configuración",
+    "monitoring": "Monitoreo",
+    "reports": "Informes",
+    "backup": "Respaldo",
+    "maintenance": "Mantenimiento"
+  },
+  "developer": {
+    "title": "Recursos para Desarrolladores",
+    "help": {
+      "title": "Ayuda para Desarrolladores",
+      "description": "Guía completa de todas las páginas, rutas, APIs y servicios WebSocket"
+    },
+    "api": {
+      "title": "Documentación de API",
+      "endpoints": "Endpoints",
+      "authentication": "Autenticación",
+      "examples": "Ejemplos",
+      "testing": "Pruebas"
+    },
+    "websockets": {
+      "title": "Guía de WebSockets",
+      "connections": "Conexiones",
+      "channels": "Canales",
+      "events": "Eventos",
+      "troubleshooting": "Solución de Problemas"
+    }
+  },
+  "errors": {
+    "404": "Página no encontrada",
+    "500": "Error interno del servidor",
+    "403": "Acceso denegado",
+    "401": "No autorizado",
+    "networkError": "Error de conexión de red",
+    "validationError": "Error de validación",
+    "unknownError": "Error desconocido"
+  },
+  "messages": {
+    "saveSuccess": "Guardado exitosamente",
+    "deleteSuccess": "Eliminado exitosamente",
+    "updateSuccess": "Actualizado exitosamente",
+    "createSuccess": "Creado exitosamente",
+    "operationFailed": "La operación falló",
+    "confirmDelete": "¿Está seguro de que desea eliminar este elemento?",
+    "unsavedChanges": "Tiene cambios sin guardar. ¿Está seguro de que desea salir?"
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido de Nuevo",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "submit": "Iniciar Sesión",
+      "loggingIn": "Iniciando sesión...",
+      "forgotPassword": "¿Olvidó su Contraseña?",
+      "noAccount": "¿No tiene una cuenta?",
+      "register": "Registrarse"
+    },
+    "register": {
+      "title": "Crear Cuenta",
+      "username": "Nombre de Usuario",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "fullName": "Nombre Completo",
+      "company": "Empresa (Opcional)",
+      "phone": "Número de Teléfono (Opcional)",
+      "submit": "Crear Cuenta",
+      "creating": "Creando cuenta...",
+      "haveAccount": "¿Ya tiene una cuenta?",
+      "login": "Iniciar Sesión"
+    }
+  }
+}

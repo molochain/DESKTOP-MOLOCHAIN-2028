@@ -1,0 +1,38 @@
+[root@zen-agnesi cms.molochain.com]# # List all PHP versions available in Plesk
+plesk bin php_handler --list
+                        id:        display name:  full version:  version:    type:                         cgi-bin:                    php-cli:                        php.ini:  custom:  status:
+                        cgi  8.0.30 by OS vendor         8.0.30       8.0      cgi                 /usr/bin/php-cgi                /usr/bin/php                    /etc/php.ini    false disabled
+                    fastcgi  8.0.30 by OS vendor         8.0.30       8.0  fastcgi                 /usr/bin/php-cgi                /usr/bin/php                    /etc/php.ini    false  enabled
+                        fpm  8.0.30 by OS vendor         8.0.30       8.0      fpm                /usr/sbin/php-fpm                /usr/bin/php                    /etc/php.ini    false  enabled
+              fpm-dedicated  8.0.30 by OS vendor         8.0.30       8.0      fpm                /usr/sbin/php-fpm                /usr/bin/php                    /etc/php.ini    false  enabled
+            plesk-php56-cgi               5.6.40         5.6.40       5.6      cgi   /opt/plesk/php/5.6/bin/php-cgi  /opt/plesk/php/5.6/bin/php  /opt/plesk/php/5.6/etc/php.ini     true disabled
+        plesk-php56-fastcgi               5.6.40         5.6.40       5.6  fastcgi   /opt/plesk/php/5.6/bin/php-cgi  /opt/plesk/php/5.6/bin/php  /opt/plesk/php/5.6/etc/php.ini     true  enabled
+            plesk-php56-fpm               5.6.40         5.6.40       5.6      fpm  /opt/plesk/php/5.6/sbin/php-fpm  /opt/plesk/php/5.6/bin/php  /opt/plesk/php/5.6/etc/php.ini     true  enabled
+            plesk-php70-cgi               7.0.33         7.0.33       7.0      cgi   /opt/plesk/php/7.0/bin/php-cgi  /opt/plesk/php/7.0/bin/php  /opt/plesk/php/7.0/etc/php.ini     true disabled
+        plesk-php70-fastcgi               7.0.33         7.0.33       7.0  fastcgi   /opt/plesk/php/7.0/bin/php-cgi  /opt/plesk/php/7.0/bin/php  /opt/plesk/php/7.0/etc/php.ini     true  enabled
+            plesk-php70-fpm               7.0.33         7.0.33       7.0      fpm  /opt/plesk/php/7.0/sbin/php-fpm  /opt/plesk/php/7.0/bin/php  /opt/plesk/php/7.0/etc/php.ini     true  enabled
+            plesk-php74-cgi               7.4.33         7.4.33       7.4      cgi   /opt/plesk/php/7.4/bin/php-cgi  /opt/plesk/php/7.4/bin/php  /opt/plesk/php/7.4/etc/php.ini     true disabled
+        plesk-php74-fastcgi               7.4.33         7.4.33       7.4  fastcgi   /opt/plesk/php/7.4/bin/php-cgi  /opt/plesk/php/7.4/bin/php  /opt/plesk/php/7.4/etc/php.ini     true  enabled
+            plesk-php74-fpm               7.4.33         7.4.33       7.4      fpm  /opt/plesk/php/7.4/sbin/php-fpm  /opt/plesk/php/7.4/bin/php  /opt/plesk/php/7.4/etc/php.ini     true  enabled
+  plesk-php74-fpm-dedicated               7.4.33         7.4.33       7.4      fpm  /opt/plesk/php/7.4/sbin/php-fpm  /opt/plesk/php/7.4/bin/php  /opt/plesk/php/7.4/etc/php.ini     true  enabled
+            plesk-php80-cgi               8.0.30         8.0.30       8.0      cgi   /opt/plesk/php/8.0/bin/php-cgi  /opt/plesk/php/8.0/bin/php  /opt/plesk/php/8.0/etc/php.ini     true disabled
+        plesk-php80-fastcgi               8.0.30         8.0.30       8.0  fastcgi   /opt/plesk/php/8.0/bin/php-cgi  /opt/plesk/php/8.0/bin/php  /opt/plesk/php/8.0/etc/php.ini     true  enabled
+            plesk-php80-fpm               8.0.30         8.0.30       8.0      fpm  /opt/plesk/php/8.0/sbin/php-fpm  /opt/plesk/php/8.0/bin/php  /opt/plesk/php/8.0/etc/php.ini     true  enabled
+  plesk-php80-fpm-dedicated               8.0.30         8.0.30       8.0      fpm  /opt/plesk/php/8.0/sbin/php-fpm  /opt/plesk/php/8.0/bin/php  /opt/plesk/php/8.0/etc/php.ini     true  enabled
+            plesk-php81-cgi               8.1.33         8.1.33       8.1      cgi   /opt/plesk/php/8.1/bin/php-cgi  /opt/plesk/php/8.1/bin/php  /opt/plesk/php/8.1/etc/php.ini     true disabled
+        plesk-php81-fastcgi               8.1.33         8.1.33       8.1  fastcgi   /opt/plesk/php/8.1/bin/php-cgi  /opt/plesk/php/8.1/bin/php  /opt/plesk/php/8.1/etc/php.ini     true  enabled
+            plesk-php81-fpm               8.1.33         8.1.33       8.1      fpm  /opt/plesk/php/8.1/sbin/php-fpm  /opt/plesk/php/8.1/bin/php  /opt/plesk/php/8.1/etc/php.ini     true  enabled
+  plesk-php81-fpm-dedicated               8.1.33         8.1.33       8.1      fpm  /opt/plesk/php/8.1/sbin/php-fpm  /opt/plesk/php/8.1/bin/php  /opt/plesk/php/8.1/etc/php.ini     true  enabled
+            plesk-php82-cgi               8.2.29         8.2.29       8.2      cgi   /opt/plesk/php/8.2/bin/php-cgi  /opt/plesk/php/8.2/bin/php  /opt/plesk/php/8.2/etc/php.ini     true disabled
+        plesk-php82-fastcgi               8.2.29         8.2.29       8.2  fastcgi   /opt/plesk/php/8.2/bin/php-cgi  /opt/plesk/php/8.2/bin/php  /opt/plesk/php/8.2/etc/php.ini     true  enabled
+            plesk-php82-fpm               8.2.29         8.2.29       8.2      fpm  /opt/plesk/php/8.2/sbin/php-fpm  /opt/plesk/php/8.2/bin/php  /opt/plesk/php/8.2/etc/php.ini     true  enabled
+  plesk-php82-fpm-dedicated               8.2.29         8.2.29       8.2      fpm  /opt/plesk/php/8.2/sbin/php-fpm  /opt/plesk/php/8.2/bin/php  /opt/plesk/php/8.2/etc/php.ini     true  enabled
+            plesk-php83-cgi               8.3.28         8.3.28       8.3      cgi   /opt/plesk/php/8.3/bin/php-cgi  /opt/plesk/php/8.3/bin/php  /opt/plesk/php/8.3/etc/php.ini     true disabled
+        plesk-php83-fastcgi               8.3.28         8.3.28       8.3  fastcgi   /opt/plesk/php/8.3/bin/php-cgi  /opt/plesk/php/8.3/bin/php  /opt/plesk/php/8.3/etc/php.ini     true  enabled
+            plesk-php83-fpm               8.3.28         8.3.28       8.3      fpm  /opt/plesk/php/8.3/sbin/php-fpm  /opt/plesk/php/8.3/bin/php  /opt/plesk/php/8.3/etc/php.ini     true  enabled
+  plesk-php83-fpm-dedicated               8.3.28         8.3.28       8.3      fpm  /opt/plesk/php/8.3/sbin/php-fpm  /opt/plesk/php/8.3/bin/php  /opt/plesk/php/8.3/etc/php.ini     true  enabled
+            plesk-php84-cgi               8.4.15         8.4.15       8.4      cgi   /opt/plesk/php/8.4/bin/php-cgi  /opt/plesk/php/8.4/bin/php  /opt/plesk/php/8.4/etc/php.ini     true disabled
+        plesk-php84-fastcgi               8.4.15         8.4.15       8.4  fastcgi   /opt/plesk/php/8.4/bin/php-cgi  /opt/plesk/php/8.4/bin/php  /opt/plesk/php/8.4/etc/php.ini     true  enabled
+            plesk-php84-fpm               8.4.15         8.4.15       8.4      fpm  /opt/plesk/php/8.4/sbin/php-fpm  /opt/plesk/php/8.4/bin/php  /opt/plesk/php/8.4/etc/php.ini     true  enabled
+  plesk-php84-fpm-dedicated               8.4.15         8.4.15       8.4      fpm  /opt/plesk/php/8.4/sbin/php-fpm  /opt/plesk/php/8.4/bin/php  /opt/plesk/php/8.4/etc/php.ini     true  enabled
+[root@zen-agnesi cms.molochain.com]# 

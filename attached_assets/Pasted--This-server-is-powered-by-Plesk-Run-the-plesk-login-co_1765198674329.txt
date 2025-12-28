@@ -1,0 +1,259 @@
+
+This server is powered by Plesk.
+
+Run the 'plesk login' command and log in by browsing either of the links received in the output.
+Use the 'plesk' command to manage the server. Run 'plesk help' for more info.
+
+[root@zen-agnesi ~]# # Check PostgreSQL connection and version
+psql $DATABASE_URL -c "SELECT version();"
+
+# List all databases
+psql $DATABASE_URL -c "\l"
+
+# List all tables in current database
+psql $DATABASE_URL -c "\dt"
+
+# Check database size
+psql $DATABASE_URL -c "SELECT pg_size_pretty(pg_database_size(current_database()));"
+psql: error: FATAL:  role "root" does not exist
+psql: error: FATAL:  role "root" does not exist
+psql: error: FATAL:  role "root" does not exist
+psql: error: FATAL:  role "root" does not exist
+[root@zen-agnesi ~]# # Check Node.js version
+node --version
+
+# Check memory usage
+free -h
+
+# Check disk space
+df -h
+
+# Check running processes
+ps aux | grep node
+
+# Check environment variables (be careful - may contain secrets)
+printenv | grep -E "(DATABASE|PG|API|NODE)"
+v20.19.6
+               total        used        free      shared  buff/cache   available
+Mem:           7.5Gi       3.9Gi       859Mi       198Mi       3.5Gi       3.6Gi
+Swap:          7.9Gi       1.0Gi       6.8Gi
+Filesystem                  Size  Used Avail Use% Mounted on
+devtmpfs                    4.0M     0  4.0M   0% /dev
+tmpfs                       3.8G   16K  3.8G   1% /dev/shm
+tmpfs                       1.6G  149M  1.4G  10% /run
+/dev/mapper/almalinux-root  152G   68G   84G  45% /
+/dev/sda1                   960M  423M  538M  45% /boot
+tmpfs                       769M     0  769M   0% /run/user/0
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/631f78e44d9d2a2e205664b3122490c7b12b365ef396f263c49320630fa28557/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/b056efed45cf2e6ed1aefe7de4d37560a93de194a6293adae42af10866cb33df/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/b5de2aa9909863650ac87c824b4474a60554ca251840f110cb20b39ea5be2bd0/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/2767b44695f1c866a7974811583faa369a14bf695ad60eaa3f65a30ab3e7155d/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/d2798beec5b73be744ebcaceb939ec6a7430425cdfe8aba7cafea162ea5fb544/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/df61e1bdf3303f68367fd2404f1d7646c131a5d4e236cb61a993282720af5920/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/47a18226f026e0124a8cd448a8d751fec51bfc49e9ccedb78e34c4312d236697/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/5ee2278743fb39e39abfff4c961c182804494910acdf825baa2f5cd03ab86941/merged
+tmpfs                       769M     0  769M   0% /run/user/997
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/3b81264bc9a572118e94e11dccf1e229dc59ccb7de2ced68fec25f0d72838f82/merged
+afsadm    272949  0.1  0.5 1299612 40220 ?       Ssl  Nov22  43:48 node /home/afsadm/.pm2/modules/pm2-logrotate/node_modules/
+root      272951  0.3  0.3 1034844 30936 ?       Ssl  Nov22  68:48 node /root/.pm2/modules/pm2-server-monit/node_modules/pm2-
+root      272957  0.1  0.5 1301308 41116 ?       Ssl  Nov22  43:08 node /root/.pm2/modules/pm2-logrotate/node_modules/pm2-log
+afsadm    273024  0.6  1.1 12929700 87912 ?      Sl   Nov22 145:48 node /var/www/vhosts/molochain.com/httpdocs/core/microservices/
+afsadm    273026  0.6  0.6 1305892 47224 ?       Sl   Nov22 142:09 node /var/www/vhosts/molochain.com/httpdocs/core/microservices/
+afsadm    273293  0.0  0.1 1237232 10744 ?       Sl   Nov22   9:10 /var/www/vhosts/molochain.com/httpdocs/core/microservices/admin-service/node_modules/@esbuild/linux-x64/bin/esbuild --service=0.25.10 --ping
+root      284496  0.2  1.8 22664504 147360 ?     Ssl  Dec05  13:15 node /var/www/vhosts/molochain.com/molochain-core/dist/index.js
+root      409158  0.0  0.0   3884  2176 pts/0    S+   15:55   0:00 grep --color=auto node
+root      501041  0.0  0.3 332628 28376 ?        Sl   Dec03   0:03 node --harmony app.js
+root     2661653  0.0  0.2 10778028 19028 ?      Ssl  Dec03   0:02 node server.js
+root     2661772  0.3  0.3 10782924 23752 ?      Ssl  Dec03  30:14 node src/index.js
+molocha+ 3552665  0.0  0.1 12437144 13900 ?      Sl   Nov28   3:38 node /var/www/vhosts/molochain.com/cms.molochain.com/node_modules/.bin/vite
+molocha+ 3552677  0.0  0.1 1237796 12684 ?       Sl   Nov28   5:50 /var/www/vhosts/molochain.com/cms.molochain.com/node_modules/@esbuild/linux-x64/bin/esbuild --service=0.25.12 --ping
+[root@zen-agnesi ~]# # Test API connectivity
+curl -I https://cms.molochain.com/api
+curl -I https://opt.molochain.com/v1
+HTTP/2 503 
+server: nginx
+date: Mon, 08 Dec 2025 12:56:00 GMT
+content-type: text/html
+content-length: 918
+last-modified: Fri, 26 Sep 2025 17:07:27 GMT
+etag: "396-63fb751f80d3f"
+accept-ranges: bytes
+
+HTTP/2 503 
+server: nginx
+date: Mon, 08 Dec 2025 12:56:00 GMT
+content-type: text/html
+content-length: 918
+last-modified: Fri, 26 Sep 2025 17:07:27 GMT
+etag: "396-63fb751f80d3f"
+accept-ranges: bytes
+
+[root@zen-agnesi ~]# # Check if PostgreSQL is running
+systemctl status postgresql
+
+# Or check for PostgreSQL in Docker
+docker ps | grep postgres
+
+# List PostgreSQL users (if local)
+sudo -u postgres psql -c "\du"
+● postgresql.service - PostgreSQL database server
+     Loaded: loaded (/usr/lib/systemd/system/postgresql.service; enabled; preset: disabled)
+    Drop-In: /usr/lib/systemd/system/postgresql.service.d
+             └─respawn.conf
+     Active: active (running) since Tue 2025-12-02 01:14:20 +03; 6 days ago
+   Main PID: 3968494 (postmaster)
+      Tasks: 8 (limit: 48882)
+     Memory: 33.0M (peak: 91.7M)
+        CPU: 22min 41.279s
+     CGroup: /system.slice/postgresql.service
+             ├─3968494 /usr/bin/postmaster -D /var/lib/pgsql/data
+             ├─3968498 "postgres: logger "
+             ├─3968500 "postgres: checkpointer "
+             ├─3968501 "postgres: background writer "
+             ├─3968502 "postgres: walwriter "
+             ├─3968503 "postgres: autovacuum launcher "
+             ├─3968504 "postgres: stats collector "
+             └─3968505 "postgres: logical replication launcher "
+
+Notice: journal has been rotated since unit was started, output may be incomplete.
+could not change directory to "/root": Permission denied
+Password for user postgres: 
+psql: error: FATAL:  password authentication failed for user "postgres"
+[root@zen-agnesi ~]# # Check PM2 status as afsadm user (the one running microservices)
+sudo -u afsadm pm2 list
+
+# Check PM2 logs for errors
+sudo -u afsadm pm2 logs --lines 50
+┌────┬───────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 8  │ admin-service         │ default     │ 1.0.0   │ cluster │ 273024   │ 15D    │ 1    │ online    │ 0%       │ 85.3mb   │ afsadm   │ disabled │
+│ 2  │ cms-service           │ default     │ 1.0.0   │ fork    │ N/A      │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ afsadm   │ disabled │
+│ 9  │ github-app            │ default     │ 1.0.0   │ fork    │ N/A      │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ afsadm   │ disabled │
+│ 3  │ membership-service    │ default     │ 1.0.0   │ cluster │ N/A      │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ afsadm   │ disabled │
+│ 10 │ molochain-prod        │ default     │ 1.0.0   │ cluster │ N/A      │ 0      │ 129  │ stopped   │ 0%       │ 0b       │ afsadm   │ disabled │
+│ 7  │ restart-monitor       │ default     │ 1.0.0   │ fork    │ 273280   │ 0      │ 2    │  │ 0%       │ 0b       │ afsadm   │ disabled │
+│ 4  │ websocket-gateway     │ default     │ 1.0.0   │ cluster │ 273026   │ 15D    │ 1    │ online    │ 0%       │ 45.9mb   │ afsadm   │ disabled │
+│ 5  │ websocket-gateway     │ default     │ 1.0.0   │ cluster │ N/A      │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ afsadm   │ disabled │
+└────┴───────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+Module
+┌────┬──────────────────────────────┬───────────────┬──────────┬──────────┬──────┬──────────┬──────────┬──────────┐
+│ id │ module                       │ version       │ pid      │ status   │ ↺    │ cpu      │ mem      │ user     │
+├────┼──────────────────────────────┼───────────────┼──────────┼──────────┼──────┼──────────┼──────────┼──────────┤
+│ 0  │ pm2-logrotate                │ 3.0.0         │ 272949   │ online   │ 1    │ 0%       │ 39.6mb   │ afsadm   │
+└────┴──────────────────────────────┴───────────────┴──────────┴──────────┴──────┴──────────┴──────────┴──────────┘
+[TAILING] Tailing last 50 lines for [all] processes (change the value with --lines option)
+/home/afsadm/.pm2/pm2.log last 50 lines:
+PM2        | 2025-11-22T22:59:52: PM2 log: App [admin-service:8] starting in -cluster mode-
+PM2        | 2025-11-22T22:59:52: PM2 log: App name:websocket-gateway id:4 disconnected
+PM2        | 2025-11-22T22:59:52: PM2 log: App [websocket-gateway:4] exited with code [0] via signal [SIGINT]
+PM2        | 2025-11-22T22:59:52: PM2 log: App [websocket-gateway:4] starting in -cluster mode-
+PM2        | 2025-11-22T22:59:52: PM2 log: App [admin-service:8] online
+PM2        | 2025-11-22T22:59:53: PM2 log: App [websocket-gateway:4] online
+PM2        | 2025-11-22T22:59:55: PM2 log: App [restart-monitor:7] starting in -fork mode-
+PM2        | 2025-11-22T22:59:55: PM2 log: App [restart-monitor:7] online
+PM2        | 2025-11-27T03:09:53: PM2 log: [PM2] This PM2 is not UP TO DATE
+PM2        | 2025-11-27T03:09:53: PM2 log: [PM2] Upgrade to version 6.0.14
+PM2        | 2025-11-28T03:09:53: PM2 log: [PM2] This PM2 is not UP TO DATE
+PM2        | 2025-11-28T03:09:53: PM2 log: [PM2] Upgrade to version 6.0.14
+PM2        | 2025-11-29T03:09:53: PM2 log: [PM2] This PM2 is not UP TO DATE
+PM2        | 2025-11-29T03:09:53: PM2 log: [PM2] Upgrade to version 6.0.14
+PM2        | 2025-11-30T03:09:53: PM2 log: [PM2] This PM2 is not UP TO DATE
+PM2        | 2025-11-30T03:09:53: PM2 log: [PM2] Upgrade to version 6.0.14
+PM2        | 2025-12-01T03:09:53: PM2 log: [PM2] This PM2 is not UP TO DATE
+PM2        | 2025-12-01T03:09:53: PM2 log: [PM2] Upgrade to version 6.0.14
+PM2        | 2025-12-02T01:58:02: PM2 log: App [restart-monitor:7] exited with code [1] via signal [SIGINT]
+PM2        | 2025-12-02T01:58:05: PM2 log: App [restart-monitor:7] starting in -fork mode-
+PM2        | 2025-12-02T01:58:05: PM2 error: Trace: [Error: ENOENT: no such file or directory, open '/var/www/vhosts/molochain.com/httpdocs/infrastructure/monitoring/logs/output.log'] {
+PM2        |   errno: -2,
+PM2        |   code: 'ENOENT',
+PM2        |   syscall: 'open',
+PM2        |   path: '/var/www/vhosts/molochain.com/httpdocs/infrastructure/monitoring/logs/output.log'
+PM2        | }
+PM2        |     at God.logAndGenerateError (/usr/lib/node_modules/pm2/lib/God/Methods.js:34:15)
+PM2        |     at /usr/lib/node_modules/pm2/lib/God/ForkMode.js:91:13
+PM2        |     at wrapper (/usr/lib/node_modules/pm2/node_modules/async/internal/once.js:12:16)
+PM2        |     at WriteStream.next (/usr/lib/node_modules/pm2/node_modules/async/waterfall.js:96:20)
+PM2        |     at WriteStream.<anonymous> (/usr/lib/node_modules/pm2/node_modules/async/internal/onlyOnce.js:12:16)
+PM2        |     at Object.onceWrapper (node:events:639:26)
+PM2        |     at WriteStream.emit (node:events:524:28)
+PM2        |     at WriteStream.emit (node:domain:489:12)
+PM2        |     at emitErrorNT (node:internal/streams/destroy:169:8)
+PM2        |     at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+PM2        | 2025-12-02T03:09:53: PM2 log: [PM2] This PM2 is not UP TO DATE
+PM2        | 2025-12-02T03:09:53: PM2 log: [PM2] Upgrade to version 6.0.14
+PM2        | 2025-12-03T03:09:53: PM2 log: [PM2] This PM2 is not UP TO DATE
+PM2        | 2025-12-03T03:09:53: PM2 log: [PM2] Upgrade to version 6.0.14
+PM2        | 2025-12-04T03:09:53: PM2 log: [PM2] This PM2 is not UP TO DATE
+PM2        | 2025-12-04T03:09:53: PM2 log: [PM2] Upgrade to version 6.0.14
+PM2        | 2025-12-05T03:09:53: PM2 log: [PM2] This PM2 is not UP TO DATE
+PM2        | 2025-12-05T03:09:53: PM2 log: [PM2] Upgrade to version 6.0.14
+PM2        | 2025-12-06T03:09:53: PM2 log: [PM2] This PM2 is not UP TO DATE
+PM2        | 2025-12-06T03:09:53: PM2 log: [PM2] Upgrade to version 6.0.14
+PM2        | 2025-12-07T03:09:53: PM2 log: [PM2] This PM2 is not UP TO DATE
+PM2        | 2025-12-07T03:09:53: PM2 log: [PM2] Upgrade to version 6.0.14
+PM2        | 2025-12-08T03:09:53: PM2 log: [PM2] This PM2 is not UP TO DATE
+PM2        | 2025-12-08T03:09:53: PM2 log: [PM2] Upgrade to version 6.0.14
+
+/home/afsadm/.pm2/logs/github-app-error.log last 50 lines:
+/home/afsadm/.pm2/logs/pm2-logrotate-error.log last 50 lines:
+/home/afsadm/.pm2/logs/molochain-prod-error-10.log last 50 lines:
+/home/afsadm/.pm2/logs/molochain-prod-out-10.log last 50 lines:
+/home/afsadm/.pm2/logs/github-app-out.log last 50 lines:
+/home/afsadm/.pm2/logs/admin-service-error-8.log last 50 lines:
+/home/afsadm/.pm2/logs/pm2-logrotate-out.log last 50 lines:
+0|pm2-logr | "/home/afsadm/.pm2/logs/pm2-logrotate-out__2025-12-08_00-00-00.log" has been created
+0|pm2-logr | "/home/afsadm/.pm2/logs/admin-service-out-8__2025-12-08_00-00-00.log" has been created
+0|pm2-logr | "pm2-logrotate-out__2025-11-07_00-00-00.log" has been deleted
+
+/home/afsadm/.pm2/logs/admin-service-out-8.log last 50 lines:
+8|admin-se | 2025-12-08T11:45:11: 2025-12-08T08:45:11.310Z - GET /
+8|admin-se | 2025-12-08T11:50:15: 2025-12-08T08:50:15.112Z - GET /
+8|admin-se | 2025-12-08T11:55:19: 2025-12-08T08:55:19.032Z - GET /
+8|admin-se | 2025-12-08T12:00:23: 2025-12-08T09:00:23.045Z - GET /
+8|admin-se | 2025-12-08T12:05:26: 2025-12-08T09:05:26.982Z - GET /
+8|admin-se | 2025-12-08T12:10:32: 2025-12-08T09:10:32.120Z - GET /
+8|admin-se | 2025-12-08T12:15:36: 2025-12-08T09:15:36.144Z - GET /
+8|admin-se | 2025-12-08T12:20:40: 2025-12-08T09:20:40.300Z - GET /
+8|admin-se | 2025-12-08T12:25:45: 2025-12-08T09:25:45.159Z - GET /
+8|admin-se | 2025-12-08T12:30:49: 2025-12-08T09:30:49.255Z - GET /
+8|admin-se | 2025-12-08T12:35:53: 2025-12-08T09:35:53.175Z - GET /
+8|admin-se | 2025-12-08T12:40:57: 2025-12-08T09:40:57.860Z - GET /
+8|admin-se | 2025-12-08T12:46:02: 2025-12-08T09:46:02.019Z - GET /
+8|admin-se | 2025-12-08T12:51:05: 2025-12-08T09:51:05.794Z - GET /
+8|admin-se | 2025-12-08T12:56:09: 2025-12-08T09:56:09.685Z - GET /
+8|admin-se | 2025-12-08T13:01:13: 2025-12-08T10:01:13.617Z - GET /
+8|admin-se | 2025-12-08T13:06:18: 2025-12-08T10:06:18.682Z - GET /
+8|admin-se | 2025-12-08T13:11:22: 2025-12-08T10:11:22.669Z - GET /
+8|admin-se | 2025-12-08T13:16:26: 2025-12-08T10:16:26.466Z - GET /
+8|admin-se | 2025-12-08T13:21:30: 2025-12-08T10:21:30.451Z - GET /
+8|admin-se | 2025-12-08T13:26:34: 2025-12-08T10:26:34.279Z - GET /
+8|admin-se | 2025-12-08T13:31:38: 2025-12-08T10:31:38.183Z - GET /
+8|admin-se | 2025-12-08T13:36:42: 2025-12-08T10:36:42.164Z - GET /
+8|admin-se | 2025-12-08T13:41:46: 2025-12-08T10:41:46.210Z - GET /
+8|admin-se | 2025-12-08T13:46:50: 2025-12-08T10:46:50.159Z - GET /
+8|admin-se | 2025-12-08T13:51:54: 2025-12-08T10:51:54.055Z - GET /
+8|admin-se | 2025-12-08T13:56:58: 2025-12-08T10:56:58.132Z - GET /
+8|admin-se | 2025-12-08T14:02:02: 2025-12-08T11:02:02.375Z - GET /
+8|admin-se | 2025-12-08T14:07:06: 2025-12-08T11:07:06.449Z - GET /
+8|admin-se | 2025-12-08T14:12:10: 2025-12-08T11:12:10.172Z - GET /
+8|admin-se | 2025-12-08T14:17:14: 2025-12-08T11:17:14.179Z - GET /
+8|admin-se | 2025-12-08T14:22:18: 2025-12-08T11:22:18.123Z - GET /
+8|admin-se | 2025-12-08T14:27:22: 2025-12-08T11:27:22.028Z - GET /
+8|admin-se | 2025-12-08T14:32:26: 2025-12-08T11:32:26.203Z - GET /
+8|admin-se | 2025-12-08T14:37:30: 2025-12-08T11:37:30.506Z - GET /
+8|admin-se | 2025-12-08T14:42:34: 2025-12-08T11:42:34.357Z - GET /
+8|admin-se | 2025-12-08T14:47:38: 2025-12-08T11:47:38.219Z - GET /
+8|admin-se | 2025-12-08T14:52:42: 2025-12-08T11:52:42.018Z - GET /
+8|admin-se | 2025-12-08T14:57:45: 2025-12-08T11:57:45.931Z - GET /
+8|admin-se | 2025-12-08T15:02:49: 2025-12-08T12:02:49.910Z - GET /
+8|admin-se | 2025-12-08T15:07:54: 2025-12-08T12:07:54.008Z - GET /
+8|admin-se | 2025-12-08T15:12:57: 2025-12-08T12:12:57.857Z - GET /
+8|admin-se | 2025-12-08T15:18:01: 2025-12-08T12:18:01.797Z - GET /
+8|admin-se | 2025-12-08T15:23:05: 2025-12-08T12:23:05.708Z - GET /
+8|admin-se | 2025-12-08T15:28:09: 2025-12-08T12:28:09.911Z - GET /
+8|admin-se | 2025-12-08T15:33:13: 2025-12-08T12:33:13.767Z - GET /
+8|admin-se | 2025-12-08T15:38:17: 2025-12-08T12:38:17.632Z - GET /
+8|admin-se | 2025-12-08T15:43:21: 2025-12-08T12:43:21.637Z - GET /
+8|admin-se | 2025-12-08T15:48:25: 2025-12-08T12:48:25.710Z - GET /
+8|admin-se | 2025-12-08T15:53:29: 2025-12-08T12:53:29.603Z - GET /

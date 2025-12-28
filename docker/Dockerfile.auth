@@ -1,0 +1,80 @@
+# =============================================================================
+# Auth Service Dockerfile
+# Centralized Authentication Service for Molochain
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Stage 1: Dependencies
+# -----------------------------------------------------------------------------
+FROM node:20-alpine AS deps
+
+WORKDIR /app
+
+RUN apk add --no-cache python3 make g++ libc6-compat
+
+COPY package*.json ./
+COPY packages/shared-permissions/package.json ./packages/shared-permissions/
+COPY packages/shared-auth/package.json ./packages/shared-auth/
+COPY packages/shared-audit/package.json ./packages/shared-audit/
+
+RUN npm ci --legacy-peer-deps
+
+# -----------------------------------------------------------------------------
+# Stage 2: Builder
+# -----------------------------------------------------------------------------
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files first (needed for npm install)
+COPY package*.json ./
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/packages ./packages
+
+COPY tsconfig.json ./
+COPY shared ./shared
+COPY server ./server
+COPY packages ./packages
+
+# Install tsx as production dependency for runtime TypeScript execution
+RUN npm install tsx --save --legacy-peer-deps
+
+# -----------------------------------------------------------------------------
+# Stage 3: Production Runtime
+# -----------------------------------------------------------------------------
+FROM node:20-alpine AS runner
+
+LABEL maintainer="Molochain DevOps <devops@molochain.com>"
+LABEL version="1.0.0"
+LABEL description="Molochain Auth Service"
+
+WORKDIR /app
+
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 molochain
+
+RUN apk add --no-cache curl dumb-init netcat-openbsd && rm -rf /var/cache/apk/*
+
+COPY --from=builder --chown=molochain:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=molochain:nodejs /app/packages ./packages
+COPY --from=builder --chown=molochain:nodejs /app/shared ./shared
+COPY --from=builder --chown=molochain:nodejs /app/server ./server
+COPY --from=builder --chown=molochain:nodejs /app/tsconfig.json ./
+
+COPY --chown=molochain:nodejs docker/entrypoint-auth.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+ENV NODE_ENV=production
+ENV PORT=7010
+ENV SERVICE_NAME=auth-service
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:7010/api/health || exit 1
+
+USER molochain
+
+EXPOSE 7010
+
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["/app/entrypoint.sh"]

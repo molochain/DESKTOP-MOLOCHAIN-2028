@@ -1,0 +1,56 @@
+flowchart TD
+    subgraph "External Subdomains"
+        CMS[cms.molochain.com]
+        OTMS[opt.molochain.com]
+        Mololink[mololink.molochain.com]
+    end
+
+    subgraph "Email API"
+        API["/api/email/send"]
+        Validate[Validate API Key]
+        RateLimit[Check Rate Limits]
+        Template[Select Template]
+    end
+
+    subgraph "Rate Limiting"
+        General[General: 100/15min]
+        Auth[Auth: 10/15min]
+        Password[Password: 3/hour]
+    end
+
+    subgraph "Processing"
+        Queue[Email Queue]
+        Render[Render Template]
+        Send[Send via Postfix]
+        Log[Log Delivery]
+    end
+
+    subgraph "Monitoring"
+        Hub[Communications Hub]
+        Stats[Email Statistics]
+        Keys[API Key Management]
+    end
+
+    CMS --> API
+    OTMS --> API
+    Mololink --> API
+    
+    API --> Validate
+    Validate -->|Invalid| Reject[Reject 401]
+    Validate -->|Valid| RateLimit
+    
+    RateLimit --> General
+    RateLimit --> Auth
+    RateLimit --> Password
+    
+    RateLimit -->|Exceeded| Block[Block 429]
+    RateLimit -->|OK| Template
+    
+    Template --> Queue
+    Queue --> Render
+    Render --> Send
+    Send --> Log
+    
+    Log --> Hub
+    Hub --> Stats
+    Hub --> Keys

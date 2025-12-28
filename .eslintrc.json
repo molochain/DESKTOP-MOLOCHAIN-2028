@@ -1,0 +1,32 @@
+{
+  "extends": ["eslint:recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "env": {
+    "es2020": true,
+    "node": true
+  },
+  "overrides": [
+    {
+      "files": ["client/src/**/*.{ts,tsx}"],
+      "rules": {
+        "no-console": "warn",
+        "no-restricted-properties": [
+          "error",
+          {
+            "object": "process",
+            "property": "env",
+            "message": "Use import.meta.env instead of process.env in client code"
+          }
+        ]
+      },
+      "env": {
+        "browser": true
+      }
+    }
+  ]
+}

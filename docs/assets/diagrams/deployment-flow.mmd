@@ -1,0 +1,54 @@
+flowchart TD
+    subgraph "Development"
+        Dev[Developer Machine]
+        Replit[Replit IDE]
+        Git[Git Repository]
+    end
+
+    subgraph "Build Process"
+        TypeScript[Compile TypeScript]
+        Vite[Vite Production Build]
+        Assets[Copy Static Assets]
+        Bundle[Create Bundle]
+    end
+
+    subgraph "Deployment"
+        Rsync[Rsync to Server]
+        SSH[SSH Connection]
+        Server[Production Server<br/>31.186.24.19]
+    end
+
+    subgraph "Server Setup"
+        PM2[PM2 Restart]
+        Migrate[Run Migrations]
+        Cache[Clear Cache]
+        Health[Health Check]
+    end
+
+    subgraph "Production Stack"
+        Nginx[Nginx]
+        Node[Node.js App]
+        PostgreSQL[(PostgreSQL)]
+        Postfix[Postfix SMTP]
+    end
+
+    Dev --> Git
+    Replit --> Git
+    Git --> TypeScript
+    TypeScript --> Vite
+    Vite --> Assets
+    Assets --> Bundle
+
+    Bundle --> Rsync
+    Rsync --> SSH
+    SSH --> Server
+
+    Server --> PM2
+    PM2 --> Migrate
+    Migrate --> Cache
+    Cache --> Health
+
+    Health --> Nginx
+    Nginx --> Node
+    Node --> PostgreSQL
+    Node --> Postfix

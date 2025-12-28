@@ -1,0 +1,102 @@
+# =============================================================================
+# Admin Microservice Dockerfile
+# Multi-stage build for Molochain Admin Service
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Stage 1: Dependencies
+# -----------------------------------------------------------------------------
+FROM node:20-alpine AS deps
+
+WORKDIR /app
+
+# Install build dependencies for native modules
+RUN apk add --no-cache python3 make g++ libc6-compat
+
+# Copy package files
+COPY package*.json ./
+COPY packages/shared-permissions/package.json ./packages/shared-permissions/
+COPY packages/shared-auth/package.json ./packages/shared-auth/
+COPY packages/shared-audit/package.json ./packages/shared-audit/
+
+# Install all dependencies (including devDependencies for build)
+RUN npm ci --legacy-peer-deps
+
+# -----------------------------------------------------------------------------
+# Stage 2: Builder
+# -----------------------------------------------------------------------------
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files first (needed for npm install)
+COPY package*.json ./
+
+# Copy dependencies from deps stage
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/packages ./packages
+
+# Copy source code
+COPY tsconfig.json ./
+COPY shared ./shared
+COPY server ./server
+COPY packages ./packages
+
+# Build TypeScript if build script exists, otherwise keep tsx for runtime
+RUN npm run build:server 2>/dev/null || echo "Using tsx for runtime compilation"
+
+# Install tsx as production dependency for runtime TypeScript execution
+RUN npm install tsx --save --legacy-peer-deps
+
+# -----------------------------------------------------------------------------
+# Stage 3: Production Runtime
+# -----------------------------------------------------------------------------
+FROM node:20-alpine AS runner
+
+LABEL maintainer="Molochain DevOps <devops@molochain.com>"
+LABEL version="1.0.0"
+LABEL description="Molochain Admin Microservice"
+
+WORKDIR /app
+
+# Create non-root user for security
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 molochain
+
+# Install runtime dependencies only
+RUN apk add --no-cache \
+    curl \
+    dumb-init \
+    netcat-openbsd \
+    && rm -rf /var/cache/apk/*
+
+# Copy built application
+COPY --from=builder --chown=molochain:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=molochain:nodejs /app/packages ./packages
+COPY --from=builder --chown=molochain:nodejs /app/shared ./shared
+COPY --from=builder --chown=molochain:nodejs /app/server ./server
+COPY --from=builder --chown=molochain:nodejs /app/tsconfig.json ./
+
+# Copy entrypoint script
+COPY --chown=molochain:nodejs docker/entrypoint-admin.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=7000
+ENV SERVICE_NAME=admin-service
+ENV ADMIN_MODE=standalone
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:7000/api/health || exit 1
+
+# Switch to non-root user
+USER molochain
+
+# Expose port
+EXPOSE 7000
+
+# Use dumb-init as PID 1 for proper signal handling
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["/app/entrypoint.sh"]

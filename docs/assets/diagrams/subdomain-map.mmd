@@ -1,0 +1,38 @@
+graph TB
+    subgraph "Molochain Ecosystem"
+        Main[molochain.com<br/>Main Platform]
+        Admin[admin.molochain.com<br/>Admin Portal]
+        Auth[auth.molochain.com<br/>SSO Service]
+        App[app.molochain.com<br/>User Portal]
+    end
+
+    subgraph "Microservices"
+        CMS[cms.molochain.com<br/>Content Management<br/>Laravel PHP]
+        OTMS[opt.molochain.com<br/>Order Tracking<br/>Express API]
+        Mololink[mololink.molochain.com<br/>Marketplace<br/>Docker Container]
+    end
+
+    subgraph "Infrastructure"
+        Nginx[Nginx Reverse Proxy]
+        PM2[PM2 Process Manager]
+        PostgreSQL[(PostgreSQL<br/>Database)]
+        Postfix[Postfix<br/>Email Relay]
+    end
+
+    Main <--> Auth
+    Admin <--> Auth
+    App <--> Auth
+    CMS <--> Auth
+    OTMS <--> Auth
+    Mololink <--> Auth
+
+    Main --> Nginx
+    Admin --> Nginx
+    App --> Nginx
+    CMS --> Nginx
+    OTMS --> Nginx
+    Mololink --> Nginx
+
+    Nginx --> PM2
+    PM2 --> PostgreSQL
+    Main --> Postfix

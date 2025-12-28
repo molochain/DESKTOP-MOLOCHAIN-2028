@@ -1,0 +1,182 @@
+1. Core Rules (Very Important)
+1.	Canonical Source of Truth = my local project, NOT what is currently on the server.
+o	Anything already deployed on the server is legacy.
+o	You may READ existing files and configs for reference, but:
+	Do not treat them as the main source of truth.
+	Do not refactor or rebuild them as a base. We will deploy from my local project.
+2.	Safety first:
+o	Before changing any important file, create a backup with timestamp. For example:
+	file.ext → file.ext.backup-YYYYMMDD-HHMM
+o	Before changing existing databases, export schema and data.
+o	Never drop or truncate any DB without my explicit confirmation.
+3.	Use existing tools where useful:
+o	The server has/ can have:
+	Laravel / PHP
+	Docker
+	Mail / SMTP service
+o	You may use them when it makes sense (for example: Laravel for CMS/API, Docker for services, SMTP for .env mail config).
+4.	You can ask me questions when absolutely necessary, but default behavior should be:
+o	Detect, infer, propose a plan.
+o	Then ask for confirmation only at critical, dangerous steps.
+________________________________________
+2. Phase 1 — Non-Destructive System Audit
+Connect to the server and perform a read-only analysis:
+1.	System overview
+o	OS, kernel, CPU, RAM, disk usage.
+o	Running services that might be relevant (nginx, apache, docker, mysql/postgres, redis, etc.).
+2.	Control panels & tooling
+o	Detect if Plesk or other panels are installed and how they’re currently managing:
+	vhosts / domains / subdomains
+	PHP versions
+	Node.js / Docker integrations
+3.	Languages & runtimes
+o	List installed versions of:
+	PHP (especially which versions are available and used)
+	Node.js
+	Docker & docker-compose
+	PostgreSQL / MySQL / MariaDB
+4.	Web stack
+o	Detect:
+	nginx / apache virtual host configs
+	existing domains & subdomains and their document roots
+	any existing reverse proxies to Node/Docker apps
+5.	Databases
+o	List databases and users.
+o	For each relevant DB:
+	Get engine, version, and basic info (size/table count).
+6.	Existing apps on server
+o	Find all currently deployed projects (Laravel apps, Node apps, Docker projects, etc.).
+o	For each app, capture:
+	Path
+	Tech stack (Laravel, React, Node, etc.)
+	How it is run (systemd, supervisor, pm2, docker, cron, Plesk app, etc.)
+o	Mark ALL of these as LEGACY_REFERENCE in your report.
+Deliverable after Phase 1:
+Produce a short but structured system report for me that includes:
+•	System summary (OS, resources)
+•	Stack summary (PHP/Node/Docker/DB versions)
+•	Domain/subdomain mapping → which folder/app they currently point to
+•	List of legacy projects with:
+o	path
+o	stack
+o	how they are started
+•	Notes about any obvious misconfigurations / risks (but don’t fix yet)
+________________________________________
+3. Phase 2 — Understand the New Canonical Project
+In the next step, I will give you access to my local project (repo link, archive, or folder structure).
+Your tasks:
+1.	Ask me to provide:
+o	The project tree (or the repository) for my canonical source code.
+o	A short description of what lives there:
+	backend (Node/Express, Laravel, etc.)
+	frontend (React/Vite, etc.)
+	microservices
+	databases (Postgres/MySQL), etc.
+2.	Analyze the structure and identify:
+o	Which parts are backend APIs
+o	Which parts are frontend / SPA / dashboard
+o	Which parts are Laravel CMS / services
+o	Any Docker / docker-compose definitions
+o	Any database migrations / seeders
+3.	From this, build a clear map:
+o	<service_name> → backend/frontend/worker
+o	Required runtime (PHP/Node/Docker)
+o	Intended domain / subdomain (we will decide, propose best practices)
+o	Required DB and migrations
+o	Env variables needed in production
+Deliverable after Phase 2:
+•	A simple service map that links:
+o	each backend/frontend
+o	to a domain / subdomain
+o	to its database
+o	to its Docker/systemd/pm2 strategy.
+________________________________________
+4. Phase 3 — Target Architecture & Deployment Strategy
+Based on:
+•	The server audit (Phase 1)
+•	The canonical project analysis (Phase 2)
+Design a clean target architecture:
+1.	Define:
+o	Which domains & subdomains we will use (e.g. api.example.com, app.example.com, cms.example.com, etc.).
+o	Which service runs on which port or container.
+o	Which ones are behind nginx/apache reverse proxy.
+2.	Decide, with justification, for each service:
+o	Run as Docker container(s); or
+o	Run as native app via pm2/systemd; or
+o	Managed by Plesk where appropriate (e.g., Laravel).
+3.	Include:
+o	How SSL/HTTPS will be handled.
+o	How environment variables will be managed (.env, Plesk env, Docker env).
+o	How logging will be handled (files, rotation).
+o	Basic backup strategy (code + DB).
+Deliverable after Phase 3:
+•	A deployment blueprint in human-readable form:
+o	service list
+o	domains
+o	ports / containers
+o	DBs
+o	how each is deployed/started
+o	how they integrate.
+I must be able to read it and say “Yes, implement this.”
+________________________________________
+5. Phase 4 — Prepare the Server for Deployment
+Once I confirm the blueprint, you may start making changes on the server.
+Your tasks:
+1.	Create safe backups:
+o	Backup critical configs:
+	nginx / apache vhost files
+	any existing project configs
+o	Backup any databases that will be touched:
+	full dump, stored with timestamp.
+2.	Install / configure missing tools, if needed:
+o	Required PHP version for Laravel.
+o	Required Node.js version.
+o	Docker / docker-compose if we’ll use containers.
+o	Any required global utilities (pm2, etc.)
+3.	Set up folder structure for new deployments, for example:
+o	/var/www/vhosts/example.com/apps/<service>/
+o	or another clean, consistent structure based on your analysis and Plesk constraints.
+4.	Configure database(s) for the new project:
+o	Create DB and user(s) if needed.
+o	Do NOT overwrite legacy DBs unless explicitly confirmed.
+5.	Prepare vhosts / reverse proxies:
+o	Define production vhosts for each domain/subdomain.
+o	Route them to the correct location: PHP-FPM/Laravel, Node, or Docker container.
+o	Keep configuration organized and commented.
+Deliverable after Phase 4:
+•	A change log:
+o	What you installed
+o	What you created/modified
+o	Paths and commands used
+o	Where backups are stored
+________________________________________
+6. Phase 5 — Deployment Procedure (From Local Source)
+After the environment is ready:
+1.	Define a repeatable deployment flow for each service, based on my canonical project. For example:
+o	Pull from git / upload build artifact
+o	Install dependencies
+o	Build frontend (if any)
+o	Run migrations
+o	Restart services/containers
+2.	Write this as a step-by-step deployment guide I can re-use:
+o	e.g. DEPLOYMENT.md or a section in your report.
+3.	Optionally, if safe and agreed:
+o	Perform a first real deployment to production with:
+	zero or minimal downtime
+	ability to roll back (using backups and previous versions).
+________________________________________
+7. Communication Style
+While doing all of this:
+•	Work autonomously as much as possible.
+•	Show me:
+o	The system report (after Phase 1)
+o	The canonical project map (after Phase 2)
+o	The architecture blueprint (after Phase 3)
+o	The change log and deployment guide (after Phase 4/5)
+•	Ask for confirmation only when:
+o	Something is destructive (dropping DBs, deleting projects)
+o	There is more than one reasonable architecture path and you need a decision.
+________________________________________
+Start now by:
+1.	Connecting to the server with the SSH details I provide.
+2.	Completing Phase 1 (System Audit) and sending me your full report.

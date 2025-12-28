@@ -1,0 +1,56 @@
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.docker
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Test
+coverage
+.nyc_output
+test
+tests
+*.test.js
+*.spec.js
+
+# Build artifacts
+dist
+build
+
+# Environment files (will be injected via Docker)
+.env
+.env.*
+!.env.example
+
+# Backups
+*.backup*
+*.bak
+
+# Documentation
+README.md
+docs
+*.md
+
+# Uploads (mounted as volume)
+public/uploads/*
+!public/uploads/.gitkeep

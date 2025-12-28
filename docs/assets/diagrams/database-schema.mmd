@@ -1,0 +1,89 @@
+erDiagram
+    users ||--o{ refresh_tokens : has
+    users ||--o{ service_inquiries : creates
+    services ||--o{ service_availability : has
+    services ||--o{ service_inquiries : receives
+    services ||--o{ service_testimonials : has
+    form_types ||--o{ contact_submissions : categorizes
+
+    users {
+        int id PK
+        string username UK
+        string email UK
+        string password
+        string full_name
+        string role
+        string department
+        json permissions
+        boolean is_active
+        boolean two_factor_enabled
+        string two_factor_secret
+        json recovery_codes
+        timestamp last_login_at
+        timestamp created_at
+    }
+
+    refresh_tokens {
+        int id PK
+        int user_id FK
+        string token_hash UK
+        timestamp expires_at
+        boolean is_revoked
+        string user_agent
+        string ip_address
+        timestamp created_at
+    }
+
+    services {
+        string id PK
+        string title
+        string description
+        string category
+        string icon
+        json features
+        json benefits
+        string pricing
+        boolean is_active
+        int popularity
+        timestamp created_at
+    }
+
+    service_availability {
+        int id PK
+        string service_id FK
+        string location
+        boolean available
+        int capacity
+        timestamp next_available
+    }
+
+    service_inquiries {
+        int id PK
+        string service_id FK
+        int user_id FK
+        string name
+        string email
+        string message
+        string status
+        timestamp created_at
+    }
+
+    form_types {
+        int id PK
+        string name
+        string slug UK
+        string description
+        boolean is_active
+        timestamp created_at
+    }
+
+    contact_submissions {
+        int id PK
+        int form_type_id FK
+        string name
+        string email
+        string subject
+        string message
+        string status
+        timestamp created_at
+    }

@@ -1,0 +1,180 @@
+[DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) <input id=​"password" type=​"text" class=​"w-full px-4 py-3 border border-gray-300 rounded-md focus:​ring-2 focus:​ring-blue-500 focus:​border-blue-500 outline-none transition pr-12" placeholder=​"Enter your password" required data-testid=​"input-password" value=​"test123!">​
+mololink.molochain.com/api/auth/login:1  Failed to load resource: the server responded with a status of 401 ()
+dapp-interface.js:113  POST https://mololink.molochain.com/api/auth/login 401 (Unauthorized)
+y @ dapp-interface.js:113
+Ef @ dapp-interface.js:37
+Cf @ dapp-interface.js:37
+_f @ dapp-interface.js:37
+xi @ dapp-interface.js:37
+ha @ dapp-interface.js:37
+(anonymous) @ dapp-interface.js:37
+Mu @ dapp-interface.js:40
+As @ dapp-interface.js:37
+Vl @ dapp-interface.js:37
+su @ dapp-interface.js:37
+Bf @ dapp-interface.js:37
+dapp-interface.js:113 Fetch failed loading: POST "https://mololink.molochain.com/api/auth/login".
+y @ dapp-interface.js:113
+Ef @ dapp-interface.js:37
+Cf @ dapp-interface.js:37
+_f @ dapp-interface.js:37
+xi @ dapp-interface.js:37
+ha @ dapp-interface.js:37
+(anonymous) @ dapp-interface.js:37
+Mu @ dapp-interface.js:40
+As @ dapp-interface.js:37
+Vl @ dapp-interface.js:37
+su @ dapp-interface.js:37
+Bf @ dapp-interface.js:37
+dapp-interface.js:113  POST https://mololink.molochain.com/api/auth/login 401 (Unauthorized)
+y @ dapp-interface.js:113
+Ef @ dapp-interface.js:37
+Cf @ dapp-interface.js:37
+_f @ dapp-interface.js:37
+xi @ dapp-interface.js:37
+ha @ dapp-interface.js:37
+(anonymous) @ dapp-interface.js:37
+Mu @ dapp-interface.js:40
+As @ dapp-interface.js:37
+Vl @ dapp-interface.js:37
+su @ dapp-interface.js:37
+Bf @ dapp-interface.js:37
+dapp-interface.js:113 Fetch failed loading: POST "https://mololink.molochain.com/api/auth/login".
+y @ dapp-interface.js:113
+Ef @ dapp-interface.js:37
+Cf @ dapp-interface.js:37
+_f @ dapp-interface.js:37
+xi @ dapp-interface.js:37
+ha @ dapp-interface.js:37
+(anonymous) @ dapp-interface.js:37
+Mu @ dapp-interface.js:40
+As @ dapp-interface.js:37
+Vl @ dapp-interface.js:37
+su @ dapp-interface.js:37
+Bf @ dapp-interface.js:37
+3login:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+login:1  GET https://auth.molochain.com/auth/login 404 (Not Found)
+Navigated to https://auth.molochain.com/auth/login
+Navigated to https://admin.molochain.com/
+dapp-interface.js:18 [Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Regular.otf
+dapp-interface.js:18 [Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Bold.otf
+local-storage.js:2  GET https://admin.molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ local-storage.js:2
+(anonymous) @ local-storage.js:2
+ol @ util.js:32
+Gn @ util.js:32
+Ii @ util.js:32
+mn @ util.js:30
+id @ util.js:32
+gn @ util.js:32
+Ua @ util.js:32
+E @ util.js:17
+ot @ util.js:17
+local-storage.js:32 Fetch finished loading: GET "https://admin.molochain.com/locales/en/translation.json".
+Pn @ local-storage.js:32
+bh @ local-storage.js:32
+vh @ local-storage.js:32
+value @ local-storage.js:32
+(anonymous) @ local-storage.js:32
+Promise.then
+value @ local-storage.js:32
+value @ local-storage.js:32
+read @ local-storage.js:32
+loadOne @ local-storage.js:32
+(anonymous) @ local-storage.js:32
+prepareLoading @ local-storage.js:32
+load @ local-storage.js:32
+loadResources @ local-storage.js:32
+c @ local-storage.js:32
+changeLanguage @ local-storage.js:32
+u @ local-storage.js:32
+setTimeout
+init @ local-storage.js:32
+(anonymous) @ local-storage.js:32
+local-storage.js:2 Fetch failed loading: GET "https://admin.molochain.com/api/auth/me".
+(anonymous) @ local-storage.js:2
+(anonymous) @ local-storage.js:2
+ol @ util.js:32
+Gn @ util.js:32
+Ii @ util.js:32
+mn @ util.js:30
+id @ util.js:32
+gn @ util.js:32
+Ua @ util.js:32
+E @ util.js:17
+ot @ util.js:17
+Navigated to https://auth.molochain.com/
+util.js:113  GET https://auth.molochain.com/auth/login 404 (Not Found)
+children @ util.js:113
+us @ util.js:48
+Mt @ util.js:48
+_u @ util.js:38
+hc @ util.js:40
+dc @ util.js:40
+np @ util.js:40
+rl @ util.js:40
+ac @ util.js:40
+E @ util.js:25
+fn @ util.js:25
+Navigated to https://auth.molochain.com/auth/login
+Navigated to https://admin.molochain.com/
+util.js:32 Fetch finished loading: GET "https://admin.molochain.com/locales/en/translation.json".
+Pn @ util.js:32
+bh @ util.js:32
+vh @ util.js:32
+value @ util.js:32
+(anonymous) @ util.js:32
+Promise.then
+value @ util.js:32
+value @ util.js:32
+read @ util.js:32
+loadOne @ util.js:32
+(anonymous) @ util.js:32
+prepareLoading @ util.js:32
+load @ util.js:32
+loadResources @ util.js:32
+c @ util.js:32
+changeLanguage @ util.js:32
+u @ util.js:32
+setTimeout
+init @ util.js:32
+(anonymous) @ util.js:32
+util.js:2  GET https://admin.molochain.com/api/auth/me 401 (Unauthorized)
+(anonymous) @ util.js:2
+(anonymous) @ util.js:2
+ol @ local-storage.js:32
+Gn @ local-storage.js:32
+Ii @ local-storage.js:32
+mn @ local-storage.js:30
+id @ local-storage.js:32
+gn @ local-storage.js:32
+Ua @ local-storage.js:32
+E @ local-storage.js:17
+ot @ local-storage.js:17
+util.js:2 Fetch failed loading: GET "https://admin.molochain.com/api/auth/me".
+(anonymous) @ util.js:2
+(anonymous) @ util.js:2
+ol @ local-storage.js:32
+Gn @ local-storage.js:32
+Ii @ local-storage.js:32
+mn @ local-storage.js:30
+id @ local-storage.js:32
+gn @ local-storage.js:32
+Ua @ local-storage.js:32
+E @ local-storage.js:17
+ot @ local-storage.js:17
+Navigated to https://auth.molochain.com/
+xxHelper.js:113  GET https://auth.molochain.com/auth/login 404 (Not Found)
+children @ xxHelper.js:113
+us @ xxHelper.js:48
+Mt @ xxHelper.js:48
+_u @ xxHelper.js:38
+hc @ xxHelper.js:40
+dc @ xxHelper.js:40
+np @ xxHelper.js:40
+rl @ xxHelper.js:40
+ac @ xxHelper.js:40
+E @ xxHelper.js:25
+fn @ xxHelper.js:25
+Navigated to https://auth.molochain.com/auth/login
+login:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received

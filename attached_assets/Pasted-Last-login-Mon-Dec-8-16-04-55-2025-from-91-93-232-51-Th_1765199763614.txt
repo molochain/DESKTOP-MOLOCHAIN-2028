@@ -1,0 +1,255 @@
+Last login: Mon Dec  8 16:04:55 2025 from 91.93.232.51
+
+This server is powered by Plesk.
+
+Run the 'plesk login' command and log in by browsing either of the links received in the output.
+Use the 'plesk' command to manage the server. Run 'plesk help' for more info.
+
+[root@zen-agnesi ~]# # Check what's at the cms.molochain.com document root
+ls -la /var/www/vhosts/molochain.com/cms.molochain.com/
+
+# Check if it's a Laravel project
+cat /var/www/vhosts/molochain.com/cms.molochain.com/composer.json 2>/dev/null | head -30
+
+# Check nginx config for cms.molochain.com
+cat /var/www/vhosts/system/cms.molochain.com/conf/nginx.conf
+
+# Check if there's another PM2 user running it
+pm2 list
+total 3780
+drwxr-xr-x. 22 molochain1 psacln    4096 Dec  6 16:54 .
+drwx--x--x. 39 molochain1 psacln    4096 Dec  6 16:55 ..
+-rw-r--r--.  1 molochain1 psacln     252 Nov  6 20:42 .editorconfig
+-rw-r--r--.  1 molochain1 psacln    1160 Nov 29 15:11 .env
+-rw-r--r--.  1 molochain1 psacln    1137 Nov 29 14:26 .env.bak-2025-11-29-1426
+-rw-r--r--.  1 molochain1 psacln    1160 Nov 29 15:11 .env.bak-2025-11-29-1511
+-rw-r--r--.  1 molochain1 psacln    1086 Nov  6 20:42 .env.example
+-rw-r--r--.  1 molochain1 psacln     186 Nov  6 20:42 .gitattributes
+-rw-r--r--.  1 molochain1 psacln     283 Nov  6 20:42 .gitignore
+-rw-r--r--.  1 molochain1 psacln       3 Nov 29 21:57 .node-version
+lrwxrwxrwx.  1 molochain1 psacln      17 Nov 29 13:42 .php-ini -> ./public/.php-ini
+lrwxrwxrwx.  1 molochain1 psacln      21 Nov 29 13:42 .php-version -> ./public/.php-version
+-rw-r--r--.  1 molochain1 psacln    3911 Nov  6 20:42 README.md
+-rw-r--r--.  1 molochain1 psacln       0 Nov 29 17:34 admin,
+drwxr-xr-x.  7 molochain1 psacln      83 Nov 29 13:45 app
+drwxr-xr-x.  5 molochain1 psacln      49 Nov 29 13:45 app.bak
+-rw-r--r--.  1 molochain1 psacln     425 Nov  6 20:42 artisan
+drwxr-xr-x.  5 molochain1 psacln      54 Nov 29 17:52 backups
+drwxr-xr-x.  3 molochain1 psacln      90 Nov 29 14:33 bootstrap
+drwxr-xr-x.  2 molochain1 psacln       6 Nov 29 12:02 cgi-bin
+drwxr-xr-x.  2 molochain1 psacln       6 Nov 29 13:36 cms-backend
+-rw-r--r--.  1 molochain1 psacln    8867 Nov 30 13:47 cms-backup-2025-11-30-1347.tar.gz
+-rw-r--r--.  1 root       root     10640 Dec  6 16:54 cms_schema.sql
+-rw-r--r--.  1 molochain1 psacln    2930 Nov 30 13:13 composer.json
+-rw-r--r--.  1 molochain1 psacln    2836 Nov 29 15:32 composer.json.bak-2025-11-29-1532
+-rw-r--r--.  1 molochain1 psacln  374965 Nov 30 13:13 composer.lock
+-rw-r--r--.  1 molochain1 psacln 3281712 Nov 30 13:12 composer.phar
+drwxr-xr-x.  4 molochain1 psacln    4096 Nov 30 13:25 config
+drwxr-xr-x.  5 molochain1 psacln      97 Nov 29 14:55 database
+-rw-r--r--.  1 molochain1 psacln       0 Nov 29 17:06 email
+drwxr-xr-x.  3 molochain1 psacln      23 Nov 29 13:42 git
+-rw-r--r--.  1 molochain1 psacln    1653 Nov 29 12:02 index.html
+-rw-r--r--.  1 molochain1 psacln       0 Nov 29 17:06 name
+drwxr-xr-x. 78 molochain1 psacln    4096 Nov 29 15:50 node_modules
+-rw-r--r--.  1 molochain1 psacln   92252 Nov 29 15:50 package-lock.json
+-rw-r--r--.  1 molochain1 psacln     414 Nov  6 20:42 package.json
+-rw-r--r--.  1 molochain1 psacln    1284 Nov  6 20:42 phpunit.xml
+drwxr-xr-x.  8 molochain1 psacln    4096 Nov 30 13:36 public
+drwxr-xr-x.  3 molochain1 psacln     124 Nov 29 13:45 public.bak
+drwxr-xr-x.  5 molochain1 psacln      40 Nov  6 20:42 resources
+drwxr-xr-x.  5 molochain1 psacln      40 Nov 29 13:45 resources.bak
+drwxr-xr-x.  2 molochain1 psacln      90 Nov 29 14:40 routes
+drwxr-xr-x.  2 molochain1 psacln      40 Nov 29 13:45 routes.bak
+drwxrwxr-x.  5 molochain1 psacln      46 Nov  6 20:42 storage
+drwxr-xr-x.  4 molochain1 psacln      53 Nov  6 20:42 tests
+drwxr-xr-x.  2 molochain1 psacln      25 Nov 29 21:56 tmp
+drwxrwxr-x. 49 molochain1 psacln    4096 Nov 30 13:13 vendor
+-rw-r--r--.  1 molochain1 psacln     331 Nov  6 20:42 vite.config.js
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The skeleton application for the Laravel framework.",
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "filament/filament": "^3.2",
+        "laravel/framework": "^12.0",
+        "laravel/sanctum": "^4.0",
+        "laravel/tinker": "^2.10.1"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "laravel/pail": "^1.2.2",
+        "laravel/pint": "^1.24",
+        "laravel/sail": "^1.41",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "phpunit/phpunit": "^11.5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+#ATTENTION!
+#
+#DO NOT MODIFY THIS FILE BECAUSE IT WAS GENERATED AUTOMATICALLY,
+#SO ALL YOUR CHANGES WILL BE LOST THE NEXT TIME THE FILE IS GENERATED.
+
+server {
+        listen 31.186.24.19:443 quic;
+        add_header Alt-Svc 'h3=":443"; ma=86400';
+        listen 31.186.24.19:443 ssl;
+        http2 on;
+
+        server_name cms.molochain.com;
+        server_name www.cms.molochain.com;
+        server_name ipv4.cms.molochain.com;
+
+        ssl_certificate             /usr/local/psa/var/certificates/scfefeilef1ov56cIXaB8H;
+        ssl_certificate_key         /usr/local/psa/var/certificates/scfefeilef1ov56cIXaB8H;
+
+        client_max_body_size 134217728;
+
+        access_log "/var/www/vhosts/system/cms.molochain.com/logs/proxy_access_ssl_log";
+        error_log "/var/www/vhosts/system/cms.molochain.com/logs/proxy_error_log";
+
+        root "/var/www/vhosts/molochain.com/cms.molochain.com/public";
+
+        #extension performance-booster begin
+        # Additional directives added by Plesk Optimization Settings
+
+        # Additional directives added by Plesk Optimization Settings
+        #extension performance-booster end
+
+        #extension sslit begin
+
+        #extension sslit end
+
+        #extension letsencrypt begin
+        location ^~ /.well-known/acme-challenge/ {
+                root /var/www/vhosts/default/htdocs;
+
+                types { }
+                default_type text/plain;
+
+                satisfy any;
+                auth_basic off;
+                allow all;
+
+                location ~ ^/\.well-known/acme-challenge.*/\. {
+                        deny all;
+                }
+        }
+        #extension letsencrypt end
+
+        #extension sectigo begin
+        location ^~ /.well-known/pki-validation/fileauth.txt {
+                try_files $uri $uri/ =404;
+        }
+
+        location ^~ /.well-known/pki-validation/ {
+                root /var/www/vhosts/default/htdocs;
+
+                types { }
+                default_type text/plain;
+
+                satisfy any;
+                auth_basic off;
+                allow all;
+
+                location ~ ^/\.well-known/pki-validation.*/\. {
+                        deny all;
+                }
+        }
+        #extension sectigo end
+
+        location / {
+                proxy_pass https://127.0.0.1:7081;
+                proxy_hide_header upgrade;
+                proxy_ssl_server_name on;
+                proxy_ssl_name $host;
+                proxy_ssl_session_reuse off;
+                proxy_set_header Host             $host;
+                proxy_set_header X-Real-IP        $remote_addr;
+                proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+                proxy_set_header X-Accel-Internal /internal-nginx-static-location;
+                access_log off;
+
+        }
+
+        location ^~ /internal-nginx-static-location/ {
+                alias /var/www/vhosts/molochain.com/cms.molochain.com/public/;
+                internal;
+        }
+
+        location ~ ^/(plesk-stat|awstats-icon|webstat|webstat-ssl|ftpstat|anon_ftpstat) {
+                proxy_pass https://127.0.0.1:7081;
+                proxy_hide_header upgrade;
+                proxy_ssl_server_name on;
+                proxy_ssl_name $host;
+                proxy_ssl_session_reuse off;
+                proxy_set_header Host             $host;
+                proxy_set_header X-Real-IP        $remote_addr;
+                proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+                proxy_set_header X-Accel-Internal /internal-nginx-static-location;
+                access_log off;
+
+        }
+
+        location ~ "^/git/plesk-git($|/)" {
+                auth_basic " ";
+                auth_basic_user_file "/var/www/vhosts/system/cms.molochain.com/pd/d..httpdocs@git@plesk-git";
+
+                proxy_pass https://127.0.0.1:7081;
+                proxy_hide_header upgrade;
+                proxy_ssl_server_name on;
+                proxy_ssl_name $host;
+                proxy_ssl_session_reuse off;
+                proxy_set_header Host             $host;
+                proxy_set_header X-Real-IP        $remote_addr;
+                proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+                proxy_set_header X-Accel-Internal /internal-nginx-static-location;
+                access_log off;
+
+        }
+
+        disable_symlinks if_not_owner "from=/var/www/vhosts/molochain.com";
+
+        add_header X-Powered-By PleskLin;
+
+}
+
+server {
+        listen 31.186.24.19:80;
+
+        server_name cms.molochain.com;
+        server_name www.cms.molochain.com;
+        server_name ipv4.cms.molochain.com;
+
+        client_max_body_size 134217728;
+
+        access_log "/var/www/vhosts/system/cms.molochain.com/logs/proxy_access_log";
+        error_log "/var/www/vhosts/system/cms.molochain.com/logs/proxy_error_log";
+
+        location / {
+                return 301 https://$host$request_uri;
+        }
+}┌────┬─────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼─────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 5  │ auth-service        │ default     │ 1.0.0   │ fork    │ 861566   │ 0      │ 84   │  │ 0%       │ 0b       │ root     │ disabled │
+│ 8  │ molochain-core      │ default     │ 1.0.0   │ fork    │ 284496   │ 3D     │ 445  │ online    │ 0%       │ 144.5mb  │ root     │ disabled │
+└────┴─────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+Modules
+┌────┬──────────────────────────────┬───────────────┬──────────┬──────────┬──────┬──────────┬──────────┬──────────┐
+│ id │ module                       │ version       │ pid      │ status   │ ↺    │ cpu      │ mem      │ user     │
+├────┼──────────────────────────────┼───────────────┼──────────┼──────────┼──────┼──────────┼──────────┼──────────┤
+│ 1  │ pm2-logrotate                │ 3.0.0         │ 272957   │ online   │ 1    │ 0%       │ 40.1mb   │ root     │
+│ 0  │ pm2-server-monit             │ 3.0.0         │ 272951   │ online   │ 1    │ 0%       │ 30.5mb   │ root     │
+└────┴──────────────────────────────┴───────────────┴──────────┴──────────┴──────┴──────────┴──────────┴──────────┘
+[root@zen-agnesi ~]# 

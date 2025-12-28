@@ -1,0 +1,96 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "ui-sans-serif",
+      "count": 3
+    },
+    {
+      "family": "system-ui",
+      "count": 3
+    },
+    {
+      "family": "sans-serif",
+      "count": 3
+    },
+    {
+      "family": "Apple Color Emoji",
+      "count": 3
+    },
+    {
+      "family": "Segoe UI Emoji",
+      "count": 3
+    },
+    {
+      "family": "Segoe UI Symbol",
+      "count": 3
+    },
+    {
+      "family": "Noto Color Emoji",
+      "count": 3
+    }
+  ],
+  "colors": {
+    "primary": "#FDECCE",
+    "accent": "#E4D7CF",
+    "background": "#FFFFFF",
+    "textPrimary": "#333333",
+    "link": "#E4D7CF"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "ui-sans-serif",
+      "heading": "ui-sans-serif"
+    },
+    "fontStacks": {
+      "body": [
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji"
+      ],
+      "heading": [
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji"
+      ],
+      "paragraph": [
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji"
+      ]
+    },
+    "fontSizes": {
+      "h1": "16px",
+      "h2": "16px",
+      "body": "16px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "5px"
+  },
+  "components": {},
+  "images": {
+    "logo": null,
+    "favicon": "https://mololink.molochain.com/molochain-logo.png",
+    "ogImage": null
+  },
+  "__framework_hints": [],
+  "confidence": {
+    "buttons": 0,
+    "colors": 0,
+    "overall": 0
+  }
+}

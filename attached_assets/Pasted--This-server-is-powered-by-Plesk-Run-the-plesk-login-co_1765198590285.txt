@@ -1,0 +1,91 @@
+
+This server is powered by Plesk.
+
+Run the 'plesk login' command and log in by browsing either of the links received in the output.
+Use the 'plesk' command to manage the server. Run 'plesk help' for more info.
+
+[root@zen-agnesi ~]# # Check PostgreSQL connection and version
+psql $DATABASE_URL -c "SELECT version();"
+
+# List all databases
+psql $DATABASE_URL -c "\l"
+
+# List all tables in current database
+psql $DATABASE_URL -c "\dt"
+
+# Check database size
+psql $DATABASE_URL -c "SELECT pg_size_pretty(pg_database_size(current_database()));"
+psql: error: FATAL:  role "root" does not exist
+psql: error: FATAL:  role "root" does not exist
+psql: error: FATAL:  role "root" does not exist
+psql: error: FATAL:  role "root" does not exist
+[root@zen-agnesi ~]# # Check Node.js version
+node --version
+
+# Check memory usage
+free -h
+
+# Check disk space
+df -h
+
+# Check running processes
+ps aux | grep node
+
+# Check environment variables (be careful - may contain secrets)
+printenv | grep -E "(DATABASE|PG|API|NODE)"
+v20.19.6
+               total        used        free      shared  buff/cache   available
+Mem:           7.5Gi       3.9Gi       859Mi       198Mi       3.5Gi       3.6Gi
+Swap:          7.9Gi       1.0Gi       6.8Gi
+Filesystem                  Size  Used Avail Use% Mounted on
+devtmpfs                    4.0M     0  4.0M   0% /dev
+tmpfs                       3.8G   16K  3.8G   1% /dev/shm
+tmpfs                       1.6G  149M  1.4G  10% /run
+/dev/mapper/almalinux-root  152G   68G   84G  45% /
+/dev/sda1                   960M  423M  538M  45% /boot
+tmpfs                       769M     0  769M   0% /run/user/0
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/631f78e44d9d2a2e205664b3122490c7b12b365ef396f263c49320630fa28557/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/b056efed45cf2e6ed1aefe7de4d37560a93de194a6293adae42af10866cb33df/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/b5de2aa9909863650ac87c824b4474a60554ca251840f110cb20b39ea5be2bd0/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/2767b44695f1c866a7974811583faa369a14bf695ad60eaa3f65a30ab3e7155d/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/d2798beec5b73be744ebcaceb939ec6a7430425cdfe8aba7cafea162ea5fb544/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/df61e1bdf3303f68367fd2404f1d7646c131a5d4e236cb61a993282720af5920/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/47a18226f026e0124a8cd448a8d751fec51bfc49e9ccedb78e34c4312d236697/merged
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/5ee2278743fb39e39abfff4c961c182804494910acdf825baa2f5cd03ab86941/merged
+tmpfs                       769M     0  769M   0% /run/user/997
+overlay                     152G   68G   84G  45% /var/lib/docker/overlay2/3b81264bc9a572118e94e11dccf1e229dc59ccb7de2ced68fec25f0d72838f82/merged
+afsadm    272949  0.1  0.5 1299612 40220 ?       Ssl  Nov22  43:48 node /home/afsadm/.pm2/modules/pm2-logrotate/node_modules/
+root      272951  0.3  0.3 1034844 30936 ?       Ssl  Nov22  68:48 node /root/.pm2/modules/pm2-server-monit/node_modules/pm2-
+root      272957  0.1  0.5 1301308 41116 ?       Ssl  Nov22  43:08 node /root/.pm2/modules/pm2-logrotate/node_modules/pm2-log
+afsadm    273024  0.6  1.1 12929700 87912 ?      Sl   Nov22 145:48 node /var/www/vhosts/molochain.com/httpdocs/core/microservices/
+afsadm    273026  0.6  0.6 1305892 47224 ?       Sl   Nov22 142:09 node /var/www/vhosts/molochain.com/httpdocs/core/microservices/
+afsadm    273293  0.0  0.1 1237232 10744 ?       Sl   Nov22   9:10 /var/www/vhosts/molochain.com/httpdocs/core/microservices/admin-service/node_modules/@esbuild/linux-x64/bin/esbuild --service=0.25.10 --ping
+root      284496  0.2  1.8 22664504 147360 ?     Ssl  Dec05  13:15 node /var/www/vhosts/molochain.com/molochain-core/dist/index.js
+root      409158  0.0  0.0   3884  2176 pts/0    S+   15:55   0:00 grep --color=auto node
+root      501041  0.0  0.3 332628 28376 ?        Sl   Dec03   0:03 node --harmony app.js
+root     2661653  0.0  0.2 10778028 19028 ?      Ssl  Dec03   0:02 node server.js
+root     2661772  0.3  0.3 10782924 23752 ?      Ssl  Dec03  30:14 node src/index.js
+molocha+ 3552665  0.0  0.1 12437144 13900 ?      Sl   Nov28   3:38 node /var/www/vhosts/molochain.com/cms.molochain.com/node_modules/.bin/vite
+molocha+ 3552677  0.0  0.1 1237796 12684 ?       Sl   Nov28   5:50 /var/www/vhosts/molochain.com/cms.molochain.com/node_modules/@esbuild/linux-x64/bin/esbuild --service=0.25.12 --ping
+[root@zen-agnesi ~]# # Test API connectivity
+curl -I https://cms.molochain.com/api
+curl -I https://opt.molochain.com/v1
+HTTP/2 503 
+server: nginx
+date: Mon, 08 Dec 2025 12:56:00 GMT
+content-type: text/html
+content-length: 918
+last-modified: Fri, 26 Sep 2025 17:07:27 GMT
+etag: "396-63fb751f80d3f"
+accept-ranges: bytes
+
+HTTP/2 503 
+server: nginx
+date: Mon, 08 Dec 2025 12:56:00 GMT
+content-type: text/html
+content-length: 918
+last-modified: Fri, 26 Sep 2025 17:07:27 GMT
+etag: "396-63fb751f80d3f"
+accept-ranges: bytes
+
+[root@zen-agnesi ~]# 

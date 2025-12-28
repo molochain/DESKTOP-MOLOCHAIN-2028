@@ -1,0 +1,374 @@
+Last failed login: Mon Dec  8 16:16:23 +03 2025 from 4.213.140.107 on ssh:notty
+There were 2 failed login attempts since the last successful login.
+Last login: Mon Dec  8 16:15:31 2025 from 91.93.232.51
+
+This server is powered by Plesk.
+
+Run the 'plesk login' command and log in by browsing either of the links received in the output.
+Use the 'plesk' command to manage the server. Run 'plesk help' for more info.
+
+[root@zen-agnesi ~]# # Check Apache/PHP-FPM status
+systemctl status httpd
+
+# Go to Laravel directory and check if it works
+cd /var/www/vhosts/molochain.com/cms.molochain.com
+php artisan --version
+
+# Check Laravel logs for errors
+tail -50 storage/logs/laravel.log
+
+# Check permissions
+ls -la storage/
+ls -la bootstrap/cache/
+
+# Check the .env database connection
+grep -E "^DB_" .env
+● httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disabled)
+    Drop-In: /usr/lib/systemd/system/httpd.service.d
+             └─php-fpm.conf, respawn.conf
+     Active: active (running) since Fri 2025-12-05 11:36:33 +03; 3 days ago
+       Docs: man:httpd.service(8)
+    Process: 443520 ExecReload=/usr/sbin/httpd $OPTIONS -k graceful (code=exited, status=0/SUCCESS)
+   Main PID: 316164 (httpd)
+     Status: "Total requests: 7419; Idle/Busy workers 100/0;Requests/sec: 0.0269; Bytes served/sec: 1.1KB/sec"
+      Tasks: 54 (limit: 48882)
+     Memory: 43.9M (peak: 58.9M)
+        CPU: 7min 48.622s
+     CGroup: /system.slice/httpd.service
+             ├─316164 /usr/sbin/httpd -DFOREGROUND
+             ├─443677 /usr/sbin/httpd -DFOREGROUND
+             ├─443679 "Passenger watchdog"
+             ├─443683 "Passenger core"
+             ├─443696 /usr/sbin/httpd -DFOREGROUND
+             ├─443697 /usr/sbin/httpd -DFOREGROUND
+             ├─443698 /usr/sbin/httpd -DFOREGROUND
+             ├─443700 /usr/sbin/httpd -DFOREGROUND
+             ├─443701 /usr/sbin/httpd -DFOREGROUND
+             └─449062 /usr/sbin/httpd -DFOREGROUND
+
+Dec 08 04:35:46 zen-agnesi.31-186-24-19.plesk.page systemd[1]: httpd.service: Sent signal SIGUSR1 to main process 316164 (httpd) on client request.
+Dec 08 04:35:50 zen-agnesi.31-186-24-19.plesk.page httpd[316164]: Server configured, listening on: 127.0.0.1 port 7081, ...
+Dec 08 16:11:38 zen-agnesi.31-186-24-19.plesk.page systemd[1]: Reloading The Apache HTTP Server...
+Dec 08 16:11:38 zen-agnesi.31-186-24-19.plesk.page systemd[1]: Reloaded The Apache HTTP Server.
+Dec 08 16:11:41 zen-agnesi.31-186-24-19.plesk.page httpd[316164]: Server configured, listening on: 127.0.0.1 port 7081, ...
+Dec 08 16:11:43 zen-agnesi.31-186-24-19.plesk.page systemd[1]: Reloading The Apache HTTP Server...
+Dec 08 16:11:43 zen-agnesi.31-186-24-19.plesk.page systemd[1]: Reloaded The Apache HTTP Server.
+Dec 08 16:11:47 zen-agnesi.31-186-24-19.plesk.page httpd[316164]: Server configured, listening on: 127.0.0.1 port 7081, ...
+Notice: journal has been rotated since unit was started, output may be incomplete.
+Composer detected issues in your platform:
+
+Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.0.30.
+
+PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.4.0". You are running 8.0.30. in /var/www/vhosts/molochain.com/cms.molochain.com/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/composer/autoload_real.php(25): require()
+#1 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/autoload.php(22): ComposerAutoloaderInitc514d8f7b9fc5970bdd94287905ef584::getLoader()
+#2 /var/www/vhosts/molochain.com/cms.molochain.com/artisan(10): require('...')
+#3 {main}
+  thrown in /var/www/vhosts/molochain.com/cms.molochain.com/vendor/composer/platform_check.php on line 22
+#6 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#7 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then()
+#8 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack()
+#9 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute()
+#10 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute()
+#11 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch()
+#12 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}()
+#13 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/livewire/livewire/src/Features/SupportDisablingBackButtonCache/DisableBackButtonCacheMiddleware.php(19): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}()
+#14 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Livewire\\Features\\SupportDisablingBackButtonCache\\DisableBackButtonCacheMiddleware->handle()
+#15 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#16 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#17 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#18 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#19 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#20 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#21 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#22 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle()
+#23 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#24 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#25 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(61): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#26 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#27 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#28 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#29 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#30 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle()
+#31 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#32 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle()
+#33 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()
+#34 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then()
+#35 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#36 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle()
+#37 /var/www/vhosts/molochain.com/cms.molochain.com/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest()
+#38 {main}
+"} 
+[2025-12-05 14:29:13] local.ERROR: The "--model" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--model\" option does not accept a value. at /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Command/Command.php(289): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Application.php(1103): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(197): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/molochain.com/cms.molochain.com/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/molochain.com/cms.molochain.com/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+total 4
+drwxrwxr-x.  5 molochain1 psacln   46 Nov  6 20:42 .
+drwxr-xr-x. 22 molochain1 psacln 4096 Dec  6 16:54 ..
+drwxrwxr-x.  4 molochain1 psacln   53 Nov  6 20:42 app
+drwxrwxr-x.  6 molochain1 psacln   81 Nov  6 20:42 framework
+drwxrwxr-x.  2 molochain1 psacln   43 Nov 29 13:48 logs
+total 32
+drwxrwxr-x. 2 molochain1 psacln    64 Dec  5 17:45 .
+drwxr-xr-x. 3 molochain1 psacln    90 Nov 29 14:33 ..
+-rwxrwxr-x. 1 molochain1 psacln    14 Nov  6 20:42 .gitignore
+-rwxr-xr-x. 1 molochain1 psacln  3239 Dec  5 17:45 packages.php
+-rwxr-xr-x. 1 molochain1 psacln 23613 Dec  5 17:45 services.php
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=molochain_cms
+DB_USERNAME=cms_user
+DB_PASSWORD="Passwd1122%%"
+[root@zen-agnesi cms.molochain.com]# # Check available PHP versions in Plesk
+plesk bin php_handler --list
+
+# Check current PHP version for the domain
+cat /var/www/vhosts/molochain.com/cms.molochain.com/public/.php-version
+
+# If PHP 8.4 is available, set it for the CMS domain
+plesk bin domain -u cms.molochain.com -php_handler_id plesk-php84-fpm
+
+# Or install PHP 8.4 if not available
+plesk installer add --components php8.4
+                        id:        display name:  full version:  version:    type:                         cgi-bin:                    php-cli:                        php.ini:  custom:  status:
+                        cgi  8.0.30 by OS vendor         8.0.30       8.0      cgi                 /usr/bin/php-cgi                /usr/bin/php                    /etc/php.ini    false disabled
+                    fastcgi  8.0.30 by OS vendor         8.0.30       8.0  fastcgi                 /usr/bin/php-cgi                /usr/bin/php                    /etc/php.ini    false  enabled
+                        fpm  8.0.30 by OS vendor         8.0.30       8.0      fpm                /usr/sbin/php-fpm                /usr/bin/php                    /etc/php.ini    false  enabled
+              fpm-dedicated  8.0.30 by OS vendor         8.0.30       8.0      fpm                /usr/sbin/php-fpm                /usr/bin/php                    /etc/php.ini    false  enabled
+            plesk-php56-cgi               5.6.40         5.6.40       5.6      cgi   /opt/plesk/php/5.6/bin/php-cgi  /opt/plesk/php/5.6/bin/php  /opt/plesk/php/5.6/etc/php.ini     true disabled
+        plesk-php56-fastcgi               5.6.40         5.6.40       5.6  fastcgi   /opt/plesk/php/5.6/bin/php-cgi  /opt/plesk/php/5.6/bin/php  /opt/plesk/php/5.6/etc/php.ini     true  enabled
+            plesk-php56-fpm               5.6.40         5.6.40       5.6      fpm  /opt/plesk/php/5.6/sbin/php-fpm  /opt/plesk/php/5.6/bin/php  /opt/plesk/php/5.6/etc/php.ini     true  enabled
+            plesk-php70-cgi               7.0.33         7.0.33       7.0      cgi   /opt/plesk/php/7.0/bin/php-cgi  /opt/plesk/php/7.0/bin/php  /opt/plesk/php/7.0/etc/php.ini     true disabled
+        plesk-php70-fastcgi               7.0.33         7.0.33       7.0  fastcgi   /opt/plesk/php/7.0/bin/php-cgi  /opt/plesk/php/7.0/bin/php  /opt/plesk/php/7.0/etc/php.ini     true  enabled
+            plesk-php70-fpm               7.0.33         7.0.33       7.0      fpm  /opt/plesk/php/7.0/sbin/php-fpm  /opt/plesk/php/7.0/bin/php  /opt/plesk/php/7.0/etc/php.ini     true  enabled
+            plesk-php74-cgi               7.4.33         7.4.33       7.4      cgi   /opt/plesk/php/7.4/bin/php-cgi  /opt/plesk/php/7.4/bin/php  /opt/plesk/php/7.4/etc/php.ini     true disabled
+        plesk-php74-fastcgi               7.4.33         7.4.33       7.4  fastcgi   /opt/plesk/php/7.4/bin/php-cgi  /opt/plesk/php/7.4/bin/php  /opt/plesk/php/7.4/etc/php.ini     true  enabled
+            plesk-php74-fpm               7.4.33         7.4.33       7.4      fpm  /opt/plesk/php/7.4/sbin/php-fpm  /opt/plesk/php/7.4/bin/php  /opt/plesk/php/7.4/etc/php.ini     true  enabled
+  plesk-php74-fpm-dedicated               7.4.33         7.4.33       7.4      fpm  /opt/plesk/php/7.4/sbin/php-fpm  /opt/plesk/php/7.4/bin/php  /opt/plesk/php/7.4/etc/php.ini     true  enabled
+            plesk-php80-cgi               8.0.30         8.0.30       8.0      cgi   /opt/plesk/php/8.0/bin/php-cgi  /opt/plesk/php/8.0/bin/php  /opt/plesk/php/8.0/etc/php.ini     true disabled
+        plesk-php80-fastcgi               8.0.30         8.0.30       8.0  fastcgi   /opt/plesk/php/8.0/bin/php-cgi  /opt/plesk/php/8.0/bin/php  /opt/plesk/php/8.0/etc/php.ini     true  enabled
+            plesk-php80-fpm               8.0.30         8.0.30       8.0      fpm  /opt/plesk/php/8.0/sbin/php-fpm  /opt/plesk/php/8.0/bin/php  /opt/plesk/php/8.0/etc/php.ini     true  enabled
+  plesk-php80-fpm-dedicated               8.0.30         8.0.30       8.0      fpm  /opt/plesk/php/8.0/sbin/php-fpm  /opt/plesk/php/8.0/bin/php  /opt/plesk/php/8.0/etc/php.ini     true  enabled
+            plesk-php81-cgi               8.1.33         8.1.33       8.1      cgi   /opt/plesk/php/8.1/bin/php-cgi  /opt/plesk/php/8.1/bin/php  /opt/plesk/php/8.1/etc/php.ini     true disabled
+        plesk-php81-fastcgi               8.1.33         8.1.33       8.1  fastcgi   /opt/plesk/php/8.1/bin/php-cgi  /opt/plesk/php/8.1/bin/php  /opt/plesk/php/8.1/etc/php.ini     true  enabled
+            plesk-php81-fpm               8.1.33         8.1.33       8.1      fpm  /opt/plesk/php/8.1/sbin/php-fpm  /opt/plesk/php/8.1/bin/php  /opt/plesk/php/8.1/etc/php.ini     true  enabled
+  plesk-php81-fpm-dedicated               8.1.33         8.1.33       8.1      fpm  /opt/plesk/php/8.1/sbin/php-fpm  /opt/plesk/php/8.1/bin/php  /opt/plesk/php/8.1/etc/php.ini     true  enabled
+            plesk-php82-cgi               8.2.29         8.2.29       8.2      cgi   /opt/plesk/php/8.2/bin/php-cgi  /opt/plesk/php/8.2/bin/php  /opt/plesk/php/8.2/etc/php.ini     true disabled
+        plesk-php82-fastcgi               8.2.29         8.2.29       8.2  fastcgi   /opt/plesk/php/8.2/bin/php-cgi  /opt/plesk/php/8.2/bin/php  /opt/plesk/php/8.2/etc/php.ini     true  enabled
+            plesk-php82-fpm               8.2.29         8.2.29       8.2      fpm  /opt/plesk/php/8.2/sbin/php-fpm  /opt/plesk/php/8.2/bin/php  /opt/plesk/php/8.2/etc/php.ini     true  enabled
+  plesk-php82-fpm-dedicated               8.2.29         8.2.29       8.2      fpm  /opt/plesk/php/8.2/sbin/php-fpm  /opt/plesk/php/8.2/bin/php  /opt/plesk/php/8.2/etc/php.ini     true  enabled
+            plesk-php83-cgi               8.3.28         8.3.28       8.3      cgi   /opt/plesk/php/8.3/bin/php-cgi  /opt/plesk/php/8.3/bin/php  /opt/plesk/php/8.3/etc/php.ini     true disabled
+        plesk-php83-fastcgi               8.3.28         8.3.28       8.3  fastcgi   /opt/plesk/php/8.3/bin/php-cgi  /opt/plesk/php/8.3/bin/php  /opt/plesk/php/8.3/etc/php.ini     true  enabled
+            plesk-php83-fpm               8.3.28         8.3.28       8.3      fpm  /opt/plesk/php/8.3/sbin/php-fpm  /opt/plesk/php/8.3/bin/php  /opt/plesk/php/8.3/etc/php.ini     true  enabled
+  plesk-php83-fpm-dedicated               8.3.28         8.3.28       8.3      fpm  /opt/plesk/php/8.3/sbin/php-fpm  /opt/plesk/php/8.3/bin/php  /opt/plesk/php/8.3/etc/php.ini     true  enabled
+            plesk-php84-cgi               8.4.15         8.4.15       8.4      cgi   /opt/plesk/php/8.4/bin/php-cgi  /opt/plesk/php/8.4/bin/php  /opt/plesk/php/8.4/etc/php.ini     true disabled
+        plesk-php84-fastcgi               8.4.15         8.4.15       8.4  fastcgi   /opt/plesk/php/8.4/bin/php-cgi  /opt/plesk/php/8.4/bin/php  /opt/plesk/php/8.4/etc/php.ini     true  enabled
+            plesk-php84-fpm               8.4.15         8.4.15       8.4      fpm  /opt/plesk/php/8.4/sbin/php-fpm  /opt/plesk/php/8.4/bin/php  /opt/plesk/php/8.4/etc/php.ini     true  enabled
+  plesk-php84-fpm-dedicated               8.4.15         8.4.15       8.4      fpm  /opt/plesk/php/8.4/sbin/php-fpm  /opt/plesk/php/8.4/bin/php  /opt/plesk/php/8.4/etc/php.ini     true  enabled
+8.4SUCCESS: Update of domain 'cms.molochain.com' completed.
+Downloading file products.inf3: 0%
+Downloading file products.inf3: 100% was finished.
+Downloading file pool/PSA_18.0.74_18022/release.inf3: 0%
+Downloading file pool/PSA_18.0.74_18022/release.inf3: 100% was finished.
+Downloading file pool/PSA_18.0.73_17971/release.inf3: 0%
+Downloading file pool/PSA_18.0.73_17971/release.inf3: 100% was finished.
+Downloading file pool/PSA_18.0.72_17583/release.inf3: 0%
+Downloading file pool/PSA_18.0.72_17583/release.inf3: 100% was finished.
+Downloading file pool/PSA_18.0.71_17351/release.inf3: 0%
+Downloading file pool/PSA_18.0.71_17351/release.inf3: 100% was finished.
+Downloading file pool/PSA_18.0.70_17357/release.inf3: 0%
+Downloading file pool/PSA_18.0.70_17357/release.inf3: 100% was finished.
+Downloading file pool/PSA_18.0.69_17010/release.inf3: 0%
+Downloading file pool/PSA_18.0.69_17010/release.inf3: 100% was finished.
+Downloading file pool/PSA_18.0.68_16616/release.inf3: 0%
+Downloading file pool/PSA_18.0.68_16616/release.inf3: 100% was finished.
+Downloading file pool/PSA_18.0.67_16409/release.inf3: 0%
+Downloading file pool/PSA_18.0.67_16409/release.inf3: 100% was finished.
+Downloading file pool/PSA_18.0.66_16134/release.inf3: 0%
+Downloading file pool/PSA_18.0.66_16134/release.inf3: 100% was finished.
+Downloading file pool/PSA_18.0.65_15919/release.inf3: 0%
+Downloading file pool/PSA_18.0.65_15919/release.inf3: 100% was finished.
+Downloading file plesk.inf3: 0%
+Downloading file plesk.inf3: 100% was finished.
+Downloading file sitebuilder.inf3: 0%
+Downloading file sitebuilder.inf3: 100% was finished.
+Downloading file PHP85_17/release.inf3: 0%
+Downloading file PHP85_17/release.inf3: 100% was finished.
+Downloading file pool/WPB_18.0.69_88/release.inf3: 0%
+Downloading file pool/WPB_18.0.69_88/release.inf3: 100% was finished.
+Downloading file PHP84_17/release.inf3: 0%
+Downloading file PHP84_17/release.inf3: 100% was finished.
+Downloading file pool/WPB_18.0.59_78/release.inf3: 0%
+Downloading file pool/WPB_18.0.59_78/release.inf3: 100% was finished.
+Downloading file PHP83_17/release.inf3: 0%
+Downloading file PHP83_17/release.inf3: 100% was finished.
+Downloading file php83.inf3: 0%
+Downloading file php83.inf3: 100% was finished.
+Downloading file pool/WPB_18.0.55_74/release.inf3: 0%
+Downloading file pool/WPB_18.0.55_74/release.inf3: 100% was finished.
+Downloading file PHP82_17/release.inf3: 0%
+Downloading file PHP82_17/release.inf3: 100% was finished.
+Downloading file php82.inf3: 0%
+Downloading file php82.inf3: 100% was finished.
+Downloading file PHP81_17/release.inf3: 0%
+Downloading file PHP81_17/release.inf3: 100% was finished.
+Downloading file php81.inf3: 0%
+Downloading file php81.inf3: 100% was finished.
+Downloading file PHP80_17/release.inf3: 0%
+Downloading file PHP80_17/release.inf3: 100% was finished.
+Downloading file php80.inf3: 0%
+Downloading file php80.inf3: 100% was finished.
+Downloading file php72.inf3: 0%
+Downloading file php72.inf3: 100% was finished.
+Downloading file PHP74_17/release.inf3: 0%
+Downloading file PHP74_17/release.inf3: 100% was finished.
+Downloading file php74.inf3: 0%
+Downloading file php74.inf3: 100% was finished.
+Downloading file php73.inf3: 0%
+Downloading file php73.inf3: 100% was finished.
+Downloading file php71.inf3: 0%
+Downloading file php71.inf3: 100% was finished.
+Downloading file setemplates.inf3: 0%
+Downloading file setemplates.inf3: 100% was finished.
+Downloading file pp-sitebuilder.inf3: 0%
+Downloading file pp-sitebuilder.inf3: 100% was finished.
+Downloading file billing.inf3: 0%
+Downloading file billing.inf3: 100% was finished.
+Downloading file mysql.inf3: 0%
+Downloading file mysql.inf3: 100% was finished.
+Downloading file apache.inf3: 0%
+Downloading file apache.inf3: 100% was finished.
+Downloading file nginx.inf3: 0%
+Downloading file nginx.inf3: 100% was finished.
+Downloading file php70.inf3: 0%
+Downloading file php70.inf3: 100% was finished.
+Downloading file php56.inf3: 0%
+Downloading file php56.inf3: 100% was finished.
+Downloading file php55.inf3: 0%
+Downloading file php55.inf3: 100% was finished.
+Downloading file php54.inf3: 0%
+Downloading file php54.inf3: 100% was finished.
+Downloading file php53.inf3: 0%
+Downloading file php53.inf3: 100% was finished.
+Downloading file php52.inf3: 0%
+Downloading file php52.inf3: 100% was finished.
+Downloading file pmm.inf3: 0%
+Downloading file pmm.inf3: 100% was finished.
+Checking for installed packages... 
+Downloading file pool/PSA_18.0.73_17971/plesk-18.0.73-rhel9-x86_64.inf3: 0%
+Downloading file pool/PSA_18.0.73_17971/plesk-18.0.73-rhel9-x86_64.inf3: 100% was finished.
+Downloading Extensions Catalog feed...
+Downloading file https://ext.plesk.com/api/v4/packages?platform=unix&version=18.0.73&ai-compatible: 0%
+Downloading file PHP56_17/php56-rhel9-x86_64.inf3: 0%
+Downloading file PHP56_17/php56-rhel9-x86_64.inf3: 100% was finished.
+Downloading file PHP70_17/php70-rhel9-x86_64.inf3: 0%
+Downloading file PHP70_17/php70-rhel9-x86_64.inf3: 100% was finished.
+Downloading file PHP74_17/php74-rhel9-x86_64.inf3: 0%
+Downloading file PHP74_17/php74-rhel9-x86_64.inf3: 100% was finished.
+Downloading file PHP80_17/php80-rhel9-x86_64.inf3: 0%
+Downloading file PHP80_17/php80-rhel9-x86_64.inf3: 100% was finished.
+Downloading file PHP81_17/php81-rhel9-x86_64.inf3: 0%
+Downloading file PHP81_17/php81-rhel9-x86_64.inf3: 100% was finished.
+Downloading file PHP82_17/php82-rhel9-x86_64.inf3: 0%
+Downloading file PHP82_17/php82-rhel9-x86_64.inf3: 100% was finished.
+Downloading file PHP83_17/php83-rhel9-x86_64.inf3: 0%
+Downloading file PHP83_17/php83-rhel9-x86_64.inf3: 100% was finished.
+Downloading file PHP84_17/php84-rhel9-x86_64.inf3: 0%
+Downloading file PHP84_17/php84-rhel9-x86_64.inf3: 100% was finished.
+Downloading file pool/WPB_18.0.69_88/sitebuilder-18.0.69-rhall-all.inf3: 0%
+Downloading file pool/WPB_18.0.69_88/sitebuilder-18.0.69-rhall-all.inf3: 100% was finished.
+gpg-pubkey-b86b3716-61e69f29 AlmaLinux OS 9 <packager@almalinux.org> public key
+gpg-pubkey-914bdf7e-55c05220 Plesk Team <info@plesk.com> public key
+gpg-pubkey-ce550e57-67c8b7f7 Plesk Team <info@plesk.com> public key
+gpg-pubkey-3228467c-613798eb Fedora (epel9) <epel@fedoraproject.org> public key
+gpg-pubkey-8608cb71-4acc7220 CloudLinux Packager (CloudLinux Key) <packager@cloudlinux.com> public key
+gpg-pubkey-90e02617-677e6926 CloudLinux Extension Signer <cl-ext-signer@cloudlinux.com> public key
+gpg-pubkey-8d50eb66-64061978 TuxCare (Software Signing Key) <packager@tuxcare.com> public key
+gpg-pubkey-621e9f35-58adea78 Docker Release (CE rpm) <docker@docker.com> public key
+gpg-pubkey-3af28a14-6585b2a3 Nodesource Operations <operations@nodesource.com> public key
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download PLESK_18_0_73 extras   3088B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 5.6   3081B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 7.0   3082B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 7.4   3081B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 8.0   3080B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 8.1   3081B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 8.2   3081B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 8.3   3081B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 8.4   3082B [total 0/unknown B 1/1 files]
+Detecting installed product components.
+gpg-pubkey-b86b3716-61e69f29 AlmaLinux OS 9 <packager@almalinux.org> public key
+gpg-pubkey-914bdf7e-55c05220 Plesk Team <info@plesk.com> public key
+gpg-pubkey-ce550e57-67c8b7f7 Plesk Team <info@plesk.com> public key
+gpg-pubkey-3228467c-613798eb Fedora (epel9) <epel@fedoraproject.org> public key
+gpg-pubkey-8608cb71-4acc7220 CloudLinux Packager (CloudLinux Key) <packager@cloudlinux.com> public key
+gpg-pubkey-90e02617-677e6926 CloudLinux Extension Signer <cl-ext-signer@cloudlinux.com> public key
+gpg-pubkey-8d50eb66-64061978 TuxCare (Software Signing Key) <packager@tuxcare.com> public key
+gpg-pubkey-621e9f35-58adea78 Docker Release (CE rpm) <docker@docker.com> public key
+gpg-pubkey-3af28a14-6585b2a3 Nodesource Operations <operations@nodesource.com> public key
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download PLESK_18_0_73 dist   3090B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download PLESK_18_0_73 thirdparty   3072B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download PHP 5.6 thirdparty   3068B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download PHP 7.0 thirdparty   3068B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download PHP 7.4 thirdparty   3068B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download PHP 8.0 thirdparty   3068B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download PHP 8.1 thirdparty   3068B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download PHP 8.2 thirdparty   3068B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download PHP 8.3 thirdparty   3068B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download PHP 8.4 thirdparty   3068B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download PLESK_18_0_73 extras   3088B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 5.6   3081B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 7.0   3082B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 7.4   3081B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 8.0   3080B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 8.1   3081B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 8.2   3081B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 8.3   3081B [total 0/unknown B 1/1 files]
+Start downloading 1 files of unknown size and 0 delta RPMs
+Download         PHP 8.4   3082B [total 0/unknown B 1/1 files]
+You already have the latest version of product(s) and all the selected components installed. Installation will not continue.
+
+
+[root@zen-agnesi cms.molochain.com]# 

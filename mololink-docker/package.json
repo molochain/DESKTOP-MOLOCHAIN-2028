@@ -1,0 +1,30 @@
+{
+  "name": "mololink-service",
+  "version": "1.0.0",
+  "description": "Mololink B2B Logistics Networking Microservice - Connect. Grow. Buy/Sell.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "multer": "^2.0.2",
+    "pg": "^8.11.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "mololink",
+    "molochain",
+    "networking",
+    "marketplace",
+    "b2b",
+    "logistics"
+  ],
+  "author": "Molochain",
+  "license": "UNLICENSED"
+}

@@ -1,0 +1,245 @@
+modules = ["nodejs-20", "bash", "web", "python-3.11", "postgresql-16"]
+run = "npm run dev"
+hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
+
+[nix]
+channel = "stable-25_05"
+
+[deployment]
+deploymentTarget = "autoscale"
+run = ["node", "dist/index.js"]
+build = ["npm", "run", "build"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 24678
+externalPort = 3001
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
+waitForPort = 5000
+
+[[workflows.workflow]]
+name = "Setup All Repositories"
+author = 38768705
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "./scripts/setup-repositories.sh"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "./scripts/sync-all.sh"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"✅ All repositories are now set up and synchronized!\""
+
+[[workflows.workflow]]
+name = "Sync and Update All"
+author = 38768705
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "./scripts/sync-all.sh"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"🔄 All repositories updated and dependencies installed!\""
+
+[[workflows.workflow]]
+name = "Development Environment"
+author = 38768705
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "./scripts/sync-all.sh"
+
+[[workflows.workflow]]
+name = "Complete Repository Integration"
+author = 38768705
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "chmod +x scripts/*.sh"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "./scripts/complete-mission.sh"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"🎯 Mission completion check finished!\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"If setup is needed, run: ./scripts/setup-repositories.sh\""
+
+[[workflows.workflow]]
+name = "Production Ready Start"
+author = 38768705
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run build:types"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "tsx server/index.ts"
+
+[[workflows.workflow]]
+name = "Production Optimized"
+author = 38768705
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "NODE_ENV=production npm install --production=false"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run build:types"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "NODE_OPTIONS=\"--max-old-space-size=2048 --expose-gc\" tsx server/index.ts"
+
+[[workflows.workflow]]
+name = "Development Server"
+author = 38768705
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install --no-audit"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run build:types"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "tsx server/index.ts"
+
+[[workflows.workflow]]
+name = "Organized Development Server"
+author = 38768705
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"🚀 Starting organized development environment...\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install --no-audit"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"📦 Dependencies installed\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run build:types 2>/dev/null || echo \"⚠️ Type build skipped\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"🔧 Starting server with enhanced error handling...\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "tsx server/index.ts"
+
+[[workflows.workflow]]
+name = "Fixed Development Server"
+author = 47507594
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"🔧 Starting MoloChain development server...\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install --no-audit --silent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"✅ Dependencies ready\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"🚀 Launching server...\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "tsx server/index.ts"
+
+[objectStorage]
+defaultBucketID = "replit-objstore-104dda57-0422-4f6e-a6d5-612bf02234ee"
+
+[agent]
+integrations = ["javascript_database:1.0.0"]
+expertMode = true
+
+[userenv]
+
+[userenv.development]
+VITE_APP_ENV = "development"
+VITE_API_CMS_BASE_URL = "http://localhost:8000/api"
+VITE_API_OTMS_BASE_URL = "http://localhost:3000/v1"
+VITE_API_GODLAYER_BASE_URL = "http://localhost:5000/api"
+
+[userenv.production]
+VITE_APP_ENV = "production"
+VITE_API_CMS_BASE_URL = "https://cms.molochain.com/api"
+VITE_API_OTMS_BASE_URL = "https://opt.molochain.com/v1"
+VITE_API_GODLAYER_BASE_URL = "https://molochain.com/api"
+
+[userenv.shared]
+FEATURE_AI_ENABLED = "true"
+TEST_USER_EMAIL = "testuser@molochain.com"
+TEST_USER_PASSWORD = "TestUser2024!"
+TEST_ADMIN_EMAIL = "testadmin@molochain.com"
+TEST_ADMIN_PASSWORD = "TestAdmin2024!"

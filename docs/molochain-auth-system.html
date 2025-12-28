@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Molochain Authentication System Documentation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f5f7fa;
+        }
+        h1 { color: #1a1a2e; margin-bottom: 10px; font-size: 2.5em; }
+        h2 { color: #16213e; margin: 40px 0 20px; padding-bottom: 10px; border-bottom: 3px solid #4a69bd; }
+        h3 { color: #0f3460; margin: 25px 0 15px; }
+        .header { text-align: center; margin-bottom: 50px; }
+        .header p { color: #666; font-size: 1.1em; }
+        .section { background: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .mermaid { background: #fafbfc; padding: 20px; border-radius: 8px; margin: 20px 0; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+        th { background: #4a69bd; color: white; font-weight: 600; }
+        tr:hover { background: #f8f9fa; }
+        tr:nth-child(even) { background: #fafbfc; }
+        code { background: #e8ecf1; padding: 2px 8px; border-radius: 4px; font-family: 'Monaco', 'Consolas', monospace; font-size: 0.9em; }
+        pre { background: #1a1a2e; color: #e0e0e0; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 15px 0; }
+        pre code { background: transparent; color: inherit; padding: 0; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.8em; font-weight: 600; margin-right: 5px; }
+        .badge-primary { background: #4a69bd; color: white; }
+        .badge-success { background: #27ae60; color: white; }
+        .badge-warning { background: #f39c12; color: white; }
+        .badge-info { background: #3498db; color: white; }
+        .url-list { list-style: none; }
+        .url-list li { padding: 10px 0; border-bottom: 1px solid #eee; }
+        .url-list li:last-child { border-bottom: none; }
+        .url-list a { color: #4a69bd; text-decoration: none; font-weight: 500; }
+        .url-list a:hover { text-decoration: underline; }
+        .info-box { background: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px 20px; border-radius: 0 8px 8px 0; margin: 15px 0; }
+        .warning-box { background: #fff3e0; border-left: 4px solid #ff9800; padding: 15px 20px; border-radius: 0 8px 8px 0; margin: 15px 0; }
+        .toc { background: #f8f9fa; padding: 20px 30px; border-radius: 8px; margin-bottom: 30px; }
+        .toc ul { list-style: none; }
+        .toc li { padding: 5px 0; }
+        .toc a { color: #4a69bd; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        @media print { body { background: white; } .section { box-shadow: none; border: 1px solid #ddd; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Molochain Authentication System</h1>
+        <p>Technical Documentation v1.0 | Generated: December 21, 2025</p>
+    </div>
+
+    <div class="toc section">
+        <h3>Table of Contents</h3>
+        <ul>
+            <li><a href="#architecture">1. System Architecture Diagram</a></li>
+            <li><a href="#flowchart">2. Authentication Flow Chart</a></li>
+            <li><a href="#urls">3. Auth URLs & Endpoints</a></li>
+            <li><a href="#database">4. Auth Database Schema</a></li>
+            <li><a href="#triggers">5. Database Triggers</a></li>
+            <li><a href="#mappings">6. Auth Mappings & Relationships</a></li>
+        </ul>
+    </div>
+
+    <div class="section" id="architecture">
+        <h2>1. System Architecture Diagram</h2>
+        <p>Overview of the authentication system components and their connections.</p>
+        
+        <div class="mermaid">
+flowchart TB
+    subgraph Clients["Client Applications"]
+        Web["Web Application<br/>molochain.com"]
+        Admin["Admin Panel<br/>admin.molochain.com"]
+        MoloLink["MoloLink App<br/>mololink.molochain.com"]
+        API_Client["External API Clients"]
+    end
+    
+    subgraph LoadBalancer["Load Balancer / Reverse Proxy"]
+        Nginx["Nginx Server<br/>SSL Termination"]
+    end
+    
+    subgraph Gateway["API Gateway Layer"]
+        Kong["Kong Gateway<br/>:8000-8001"]
+        Konga["Konga Admin<br/>:1337"]
+    end
+    
+    subgraph Services["Microservices"]
+        AuthSvc["Auth Service<br/>:3002/7010"]
+        OTMSSvc["OTMS Service"]
+        MoloLinkSvc["MoloLink Service<br/>:5001"]
+    end
+    
+    subgraph Cache["Session & Cache"]
+        Redis["Redis Session Store<br/>:6379"]
+    end
+    
+    subgraph Database["Database Layer"]
+        PostgreSQL["PostgreSQL<br/>molochaindb<br/>:5432"]
+        KongDB["Kong PostgreSQL<br/>:5432"]
+    end
+    
+    subgraph Monitoring["Monitoring Stack"]
+        Grafana["Grafana<br/>grafana.molochain.com"]
+        Prometheus["Prometheus<br/>:9090"]
+        Loki["Loki<br/>:3100"]
+    end
+    
+    Web --> Nginx
+    Admin --> Nginx
+    MoloLink --> Nginx
+    API_Client --> Nginx
+    
+    Nginx --> Kong
+    Kong --> AuthSvc
+    Kong --> OTMSSvc
+    Kong --> MoloLinkSvc
+    
+    AuthSvc --> Redis
+    AuthSvc --> PostgreSQL
+    
+    Kong --> KongDB
+    Konga --> Kong
+    
+    Prometheus --> AuthSvc
+    Prometheus --> Kong
+    Grafana --> Prometheus
+    Grafana --> Loki
+        </div>
+
+        <div class="info-box">
+            <strong>Key Components:</strong>
+            <ul>
+                <li><strong>Kong Gateway:</strong> API gateway handling routing, rate limiting, and authentication</li>
+                <li><strong>Auth Service:</strong> Core authentication microservice (port 3002 internal, 7010 exposed)</li>
+                <li><strong>Redis:</strong> Session storage and caching layer</li>
+                <li><strong>PostgreSQL:</strong> Primary database for user data and tokens</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section" id="flowchart">
+        <h2>2. Authentication Flow Chart</h2>
+        
+        <h3>2.1 User Login Flow</h3>
+        <div class="mermaid">
+flowchart TD
+    A["User Enters Credentials"] --> B["POST /auth/login"]
+    B --> C{"Validate Input"}
+    C -->|Invalid| D["Return 400 Error"]
+    C -->|Valid| E["Query users Table"]
+    E --> F{"User Exists?"}
+    F -->|No| G["Return 401 Unauthorized"]
+    F -->|Yes| H["Verify Password Hash"]
+    H --> I{"Password Match?"}
+    I -->|No| G
+    I -->|Yes| J{"2FA Enabled?"}
+    J -->|Yes| K["Request 2FA Code"]
+    K --> L["Verify TOTP"]
+    L -->|Invalid| M["Return 401 2FA Failed"]
+    L -->|Valid| N["Generate Tokens"]
+    J -->|No| N
+    N --> O["Create Access Token JWT"]
+    N --> P["Create Refresh Token"]
+    P --> Q["Store in refresh_tokens Table"]
+    O --> R["Store Session in Redis"]
+    R --> S["Update last_login_at"]
+    S --> T["Return Tokens + User Data"]
+        </div>
+
+        <h3>2.2 Token Refresh Flow</h3>
+        <div class="mermaid">
+flowchart TD
+    A["Access Token Expired"] --> B["POST /auth/refresh"]
+    B --> C["Extract Refresh Token"]
+    C --> D{"Token Valid?"}
+    D -->|No| E["Return 401 Invalid Token"]
+    D -->|Yes| F["Query refresh_tokens Table"]
+    F --> G{"Token Exists & Not Revoked?"}
+    G -->|No| E
+    G -->|Yes| H{"Token Expired?"}
+    H -->|Yes| I["Return 401 Token Expired"]
+    H -->|No| J["Generate New Access Token"]
+    J --> K["Optionally Rotate Refresh Token"]
+    K --> L["Update Session in Redis"]
+    L --> M["Return New Tokens"]
+        </div>
+
+        <h3>2.3 Password Reset Flow</h3>
+        <div class="mermaid">
+flowchart TD
+    A["User Requests Reset"] --> B["POST /auth/request-reset"]
+    B --> C["Validate Email"]
+    C --> D{"User Exists?"}
+    D -->|No| E["Return Success - Security"]
+    D -->|Yes| F["Generate Reset Token"]
+    F --> G["Hash Token"]
+    G --> H["Store in password_reset_tokens"]
+    H --> I["Send Email with Link"]
+    I --> E
+    
+    J["User Clicks Link"] --> K["GET /auth/reset-password/:token"]
+    K --> L{"Token Valid?"}
+    L -->|No| M["Return 400 Invalid Token"]
+    L -->|Yes| N["Show Reset Form"]
+    N --> O["POST /auth/reset-password"]
+    O --> P["Validate New Password"]
+    P --> Q["Hash New Password"]
+    Q --> R["Update users Table"]
+    R --> S["Mark Token as Used"]
+    S --> T["Revoke All Refresh Tokens"]
+    T --> U["Return Success"]
+        </div>
+    </div>
+
+    <div class="section" id="urls">
+        <h2>3. Auth URLs & Endpoints</h2>
+        
+        <h3>3.1 Public Auth Endpoints</h3>
+        <table>
+            <tr>
+                <th>Method</th>
+                <th>Endpoint</th>
+                <th>Description</th>
+                <th>Auth Required</th>
+            </tr>
+            <tr>
+                <td><span class="badge badge-success">POST</span></td>
+                <td><code>https://auth.molochain.com/api/auth/register</code></td>
+                <td>User registration</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-success">POST</span></td>
+                <td><code>https://auth.molochain.com/api/auth/login</code></td>
+                <td>User login</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-success">POST</span></td>
+                <td><code>https://auth.molochain.com/api/auth/logout</code></td>
+                <td>User logout</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-success">POST</span></td>
+                <td><code>https://auth.molochain.com/api/auth/refresh</code></td>
+                <td>Refresh access token</td>
+                <td>Refresh Token</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-success">POST</span></td>
+                <td><code>https://auth.molochain.com/api/auth/request-reset</code></td>
+                <td>Request password reset</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-success">POST</span></td>
+                <td><code>https://auth.molochain.com/api/auth/reset-password</code></td>
+                <td>Reset password with token</td>
+                <td>Reset Token</td>
+            </tr>
+        </table>
+        
+        <div class="info-box">
+            <strong>Note:</strong> Email verification endpoint (<code>/api/auth/verify-email</code>) is planned but not yet implemented.
+        </div>
+
+        <h3>3.2 Two-Factor Authentication Endpoints</h3>
+        <table>
+            <tr>
+                <th>Method</th>
+                <th>Endpoint</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><span class="badge badge-success">POST</span></td>
+                <td><code>/api/auth/2fa/setup</code></td>
+                <td>Generate 2FA secret and QR code</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-success">POST</span></td>
+                <td><code>/api/auth/2fa/verify</code></td>
+                <td>Verify and enable 2FA</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-success">POST</span></td>
+                <td><code>/api/auth/2fa/disable</code></td>
+                <td>Disable 2FA (requires code)</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-info">GET</span></td>
+                <td><code>/api/auth/2fa/recovery-codes</code></td>
+                <td>Get recovery codes</td>
+            </tr>
+        </table>
+
+        <h3>3.3 API Key Management Endpoints</h3>
+        <table>
+            <tr>
+                <th>Method</th>
+                <th>Endpoint</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><span class="badge badge-info">GET</span></td>
+                <td><code>/api/auth/api-keys</code></td>
+                <td>List user's API keys</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-success">POST</span></td>
+                <td><code>/api/auth/api-keys</code></td>
+                <td>Create new API key</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-warning">DELETE</span></td>
+                <td><code>/api/auth/api-keys/:id</code></td>
+                <td>Revoke API key</td>
+            </tr>
+        </table>
+
+        <h3>3.4 Service URLs</h3>
+        <ul class="url-list">
+            <li><strong>Auth Subdomain:</strong> <a href="https://auth.molochain.com">https://auth.molochain.com</a></li>
+            <li><strong>API Gateway:</strong> <a href="https://api.molochain.com">https://api.molochain.com</a></li>
+            <li><strong>Admin Panel:</strong> <a href="https://admin.molochain.com">https://admin.molochain.com</a></li>
+            <li><strong>Kong Admin API:</strong> <code>http://localhost:8001</code> (internal only)</li>
+            <li><strong>Konga Dashboard:</strong> <code>http://localhost:1337</code> (internal only)</li>
+        </ul>
+    </div>
+
+    <div class="section" id="database">
+        <h2>4. Auth Database Schema</h2>
+        
+        <div class="info-box">
+            <strong>Database:</strong> PostgreSQL | <strong>Name:</strong> molochaindb | <strong>Host:</strong> 31.186.24.19:5432
+        </div>
+
+        <h3>4.1 Users Table</h3>
+        <table>
+            <tr>
+                <th>Column</th>
+                <th>Type</th>
+                <th>Nullable</th>
+                <th>Description</th>
+            </tr>
+            <tr><td><code>id</code></td><td>integer</td><td>NO</td><td>Primary key</td></tr>
+            <tr><td><code>email</code></td><td>varchar</td><td>NO</td><td>Unique email address</td></tr>
+            <tr><td><code>username</code></td><td>text</td><td>NO</td><td>Unique username</td></tr>
+            <tr><td><code>password</code></td><td>text</td><td>NO</td><td>Legacy password field</td></tr>
+            <tr><td><code>password_hash</code></td><td>text</td><td>YES</td><td>Bcrypt hashed password</td></tr>
+            <tr><td><code>full_name</code></td><td>text</td><td>YES</td><td>User's full name</td></tr>
+            <tr><td><code>role</code></td><td>varchar</td><td>NO</td><td>User role (user, admin, etc.)</td></tr>
+            <tr><td><code>is_active</code></td><td>boolean</td><td>NO</td><td>Account active status</td></tr>
+            <tr><td><code>permissions</code></td><td>json</td><td>YES</td><td>Custom permissions object</td></tr>
+            <tr><td><code>two_factor_enabled</code></td><td>boolean</td><td>NO</td><td>2FA enabled flag</td></tr>
+            <tr><td><code>two_factor_secret</code></td><td>text</td><td>YES</td><td>TOTP secret (encrypted)</td></tr>
+            <tr><td><code>recovery_codes</code></td><td>json</td><td>YES</td><td>2FA recovery codes</td></tr>
+            <tr><td><code>company</code></td><td>varchar</td><td>YES</td><td>Company name</td></tr>
+            <tr><td><code>phone</code></td><td>varchar</td><td>YES</td><td>Phone number</td></tr>
+            <tr><td><code>department</code></td><td>varchar</td><td>YES</td><td>Department</td></tr>
+            <tr><td><code>last_login</code></td><td>timestamp</td><td>YES</td><td>Legacy last login</td></tr>
+            <tr><td><code>last_login_at</code></td><td>timestamp</td><td>YES</td><td>Last login timestamp</td></tr>
+            <tr><td><code>created_at</code></td><td>timestamp</td><td>NO</td><td>Account creation time</td></tr>
+            <tr><td><code>updated_at</code></td><td>timestamp</td><td>NO</td><td>Last update time</td></tr>
+        </table>
+
+        <h3>4.2 Refresh Tokens Table</h3>
+        <table>
+            <tr>
+                <th>Column</th>
+                <th>Type</th>
+                <th>Nullable</th>
+                <th>Description</th>
+            </tr>
+            <tr><td><code>id</code></td><td>integer</td><td>NO</td><td>Primary key</td></tr>
+            <tr><td><code>user_id</code></td><td>integer</td><td>NO</td><td>FK to users.id</td></tr>
+            <tr><td><code>token_hash</code></td><td>varchar</td><td>NO</td><td>Hashed token value</td></tr>
+            <tr><td><code>expires_at</code></td><td>timestamp</td><td>NO</td><td>Token expiration</td></tr>
+            <tr><td><code>is_revoked</code></td><td>boolean</td><td>NO</td><td>Revocation status</td></tr>
+            <tr><td><code>user_agent</code></td><td>text</td><td>YES</td><td>Client user agent</td></tr>
+            <tr><td><code>ip_address</code></td><td>varchar</td><td>YES</td><td>Client IP address</td></tr>
+            <tr><td><code>created_at</code></td><td>timestamp</td><td>NO</td><td>Token creation time</td></tr>
+        </table>
+
+        <h3>4.3 Password Reset Tokens Table</h3>
+        <table>
+            <tr>
+                <th>Column</th>
+                <th>Type</th>
+                <th>Nullable</th>
+                <th>Description</th>
+            </tr>
+            <tr><td><code>id</code></td><td>integer</td><td>NO</td><td>Primary key</td></tr>
+            <tr><td><code>user_id</code></td><td>integer</td><td>NO</td><td>FK to users.id</td></tr>
+            <tr><td><code>token</code></td><td>text</td><td>NO</td><td>Hashed reset token</td></tr>
+            <tr><td><code>expires_at</code></td><td>timestamp</td><td>NO</td><td>Token expiration</td></tr>
+            <tr><td><code>used_at</code></td><td>timestamp</td><td>YES</td><td>When token was used</td></tr>
+            <tr><td><code>created_at</code></td><td>timestamp</td><td>NO</td><td>Token creation time</td></tr>
+        </table>
+
+        <h3>4.4 API Keys Table</h3>
+        <table>
+            <tr>
+                <th>Column</th>
+                <th>Type</th>
+                <th>Nullable</th>
+                <th>Description</th>
+            </tr>
+            <tr><td><code>id</code></td><td>integer</td><td>NO</td><td>Primary key</td></tr>
+            <tr><td><code>name</code></td><td>varchar</td><td>NO</td><td>Key name/label</td></tr>
+            <tr><td><code>key_hash</code></td><td>varchar</td><td>NO</td><td>Hashed API key</td></tr>
+            <tr><td><code>user_id</code></td><td>integer</td><td>YES</td><td>FK to users.id</td></tr>
+            <tr><td><code>scopes</code></td><td>array</td><td>YES</td><td>Allowed scopes</td></tr>
+            <tr><td><code>rate_limit</code></td><td>integer</td><td>YES</td><td>Rate limit per hour</td></tr>
+            <tr><td><code>usage_count</code></td><td>integer</td><td>YES</td><td>Total usage count</td></tr>
+            <tr><td><code>last_used_at</code></td><td>timestamp</td><td>YES</td><td>Last usage time</td></tr>
+            <tr><td><code>expires_at</code></td><td>timestamp</td><td>NO</td><td>Key expiration</td></tr>
+            <tr><td><code>is_active</code></td><td>boolean</td><td>YES</td><td>Active status</td></tr>
+            <tr><td><code>metadata</code></td><td>text</td><td>YES</td><td>Additional metadata</td></tr>
+            <tr><td><code>created_at</code></td><td>timestamp</td><td>YES</td><td>Creation time</td></tr>
+            <tr><td><code>updated_at</code></td><td>timestamp</td><td>YES</td><td>Last update time</td></tr>
+        </table>
+
+        <h3>4.5 Admins Table</h3>
+        <table>
+            <tr>
+                <th>Column</th>
+                <th>Type</th>
+                <th>Nullable</th>
+                <th>Description</th>
+            </tr>
+            <tr><td><code>id</code></td><td>integer</td><td>NO</td><td>Primary key</td></tr>
+            <tr><td><code>email</code></td><td>varchar</td><td>NO</td><td>Admin email</td></tr>
+            <tr><td><code>password</code></td><td>text</td><td>NO</td><td>Hashed password</td></tr>
+            <tr><td><code>role</code></td><td>varchar</td><td>NO</td><td>Admin role level</td></tr>
+            <tr><td><code>is_active</code></td><td>boolean</td><td>NO</td><td>Active status</td></tr>
+            <tr><td><code>last_login_at</code></td><td>timestamp</td><td>YES</td><td>Last login</td></tr>
+            <tr><td><code>created_at</code></td><td>timestamp</td><td>NO</td><td>Creation time</td></tr>
+            <tr><td><code>updated_at</code></td><td>timestamp</td><td>NO</td><td>Last update</td></tr>
+        </table>
+
+        <h3>4.6 Entity Relationship Diagram</h3>
+        <div class="mermaid">
+erDiagram
+    users ||--o{ refresh_tokens : "has many"
+    users ||--o{ password_reset_tokens : "has many"
+    users ||--o{ api_keys : "has many"
+    users ||--o{ admin_activity_logs : "logged by"
+    users ||--o{ user_guide_progress : "tracks"
+    users ||--o{ ecosystem_user_achievements : "earns"
+    
+    users {
+        int id PK
+        varchar email UK
+        text username UK
+        text password_hash
+        varchar role
+        boolean is_active
+        boolean two_factor_enabled
+        text two_factor_secret
+        json permissions
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    refresh_tokens {
+        int id PK
+        int user_id FK
+        varchar token_hash
+        timestamp expires_at
+        boolean is_revoked
+        text user_agent
+        varchar ip_address
+    }
+    
+    password_reset_tokens {
+        int id PK
+        int user_id FK
+        text token
+        timestamp expires_at
+        timestamp used_at
+    }
+    
+    api_keys {
+        int id PK
+        int user_id FK
+        varchar name
+        varchar key_hash
+        array scopes
+        int rate_limit
+        timestamp expires_at
+        boolean is_active
+    }
+    
+    admins {
+        int id PK
+        varchar email UK
+        text password
+        varchar role
+        boolean is_active
+    }
+        </div>
+    </div>
+
+    <div class="section" id="triggers">
+        <h2>5. Database Triggers</h2>
+        
+        <h3>5.1 Active Triggers</h3>
+        <table>
+            <tr>
+                <th>Trigger Name</th>
+                <th>Event</th>
+                <th>Table</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td><code>update_services_updated_at</code></td>
+                <td>UPDATE</td>
+                <td>services</td>
+                <td><code>EXECUTE FUNCTION update_updated_at_column()</code></td>
+            </tr>
+        </table>
+
+        <h3>5.2 Recommended Auth Triggers</h3>
+        <div class="warning-box">
+            <strong>Note:</strong> The following triggers are recommended but not currently implemented in the database.
+        </div>
+        
+        <pre><code>-- Trigger: Auto-update updated_at on users table
+CREATE OR REPLACE FUNCTION update_users_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER users_updated_at_trigger
+    BEFORE UPDATE ON users
+    FOR EACH ROW
+    EXECUTE FUNCTION update_users_updated_at();
+
+-- Trigger: Log password changes
+CREATE OR REPLACE FUNCTION log_password_change()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.password_hash IS DISTINCT FROM NEW.password_hash THEN
+        INSERT INTO audit_logs (user_id, action, details, created_at)
+        VALUES (NEW.id, 'PASSWORD_CHANGED', '{}', CURRENT_TIMESTAMP);
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger: Revoke tokens on password change
+CREATE OR REPLACE FUNCTION revoke_tokens_on_password_change()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.password_hash IS DISTINCT FROM NEW.password_hash THEN
+        UPDATE refresh_tokens SET is_revoked = true 
+        WHERE user_id = NEW.id AND is_revoked = false;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;</code></pre>
+    </div>
+
+    <div class="section" id="mappings">
+        <h2>6. Auth Mappings & Relationships</h2>
+        
+        <h3>6.1 Foreign Key Relationships</h3>
+        <table>
+            <tr>
+                <th>Source Table</th>
+                <th>Column</th>
+                <th>Target Table</th>
+                <th>Target Column</th>
+            </tr>
+            <tr>
+                <td><code>refresh_tokens</code></td>
+                <td>user_id</td>
+                <td><code>users</code></td>
+                <td>id</td>
+            </tr>
+            <tr>
+                <td><code>password_reset_tokens</code></td>
+                <td>user_id</td>
+                <td><code>users</code></td>
+                <td>id</td>
+            </tr>
+            <tr>
+                <td><code>admin_activity_logs</code></td>
+                <td>admin_id</td>
+                <td><code>users</code></td>
+                <td>id</td>
+            </tr>
+            <tr>
+                <td><code>user_guide_progress</code></td>
+                <td>user_id</td>
+                <td><code>users</code></td>
+                <td>id</td>
+            </tr>
+            <tr>
+                <td><code>ecosystem_user_achievements</code></td>
+                <td>user_id</td>
+                <td><code>users</code></td>
+                <td>id</td>
+            </tr>
+            <tr>
+                <td><code>ecosystem_user_achievements</code></td>
+                <td>achievement_id</td>
+                <td><code>ecosystem_achievements</code></td>
+                <td>id</td>
+            </tr>
+            <tr>
+                <td><code>user_achievements</code></td>
+                <td>customer_id</td>
+                <td><code>customers</code></td>
+                <td>id</td>
+            </tr>
+            <tr>
+                <td><code>user_points</code></td>
+                <td>customer_id</td>
+                <td><code>customers</code></td>
+                <td>id</td>
+            </tr>
+        </table>
+
+        <h3>6.2 Kong Gateway Route Mappings</h3>
+        <table>
+            <tr>
+                <th>Route Name</th>
+                <th>Path</th>
+                <th>Target Service</th>
+                <th>Port</th>
+            </tr>
+            <tr>
+                <td><code>mololink-route</code></td>
+                <td><code>/api</code>, <code>/</code></td>
+                <td>mololink-service</td>
+                <td>5001</td>
+            </tr>
+            <tr>
+                <td><code>otms-route</code></td>
+                <td><code>/otms</code></td>
+                <td>otms-service</td>
+                <td>3009</td>
+            </tr>
+            <tr>
+                <td><code>otms-api-route-compat</code></td>
+                <td><code>/api</code></td>
+                <td>otms-service</td>
+                <td>3009</td>
+            </tr>
+        </table>
+
+        <h3>6.3 Service Network Mapping</h3>
+        <div class="mermaid">
+flowchart LR
+    subgraph External["External Access"]
+        Internet["Internet"]
+    end
+    
+    subgraph DMZ["DMZ - Nginx :80/:443"]
+        Nginx["Nginx Reverse Proxy"]
+    end
+    
+    subgraph Internal["Internal Network"]
+        subgraph kong-net["kong-stack_kong-net"]
+            Kong["Kong :8000"]
+            KongAdmin["Kong Admin :8001"]
+            KongDB["Kong DB :5432"]
+        end
+        
+        subgraph core["molochain-core"]
+            Auth["Auth Service :3002"]
+            OTMS["OTMS Service"]
+            Redis["Redis :6379"]
+        end
+        
+        subgraph monitoring["monitoring_monitoring"]
+            Prometheus["Prometheus :9090"]
+            Grafana["Grafana :3000"]
+            Loki["Loki :3100"]
+        end
+    end
+    
+    subgraph Database["Database Layer"]
+        PostgreSQL["PostgreSQL :5432"]
+    end
+    
+    Internet --> Nginx
+    Nginx --> Kong
+    Kong --> Auth
+    Kong --> OTMS
+    Auth --> Redis
+    Auth --> PostgreSQL
+    Prometheus --> Auth
+    Grafana --> Prometheus
+        </div>
+
+        <h3>6.4 Role Permission Mapping</h3>
+        <table>
+            <tr>
+                <th>Role</th>
+                <th>Permissions</th>
+                <th>Access Level</th>
+            </tr>
+            <tr>
+                <td><span class="badge badge-info">user</span></td>
+                <td>read:own, write:own</td>
+                <td>Standard user access</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-warning">moderator</span></td>
+                <td>read:all, write:own, moderate:content</td>
+                <td>Content moderation</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-primary">admin</span></td>
+                <td>read:all, write:all, manage:users</td>
+                <td>Full system access</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-success">superadmin</span></td>
+                <td>*:*</td>
+                <td>Complete control</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Appendix: Quick Reference</h2>
+        
+        <h3>Environment Variables (Auth Service)</h3>
+        <pre><code>PORT=3002
+PLESK_DB_URL=postgresql://molodb:***@31.186.24.19:5432/molochaindb
+REDIS_HOST=172.22.0.2
+REDIS_PORT=6379</code></pre>
+
+        <h3>Docker Container Status</h3>
+        <table>
+            <tr>
+                <th>Container</th>
+                <th>Image</th>
+                <th>Status</th>
+                <th>Ports</th>
+            </tr>
+            <tr>
+                <td>auth-service</td>
+                <td>microservices-auth-service:latest</td>
+                <td><span class="badge badge-success">Running 8 days</span></td>
+                <td>7010 -> 3002</td>
+            </tr>
+            <tr>
+                <td>redis-session</td>
+                <td>redis:7-alpine</td>
+                <td><span class="badge badge-success">Running 8 days</span></td>
+                <td>6379 (internal)</td>
+            </tr>
+            <tr>
+                <td>kong-gateway</td>
+                <td>kong:3.7</td>
+                <td><span class="badge badge-success">Healthy 7 days</span></td>
+                <td>8000-8001</td>
+            </tr>
+            <tr>
+                <td>kong-database</td>
+                <td>postgres:13</td>
+                <td><span class="badge badge-success">Running 7 days</span></td>
+                <td>5432 (internal)</td>
+            </tr>
+        </table>
+    </div>
+
+    <footer style="text-align: center; padding: 40px; color: #666;">
+        <p>Molochain Authentication System Documentation</p>
+        <p>Generated: December 21, 2025 | Version 1.0</p>
+    </footer>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#4a69bd',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#3d5aa9',
+                lineColor: '#666',
+                secondaryColor: '#f5f7fa',
+                tertiaryColor: '#e8ecf1'
+            }
+        });
+    </script>
+</body>
+</html>

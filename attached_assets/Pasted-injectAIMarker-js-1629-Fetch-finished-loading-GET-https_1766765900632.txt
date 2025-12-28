@@ -1,0 +1,41 @@
+injectAIMarker.js:1629 Fetch finished loading: GET "https://admin.molochain.com/locales/en/translation.json".
+O5 @ injectAIMarker.js:1629
+kWe @ injectAIMarker.js:1629
+jWe @ injectAIMarker.js:1629
+value @ injectAIMarker.js:1629
+(anonymous) @ injectAIMarker.js:1629
+Promise.then
+value @ injectAIMarker.js:1629
+value @ injectAIMarker.js:1629
+read @ injectAIMarker.js:1629
+loadOne @ injectAIMarker.js:1629
+(anonymous) @ injectAIMarker.js:1629
+prepareLoading @ injectAIMarker.js:1629
+load @ injectAIMarker.js:1629
+loadResources @ injectAIMarker.js:1629
+s @ injectAIMarker.js:1629
+changeLanguage @ injectAIMarker.js:1629
+s @ injectAIMarker.js:1629
+setTimeout
+init @ injectAIMarker.js:1629
+(anonymous) @ injectAIMarker.js:1629
+AdminPublicLayout-D0qyZ-VC.js:1 Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec.
+vendor-utils-BH7lbuxb.js:1 Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec.
+injectAIMarker.js:1599 Fetch finished loading: GET "https://admin.molochain.com/api/auth/me".
+(anonymous) @ injectAIMarker.js:1599
+(anonymous) @ injectAIMarker.js:1599
+Og @ injectAIMarker.js:33
+Gl @ injectAIMarker.js:33
+HP @ injectAIMarker.js:33
+di @ injectAIMarker.js:31
+wY @ injectAIMarker.js:33
+Bi @ injectAIMarker.js:33
+_D @ injectAIMarker.js:33
+$ @ injectAIMarker.js:18
+T @ injectAIMarker.js:18
+vendor-charts-BjzCQUhl.js:1 Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec.
+vendor-ui-CIf50WB8.js:1 Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec.
+vendor-react-NiwesDMA.js:1 Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec.
+AdminLandingPage-DW_6tTq5.js:1 Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec.
+Navigated to https://auth.molochain.com/
+41Navigated to https://auth.molochain.com/login

@@ -1,0 +1,128 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "ui-sans-serif",
+      "count": 81
+    },
+    {
+      "family": "system-ui",
+      "count": 81
+    },
+    {
+      "family": "sans-serif",
+      "count": 81
+    },
+    {
+      "family": "Apple Color Emoji",
+      "count": 81
+    },
+    {
+      "family": "Segoe UI Emoji",
+      "count": 81
+    },
+    {
+      "family": "Segoe UI Symbol",
+      "count": 81
+    },
+    {
+      "family": "Noto Color Emoji",
+      "count": 81
+    }
+  ],
+  "colors": {
+    "primary": "#0F1729",
+    "accent": "#297BFF",
+    "background": "#FFFFFF",
+    "textPrimary": "#297BFF",
+    "link": "#297BFF"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "ui-sans-serif",
+      "heading": "ui-sans-serif"
+    },
+    "fontStacks": {
+      "body": [
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji"
+      ],
+      "heading": [
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji"
+      ],
+      "paragraph": [
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji"
+      ]
+    },
+    "fontSizes": {
+      "h1": "60px",
+      "h2": "30px",
+      "body": "18px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "4px"
+  },
+  "components": {
+    "input": {
+      "background": "#FFFFFF",
+      "textColor": "#0F1729",
+      "borderColor": "#669FFA",
+      "borderRadius": "6px",
+      "borderRadiusCorners": {
+        "topLeft": "6px",
+        "topRight": "6px",
+        "bottomRight": "6px",
+        "bottomLeft": "6px"
+      },
+      "shadow": "none"
+    }
+  },
+  "images": {
+    "logo": "https://molochain.com/molochain-logo.png",
+    "favicon": "https://molochain.com/favicon-32.png",
+    "ogImage": null
+  },
+  "__framework_hints": [],
+  "__llm_logo_reasoning": {
+    "selectedIndex": 0,
+    "reasoning": "Strong indicators: header logo linking to homepage, header location, visible, highest logo on page, src contains logo, alt exactly matches brand name \"MOLOCHAIN\", src contains brand name \"MOLOCHAIN\", reasonable size. Score: 133 (clear winner by 105 points)",
+    "confidence": 0.9
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": -1,
+      "text": "N/A",
+      "reasoning": "LLM failed"
+    },
+    "secondary": {
+      "index": -1,
+      "text": "N/A",
+      "reasoning": "LLM failed"
+    },
+    "confidence": 0
+  },
+  "confidence": {
+    "buttons": 0,
+    "colors": 0,
+    "overall": 0
+  }
+}

@@ -1,0 +1,109 @@
+You are my professional Production Server Auditor + DevOps Engineer.
+
+Goal:
+Audit and document my production server thoroughly (no guessing), keep all working versions intact, identify redundant/unused files & configs, and produce a safe cleanup plan to make the server lightweight and the architecture crystal clear.
+
+Targets / Domains & Subdomains:
+- molochain.com
+- mololink.molochain.com
+- admin.molochain.com
+- cms.molochain.com
+- opt.molochain.com
+Also inspect anything else discovered (additional subdomains, services, ports, cron jobs, workers, containers).
+
+Server Stack & Must-Check Areas:
+- Plesk environment (sites, subscriptions, vhosts)
+- Nginx (and Apache if present), reverse proxies, SSL certs, redirects, upstreams
+- Docker (containers, images, networks, volumes, compose files)
+- Node/PM2 (process list, logs, startup scripts)
+- Laravel/PHP (php-fpm pools, versions, cron/scheduler, queue workers)
+- Databases (PostgreSQL/MySQL if present): users, DBs, schemas, backups, connections
+- Filesystem layout under /var/www/vhosts/* (and any other app directories)
+- Environment variables: .env files, secrets usage, duplicated configs
+- Logs, disk usage, large artifacts, old builds
+- Security basics: exposed ports, firewall rules, SSH history, suspicious files (only report; do not change security settings unless instructed)
+
+Non-Negotiable Rules:
+1) DO NOT delete or modify anything before producing a plan.
+2) Preserve all working deployments. Any cleanup must be “safe” and reversible.
+3) Never assume. If you can’t confirm, mark it as UNKNOWN and show commands/files checked.
+4) Produce evidence: exact paths, configs, ports, service names, and versions.
+5) Any destructive action must be staged: backup → verify → change → verify → rollback option.
+
+What you must deliver (exact outputs):
+
+A) “Single Source of Truth” Map (Architecture Inventory)
+For each subdomain:
+- Document root path and vhost config location
+- Reverse proxy rules (if any)
+- App type (static, Node, Laravel, other)
+- How it is started (systemd/PM2/docker/plesk node)
+- Ports used and upstream targets
+- Build artifacts path (dist/public, build, vendor, etc.)
+- Health check URL and expected response
+
+B) Full Service & Port Map
+- List all listening ports and what process/container owns each
+- Map: Port → Service → Domain/Subdomain → Repo path → Startup method
+
+C) Database & Data Flow Map
+- List all databases and users
+- For each app/service: which DB it uses, connection string location, migrations path
+- Identify unused/duplicate DBs or schemas (do not delete; just classify)
+
+D) Codebase & File Cleanup Candidate Report (SAFE)
+Produce a categorized list with three buckets:
+1) KEEP (confirmed used in production)
+2) REVIEW (uncertain; needs confirmation)
+3) CLEANUP CANDIDATE (high confidence unused)
+Examples include:
+- old builds, duplicate dist folders
+- unused docker images
+- orphan volumes
+- outdated backups
+- duplicate .env files
+- abandoned repos or folders
+Each item must include:
+- path/name
+- size
+- last modified time
+- evidence of usage or non-usage
+
+E) Error & Misconfiguration Report
+- 404/502/redirect loops
+- nginx upstream issues
+- missing service worker / asset issues if relevant
+- wrong document root
+- broken envs
+- mismatched SSL
+Include exact logs and config lines where possible.
+
+F) Execution Plan (Step-by-step)
+Provide a staged plan:
+Stage 0: Backups (what, where, how to verify)
+Stage 1: Monitoring snapshot (disk, RAM, CPU, service status)
+Stage 2: Non-destructive fixes (config corrections)
+Stage 3: Cleanup (only after confirmation)
+Stage 4: Verification (curl checks per subdomain, DB checks)
+Stage 5: Rollback instructions
+
+G) Final Output Format
+- A single Markdown report named: PRODUCTION_AUDIT_REPORT.md
+- Include:
+  - Executive summary (10 bullets max)
+  - Tables: (Subdomain Map), (Port Map), (DB Map), (Cleanup Candidates)
+  - A “Next 10 Actions” checklist
+
+How to perform the audit:
+- Use SSH commands to inspect:
+  - /var/www/vhosts/
+  - nginx configs (and apache if present)
+  - plesk site settings if accessible via CLI
+  - docker ps / images / volumes / networks
+  - pm2 list / logs
+  - systemctl list-units
+  - ss -tulpn (or netstat if installed)
+  - DB enumeration (psql or mysql if available)
+- If permissions are limited, report what you cannot access and what you need.
+
+Deliver the report only after you have gathered evidence and produced accurate mappings.

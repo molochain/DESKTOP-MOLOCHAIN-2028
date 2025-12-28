@@ -1,0 +1,139 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "quote": "Get Quote",
+    "contact": "Contact",
+    "getStarted": "Get Started",
+    "tools": "Tools"
+  },
+  "hero": {
+    "title": "Molochain World!",
+    "subtitle": "for Modern Business",
+    "description": "Streamline your supply chain with our comprehensive logistics solutions. Whether you're a business or individual, we've got you covered.",
+    "getQuote": "Get a Quote",
+    "learnMore": "Learn More"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive logistics solutions for your business needs",
+    "viewAll": "View All Services",
+    "freight": {
+      "title": "Freight Shipping",
+      "description": "Global freight solutions for businesses of all sizes"
+    },
+    "warehouse": {
+      "title": "Warehousing",
+      "description": "Secure storage and inventory management"
+    },
+    "distribution": {
+      "title": "Distribution",
+      "description": "Efficient distribution networks worldwide"
+    },
+    "customs": {
+      "title": "Customs Clearance",
+      "description": "Expert customs handling and documentation"
+    }
+  },
+  "tools": {
+    "title": "Transportation Tools",
+    "freightCalculator": "Freight Calculator",
+    "freightCalculatorDesc": "Calculate shipping costs based on weight, dimensions, and destination",
+    "dimensionalWeight": "Dimensional Weight Calculator",
+    "dimensionalWeightDesc": "Calculate volumetric weight for your shipments",
+    "packagingGuide": "Packaging Guide",
+    "packagingGuideDesc": "Get recommendations for optimal packaging solutions",
+    "routePlanner": "Route Planner",
+    "routePlannerDesc": "Plan efficient delivery routes and estimate transit times",
+    "transitTime": "Transit Time Estimator",
+    "transitTimeDesc": "Get estimated delivery times for your shipments",
+    "vehicleSelector": "Vehicle Selector",
+    "vehicleSelectorDesc": "Find the right vehicle type for your cargo"
+  },
+  "whyUs": {
+    "title": "Why Choose Us?",
+    "description": "With years of experience and a global network, we provide reliable and efficient logistics solutions that help your business grow.",
+    "cta": "Get Started Today",
+    "imageAlt": "Shipping Containers"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "loggingIn": "Signing in...",
+      "forgotPassword": "Forgot Password?",
+      "noAccount": "Don't have an account?",
+      "register": "Register"
+    },
+    "register": {
+      "title": "Create Account",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "fullName": "Full Name",
+      "company": "Company (Optional)",
+      "phone": "Phone Number (Optional)",
+      "submit": "Create Account",
+      "creating": "Creating account...",
+      "haveAccount": "Already have an account?",
+      "login": "Sign In"
+    }
+  },
+  "about": {
+    "title": "About Molo Logistics",
+    "subtitle": "A leading force in global logistics and transportation",
+    "approach": {
+      "title": "Our Approach",
+      "description": "At Molo, we believe in a human-centric and collaborative approach. Every customer is not just a client but a partner and friend. Our commitment to transparency, trust, and quality service delivery has made us a credible and trustworthy brand in the global transportation industry.",
+      "cta": "Connect With Us"
+    },
+    "features": {
+      "globalNetwork": {
+        "title": "Global Network",
+        "description": "Operating across Europe, Africa, Russia, USA, Canada, Brazil, and Mexico"
+      },
+      "trackRecord": {
+        "title": "Proven Track Record",
+        "description": "Over 60,000 TEU containers exported and 18,000 TEU containers imported annually"
+      },
+      "humanCentric": {
+        "title": "Human-Centric",
+        "description": "Building lasting partnerships through collaborative customer relationships"
+      },
+      "partnerships": {
+        "title": "Strategic Partnerships",
+        "description": "Collaborating with major commercial companies worldwide"
+      }
+    },
+    "globalPresence": {
+      "title": "Global Presence",
+      "description": "Our strategic network of warehouses and shipping routes spans major global trading hubs, enabling efficient and reliable logistics solutions worldwide."
+    },
+    "expertise": {
+      "title": "Our Expertise",
+      "description1": "Molo is one of the leading organizations active in international transportation, logistics, and foreign trade, holding official licenses in Iran and Turkey. This company offers comprehensive logistics and trade services to and from key global destinations.",
+      "description2": "The company's presence in Iran, Turkey, the UK, the UAE, and China strengthens its global connections and service capabilities. Moreover, Molo's membership in reputable international associations ensures fast and effective communication, enhancing the overall customer experience.",
+      "description3": "Our expertise in shipping trade and freight forwarding combines complex skills, specialized knowledge, and operational execution to ensure safe, economical, and efficient global transportation."
+    },
+    "metrics": {
+      "exportedContainers": {
+        "value": "60,000+",
+        "label": "TEU Containers Exported Annually"
+      },
+      "importedContainers": {
+        "value": "18,000+",
+        "label": "TEU Containers Imported"
+      },
+      "bulkProjects": {
+        "value": "800+",
+        "label": "Bulk Ship Projects Annually"
+      },
+      "globalPorts": {
+        "value": "350+",
+        "label": "Global Ports Serviced"
+      }
+    }
+  }
+}

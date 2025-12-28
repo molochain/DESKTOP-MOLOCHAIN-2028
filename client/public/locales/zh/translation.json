@@ -1,0 +1,160 @@
+{
+  "nav": {
+    "home": "首页",
+    "services": "服务",
+    "quote": "获取报价",
+    "contact": "联系我们",
+    "getStarted": "立即开始",
+    "tools": "工具"
+  },
+  "hero": {
+    "title": "现代物流",
+    "subtitle": "服务现代企业",
+    "description": "通过我们全面的物流解决方案优化您的供应链。无论您是企业还是个人，我们都能满足您的需求。",
+    "getQuote": "获取报价",
+    "learnMore": "了解更多"
+  },
+  "services": {
+    "title": "我们的服务",
+    "subtitle": "为您的业务需求提供全面的物流解决方案",
+    "viewAll": "查看所有服务",
+    "freight": {
+      "title": "货运服务",
+      "description": "为各种规模的企业提供全球货运解决方案",
+      "features": {
+        "global": "全球覆盖",
+        "tracking": "实时追踪",
+        "customs": "海关管理",
+        "insurance": "货物保险"
+      },
+      "benefits": {
+        "reliability": "可靠性",
+        "speed": "快速交付",
+        "cost": "竞争价格",
+        "expertise": "行业专长"
+      }
+    },
+    "warehouse": {
+      "title": "仓储服务",
+      "description": "安全存储和库存管理",
+      "features": {
+        "security": "24/7安保",
+        "inventory": "库存管理",
+        "climate": "温度控制",
+        "handling": "先进设备"
+      }
+    },
+    "distribution": {
+      "title": "配送服务",
+      "description": "全球高效配送网络",
+      "features": {
+        "network": "广泛网络",
+        "optimization": "路线优化",
+        "delivery": "准时交付",
+        "tracking": "实时追踪"
+      }
+    },
+    "customs": {
+      "title": "清关服务",
+      "description": "专业的海关和文件处理",
+      "features": {
+        "clearance": "快速清关",
+        "documentation": "文件管理",
+        "compliance": "法规合规",
+        "consulting": "专业咨询"
+      }
+    },
+    "shipping": {
+      "title": "海运服务",
+      "description": "全球海运服务",
+      "features": {
+        "container": "集装箱运输",
+        "bulk": "散货运输",
+        "scheduling": "定期航线",
+        "ports": "主要港口接入"
+      }
+    },
+    "air": {
+      "title": "空运服务",
+      "description": "快速空运服务",
+      "features": {
+        "express": "快速交付",
+        "worldwide": "全球覆盖",
+        "handling": "敏感货物处理",
+        "tracking": "精确追踪"
+      }
+    }
+  },
+  "about": {
+    "title": "关于Molo物流",
+    "subtitle": "全球物流和运输领域的领导者",
+    "approach": {
+      "title": "我们的方式",
+      "description": "在Molo，我们相信以人为本和协作的方式。每个客户不仅是客户，更是合作伙伴和朋友。我们对透明度、信任和优质服务的承诺使我们成为全球运输行业值得信赖的品牌。",
+      "cta": "联系我们"
+    },
+    "features": {
+      "globalNetwork": {
+        "title": "全球网络",
+        "description": "业务覆盖欧洲、非洲、俄罗斯、美国、加拿大、巴西和墨西哥"
+      },
+      "trackRecord": {
+        "title": "优秀业绩",
+        "description": "每年出口超过60,000个TEU集装箱，进口18,000个TEU集装箱"
+      },
+      "humanCentric": {
+        "title": "以人为本",
+        "description": "通过协作的客户关系建立持久的伙伴关系"
+      },
+      "partnerships": {
+        "title": "战略合作",
+        "description": "与全球主要商业公司合作"
+      }
+    },
+    "globalPresence": {
+      "title": "全球布局",
+      "description": "我们的战略仓储网络和航运路线遍布全球主要贸易中心，提供高效可靠的全球物流解决方案。"
+    },
+    "expertise": {
+      "title": "我们的专长",
+      "description1": "Molo是国际运输、物流和对外贸易领域的领先组织之一，在伊朗和土耳其持有官方许可证。公司提供往返全球主要目的地的综合物流和贸易服务。",
+      "description2": "公司在伊朗、土耳其、英国、阿联酋和中国的业务网络加强了其全球联系和服务能力。此外，Molo在知名国际协会的会员资格确保了快速有效的沟通，提升了整体客户体验。",
+      "description3": "我们在航运贸易和货运代理方面的专长结合了复杂的技能、专业知识和运营执行，确保安全、经济和高效的全球运输。"
+    },
+    "metrics": {
+      "exportedContainers": {
+        "value": "60,000+",
+        "label": "年度出口TEU集装箱"
+      },
+      "importedContainers": {
+        "value": "18,000+",
+        "label": "进口TEU集装箱"
+      },
+      "bulkProjects": {
+        "value": "800+",
+        "label": "年度散货船项目"
+      },
+      "globalPorts": {
+        "value": "350+",
+        "label": "服务的全球港口"
+      }
+    },
+    "pricing": {
+      "title": "定价政策",
+      "description1": "我们的定价政策基于市场需求和客户需求分析。",
+      "description2": "我们使用分析工具和最新数据来评估市场和优化价格。",
+      "description3": "这种方法帮助我们赢得客户的信任和忠诚度。"
+    },
+    "growth": {
+      "title": "战略发展",
+      "description1": "通过与主要航运公司的合作，我们扩大了全球业务范围。",
+      "description2": "近期发展创造了对可靠替代解决方案的需求。",
+      "description3": "我们启动了与GCL Global Container Line的战略合作。",
+      "description4": "GCL Line成立于2010年，专注于：",
+      "list1": "国际集装箱服务",
+      "list2": "航运公司代表",
+      "list3": "伊斯坦布尔、梅尔辛和伊兹密尔的港口服务",
+      "description5": "作为土耳其少数几家WCA全球组织高级会员公司之一。"
+    }
+  }
+}

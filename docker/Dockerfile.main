@@ -1,0 +1,97 @@
+# =============================================================================
+# Main Application Dockerfile
+# Multi-stage build for Molochain Platform
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Stage 1: Dependencies
+# -----------------------------------------------------------------------------
+FROM node:20-alpine AS deps
+
+WORKDIR /app
+
+# Install build dependencies
+RUN apk add --no-cache python3 make g++ libc6-compat
+
+# Copy package files
+COPY package*.json ./
+COPY packages/shared-permissions/package.json ./packages/shared-permissions/
+COPY packages/shared-auth/package.json ./packages/shared-auth/
+COPY packages/shared-audit/package.json ./packages/shared-audit/
+
+# Install all dependencies
+RUN npm ci --legacy-peer-deps
+
+# -----------------------------------------------------------------------------
+# Stage 2: Builder
+# -----------------------------------------------------------------------------
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files first
+COPY package*.json ./
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/packages ./packages
+
+# Copy all source files
+COPY . .
+
+# Build frontend
+RUN npm run build
+
+# Install tsx as production dependency for runtime TypeScript execution
+RUN npm install tsx --save --legacy-peer-deps
+
+# -----------------------------------------------------------------------------
+# Stage 3: Production Runtime
+# -----------------------------------------------------------------------------
+FROM node:20-alpine AS runner
+
+LABEL maintainer="Molochain DevOps <devops@molochain.com>"
+LABEL version="1.0.0"
+LABEL description="Molochain Main Platform"
+
+WORKDIR /app
+
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 molochain
+
+# Install runtime dependencies
+RUN apk add --no-cache \
+    curl \
+    dumb-init \
+    netcat-openbsd \
+    && rm -rf /var/cache/apk/*
+
+# Copy built application
+COPY --from=builder --chown=molochain:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=molochain:nodejs /app/packages ./packages
+COPY --from=builder --chown=molochain:nodejs /app/shared ./shared
+COPY --from=builder --chown=molochain:nodejs /app/server ./server
+COPY --from=builder --chown=molochain:nodejs /app/client ./client
+COPY --from=builder --chown=molochain:nodejs /app/dist ./dist
+COPY --from=builder --chown=molochain:nodejs /app/tsconfig.json ./
+COPY --from=builder --chown=molochain:nodejs /app/package.json ./
+
+# Copy entrypoint
+COPY --chown=molochain:nodejs docker/entrypoint-main.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+# Environment
+ENV NODE_ENV=production
+ENV PORT=5000
+ENV SERVICE_NAME=main-platform
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:5000/api/health || exit 1
+
+USER molochain
+
+EXPOSE 5000
+
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["/app/entrypoint.sh"]
