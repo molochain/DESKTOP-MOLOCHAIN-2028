@@ -79,6 +79,8 @@ import emailApiRouter from "./routes/email-api.routes";
 import { subdomainMiddleware } from "./middleware/subdomain";
 import { auditLogger } from "./middleware/auditLogger";
 import { serviceRoutesV1 as servicesPlatformRouter } from "./platform/services/v1";
+import pricingRoutes from "./routes/pricing";
+import favoritesRoutes from "./routes/favorites";
 
 // Query parameter schemas
 const paginationSchema = z.object({
@@ -162,6 +164,10 @@ export async function registerRoutes(
   
   // Services Platform v1 API (unified services for all consumers: web, mobile, OPT, Mololink)
   app.use("/api/platform/services/v1", servicesPlatformRouter);
+  
+  // Pricing API routes for service pricing tiers and price calculation
+  app.use("/api", pricingRoutes);
+  
   registerSecurityRoutes(app);
   registerEcosystemRoutes(app);
   // app.use('/api', servicesEnhancedRoutes); // Disabled due to database timeout issues
@@ -170,6 +176,9 @@ export async function registerRoutes(
 
   // Profile routes for user profile management
   app.use("/api", profileRoutes);
+
+  // Favorites routes for user favorite services
+  app.use("/api/favorites", favoritesRoutes);
 
   // Instagram Marketing Module routes
   app.use("/api/instagram", instagramRoutes);

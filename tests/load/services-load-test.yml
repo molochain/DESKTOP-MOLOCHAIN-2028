@@ -1,0 +1,97 @@
+config:
+  target: "{{ $processEnvironment.TARGET_URL || 'http://localhost:5000' }}"
+  phases:
+    - name: "Scenario 1 - Service Catalog Ramp Up"
+      duration: 60
+      arrivalRate: 1
+      rampTo: 10
+    - name: "Scenario 1 - Service Catalog Sustained Load"
+      duration: 120
+      arrivalRate: 10
+    - name: "Scenario 2 - Pricing Calculator Ramp Up"
+      duration: 30
+      arrivalRate: 1
+      rampTo: 5
+    - name: "Scenario 3 - Webhook Resilience"
+      duration: 30
+      arrivalRate: 5
+  plugins:
+    ensure: {}
+  ensure:
+    p99: 2000
+    maxErrorRate: 1
+  defaults:
+    headers:
+      Content-Type: "application/json"
+      Accept: "application/json"
+  variables:
+    testId:
+      - "load-test-1"
+      - "load-test-2"
+      - "load-test-3"
+
+scenarios:
+  - name: "Service Catalog Load"
+    weight: 5
+    flow:
+      - get:
+          url: "/api/platform/services/v1/catalog"
+          expect:
+            - statusCode: 200
+      - think: 1
+      - get:
+          url: "/api/platform/services/v1/categories"
+          expect:
+            - statusCode: 200
+      - think: 1
+      - get:
+          url: "/api/platform/services/v1/search?q=transport"
+          expect:
+            - statusCode: 200
+
+  - name: "Pricing Calculator Load"
+    weight: 3
+    flow:
+      - get:
+          url: "/api/services/container/pricing"
+          expect:
+            - statusCode:
+                - 200
+                - 404
+      - think: 1
+      - post:
+          url: "/api/services/calculate-price"
+          json:
+            serviceId: "container"
+            quantity: 1
+            distance: 100
+            weight: 500
+            insurance: false
+            expressDelivery: false
+            specialHandling: false
+          expect:
+            - statusCode:
+                - 200
+                - 400
+                - 404
+
+  - name: "Webhook Resilience"
+    weight: 2
+    flow:
+      - post:
+          url: "/api/platform/services/v1/webhooks/cms"
+          json:
+            event: "content.updated"
+            timestamp: "{{ $timestamp }}"
+            payload:
+              contentId: "test-{{ $uuid }}"
+              contentType: "service"
+              action: "update"
+              data:
+                title: "Load Test Content"
+                status: "published"
+          expect:
+            - statusCode:
+                - 200
+                - 201
+                - 202

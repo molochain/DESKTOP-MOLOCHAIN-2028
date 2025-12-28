@@ -586,6 +586,21 @@ export const serviceComparisons = pgTable("service_comparisons", {
   userComparisonIdx: index("service_comparisons_idx").on(table.userId),
 }));
 
+// User Favorite Services table
+export const userFavoriteServices = pgTable("user_favorite_services", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  serviceId: text("service_id").notNull().references(() => services.id),
+  notes: text("notes"),
+  tags: jsonb("tags").$type<string[]>(),
+  notifyOnPriceChange: boolean("notify_on_price_change").default(false),
+  notifyOnAvailability: boolean("notify_on_availability").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => ({
+  userServiceIdx: index("user_favorite_services_idx").on(table.userId, table.serviceId),
+  userIdx: index("user_favorites_user_idx").on(table.userId),
+}));
+
 // Investment rounds table
 export const investmentRounds = pgTable("investment_rounds", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -2145,6 +2160,7 @@ export const insertCollaborationMessageSchema = createInsertSchema(collaboration
 export const insertAdminActivityLogSchema = createInsertSchema(adminActivityLogs).omit({ id: true });
 export const insertAdminSettingSchema = createInsertSchema(adminSettings).omit({ id: true });
 export const insertAnalyticsSummarySchema = createInsertSchema(analyticsSummary).omit({ id: true });
+export const insertUserFavoriteServiceSchema = createInsertSchema(userFavoriteServices).omit({ id: true, createdAt: true });
 
 // ============= Types for Additional Tables =============
 export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
@@ -2163,6 +2179,8 @@ export type AdminSetting = typeof adminSettings.$inferSelect;
 export type InsertAdminSetting = z.infer<typeof insertAdminSettingSchema>;
 export type AnalyticsSummary = typeof analyticsSummary.$inferSelect;
 export type InsertAnalyticsSummary = z.infer<typeof insertAnalyticsSummarySchema>;
+export type UserFavoriteService = typeof userFavoriteServices.$inferSelect;
+export type InsertUserFavoriteService = z.infer<typeof insertUserFavoriteServiceSchema>;
 
 // ============= CMS Types (from Laravel CMS) =============
 // Types aligned with actual API responses from cms.molochain.com
