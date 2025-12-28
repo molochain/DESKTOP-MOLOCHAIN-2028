@@ -1,6 +1,7 @@
 import * as esbuild from 'esbuild';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { copyFileSync, existsSync, mkdirSync } from 'fs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = resolve(__dirname, '..');
@@ -58,6 +59,23 @@ async function buildProduction() {
     
     if (usesPgDb && !usesNeonDb) {
       console.log('\nProduction build configured for local PostgreSQL');
+    }
+
+    // Copy static assets to dist
+    const staticAssets = [
+      { src: 'server/openapi.json', dest: 'dist/openapi.json' },
+    ];
+    
+    console.log('\n=== Copying Static Assets ===');
+    for (const asset of staticAssets) {
+      const srcPath = resolve(rootDir, asset.src);
+      const destPath = resolve(rootDir, asset.dest);
+      if (existsSync(srcPath)) {
+        copyFileSync(srcPath, destPath);
+        console.log(`✓ Copied ${asset.src} → ${asset.dest}`);
+      } else {
+        console.warn(`⚠ Missing ${asset.src}`);
+      }
     }
 
   } catch (error) {
