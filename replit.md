@@ -125,6 +125,25 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
   5. `pm2 restart molochain-core --update-env`
 - **Session Storage:** `connect-redis@9.0.0` (named export: `{ RedisStore }`)
 
+**Communications Hub Microservice (Dec 28, 2025):**
+- **Location:** `services/communications-hub/`
+- **Purpose:** Unified multi-channel communications (Email, SMS, WhatsApp, Push) with Plesk integration
+- **Port:** 7020
+- **Architecture:**
+  - Docker containerized with Redis for message queue
+  - Channel Manager: Handles Email (Nodemailer/Plesk SMTP), SMS (Twilio), WhatsApp (Meta API), Push (WebSocket)
+  - Message Queue: Redis-based with priority, retry logic, dead letter handling
+  - Template System: Reusable templates with variable interpolation
+- **API Endpoints:**
+  - `POST /api/messages/send` - Queue message for delivery
+  - `POST /api/messages/send-bulk` - Bulk send
+  - `GET /api/channels/status` - Channel health status
+  - `GET /api/templates` - List templates
+  - `GET /api/analytics/overview` - Delivery analytics
+  - `POST /api/channels/plesk/mail` - Create Plesk mail account
+- **Admin Dashboard:** `client/src/components/admin/communications/CommunicationsHub.tsx`
+- **Deployment:** `docker-compose up -d` on production server
+
 **Server Management Scripts (Dec 28, 2025):**
 - **Location:** `scripts/`
 - **Purpose:** Production server monitoring, analysis, and maintenance

@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  communications-hub:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: molochain-communications-hub
+    restart: unless-stopped
+    ports:
+      - "7020:7020"
+    environment:
+      - NODE_ENV=production
+      - PORT=7020
+      - REDIS_URL=redis://comms-redis:6379
+      - DATABASE_URL=${DATABASE_URL}
+      - PLESK_API_URL=${PLESK_API_URL}
+      - PLESK_API_KEY=${PLESK_API_KEY}
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+      - TWILIO_PHONE_NUMBER=${TWILIO_PHONE_NUMBER}
+      - WHATSAPP_API_KEY=${WHATSAPP_API_KEY}
+      - WHATSAPP_PHONE_NUMBER_ID=${WHATSAPP_PHONE_NUMBER_ID}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - FROM_EMAIL=${FROM_EMAIL}
+      - FROM_NAME=${FROM_NAME}
+    depends_on:
+      comms-redis:
+        condition: service_healthy
+    networks:
+      - molochain-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7020/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  comms-redis:
+    image: redis:7-alpine
+    container_name: molochain-comms-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    volumes:
+      - comms-redis-data:/data
+    networks:
+      - molochain-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  comms-redis-data:
+    driver: local
+
+networks:
+  molochain-network:
+    external: true
