@@ -70,15 +70,15 @@ export function CommsHubDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
 
   const { data: channelStatus, isLoading: loadingChannels, refetch: refetchChannels } = useQuery<{ channels: Record<string, ChannelStatus> }>({
-    queryKey: [COMMS_API_BASE, 'channels', 'status'],
+    queryKey: [`${COMMS_API_BASE}/channels/status`],
   });
 
   const { data: queueStats, refetch: refetchQueue } = useQuery<QueueStats>({
-    queryKey: [COMMS_API_BASE, 'messages', 'queue', 'stats'],
+    queryKey: [`${COMMS_API_BASE}/messages/queue/stats`],
   });
 
   const { data: analytics } = useQuery<AnalyticsOverview>({
-    queryKey: [COMMS_API_BASE, 'analytics', 'overview'],
+    queryKey: [`${COMMS_API_BASE}/analytics/overview`],
   });
 
   const getChannelIcon = (channel: string) => {
@@ -325,7 +325,7 @@ function SendMessageForm() {
 
 function TemplatesManager() {
   const { data: templates } = useQuery<{ templates: any[]; total: number }>({
-    queryKey: [COMMS_API_BASE, 'templates'],
+    queryKey: [`${COMMS_API_BASE}/templates`],
   });
 
   return (
