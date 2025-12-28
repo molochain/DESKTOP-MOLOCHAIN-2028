@@ -25,6 +25,7 @@ export { default as PageModuleManager } from "./management/PageModuleManager";
 // Operations
 export { default as Activity } from "./operations/Activity";
 export { default as CommunicationsHub } from "./operations/CommunicationsHub";
+export { default as MultiChannelComms } from "./operations/MultiChannelComms";
 export { default as TrackingProviders } from "./operations/TrackingProviders";
 
 // Intelligence

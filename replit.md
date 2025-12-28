@@ -141,8 +141,13 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
   - `GET /api/templates` - List templates
   - `GET /api/analytics/overview` - Delivery analytics
   - `POST /api/channels/plesk/mail` - Create Plesk mail account
-- **Admin Dashboard:** `client/src/components/admin/communications/CommunicationsHub.tsx`
-- **Deployment:** `docker-compose up -d` on production server
+- **Admin Dashboard:** 
+  - Component: `client/src/components/admin/communications/CommsHubDashboard.tsx`
+  - Page: `client/src/pages/admin/operations/MultiChannelComms.tsx`
+  - Route: `/admin/multi-channel` (Operations → Multi-Channel Messaging)
+- **Proxy Route:** `server/routes/communications-proxy.ts` (forwards `/api/communications/*` to microservice)
+- **Deployment:** `docker-compose up -d` on production server (see `DEPLOYMENT.md`)
+- **Environment Variables:** `COMMS_HUB_URL` (server), `VITE_COMMS_HUB_URL` (client)
 
 **Server Management Scripts (Dec 28, 2025):**
 - **Location:** `scripts/`

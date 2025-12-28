@@ -160,6 +160,7 @@ const TrackingProviders = lazy(() => import('@/pages/admin/operations/TrackingPr
 const TranslationSuggestions = lazy(() => import('@/pages/admin/intelligence/translation-suggestions'));
 const AdminProfile = lazy(() => import('@/pages/profile/AdminProfile'));
 const CommunicationsHub = lazy(() => import('@/pages/admin/operations/CommunicationsHub'));
+const MultiChannelComms = lazy(() => import('@/pages/admin/operations/MultiChannelComms'));
 const MololinkAdmin = lazy(() => import('@/modules/mololink/MololinkMain'));
 
 // Developer pages
@@ -352,6 +353,21 @@ export const adminPages: AdminPageConfig[] = [
     requireAdmin: true,
     requiredPermission: PERMISSIONS.OPERATIONS_MANAGE,
     order: 3,
+    enabled: true
+  },
+  {
+    id: 'multi-channel-comms',
+    name: 'Multi-Channel Messaging',
+    description: 'Email, SMS, WhatsApp, and Push notification service',
+    path: '/admin/multi-channel',
+    component: MultiChannelComms,
+    icon: MessageSquare,
+    category: 'operations',
+    badge: 'NEW',
+    requireAuth: true,
+    requireAdmin: true,
+    requiredPermission: PERMISSIONS.OPERATIONS_MANAGE,
+    order: 4,
     enabled: true
   },
 
