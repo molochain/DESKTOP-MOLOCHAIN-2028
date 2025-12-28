@@ -156,9 +156,13 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
   - `server-health-check.ts` - SSH connection test and system health overview (CPU, memory, disk, PM2, Docker, SSL)
   - `server-deep-scan.ts` - Comprehensive analysis of subdomains, Docker containers, databases, configs, API gateway
   - `cleanup-old-backups.ts` - Automated cleanup of old backups (freed ~10GB, reduced disk from 79% to 61%)
+  - `deploy-communications-hub.ts` - Deploy Communications Hub Docker container to production
+  - `configure-communications-nginx.ts` - Configure Nginx reverse proxy for communications subdomain
+  - `set-comms-env-production.ts` - Set COMMS_HUB_URL environment variable on production PM2
 - **Usage:** `npx tsx scripts/<script-name>.ts`
 - **Requirements:** `SERVER_SSH_PASSWORD` secret must be set
 - **Production Server:** 31.186.24.19 (AlmaLinux 9.7, 4 CPU cores, 7.5GB RAM, 152GB disk)
+- **Communications Hub Status:** Deployed and running on port 7020 (Docker: molochain-communications-hub, molochain-comms-redis)
 
 ### External Dependencies
 
