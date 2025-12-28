@@ -129,11 +129,17 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Location:** `services/communications-hub/`
 - **Purpose:** Unified multi-channel communications (Email, SMS, WhatsApp, Push) with Plesk integration
 - **Port:** 7020
+- **Status:** ✅ Fully deployed to production (Dec 28, 2025)
 - **Architecture:**
   - Docker containerized with Redis for message queue
   - Channel Manager: Handles Email (Nodemailer/Plesk SMTP), SMS (Twilio), WhatsApp (Meta API), Push (WebSocket)
   - Message Queue: Redis-based with priority, retry logic, dead letter handling
   - Template System: Reusable templates with variable interpolation
+- **Channel Status (Production):**
+  - Email: ✅ Enabled and healthy (via Plesk SMTP)
+  - WhatsApp: ✅ Enabled and healthy (Meta API ready)
+  - Push: ✅ Enabled and healthy (WebSocket)
+  - SMS: ⚠️ Disabled (needs Twilio credentials)
 - **API Endpoints:**
   - `POST /api/messages/send` - Queue message for delivery
   - `POST /api/messages/send-bulk` - Bulk send
@@ -146,7 +152,10 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
   - Page: `client/src/pages/admin/operations/MultiChannelComms.tsx`
   - Route: `/admin/multi-channel` (Operations → Multi-Channel Messaging)
 - **Proxy Route:** `server/routes/communications-proxy.ts` (forwards `/api/communications/*` to microservice)
-- **Deployment:** `docker-compose up -d` on production server (see `DEPLOYMENT.md`)
+- **Deployment:** 
+  - Docker containers: `molochain-communications-hub`, `molochain-comms-redis`
+  - PM2 ecosystem: `ecosystem.config.cjs` with `COMMS_HUB_URL=http://localhost:7020`
+  - See `DEPLOYMENT.md` for full instructions
 - **Environment Variables:** `COMMS_HUB_URL` (server), `VITE_COMMS_HUB_URL` (client)
 
 **Server Management Scripts (Dec 28, 2025):**
