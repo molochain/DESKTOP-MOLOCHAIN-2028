@@ -101,9 +101,10 @@ router.get('/:id', async (req: Request, res: Response) => {
   }
 });
 
-router.patch('/:id/status', async (req: Request, res: Response) => {
+router.patch('/:id/status', isAuthenticated, async (req: Request & { user?: any }, res: Response) => {
   try {
     const bookingId = parseInt(req.params.id, 10);
+    const userId = req.user?.id;
 
     if (isNaN(bookingId)) {
       return res.status(400).json({ error: 'Invalid booking ID' });
@@ -126,6 +127,10 @@ router.patch('/:id/status', async (req: Request, res: Response) => {
 
     if (!existingBooking) {
       return res.status(404).json({ error: 'Booking not found' });
+    }
+
+    if (existingBooking.userId !== userId) {
+      return res.status(403).json({ error: 'You can only update your own bookings' });
     }
 
     const [updatedBooking] = await db

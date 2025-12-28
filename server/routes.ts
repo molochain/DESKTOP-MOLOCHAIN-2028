@@ -81,6 +81,7 @@ import { auditLogger } from "./middleware/auditLogger";
 import { serviceRoutesV1 as servicesPlatformRouter } from "./platform/services/v1";
 import pricingRoutes from "./routes/pricing";
 import favoritesRoutes from "./routes/favorites";
+import bookingsRoutes from "./routes/bookings";
 
 // Query parameter schemas
 const paginationSchema = z.object({
@@ -179,6 +180,9 @@ export async function registerRoutes(
 
   // Favorites routes for user favorite services
   app.use("/api/favorites", favoritesRoutes);
+
+  // Bookings routes for service booking management
+  app.use("/api/bookings", bookingsRoutes);
 
   // Instagram Marketing Module routes
   app.use("/api/instagram", instagramRoutes);

@@ -47,6 +47,19 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
   - `GET /api/platform/services/v1/search?q=` - Full-text search
   - `GET /api/platform/services/v1/availability/:id` - Service availability
   - `GET /api/platform/services/v1/sync/delta?since=` - Delta sync for mobile
+- **Booking API (Dec 28, 2025):**
+  - `POST /api/bookings` - Create service booking (auth required)
+  - `GET /api/bookings` - List user's bookings (auth required)
+  - `GET /api/bookings/:id` - Get booking details
+  - `PATCH /api/bookings/:id/status` - Update booking status (auth + ownership required)
+- **Pricing API (Dec 28, 2025):**
+  - `GET /api/services/:id/pricing` - Get pricing tiers for a service
+  - `POST /api/services/calculate-price` - Calculate price with factors (quantity, distance, weight, insurance, express, special handling)
+- **Favorites API (Dec 28, 2025):**
+  - `GET /api/favorites` - List user's favorite services (auth required)
+  - `POST /api/favorites` - Add service to favorites (auth required)
+  - `DELETE /api/favorites/:serviceId` - Remove from favorites (auth required)
+  - `GET /api/favorites/check/:serviceId` - Check if service is favorited (auth required)
 - **Admin Endpoints:**
   - `POST /api/platform/services/v1/admin/sync` - Force CMS sync
   - `POST /api/platform/services/v1/admin/cache/invalidate` - Clear all caches
