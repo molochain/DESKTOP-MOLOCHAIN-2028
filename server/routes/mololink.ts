@@ -667,4 +667,111 @@ router.put('/connections/:id', isAuthenticated, validateRequest({
   }
 });
 
+// ===========================================
+// SERVICE MARKETPLACE INTEGRATION ROUTES
+// ===========================================
+
+// Get marketplace listing status for a service (PUBLIC)
+router.get('/services/:serviceId/marketplace', async (req, res) => {
+  try {
+    const { serviceId } = req.params;
+    
+    // Check if service has a marketplace listing
+    const listing = await db.select()
+      .from(marketplaceServicePosts)
+      .where(eq(marketplaceServicePosts.id, parseInt(serviceId) || 0))
+      .limit(1);
+
+    // Also check by title match for demo services (string IDs)
+    let serviceListing = listing[0];
+    if (!serviceListing) {
+      const listingByTitle = await db.select()
+        .from(marketplaceServicePosts)
+        .where(like(marketplaceServicePosts.title, `%${serviceId}%`))
+        .limit(1);
+      serviceListing = listingByTitle[0];
+    }
+
+    if (!serviceListing) {
+      return res.json({
+        isListed: false,
+        serviceId,
+      });
+    }
+
+    // Return marketplace listing data
+    res.json({
+      isListed: true,
+      listingId: serviceListing.id.toString(),
+      status: serviceListing.status || 'active',
+      price: serviceListing.basePrice ? parseFloat(serviceListing.basePrice.toString()) : undefined,
+      currency: serviceListing.currency || 'USD',
+      views: serviceListing.views || 0,
+      rating: serviceListing.rating ? parseFloat(serviceListing.rating.toString()) : undefined,
+      availability: serviceListing.deliveryTime || 'Available',
+      listedAt: serviceListing.createdAt?.toISOString(),
+      marketplaceUrl: `https://mololink.molochain.com/services/${serviceListing.id}`,
+    });
+  } catch (error) {
+    logger.error('Error fetching service marketplace status:', error);
+    // Return graceful fallback when marketplace unavailable
+    res.json({
+      isListed: false,
+      serviceId: req.params.serviceId,
+      unavailable: true,
+    });
+  }
+});
+
+// Request listing on marketplace (PROTECTED)
+router.post('/services/:serviceId/marketplace/list', isAuthenticated, async (req, res) => {
+  try {
+    const { serviceId } = req.params;
+    const userId = req.user!.id;
+    const { serviceName, description, category, priceModel, basePrice, deliveryTime } = req.body;
+
+    // Check if already listed
+    const existing = await db.select()
+      .from(marketplaceServicePosts)
+      .where(like(marketplaceServicePosts.title, `%${serviceId}%`))
+      .limit(1);
+
+    if (existing.length > 0) {
+      return res.status(400).json({ 
+        error: 'Service is already listed on marketplace',
+        listingId: existing[0].id.toString()
+      });
+    }
+
+    // Create marketplace listing request
+    const [newListing] = await db.insert(marketplaceServicePosts)
+      .values({
+        providerId: userId,
+        title: serviceName || serviceId,
+        description: description || `${serviceName || serviceId} service on Mololink marketplace`,
+        category: category || 'logistics',
+        serviceType: 'service',
+        priceModel: priceModel || 'quote',
+        basePrice: basePrice ? basePrice.toString() : null,
+        currency: 'USD',
+        deliveryTime: deliveryTime || 'Varies',
+        status: 'pending',
+        views: 0,
+        featured: false,
+      })
+      .returning();
+
+    res.status(201).json({
+      success: true,
+      listingId: newListing.id.toString(),
+      status: 'pending',
+      message: 'Service listing request submitted successfully',
+      marketplaceUrl: `https://mololink.molochain.com/services/${newListing.id}`,
+    });
+  } catch (error) {
+    logger.error('Error creating service marketplace listing:', error);
+    res.status(500).json({ error: 'Failed to create marketplace listing' });
+  }
+});
+
 export default router;

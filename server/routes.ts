@@ -82,6 +82,8 @@ import { serviceRoutesV1 as servicesPlatformRouter } from "./platform/services/v
 import pricingRoutes from "./routes/pricing";
 import favoritesRoutes from "./routes/favorites";
 import bookingsRoutes from "./routes/bookings";
+import jobsRoutes from "./routes/jobs";
+import otmsPublicRoutes from "./api/otms/otms-public.routes";
 
 // Query parameter schemas
 const paginationSchema = z.object({
@@ -183,6 +185,12 @@ export async function registerRoutes(
 
   // Bookings routes for service booking management
   app.use("/api/bookings", bookingsRoutes);
+
+  // Jobs/Careers routes for job listings and service-related careers
+  app.use("/api/jobs", jobsRoutes);
+
+  // OTMS (Order Tracking Management System) public routes
+  app.use("/api/otms", otmsPublicRoutes);
 
   // Instagram Marketing Module routes
   app.use("/api/instagram", instagramRoutes);

@@ -6,6 +6,7 @@ import { AnimatedCard } from "@/components/ui/animated-card";
 import { RippleButton } from "@/components/ui/ripple-button";
 import { iconAnimation } from "@/lib/animations";
 import { cn } from "@/lib/utils";
+import { Store } from "lucide-react";
 
 interface ServiceCardProps {
   id: string;
@@ -15,6 +16,7 @@ interface ServiceCardProps {
   features: string[];
   tags?: string[];
   imageUrl?: string;
+  isMarketplaceListed?: boolean;
 }
 
 const ServiceCard = ({ 
@@ -24,7 +26,8 @@ const ServiceCard = ({
   icon, 
   features,
   tags,
-  imageUrl
+  imageUrl,
+  isMarketplaceListed
 }: ServiceCardProps) => {
   return (
     <AnimatedCard 
@@ -41,6 +44,28 @@ const ServiceCard = ({
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          {isMarketplaceListed && (
+            <div className="absolute top-2 right-2">
+              <Badge 
+                className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white hover:from-purple-600 hover:to-indigo-600 shadow-md"
+                data-testid={`featured-marketplace-badge-${id}`}
+              >
+                <Store className="h-3 w-3 mr-1" />
+                Featured on Mololink
+              </Badge>
+            </div>
+          )}
+        </div>
+      )}
+      {!imageUrl && isMarketplaceListed && (
+        <div className="px-4 pt-4">
+          <Badge 
+            className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white hover:from-purple-600 hover:to-indigo-600"
+            data-testid={`featured-marketplace-badge-${id}`}
+          >
+            <Store className="h-3 w-3 mr-1" />
+            Featured on Mololink
+          </Badge>
         </div>
       )}
       <CardHeader className={imageUrl ? "pt-4" : ""}>

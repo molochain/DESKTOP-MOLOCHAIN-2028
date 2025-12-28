@@ -2151,6 +2151,48 @@ export const insertApiRouteMappingSchema = createInsertSchema(apiRouteMappings).
 export type ApiRouteMapping = typeof apiRouteMappings.$inferSelect;
 export type InsertApiRouteMapping = z.infer<typeof insertApiRouteMappingSchema>;
 
+// ============= Jobs/Careers Table =============
+export const jobs = pgTable("jobs", {
+  id: serial("id").primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description").notNull(),
+  location: varchar("location", { length: 255 }).notNull(),
+  type: varchar("type", { length: 50 }).notNull(), // full-time, part-time, contract, internship
+  department: varchar("department", { length: 100 }),
+  category: varchar("category", { length: 100 }).notNull(), // logistics, transport, warehouse, customs, etc.
+  requirements: jsonb("requirements").$type<string[]>(),
+  benefits: jsonb("benefits").$type<string[]>(),
+  salaryRange: varchar("salary_range", { length: 100 }),
+  experienceLevel: varchar("experience_level", { length: 50 }), // entry, mid, senior, executive
+  isRemote: boolean("is_remote").default(false),
+  isActive: boolean("is_active").default(true),
+  applicationDeadline: timestamp("application_deadline"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => ({
+  categoryIdx: index("jobs_category_idx").on(table.category),
+  activeIdx: index("jobs_active_idx").on(table.isActive),
+  typeIdx: index("jobs_type_idx").on(table.type),
+}));
+
+export const insertJobSchema = createInsertSchema(jobs).omit({ id: true, createdAt: true, updatedAt: true });
+export type Job = typeof jobs.$inferSelect;
+export type InsertJob = z.infer<typeof insertJobSchema>;
+
+// Job-to-Service category mapping (which service categories map to which job categories)
+export const jobServiceCategoryMappings: Record<string, string[]> = {
+  'logistics': ['logistics', 'supply-chain', 'operations'],
+  'transport': ['transport', 'trucking', 'shipping', 'rail', 'air-freight'],
+  'warehouse': ['warehouse', 'warehousing', 'distribution', 'inventory'],
+  'customs': ['customs', 'customs-clearance', 'documentation', 'compliance'],
+  'freight': ['freight', 'ocean-freight', 'air-freight', 'groupage', 'container'],
+  'technology': ['technology', 'blockchain', 'it', 'digital'],
+  'management': ['management', 'operations', 'project-cargo', 'consulting'],
+  'finance': ['finance', 'trading', 'insurance'],
+  'sales': ['sales', 'business-development', 'marketing'],
+  'customer-service': ['customer-service', 'support', 'coordination'],
+};
+
 // ============= Insert Schemas for Additional Tables =============
 export const insertPasswordResetTokenSchema = createInsertSchema(passwordResetTokens).omit({ id: true });
 export const insertShipmentSchema = createInsertSchema(shipments).omit({ id: true });

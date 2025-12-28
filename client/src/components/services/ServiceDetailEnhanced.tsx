@@ -36,6 +36,9 @@ import {
 } from "lucide-react";
 import { ServiceBookingForm } from "./ServiceBookingForm";
 import { ServiceAvailabilityChecker } from "./ServiceAvailabilityChecker";
+import { ServiceTracking } from "./ServiceTracking";
+import MarketplaceListing from "./MarketplaceListing";
+import RelatedJobs from "./RelatedJobs";
 import { getServiceImage } from "@/config/serviceImages";
 import { cn } from "@/lib/utils";
 
@@ -422,10 +425,27 @@ export default function ServiceDetailEnhanced({
 
                 {/* Availability Checker */}
                 <ServiceAvailabilityChecker serviceCode={id.toUpperCase()} serviceName={title} />
+
+                {/* Order Tracking Widget */}
+                <ServiceTracking 
+                  showSearch={true}
+                  compact={false}
+                  data-testid="service-detail-tracking-widget"
+                />
+
+                {/* Related Jobs/Careers */}
+                <RelatedJobs 
+                  serviceId={id} 
+                  serviceName={title}
+                  limit={3}
+                />
               </div>
 
               {/* Sidebar */}
               <div className="space-y-6">
+                {/* Marketplace Listing Widget */}
+                <MarketplaceListing serviceId={id} serviceName={title} />
+
                 {/* Quick Actions */}
                 <Card className="border-blue-200 bg-blue-50/50">
                   <CardHeader>
