@@ -27,6 +27,7 @@ RouteRegistry.registerCategory({
     { path: '/contact', component: Contact, layout: 'default', subdomain: 'public' },
     { path: '/success', component: Success, layout: 'default', subdomain: 'public' },
     { path: '/careers', component: Careers, layout: 'default', subdomain: 'public' },
+    { path: '/jobs', component: Careers, layout: 'default', subdomain: 'public' },
     { path: '/projects/:id', component: ProjectPage, layout: 'default', subdomain: 'public' },
     { path: '/partners', component: Partners, layout: 'default', subdomain: 'public' },
     { path: '/partner/:id', component: PartnerDetail, layout: 'default', subdomain: 'public' },
