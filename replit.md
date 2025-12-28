@@ -112,7 +112,8 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Key Features:**
   - esbuild plugin redirects `server/db` imports to `server/db.prod.ts` (uses `pg` driver for local PostgreSQL)
   - Build verification confirms pg driver inclusion and neon driver exclusion
-  - Output: `dist/index.js` (1.7MB bundled server)
+  - Static assets copying (openapi.json) to dist folder
+  - Output: `dist/index.js` (1.7MB bundled server) + static assets
 - **Database Driver Strategy:**
   - `server/db.ts` - Uses `@neondatabase/serverless` for Neon cloud PostgreSQL (development on Replit)
   - `server/db.prod.ts` - Uses standard `pg` driver for local PostgreSQL (production on 31.186.24.19)
