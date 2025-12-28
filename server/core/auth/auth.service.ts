@@ -8,7 +8,7 @@ import bcryptjs from 'bcryptjs';
 import crypto from 'crypto';
 import session from 'express-session';
 import createMemoryStore from 'memorystore';
-import RedisStore from 'connect-redis';
+import { RedisStore } from 'connect-redis';
 import { createClient } from 'redis';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';

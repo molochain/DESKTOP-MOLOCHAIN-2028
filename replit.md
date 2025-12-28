@@ -106,10 +106,28 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Shared Packages (Microservice-ready):** `packages/shared-permissions/` (RBAC), `packages/shared-auth/` (Auth types), `packages/shared-audit/` (Audit logging).
 - **API Gateway (Prepared):** `server/gateway/` for admin gateway middleware (rate limiting, circuit breaker, correlation IDs).
 
+**Production Build Pipeline (Dec 28, 2025):**
+- **Location:** `server/build-prod.mjs`
+- **Purpose:** Custom esbuild configuration for production deployments to self-hosted server (31.186.24.19)
+- **Key Features:**
+  - esbuild plugin redirects `server/db` imports to `server/db.prod.ts` (uses `pg` driver for local PostgreSQL)
+  - Build verification confirms pg driver inclusion and neon driver exclusion
+  - Output: `dist/index.js` (1.7MB bundled server)
+- **Database Driver Strategy:**
+  - `server/db.ts` - Uses `@neondatabase/serverless` for Neon cloud PostgreSQL (development on Replit)
+  - `server/db.prod.ts` - Uses standard `pg` driver for local PostgreSQL (production on 31.186.24.19)
+- **Deployment Process:**
+  1. `npx vite build` - Build frontend
+  2. `node server/build-prod.mjs` - Build server with pg driver
+  3. Create tarball: `tar -czf deploy.tar.gz dist/`
+  4. Upload and extract on production server
+  5. `pm2 restart molochain-core --update-env`
+- **Session Storage:** `connect-redis@9.0.0` (named export: `{ RedisStore }`)
+
 ### External Dependencies
 
 - **Core Frameworks**: Express, React, Vite, TypeScript
-- **Database**: Drizzle ORM, `@neondatabase/serverless`, `pg`
+- **Database**: Drizzle ORM, `@neondatabase/serverless` (dev), `pg` (prod)
 - **UI Libraries**: shadcn/ui, Tailwind CSS, Radix UI
 - **Real-time**: Socket.IO, WebSockets
 - **Authentication**: Passport.js, JWT
