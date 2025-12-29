@@ -102,7 +102,7 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
   - Adapter health checks now succeed, enabling full Communications Hub routing
   - Script: `scripts/sync-comms-hub-to-production.ts` for file synchronization
   - Script: `scripts/quick-fix-health-endpoint.ts` for rapid patches
-- **Current Version:** 1.2.0 (Production)
+- **Current Version:** 1.3.0 (Production) - Deployed Dec 2024 with optional database support and graceful degradation
 - **Folder Structure:** `services/communications-hub/src/` with api/, channels/, db/, queue/, plesk/, utils/
 
 **External API Key System (Dec 2024):**
