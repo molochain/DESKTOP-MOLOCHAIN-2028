@@ -41,6 +41,17 @@ if (hasDbUrl) {
 
 export const db = dbInstance;
 
+export function getDb() {
+  if (!db) {
+    throw new Error('Database not available - DB_OPTIONAL mode active');
+  }
+  return db;
+}
+
+export function isDbAvailable(): boolean {
+  return db !== null;
+}
+
 export function getConnectionStatus(): 'connected' | 'disconnected' | 'optional' {
   return connectionStatus;
 }

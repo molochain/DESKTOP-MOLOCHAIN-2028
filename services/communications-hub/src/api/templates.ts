@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import { eq, and } from 'drizzle-orm';
-import { db } from '../db/index.js';
+import { getDb, isDbAvailable } from '../db/index.js';
 import { messageTemplates, MessageTemplate } from '../db/schema.js';
 import { createLogger } from '../utils/logger.js';
 
@@ -24,7 +24,11 @@ export function createTemplateRoutes(): Router {
   const router = Router();
 
   router.get('/', async (req: Request, res: Response) => {
+    if (!isDbAvailable()) {
+      return res.status(503).json({ error: 'Database not available' });
+    }
     try {
+      const db = getDb();
       const { channelType, active } = req.query;
       
       let conditions = [];
@@ -52,7 +56,11 @@ export function createTemplateRoutes(): Router {
   });
 
   router.get('/:slug', async (req: Request, res: Response) => {
+    if (!isDbAvailable()) {
+      return res.status(503).json({ error: 'Database not available' });
+    }
     try {
+      const db = getDb();
       const [template] = await db
         .select()
         .from(messageTemplates)
@@ -71,7 +79,11 @@ export function createTemplateRoutes(): Router {
   });
 
   router.post('/', async (req: Request, res: Response) => {
+    if (!isDbAvailable()) {
+      return res.status(503).json({ error: 'Database not available' });
+    }
     try {
+      const db = getDb();
       const data = createTemplateSchema.parse(req.body);
 
       const [existing] = await db
@@ -110,7 +122,11 @@ export function createTemplateRoutes(): Router {
   });
 
   router.patch('/:slug', async (req: Request, res: Response) => {
+    if (!isDbAvailable()) {
+      return res.status(503).json({ error: 'Database not available' });
+    }
     try {
+      const db = getDb();
       const [existing] = await db
         .select()
         .from(messageTemplates)
@@ -144,7 +160,11 @@ export function createTemplateRoutes(): Router {
   });
 
   router.delete('/:slug', async (req: Request, res: Response) => {
+    if (!isDbAvailable()) {
+      return res.status(503).json({ error: 'Database not available' });
+    }
     try {
+      const db = getDb();
       const [existing] = await db
         .select()
         .from(messageTemplates)
@@ -168,7 +188,11 @@ export function createTemplateRoutes(): Router {
   });
 
   router.post('/:slug/render', async (req: Request, res: Response) => {
+    if (!isDbAvailable()) {
+      return res.status(503).json({ error: 'Database not available' });
+    }
     try {
+      const db = getDb();
       const [template] = await db
         .select()
         .from(messageTemplates)

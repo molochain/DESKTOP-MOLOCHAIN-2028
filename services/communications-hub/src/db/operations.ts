@@ -1,5 +1,5 @@
 import { eq, and } from 'drizzle-orm';
-import { db } from './index.js';
+import { getDb, isDbAvailable } from './index.js';
 import { messageQueue, deliveryLogs, userNotificationPreferences, type UserNotificationPreference } from './schema.js';
 import { createLogger } from '../utils/logger.js';
 
@@ -28,6 +28,10 @@ export async function updateMessageStatus(
   attempts?: number,
   processedAt?: Date
 ): Promise<void> {
+  if (!isDbAvailable()) {
+    logger.warn(`Cannot update message status - database not available`);
+    return;
+  }
   try {
     const updateData: Record<string, any> = {
       status,
@@ -42,7 +46,7 @@ export async function updateMessageStatus(
       updateData.processedAt = processedAt;
     }
 
-    await db.update(messageQueue)
+    await getDb().update(messageQueue)
       .set(updateData)
       .where(eq(messageQueue.messageId, messageId));
     
@@ -60,8 +64,12 @@ export async function recordDeliveryLog(
   providerResponse?: Record<string, any>,
   errorMessage?: string
 ): Promise<void> {
+  if (!isDbAvailable()) {
+    logger.warn(`Cannot record delivery log - database not available`);
+    return;
+  }
   try {
-    await db.insert(deliveryLogs).values({
+    await getDb().insert(deliveryLogs).values({
       messageId,
       channelType,
       recipient,
@@ -87,8 +95,12 @@ export async function persistMessageToDb(
   metadata?: Record<string, any>,
   scheduledAt?: Date
 ): Promise<void> {
+  if (!isDbAvailable()) {
+    logger.warn(`Cannot persist message to DB - database not available`);
+    return;
+  }
   try {
-    await db.insert(messageQueue).values({
+    await getDb().insert(messageQueue).values({
       messageId,
       channelType,
       recipient,
@@ -108,8 +120,12 @@ export async function persistMessageToDb(
 }
 
 export async function getUserPreferences(userId: number): Promise<UserNotificationPreference[]> {
+  if (!isDbAvailable()) {
+    logger.warn(`Cannot get user preferences - database not available`);
+    return [];
+  }
   try {
-    const prefs = await db.select()
+    const prefs = await getDb().select()
       .from(userNotificationPreferences)
       .where(eq(userNotificationPreferences.userId, userId));
     return prefs;
@@ -123,8 +139,12 @@ export async function getUserChannelPreference(
   userId: number,
   channelType: string
 ): Promise<UserNotificationPreference | null> {
+  if (!isDbAvailable()) {
+    logger.warn(`Cannot get user channel preference - database not available`);
+    return null;
+  }
   try {
-    const [pref] = await db.select()
+    const [pref] = await getDb().select()
       .from(userNotificationPreferences)
       .where(and(
         eq(userNotificationPreferences.userId, userId),
@@ -145,11 +165,15 @@ export async function upsertUserPreference(
   address?: string,
   preferences?: Record<string, any>
 ): Promise<UserNotificationPreference | null> {
+  if (!isDbAvailable()) {
+    logger.warn(`Cannot upsert user preference - database not available`);
+    return null;
+  }
   try {
     const existing = await getUserChannelPreference(userId, channelType);
     
     if (existing) {
-      const [updated] = await db.update(userNotificationPreferences)
+      const [updated] = await getDb().update(userNotificationPreferences)
         .set({
           enabled,
           address: address ?? existing.address,
@@ -161,7 +185,7 @@ export async function upsertUserPreference(
       logger.debug(`Updated preference for user ${userId}: ${channelType} = ${enabled}`);
       return updated;
     } else {
-      const [created] = await db.insert(userNotificationPreferences)
+      const [created] = await getDb().insert(userNotificationPreferences)
         .values({
           userId,
           channelType,

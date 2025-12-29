@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { eq, and, count, desc } from 'drizzle-orm';
-import { db } from '../db/index.js';
+import { getDb, isDbAvailable } from '../db/index.js';
 import { deliveryLogs, messageQueue, messageTemplates } from '../db/schema.js';
 import { createLogger } from '../utils/logger.js';
 
@@ -23,7 +23,11 @@ export function createAnalyticsRoutes(): Router {
   const router = Router();
 
   router.get('/overview', async (req: Request, res: Response) => {
+    if (!isDbAvailable()) {
+      return res.status(503).json({ error: 'Database not available' });
+    }
     try {
+      const db = getDb();
       const channels = ['email', 'sms', 'whatsapp', 'push'];
       
       const stats: ChannelMetrics[] = await Promise.all(
@@ -91,7 +95,11 @@ export function createAnalyticsRoutes(): Router {
   });
 
   router.get('/channel/:channel', async (req: Request, res: Response) => {
+    if (!isDbAvailable()) {
+      return res.status(503).json({ error: 'Database not available' });
+    }
     try {
+      const db = getDb();
       const channel = req.params.channel;
       
       const [totals] = await db
@@ -139,7 +147,11 @@ export function createAnalyticsRoutes(): Router {
   });
 
   router.get('/messages', async (req: Request, res: Response) => {
+    if (!isDbAvailable()) {
+      return res.status(503).json({ error: 'Database not available' });
+    }
     try {
+      const db = getDb();
       const { status, channel, limit = '50', offset = '0' } = req.query;
       
       let conditions = [];
@@ -181,7 +193,11 @@ export function createAnalyticsRoutes(): Router {
   });
 
   router.get('/delivery-logs', async (req: Request, res: Response) => {
+    if (!isDbAvailable()) {
+      return res.status(503).json({ error: 'Database not available' });
+    }
     try {
+      const db = getDb();
       const { messageId, channel, status, limit = '50', offset = '0' } = req.query;
       
       let conditions = [];
@@ -227,7 +243,11 @@ export function createAnalyticsRoutes(): Router {
   });
 
   router.get('/templates/usage', async (req: Request, res: Response) => {
+    if (!isDbAvailable()) {
+      return res.status(503).json({ error: 'Database not available' });
+    }
     try {
+      const db = getDb();
       const templates = await db.select().from(messageTemplates);
       
       const usage = await Promise.all(
