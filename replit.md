@@ -89,7 +89,12 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
   - Database operations: getUserPreferences, upsertUserPreference, isChannelEnabledForUser
   - API endpoints: GET/PUT /:userId, GET/PUT /:userId/:channel, POST /:userId/unsubscribe/:channel
   - User-facing route: `/api/notification-preferences/*`
-- **Phase 5 Pending:** SMS (Twilio) and WhatsApp (Meta Cloud API) credential configuration
+- **Phase 5 Complete (Dec 2024):** WhatsApp integration:
+  - Meta Cloud API credentials configured (WHATSAPP_API_KEY, WHATSAPP_PHONE_NUMBER_ID)
+  - WhatsApp channel enabled and healthy in production
+  - Test message successfully queued via `/api/messages/send`
+  - SMS channel pending (requires Twilio credentials)
+  - Script: `scripts/update-prod-whatsapp.ts` for credential deployment
 - **Folder Structure:** `services/communications-hub/src/` with api/, channels/, db/, queue/, plesk/, utils/
 
 **Server Management Scripts:**
