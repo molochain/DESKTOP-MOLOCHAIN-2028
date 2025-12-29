@@ -4,9 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { MessageQueue } from '../queue/message-queue.js';
 import { ChannelManager, ChannelType } from '../channels/channel-manager.js';
 import { createLogger } from '../utils/logger.js';
-import { db } from '../db/index.js';
-import { messageQueue } from '../db/schema.js';
-import { recordDeliveryLog } from './analytics.js';
+import { persistMessageToDb, recordDeliveryLog, updateMessageStatus } from '../db/operations.js';
 
 const logger = createLogger('messages-api');
 
@@ -28,37 +26,6 @@ const sendBulkSchema = z.object({
   priority: z.number().min(1).max(10).optional().default(5),
   metadata: z.record(z.any()).optional(),
 });
-
-async function persistMessageToDb(
-  messageId: string,
-  channelType: string,
-  recipient: string,
-  subject: string | undefined,
-  body: string,
-  priority: number,
-  status: string,
-  metadata?: Record<string, any>,
-  scheduledAt?: Date
-): Promise<void> {
-  try {
-    await db.insert(messageQueue).values({
-      messageId,
-      channelType,
-      recipient,
-      subject,
-      body,
-      priority,
-      status,
-      attempts: 0,
-      maxAttempts: 3,
-      metadata,
-      scheduledAt,
-    });
-    logger.debug(`Message persisted to DB: ${messageId}`);
-  } catch (error) {
-    logger.error('Failed to persist message to DB:', error);
-  }
-}
 
 export function createMessageRoutes(queue: MessageQueue, channelManager: ChannelManager): Router {
   const router = Router();
@@ -223,6 +190,8 @@ export function createMessageRoutes(queue: MessageQueue, channelManager: Channel
       );
 
       if (result.success) {
+        await updateMessageStatus(messageId, 'delivered', 1, new Date());
+        
         await recordDeliveryLog(
           result.messageId || messageId,
           data.channel,
@@ -238,6 +207,8 @@ export function createMessageRoutes(queue: MessageQueue, channelManager: Channel
           providerResponse: result.providerResponse,
         });
       } else {
+        await updateMessageStatus(messageId, 'failed', 1, new Date());
+        
         await recordDeliveryLog(
           messageId,
           data.channel,

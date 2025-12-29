@@ -2,7 +2,7 @@ import Redis from 'ioredis';
 import { createLogger } from '../utils/logger.js';
 import { ChannelManager, ChannelType, SendResult } from '../channels/channel-manager.js';
 import { v4 as uuidv4 } from 'uuid';
-import { recordDeliveryLog } from '../api/analytics.js';
+import { updateMessageStatus, recordDeliveryLog } from '../db/operations.js';
 
 const logger = createLogger('message-queue');
 
@@ -154,6 +154,8 @@ export class MessageQueue {
     try {
       message.attempts++;
 
+      await updateMessageStatus(message.id, 'processing', message.attempts);
+
       const result: SendResult = await this.channelManager.send(
         message.channel,
         message.recipient,
@@ -166,6 +168,8 @@ export class MessageQueue {
         this.stats.processing--;
         this.stats.completed++;
         logger.info(`Message ${message.id} delivered successfully`);
+        
+        await updateMessageStatus(message.id, 'delivered', message.attempts, new Date());
         
         await recordDeliveryLog(
           message.id,
@@ -192,6 +196,17 @@ export class MessageQueue {
       await this.redis!.zadd(this.QUEUE_KEY, retryAt, JSON.stringify(message));
       this.stats.pending++;
       
+      await updateMessageStatus(message.id, 'retry_pending', message.attempts);
+      
+      await recordDeliveryLog(
+        message.id,
+        message.channel,
+        message.recipient,
+        'retry',
+        { attempt: message.attempts, nextRetryIn: delay },
+        error
+      );
+      
       logger.warn(`Message ${message.id} failed, retry ${message.attempts}/${message.maxAttempts} in ${delay}ms`);
     } else {
       await this.redis!.lpush(this.DEAD_LETTER_KEY, JSON.stringify({
@@ -200,6 +215,8 @@ export class MessageQueue {
         failedAt: new Date().toISOString(),
       }));
       this.stats.failed++;
+      
+      await updateMessageStatus(message.id, 'failed', message.attempts, new Date());
       
       await recordDeliveryLog(
         message.id,

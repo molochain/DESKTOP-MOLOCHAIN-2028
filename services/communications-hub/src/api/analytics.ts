@@ -19,30 +19,6 @@ interface ChannelMetrics {
   clickRate: number;
 }
 
-export async function recordDeliveryLog(
-  messageId: string,
-  channelType: string,
-  recipient: string,
-  status: string,
-  providerResponse?: Record<string, any>,
-  errorMessage?: string
-): Promise<void> {
-  try {
-    await db.insert(deliveryLogs).values({
-      messageId,
-      channelType,
-      recipient,
-      status,
-      providerResponse,
-      errorMessage,
-      deliveredAt: status === 'delivered' ? new Date() : undefined,
-    });
-    logger.debug(`Delivery log recorded: ${messageId} - ${status}`);
-  } catch (error) {
-    logger.error('Failed to record delivery log:', error);
-  }
-}
-
 export function createAnalyticsRoutes(): Router {
   const router = Router();
 
