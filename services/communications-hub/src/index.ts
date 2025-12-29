@@ -8,6 +8,7 @@ import { createMessageRoutes } from './api/messages.js';
 import { createTemplateRoutes } from './api/templates.js';
 import { createChannelRoutes } from './api/channels.js';
 import { createAnalyticsRoutes } from './api/analytics.js';
+import preferencesRoutes from './api/preferences.js';
 import { MessageQueue } from './queue/message-queue.js';
 import { ChannelManager } from './channels/channel-manager.js';
 import { testConnection, closePool } from './db/index.js';
@@ -53,6 +54,7 @@ async function main() {
   app.use('/api/templates', createTemplateRoutes());
   app.use('/api/channels', createChannelRoutes(channelManager));
   app.use('/api/analytics', createAnalyticsRoutes());
+  app.use('/api/preferences', preferencesRoutes);
 
   app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
     logger.error('Unhandled error:', err);

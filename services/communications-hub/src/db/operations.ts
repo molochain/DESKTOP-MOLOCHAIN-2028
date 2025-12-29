@@ -1,6 +1,6 @@
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import { db } from './index.js';
-import { messageQueue, deliveryLogs } from './schema.js';
+import { messageQueue, deliveryLogs, userNotificationPreferences, type UserNotificationPreference } from './schema.js';
 import { createLogger } from '../utils/logger.js';
 
 const logger = createLogger('db-operations');
@@ -105,4 +105,84 @@ export async function persistMessageToDb(
   } catch (error) {
     logger.error('Failed to persist message to DB:', error);
   }
+}
+
+export async function getUserPreferences(userId: number): Promise<UserNotificationPreference[]> {
+  try {
+    const prefs = await db.select()
+      .from(userNotificationPreferences)
+      .where(eq(userNotificationPreferences.userId, userId));
+    return prefs;
+  } catch (error) {
+    logger.error(`Failed to get preferences for user ${userId}:`, error);
+    return [];
+  }
+}
+
+export async function getUserChannelPreference(
+  userId: number,
+  channelType: string
+): Promise<UserNotificationPreference | null> {
+  try {
+    const [pref] = await db.select()
+      .from(userNotificationPreferences)
+      .where(and(
+        eq(userNotificationPreferences.userId, userId),
+        eq(userNotificationPreferences.channelType, channelType)
+      ))
+      .limit(1);
+    return pref || null;
+  } catch (error) {
+    logger.error(`Failed to get ${channelType} preference for user ${userId}:`, error);
+    return null;
+  }
+}
+
+export async function upsertUserPreference(
+  userId: number,
+  channelType: string,
+  enabled: boolean,
+  address?: string,
+  preferences?: Record<string, any>
+): Promise<UserNotificationPreference | null> {
+  try {
+    const existing = await getUserChannelPreference(userId, channelType);
+    
+    if (existing) {
+      const [updated] = await db.update(userNotificationPreferences)
+        .set({
+          enabled,
+          address: address ?? existing.address,
+          preferences: preferences ?? existing.preferences,
+          updatedAt: new Date(),
+        })
+        .where(eq(userNotificationPreferences.id, existing.id))
+        .returning();
+      logger.debug(`Updated preference for user ${userId}: ${channelType} = ${enabled}`);
+      return updated;
+    } else {
+      const [created] = await db.insert(userNotificationPreferences)
+        .values({
+          userId,
+          channelType,
+          enabled,
+          address,
+          preferences,
+        })
+        .returning();
+      logger.debug(`Created preference for user ${userId}: ${channelType} = ${enabled}`);
+      return created;
+    }
+  } catch (error) {
+    logger.error(`Failed to upsert preference for user ${userId}:`, error);
+    return null;
+  }
+}
+
+export async function isChannelEnabledForUser(
+  userId: number,
+  channelType: string
+): Promise<boolean> {
+  const pref = await getUserChannelPreference(userId, channelType);
+  return pref?.enabled ?? true;
 }

@@ -85,6 +85,7 @@ import bookingsRoutes from "./routes/bookings";
 import jobsRoutes from "./routes/jobs";
 import otmsPublicRoutes from "./api/otms/otms-public.routes";
 import communicationsProxyRoutes from "./routes/communications-proxy";
+import notificationPreferencesRoutes from "./routes/notification-preferences.routes";
 import internalPushRoutes from "./routes/internal-push.routes";
 
 // Query parameter schemas
@@ -306,6 +307,9 @@ export async function registerRoutes(
   // Internal Push WebSocket Bridge routes (for Communications Hub to send push notifications)
   // This endpoint is protected - only accepts requests from localhost/internal network or with valid API key
   app.use("/api/internal", internalPushRoutes);
+
+  // User notification preferences routes (allows users to manage their own notification settings)
+  app.use("/api/notification-preferences", notificationPreferencesRoutes);
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION: Public Email API (Cross-Subdomain Access)
