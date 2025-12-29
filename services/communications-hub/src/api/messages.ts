@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { MessageQueue } from '../queue/message-queue.js';
 import { ChannelManager, ChannelType } from '../channels/channel-manager.js';
 import { createLogger } from '../utils/logger.js';
-import { persistMessageToDb, recordDeliveryLog, updateMessageStatus } from '../db/operations.js';
+import { persistMessageToDb, recordDeliveryLog, updateMessageStatus, MessageStatus } from '../db/operations.js';
 
 const logger = createLogger('messages-api');
 

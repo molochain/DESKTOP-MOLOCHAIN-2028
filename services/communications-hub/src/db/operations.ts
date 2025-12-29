@@ -5,9 +5,26 @@ import { createLogger } from '../utils/logger.js';
 
 const logger = createLogger('db-operations');
 
+export type MessageStatus = 
+  | 'pending'
+  | 'queued'
+  | 'scheduled'
+  | 'processing'
+  | 'delivered'
+  | 'failed'
+  | 'retry_pending'
+  | 'cancelled';
+
+export type DeliveryStatus = 
+  | 'delivered'
+  | 'failed'
+  | 'retry'
+  | 'bounced'
+  | 'rejected';
+
 export async function updateMessageStatus(
   messageId: string,
-  status: string,
+  status: MessageStatus,
   attempts?: number,
   processedAt?: Date
 ): Promise<void> {
@@ -39,7 +56,7 @@ export async function recordDeliveryLog(
   messageId: string,
   channelType: string,
   recipient: string,
-  status: string,
+  status: DeliveryStatus | string,
   providerResponse?: Record<string, any>,
   errorMessage?: string
 ): Promise<void> {
@@ -66,7 +83,7 @@ export async function persistMessageToDb(
   subject: string | undefined,
   body: string,
   priority: number,
-  status: string,
+  status: MessageStatus,
   metadata?: Record<string, any>,
   scheduledAt?: Date
 ): Promise<void> {

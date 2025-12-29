@@ -68,6 +68,12 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **API Endpoints:** Send messages, bulk send, channel status, list templates, delivery analytics, create Plesk mail account.
 - **Admin Dashboard:** Component and page for multi-channel communications management.
 - **Proxy Route:** `server/routes/communications-proxy.ts` forwards requests to the microservice.
+- **Phase 1 Complete (Dec 2024):** Database persistence fully implemented:
+  - Centralized `db/operations.ts` with typed status values (MessageStatus, DeliveryStatus)
+  - Queue-to-database synchronization: status updates on processing/delivered/retry_pending/failed
+  - Delivery logging for all outcomes including retries
+  - 7 database indexes for performance
+- **Folder Structure:** `services/communications-hub/src/` with api/, channels/, db/, queue/, plesk/, utils/
 
 **Server Management Scripts:**
 - **Purpose:** Production server monitoring, analysis, and maintenance.
