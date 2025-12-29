@@ -95,6 +95,14 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
   - Test message successfully queued via `/api/messages/send`
   - SMS channel pending (requires Twilio credentials)
   - Script: `scripts/update-prod-whatsapp.ts` for credential deployment
+- **Phase 6 Complete (Dec 2024):** Adapter integration fix:
+  - Fixed health endpoint mismatch: Added `/api/health` endpoint (adapter was calling `/api/health`, service had `/health`)
+  - Version upgraded to 1.2.0 in production
+  - Both `/health` and `/api/health` endpoints now return identical responses
+  - Adapter health checks now succeed, enabling full Communications Hub routing
+  - Script: `scripts/sync-comms-hub-to-production.ts` for file synchronization
+  - Script: `scripts/quick-fix-health-endpoint.ts` for rapid patches
+- **Current Version:** 1.2.0 (Production)
 - **Folder Structure:** `services/communications-hub/src/` with api/, channels/, db/, queue/, plesk/, utils/
 
 **Server Management Scripts:**
