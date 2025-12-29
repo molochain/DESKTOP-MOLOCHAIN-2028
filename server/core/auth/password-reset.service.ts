@@ -12,6 +12,7 @@ import { verifyCsrfToken, refreshCsrfToken } from '../../middleware/csrf';
 import { passwordResetLimiter } from '../../middleware/auth-rate-limit';
 import { SECURITY_CONFIG } from '../../../config';
 import { emailService } from '../../services/email.service';
+import { emitAuthEvent } from '../../services/comms-events';
 
 // Constants
 const TOKEN_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -110,6 +111,11 @@ export function setupPasswordReset(app: express.Application) {
           reset_token: resetToken.originalToken,
           expiry_hours: '24',
         }).catch(err => logger.debug('Password reset email failed (non-critical):', err));
+
+        // Emit auth event for multi-channel notifications (non-blocking)
+        emitAuthEvent('password_reset', user[0].id, user[0].email, {
+          username: user[0].username || user[0].email,
+        });
         
         logger.info(`Password reset token created for user ${user[0].email}`);
         

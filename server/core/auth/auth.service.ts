@@ -23,6 +23,7 @@ import { z } from 'zod';
 import { validateRequest } from '../../middleware/validate';
 import { registrationSchema } from '../../validation/auth.schemas';
 import { emailService } from '../../services/email.service';
+import { emitAuthEvent } from '../../services/comms-events';
 // NOTE: auditComplianceManager is imported dynamically below to avoid circular dependency
 // auth.service -> audit-compliance-manager -> identity-manager-service -> auth.service
 
@@ -606,6 +607,13 @@ function setupAuthRoutes(app: Express) {
             user_agent: req.headers['user-agent'] || 'Unknown Browser',
             login_time: new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' }),
           }).catch(err => logger.debug('Login email notification failed (non-critical):', err));
+
+          // Emit auth event for multi-channel notifications (non-blocking)
+          emitAuthEvent('login', user.id, user.email, {
+            ip_address: req.ip || req.socket.remoteAddress || 'Unknown',
+            user_agent: req.headers['user-agent'] || 'Unknown Browser',
+            rememberMe: rememberMe === true,
+          });
         } catch (error) {
           logger.error('Login post-processing error:', error);
           // Still return success but without refresh token
@@ -740,6 +748,12 @@ function setupAuthRoutes(app: Express) {
         full_name: newUser.fullName || newUser.username,
         email: newUser.email,
       }).catch(err => logger.debug('Registration email notification failed (non-critical):', err));
+
+      // Emit auth event for multi-channel notifications (non-blocking)
+      emitAuthEvent('register', newUser.id, newUser.email, {
+        username: newUser.username,
+        fullName: newUser.fullName,
+      });
     } catch (error) {
       logger.error('Registration error:', error);
       res.status(500).json({ error: 'Registration failed' });
