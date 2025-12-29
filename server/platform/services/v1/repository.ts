@@ -16,6 +16,10 @@ interface CMSService {
 }
 
 export class ServiceRepository {
+  private static readonly MAX_RETRIES = 3;
+  private static readonly RETRY_DELAY_MS = 1000;
+  private static readonly FETCH_TIMEOUT_MS = 10000;
+
   private generateContentHash(service: CMSService): string {
     const content = JSON.stringify({
       name: service.name,
@@ -27,6 +31,47 @@ export class ServiceRepository {
     return crypto.createHash('md5').update(content).digest('hex');
   }
 
+  private async fetchWithRetry(url: string, retries = ServiceRepository.MAX_RETRIES): Promise<Response> {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), ServiceRepository.FETCH_TIMEOUT_MS);
+        
+        const response = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        
+        if (response.ok) {
+          return response;
+        }
+        
+        if (response.status >= 500 && attempt < retries) {
+          logger.warn(`CMS fetch attempt ${attempt}/${retries} failed with status ${response.status}, retrying...`);
+          await this.delay(ServiceRepository.RETRY_DELAY_MS * attempt);
+          continue;
+        }
+        
+        throw new Error(`CMS fetch failed: ${response.status}`);
+      } catch (error: any) {
+        if (error.name === 'AbortError') {
+          logger.warn(`CMS fetch attempt ${attempt}/${retries} timed out after ${ServiceRepository.FETCH_TIMEOUT_MS}ms`);
+        } else if (attempt < retries) {
+          logger.warn(`CMS fetch attempt ${attempt}/${retries} failed: ${error.message}, retrying...`);
+        }
+        
+        if (attempt === retries) {
+          throw error;
+        }
+        
+        await this.delay(ServiceRepository.RETRY_DELAY_MS * attempt);
+      }
+    }
+    throw new Error('CMS fetch failed after all retries');
+  }
+
+  private delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   private async getCMSServices(): Promise<CMSService[]> {
     try {
       const cached = cmsCache.get<{ data: CMSService[] }>('cms:services');
@@ -34,14 +79,12 @@ export class ServiceRepository {
         return cached.data;
       }
 
-      const response = await fetch(`${process.env.LARAVEL_CMS_URL || 'https://cms.molochain.com/api'}/services`);
-      if (!response.ok) {
-        throw new Error(`CMS fetch failed: ${response.status}`);
-      }
+      const url = `${process.env.LARAVEL_CMS_URL || 'https://cms.molochain.com/api'}/services`;
+      const response = await this.fetchWithRetry(url);
       const data = await response.json();
       return data.data || data || [];
-    } catch (error) {
-      logger.error('Failed to fetch CMS services:', error);
+    } catch (error: any) {
+      logger.error(`Failed to fetch CMS services: ${error.message}`);
       return [];
     }
   }
