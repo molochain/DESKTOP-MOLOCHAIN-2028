@@ -52,11 +52,11 @@ export function requireAuth() {
 
     // Check for authentication
     if (!req.user && req.session?.userId) {
-      // Simulate user loading from session
+      // Load user from session
       req.user = {
         id: req.session.userId,
         email: req.session.userEmail || 'authenticated@example.com',
-        role: req.session.userRole || 'user',
+        role: (req.session.userRole as 'user' | 'admin') || 'user',
         permissions: req.session.userPermissions || []
       };
     }
