@@ -122,7 +122,8 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
   2. `node server/build-prod.mjs` - Build server with pg driver
   3. Create tarball: `tar -czf deploy.tar.gz dist/`
   4. Upload and extract on production server
-  5. `pm2 restart molochain-core --update-env`
+  5. `pm2 delete molochain-core && pm2 start ecosystem.config.cjs && pm2 save`
+- **Environment Loading:** `ecosystem.config.cjs` uses `dotenv` to load `.env` file and spread into PM2 env
 - **Session Storage:** `connect-redis@9.0.0` (named export: `{ RedisStore }`)
 
 **Communications Hub Microservice (Dec 28, 2025):**
