@@ -1,18 +1,14 @@
 import { Client } from 'ssh2';
+import * as fs from 'fs';
+import * as path from 'path';
 
 interface ServerConfig {
   host: string;
   port: number;
   username: string;
-  password: string;
+  password?: string;
+  privateKey?: Buffer;
 }
-
-const config: ServerConfig = {
-  host: process.env.SSH_HOST || '31.186.24.19',
-  port: parseInt(process.env.SSH_PORT || '22'),
-  username: process.env.SSH_USERNAME || 'root',
-  password: process.env.SERVER_SSH_PASSWORD || ''
-};
 
 function log(message: string, type: 'info' | 'success' | 'error' | 'warn' = 'info') {
   const prefix = {
@@ -23,6 +19,51 @@ function log(message: string, type: 'info' | 'success' | 'error' | 'warn' = 'inf
   };
   console.log(`${prefix[type]} ${message}`);
 }
+
+function loadConfig(): ServerConfig {
+  const host = process.env.SSH_HOST;
+  const username = process.env.SSH_USERNAME;
+  const password = process.env.SERVER_SSH_PASSWORD;
+  const privateKeyPath = process.env.SSH_PRIVATE_KEY_PATH;
+  
+  if (!host) {
+    log('SSH_HOST environment variable is required', 'error');
+    log('Set it using: export SSH_HOST=your.server.ip', 'info');
+    process.exit(1);
+  }
+  
+  if (!username) {
+    log('SSH_USERNAME environment variable is required', 'error');
+    log('Set it using: export SSH_USERNAME=your_username', 'info');
+    process.exit(1);
+  }
+  
+  let privateKey: Buffer | undefined;
+  if (privateKeyPath) {
+    try {
+      privateKey = fs.readFileSync(path.resolve(privateKeyPath));
+      log('Using SSH key authentication (recommended)', 'success');
+    } catch (err) {
+      log(`Failed to read private key: ${privateKeyPath}`, 'error');
+      process.exit(1);
+    }
+  } else if (password) {
+    log('Using password authentication (consider using SSH keys for better security)', 'warn');
+  } else {
+    log('Either SERVER_SSH_PASSWORD or SSH_PRIVATE_KEY_PATH must be set', 'error');
+    process.exit(1);
+  }
+  
+  return {
+    host,
+    port: parseInt(process.env.SSH_PORT || '22'),
+    username,
+    password,
+    privateKey
+  };
+}
+
+const config = loadConfig();
 
 async function executeCommand(conn: Client, command: string): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -55,13 +96,7 @@ async function runHealthCheck() {
   console.log('  Production Server SSH Health Check');
   console.log('==========================================\n');
   
-  if (!config.password) {
-    log('SERVER_SSH_PASSWORD environment variable not set', 'error');
-    log('Set the password using: export SERVER_SSH_PASSWORD=your_password', 'info');
-    process.exit(1);
-  }
-  
-  log(`Connecting to ${config.host}:${config.port}...`, 'info');
+  log(`Connecting to ${config.host}:${config.port} as ${config.username}...`, 'info');
   
   const conn = new Client();
   
@@ -94,7 +129,7 @@ async function runHealthCheck() {
         console.log(pm2Status.trim());
         
         console.log('\n--- Network Ports (HTTP/HTTPS) ---');
-        const ports = await executeCommand(conn, 'netstat -tuln | grep -E ":(80|443|3000|5000)" | head -10 || ss -tuln | grep -E ":(80|443|3000|5000)" | head -10');
+        const ports = await executeCommand(conn, 'ss -tuln | grep -E ":(80|443|3000|5000)" | head -10 2>/dev/null || echo "Port check unavailable"');
         console.log(ports.trim() || 'No HTTP/HTTPS ports listening');
         
         console.log('\n--- Recent Application Logs ---');
@@ -120,13 +155,20 @@ async function runHealthCheck() {
       reject(err);
     });
     
-    conn.connect({
+    const connectionOptions: any = {
       host: config.host,
       port: config.port,
       username: config.username,
-      password: config.password,
       readyTimeout: 10000
-    });
+    };
+    
+    if (config.privateKey) {
+      connectionOptions.privateKey = config.privateKey;
+    } else if (config.password) {
+      connectionOptions.password = config.password;
+    }
+    
+    conn.connect(connectionOptions);
   });
 }
 
