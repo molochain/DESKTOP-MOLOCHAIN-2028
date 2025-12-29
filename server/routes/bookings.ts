@@ -6,6 +6,7 @@ import { serviceBookings, insertServiceBookingSchema, ServiceBooking } from '@sh
 import { eq, and, desc } from 'drizzle-orm';
 import { isAuthenticated } from '../core/auth/auth.service';
 import { logger } from '../utils/logger';
+import { emitOrderEvent } from '../services/comms-events';
 
 const router = Router();
 
@@ -48,6 +49,13 @@ router.post('/', isAuthenticated, async (req: Request & { user?: any }, res: Res
       .returning();
 
     logger.info(`New booking created: ${newBooking.bookingNumber}`);
+    
+    emitOrderEvent('created', newBooking.id.toString(), req.user?.id || 0, {
+      bookingNumber: newBooking.bookingNumber,
+      serviceId: newBooking.serviceId,
+      status: newBooking.status,
+    });
+    
     res.status(201).json(newBooking);
   } catch (error) {
     logger.error('Error creating booking:', error);
@@ -143,6 +151,13 @@ router.patch('/:id/status', isAuthenticated, async (req: Request & { user?: any 
       .returning();
 
     logger.info(`Booking ${existingBooking.bookingNumber} status updated to ${validation.data.status}`);
+    
+    emitOrderEvent('status_changed', bookingId.toString(), userId || 0, {
+      bookingNumber: existingBooking.bookingNumber,
+      oldStatus: existingBooking.status,
+      newStatus: validation.data.status,
+    });
+    
     res.json(updatedBooking);
   } catch (error) {
     logger.error('Error updating booking status:', error);
