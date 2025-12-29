@@ -2331,3 +2331,65 @@ export interface OTMSSearchResult {
   limit: number;
   hasMore: boolean;
 }
+
+// ============= External API Keys Table =============
+export const externalApiKeys = pgTable("external_api_keys", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 100 }).notNull(),
+  description: text("description"),
+  keyHash: varchar("key_hash", { length: 64 }).notNull().unique(),
+  keyPrefix: varchar("key_prefix", { length: 12 }).notNull(),
+  secretHash: varchar("secret_hash", { length: 64 }).notNull(),
+  userId: integer("user_id").references(() => users.id, { onDelete: 'cascade' }),
+  scopes: json("scopes").$type<string[]>().default([]),
+  rateLimit: integer("rate_limit").default(1000),
+  rateLimitWindow: integer("rate_limit_window").default(3600),
+  isActive: boolean("is_active").notNull().default(true),
+  lastUsedAt: timestamp("last_used_at"),
+  usageCount: integer("usage_count").default(0),
+  expiresAt: timestamp("expires_at"),
+  ipWhitelist: json("ip_whitelist").$type<string[]>(),
+  metadata: jsonb("metadata"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => ({
+  keyHashIdx: index("api_keys_key_hash_idx").on(table.keyHash),
+  userIdx: index("api_keys_user_idx").on(table.userId),
+  activeIdx: index("api_keys_active_idx").on(table.isActive),
+}));
+
+export const insertExternalApiKeySchema = createInsertSchema(externalApiKeys).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  usageCount: true,
+  lastUsedAt: true,
+});
+
+export type InsertExternalApiKey = z.infer<typeof insertExternalApiKeySchema>;
+export type ExternalApiKey = typeof externalApiKeys.$inferSelect;
+
+export const externalApiKeysRelations = relations(externalApiKeys, ({ one }) => ({
+  user: one(users, {
+    fields: [externalApiKeys.userId],
+    references: [users.id],
+  }),
+}));
+
+// API Key usage logs
+export const apiKeyUsageLogs = pgTable("api_key_usage_logs", {
+  id: serial("id").primaryKey(),
+  apiKeyId: integer("api_key_id").notNull().references(() => externalApiKeys.id, { onDelete: 'cascade' }),
+  endpoint: varchar("endpoint", { length: 255 }).notNull(),
+  method: varchar("method", { length: 10 }).notNull(),
+  statusCode: integer("status_code"),
+  responseTime: integer("response_time"),
+  ipAddress: varchar("ip_address", { length: 45 }),
+  userAgent: text("user_agent"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => ({
+  apiKeyIdx: index("api_key_usage_api_key_idx").on(table.apiKeyId),
+  createdAtIdx: index("api_key_usage_created_at_idx").on(table.createdAt),
+}));
+
+export type ApiKeyUsageLog = typeof apiKeyUsageLogs.$inferSelect;

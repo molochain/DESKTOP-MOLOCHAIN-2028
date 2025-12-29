@@ -87,6 +87,7 @@ import otmsPublicRoutes from "./api/otms/otms-public.routes";
 import communicationsProxyRoutes from "./routes/communications-proxy";
 import notificationPreferencesRoutes from "./routes/notification-preferences.routes";
 import internalPushRoutes from "./routes/internal-push.routes";
+import externalApiKeysRoutes from "./routes/external-api-keys";
 
 // Query parameter schemas
 const paginationSchema = z.object({
@@ -300,6 +301,9 @@ export async function registerRoutes(
 
   // Email settings and template management routes
   app.use("/api/admin/email", emailSettingsRouter);
+
+  // External API Key management routes (admin only)
+  app.use("/api/admin/api-keys", externalApiKeysRoutes);
 
   // Communications Hub proxy routes (forwards to microservice on port 7020)
   app.use("/api/communications", communicationsProxyRoutes);

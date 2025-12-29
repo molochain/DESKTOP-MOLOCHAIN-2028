@@ -105,6 +105,35 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Current Version:** 1.2.0 (Production)
 - **Folder Structure:** `services/communications-hub/src/` with api/, channels/, db/, queue/, plesk/, utils/
 
+**External API Key System (Dec 2024):**
+- **Purpose:** Enable third-party integrations to authenticate and access the platform programmatically.
+- **Database Tables:** `external_api_keys`, `api_key_usage_logs`
+- **Key Format:** Prefix system (`mk_live_` for keys, `msk_` for secrets) with SHA-256 hashing
+- **Security Features:**
+  - SHA-256 hashed storage (raw keys never stored)
+  - Configurable rate limiting (default 1000 req/hour, in-memory cache)
+  - Optional IP whitelisting per key
+  - Scope-based permissions (`read`, `write`, `*`, custom)
+  - Key expiration dates
+  - Usage logging with response times
+- **Admin Endpoints:** `/api/admin/api-keys`
+  - `POST /` - Create new API key (returns key+secret once only)
+  - `GET /` - List all API keys (masked)
+  - `GET /:id` - Get key details with recent usage
+  - `PATCH /:id` - Update key settings
+  - `DELETE /:id` - Delete API key
+  - `POST /:id/regenerate` - Regenerate key credentials
+  - `GET /:id/usage` - Paginated usage history
+- **Authentication Methods:**
+  - `Authorization: Bearer <key>:<secret>`
+  - `X-API-Key` + `X-API-Secret` headers
+- **Middleware:** `server/middleware/external-api-auth.ts`
+  - `authenticateApiKey` - Full authentication
+  - `requireScope(...scopes)` - Scope validation
+  - `optionalApiKey` - Optional auth with fallback
+- **Rate Limit Headers:** `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`
+- **Note:** Rate limit cache is in-memory; consider Redis for multi-instance deployments
+
 **Server Management Scripts:**
 - **Purpose:** Production server monitoring, analysis, and maintenance.
 - **Scripts:** `server-health-check.ts`, `server-deep-scan.ts`, `cleanup-old-backups.ts`, `deploy-communications-hub.ts`, `configure-communications-nginx.ts`, `set-comms-env-production.ts`.
