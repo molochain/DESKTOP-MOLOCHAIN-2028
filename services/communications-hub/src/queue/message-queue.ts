@@ -2,6 +2,7 @@ import Redis from 'ioredis';
 import { createLogger } from '../utils/logger.js';
 import { ChannelManager, ChannelType, SendResult } from '../channels/channel-manager.js';
 import { v4 as uuidv4 } from 'uuid';
+import { recordDeliveryLog } from '../api/analytics.js';
 
 const logger = createLogger('message-queue');
 
@@ -165,6 +166,14 @@ export class MessageQueue {
         this.stats.processing--;
         this.stats.completed++;
         logger.info(`Message ${message.id} delivered successfully`);
+        
+        await recordDeliveryLog(
+          message.id,
+          message.channel,
+          message.recipient,
+          'delivered',
+          result.providerResponse
+        );
       } else {
         await this.handleFailure(message, result.error || 'Unknown error');
       }
@@ -191,6 +200,15 @@ export class MessageQueue {
         failedAt: new Date().toISOString(),
       }));
       this.stats.failed++;
+      
+      await recordDeliveryLog(
+        message.id,
+        message.channel,
+        message.recipient,
+        'failed',
+        undefined,
+        error
+      );
       
       logger.error(`Message ${message.id} moved to dead letter queue after ${message.maxAttempts} attempts`);
     }

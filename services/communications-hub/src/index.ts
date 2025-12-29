@@ -10,6 +10,7 @@ import { createChannelRoutes } from './api/channels.js';
 import { createAnalyticsRoutes } from './api/analytics.js';
 import { MessageQueue } from './queue/message-queue.js';
 import { ChannelManager } from './channels/channel-manager.js';
+import { testConnection, closePool } from './db/index.js';
 
 const logger = createLogger('main');
 const PORT = process.env.PORT || 7020;
@@ -23,6 +24,13 @@ async function main() {
   app.use(express.json({ limit: '10mb' }));
   app.use(morgan('combined', { stream: { write: (msg) => logger.info(msg.trim()) } }));
 
+  const dbConnected = await testConnection();
+  if (!dbConnected) {
+    logger.warn('Database connection failed - running with limited functionality');
+  } else {
+    logger.info('Database connected successfully');
+  }
+
   const channelManager = new ChannelManager();
   await channelManager.initialize();
 
@@ -33,8 +41,9 @@ async function main() {
     res.json({
       status: 'healthy',
       service: 'molochain-communications-hub',
-      version: '1.0.0',
+      version: '1.1.0',
       timestamp: new Date().toISOString(),
+      database: dbConnected ? 'connected' : 'disconnected',
       channels: channelManager.getChannelStatus(),
       queue: messageQueue.getStats(),
     });
@@ -50,15 +59,20 @@ async function main() {
     res.status(500).json({ error: 'Internal server error', message: err.message });
   });
 
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     logger.info(`Communications Hub started on port ${PORT}`);
     logger.info(`Health check: http://localhost:${PORT}/health`);
+    logger.info(`Database: ${dbConnected ? 'PostgreSQL connected' : 'Not connected'}`);
   });
 
   process.on('SIGTERM', async () => {
     logger.info('SIGTERM received, shutting down gracefully');
     await messageQueue.shutdown();
-    process.exit(0);
+    await closePool();
+    server.close(() => {
+      logger.info('Server closed');
+      process.exit(0);
+    });
   });
 }
 

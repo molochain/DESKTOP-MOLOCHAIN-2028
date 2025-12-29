@@ -1,8 +1,12 @@
 import { Router, Request, Response } from 'express';
 import { z } from 'zod';
+import { v4 as uuidv4 } from 'uuid';
 import { MessageQueue } from '../queue/message-queue.js';
 import { ChannelManager, ChannelType } from '../channels/channel-manager.js';
 import { createLogger } from '../utils/logger.js';
+import { db } from '../db/index.js';
+import { messageQueue } from '../db/schema.js';
+import { recordDeliveryLog } from './analytics.js';
 
 const logger = createLogger('messages-api');
 
@@ -24,6 +28,37 @@ const sendBulkSchema = z.object({
   priority: z.number().min(1).max(10).optional().default(5),
   metadata: z.record(z.any()).optional(),
 });
+
+async function persistMessageToDb(
+  messageId: string,
+  channelType: string,
+  recipient: string,
+  subject: string | undefined,
+  body: string,
+  priority: number,
+  status: string,
+  metadata?: Record<string, any>,
+  scheduledAt?: Date
+): Promise<void> {
+  try {
+    await db.insert(messageQueue).values({
+      messageId,
+      channelType,
+      recipient,
+      subject,
+      body,
+      priority,
+      status,
+      attempts: 0,
+      maxAttempts: 3,
+      metadata,
+      scheduledAt,
+    });
+    logger.debug(`Message persisted to DB: ${messageId}`);
+  } catch (error) {
+    logger.error('Failed to persist message to DB:', error);
+  }
+}
 
 export function createMessageRoutes(queue: MessageQueue, channelManager: ChannelManager): Router {
   const router = Router();
@@ -49,6 +84,18 @@ export function createMessageRoutes(queue: MessageQueue, channelManager: Channel
         scheduledAt: data.scheduledAt ? new Date(data.scheduledAt) : undefined,
         metadata: data.metadata,
       });
+
+      await persistMessageToDb(
+        messageId,
+        data.channel,
+        data.recipient,
+        data.subject,
+        data.body,
+        data.priority,
+        data.scheduledAt ? 'scheduled' : 'queued',
+        data.metadata,
+        data.scheduledAt ? new Date(data.scheduledAt) : undefined
+      );
 
       logger.info(`Message enqueued: ${messageId} to ${data.channel}`);
 
@@ -101,6 +148,17 @@ export function createMessageRoutes(queue: MessageQueue, channelManager: Channel
             metadata: data.metadata,
           });
           messageIds.push(messageId);
+
+          await persistMessageToDb(
+            messageId,
+            data.channel,
+            recipient,
+            data.subject,
+            data.body,
+            data.priority,
+            'queued',
+            data.metadata
+          );
         } catch (err: any) {
           errors.push({ recipient, error: err.message });
         }
@@ -143,6 +201,19 @@ export function createMessageRoutes(queue: MessageQueue, channelManager: Channel
         });
       }
 
+      const messageId = `msg_${uuidv4().substring(0, 12)}`;
+
+      await persistMessageToDb(
+        messageId,
+        data.channel,
+        data.recipient,
+        data.subject,
+        data.body,
+        data.priority,
+        'processing',
+        data.metadata
+      );
+
       const result = await channelManager.send(
         data.channel as ChannelType,
         data.recipient,
@@ -152,13 +223,30 @@ export function createMessageRoutes(queue: MessageQueue, channelManager: Channel
       );
 
       if (result.success) {
+        await recordDeliveryLog(
+          result.messageId || messageId,
+          data.channel,
+          data.recipient,
+          'delivered',
+          result.providerResponse
+        );
+
         res.json({
           success: true,
-          messageId: result.messageId,
+          messageId: result.messageId || messageId,
           status: 'sent',
           providerResponse: result.providerResponse,
         });
       } else {
+        await recordDeliveryLog(
+          messageId,
+          data.channel,
+          data.recipient,
+          'failed',
+          undefined,
+          result.error
+        );
+
         res.status(500).json({
           success: false,
           error: result.error,

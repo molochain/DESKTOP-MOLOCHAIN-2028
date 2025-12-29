@@ -1,4 +1,7 @@
 import { Router, Request, Response } from 'express';
+import { eq, and, count, desc } from 'drizzle-orm';
+import { db } from '../db/index.js';
+import { deliveryLogs, messageQueue, messageTemplates } from '../db/schema.js';
 import { createLogger } from '../utils/logger.js';
 
 const logger = createLogger('analytics-api');
@@ -16,180 +19,266 @@ interface ChannelMetrics {
   clickRate: number;
 }
 
-interface TimeSeriesData {
-  timestamp: string;
-  sent: number;
-  delivered: number;
-  failed: number;
-}
-
-const metricsStore: Map<string, ChannelMetrics> = new Map([
-  ['email', { channel: 'email', sent: 0, delivered: 0, failed: 0, bounced: 0, opened: 0, clicked: 0, deliveryRate: 0, openRate: 0, clickRate: 0 }],
-  ['sms', { channel: 'sms', sent: 0, delivered: 0, failed: 0, bounced: 0, opened: 0, clicked: 0, deliveryRate: 0, openRate: 0, clickRate: 0 }],
-  ['whatsapp', { channel: 'whatsapp', sent: 0, delivered: 0, failed: 0, bounced: 0, opened: 0, clicked: 0, deliveryRate: 0, openRate: 0, clickRate: 0 }],
-  ['push', { channel: 'push', sent: 0, delivered: 0, failed: 0, bounced: 0, opened: 0, clicked: 0, deliveryRate: 0, openRate: 0, clickRate: 0 }],
-]);
-
-export function recordMetric(channel: string, event: 'sent' | 'delivered' | 'failed' | 'bounced' | 'opened' | 'clicked'): void {
-  const metrics = metricsStore.get(channel);
-  if (metrics) {
-    metrics[event]++;
-    
-    if (metrics.sent > 0) {
-      metrics.deliveryRate = (metrics.delivered / metrics.sent) * 100;
-      metrics.openRate = (metrics.opened / metrics.delivered) * 100 || 0;
-      metrics.clickRate = (metrics.clicked / metrics.opened) * 100 || 0;
-    }
+export async function recordDeliveryLog(
+  messageId: string,
+  channelType: string,
+  recipient: string,
+  status: string,
+  providerResponse?: Record<string, any>,
+  errorMessage?: string
+): Promise<void> {
+  try {
+    await db.insert(deliveryLogs).values({
+      messageId,
+      channelType,
+      recipient,
+      status,
+      providerResponse,
+      errorMessage,
+      deliveredAt: status === 'delivered' ? new Date() : undefined,
+    });
+    logger.debug(`Delivery log recorded: ${messageId} - ${status}`);
+  } catch (error) {
+    logger.error('Failed to record delivery log:', error);
   }
 }
 
 export function createAnalyticsRoutes(): Router {
   const router = Router();
 
-  router.get('/overview', (req: Request, res: Response) => {
-    const channels = Array.from(metricsStore.values());
-    
-    const totals = channels.reduce((acc, ch) => ({
-      sent: acc.sent + ch.sent,
-      delivered: acc.delivered + ch.delivered,
-      failed: acc.failed + ch.failed,
-      bounced: acc.bounced + ch.bounced,
-      opened: acc.opened + ch.opened,
-      clicked: acc.clicked + ch.clicked,
-    }), { sent: 0, delivered: 0, failed: 0, bounced: 0, opened: 0, clicked: 0 });
+  router.get('/overview', async (req: Request, res: Response) => {
+    try {
+      const channels = ['email', 'sms', 'whatsapp', 'push'];
+      
+      const stats: ChannelMetrics[] = await Promise.all(
+        channels.map(async (channel) => {
+          const [totals] = await db
+            .select({ sent: count() })
+            .from(deliveryLogs)
+            .where(eq(deliveryLogs.channelType, channel));
 
-    const overallDeliveryRate = totals.sent > 0 ? (totals.delivered / totals.sent) * 100 : 0;
+          const [delivered] = await db
+            .select({ count: count() })
+            .from(deliveryLogs)
+            .where(and(
+              eq(deliveryLogs.channelType, channel),
+              eq(deliveryLogs.status, 'delivered')
+            ));
 
-    res.json({
-      summary: {
-        totalSent: totals.sent,
-        totalDelivered: totals.delivered,
-        totalFailed: totals.failed,
-        deliveryRate: Math.round(overallDeliveryRate * 100) / 100,
-      },
-      byChannel: channels,
-      timestamp: new Date().toISOString(),
-    });
-  });
+          const [failed] = await db
+            .select({ count: count() })
+            .from(deliveryLogs)
+            .where(and(
+              eq(deliveryLogs.channelType, channel),
+              eq(deliveryLogs.status, 'failed')
+            ));
 
-  router.get('/channel/:channel', (req: Request, res: Response) => {
-    const metrics = metricsStore.get(req.params.channel);
-    
-    if (!metrics) {
-      return res.status(404).json({ error: 'Channel not found' });
-    }
+          const sent = totals?.sent || 0;
+          const deliveredCount = delivered?.count || 0;
+          const failedCount = failed?.count || 0;
 
-    res.json({
-      ...metrics,
-      timestamp: new Date().toISOString(),
-    });
-  });
+          return {
+            channel,
+            sent,
+            delivered: deliveredCount,
+            failed: failedCount,
+            bounced: 0,
+            opened: 0,
+            clicked: 0,
+            deliveryRate: sent > 0 ? Math.round((deliveredCount / sent) * 100) : 0,
+            openRate: 0,
+            clickRate: 0,
+          };
+        })
+      );
 
-  router.get('/timeseries', (req: Request, res: Response) => {
-    const { channel, period = '24h', interval = '1h' } = req.query;
+      const summary = {
+        totalSent: stats.reduce((sum, s) => sum + s.sent, 0),
+        totalDelivered: stats.reduce((sum, s) => sum + s.delivered, 0),
+        totalFailed: stats.reduce((sum, s) => sum + s.failed, 0),
+        deliveryRate: 0,
+      };
 
-    const now = new Date();
-    const data: TimeSeriesData[] = [];
-    
-    const hours = period === '24h' ? 24 : period === '7d' ? 168 : 24;
-    const step = interval === '1h' ? 1 : interval === '6h' ? 6 : 1;
+      if (summary.totalSent > 0) {
+        summary.deliveryRate = Math.round((summary.totalDelivered / summary.totalSent) * 100);
+      }
 
-    for (let i = hours; i >= 0; i -= step) {
-      const timestamp = new Date(now.getTime() - i * 60 * 60 * 1000);
-      data.push({
-        timestamp: timestamp.toISOString(),
-        sent: Math.floor(Math.random() * 100),
-        delivered: Math.floor(Math.random() * 95),
-        failed: Math.floor(Math.random() * 5),
+      res.json({
+        summary,
+        byChannel: stats,
+        timestamp: new Date().toISOString(),
       });
+    } catch (error) {
+      logger.error('Failed to fetch analytics:', error);
+      res.status(500).json({ error: 'Failed to fetch analytics' });
     }
-
-    res.json({
-      channel: channel || 'all',
-      period,
-      interval,
-      data,
-    });
   });
 
-  router.get('/delivery-logs', (req: Request, res: Response) => {
-    const { channel, status, limit = 50, offset = 0 } = req.query;
+  router.get('/channel/:channel', async (req: Request, res: Response) => {
+    try {
+      const channel = req.params.channel;
+      
+      const [totals] = await db
+        .select({ sent: count() })
+        .from(deliveryLogs)
+        .where(eq(deliveryLogs.channelType, channel));
 
-    const logs = [
-      {
-        id: '1',
-        messageId: 'msg_abc123',
-        channel: 'email',
-        recipient: 'user@example.com',
-        status: 'delivered',
-        sentAt: new Date(Date.now() - 300000).toISOString(),
-        deliveredAt: new Date(Date.now() - 295000).toISOString(),
-      },
-      {
-        id: '2',
-        messageId: 'msg_def456',
-        channel: 'sms',
-        recipient: '+1234567890',
-        status: 'sent',
-        sentAt: new Date(Date.now() - 600000).toISOString(),
-      },
-      {
-        id: '3',
-        messageId: 'msg_ghi789',
-        channel: 'whatsapp',
-        recipient: '+9876543210',
-        status: 'failed',
-        sentAt: new Date(Date.now() - 900000).toISOString(),
-        error: 'Invalid phone number format',
-      },
-    ];
+      const [delivered] = await db
+        .select({ count: count() })
+        .from(deliveryLogs)
+        .where(and(
+          eq(deliveryLogs.channelType, channel),
+          eq(deliveryLogs.status, 'delivered')
+        ));
 
-    let filtered = logs;
-    if (channel) {
-      filtered = filtered.filter(l => l.channel === channel);
+      const [failed] = await db
+        .select({ count: count() })
+        .from(deliveryLogs)
+        .where(and(
+          eq(deliveryLogs.channelType, channel),
+          eq(deliveryLogs.status, 'failed')
+        ));
+
+      const sent = totals?.sent || 0;
+      const deliveredCount = delivered?.count || 0;
+      const failedCount = failed?.count || 0;
+
+      res.json({
+        channel,
+        sent,
+        delivered: deliveredCount,
+        failed: failedCount,
+        bounced: 0,
+        opened: 0,
+        clicked: 0,
+        deliveryRate: sent > 0 ? Math.round((deliveredCount / sent) * 100) : 0,
+        openRate: 0,
+        clickRate: 0,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      logger.error('Failed to fetch channel analytics:', error);
+      res.status(500).json({ error: 'Failed to fetch channel analytics' });
     }
-    if (status) {
-      filtered = filtered.filter(l => l.status === status);
-    }
-
-    res.json({
-      logs: filtered,
-      total: filtered.length,
-      limit: Number(limit),
-      offset: Number(offset),
-    });
   });
 
-  router.get('/top-recipients', (req: Request, res: Response) => {
-    const { channel, limit = 10 } = req.query;
+  router.get('/messages', async (req: Request, res: Response) => {
+    try {
+      const { status, channel, limit = '50', offset = '0' } = req.query;
+      
+      let conditions = [];
+      
+      if (status && typeof status === 'string') {
+        conditions.push(eq(messageQueue.status, status));
+      }
+      
+      if (channel && typeof channel === 'string') {
+        conditions.push(eq(messageQueue.channelType, channel));
+      }
 
-    const recipients = [
-      { recipient: 'user1@example.com', channel: 'email', messageCount: 150, lastSent: new Date().toISOString() },
-      { recipient: '+1234567890', channel: 'sms', messageCount: 85, lastSent: new Date().toISOString() },
-      { recipient: 'user2@example.com', channel: 'email', messageCount: 72, lastSent: new Date().toISOString() },
-    ];
+      const messages = conditions.length > 0
+        ? await db.select().from(messageQueue)
+            .where(and(...conditions))
+            .limit(parseInt(limit as string))
+            .offset(parseInt(offset as string))
+            .orderBy(desc(messageQueue.createdAt))
+        : await db.select().from(messageQueue)
+            .limit(parseInt(limit as string))
+            .offset(parseInt(offset as string))
+            .orderBy(desc(messageQueue.createdAt));
 
-    res.json({
-      recipients: recipients.slice(0, Number(limit)),
-      timestamp: new Date().toISOString(),
-    });
+      const totalQuery = db.select({ count: count() }).from(messageQueue);
+      const [total] = conditions.length > 0 
+        ? await totalQuery.where(and(...conditions))
+        : await totalQuery;
+
+      res.json({
+        messages,
+        total: total?.count || 0,
+        limit: parseInt(limit as string),
+        offset: parseInt(offset as string),
+      });
+    } catch (error) {
+      logger.error('Failed to fetch messages:', error);
+      res.status(500).json({ error: 'Failed to fetch messages' });
+    }
   });
 
-  router.post('/reset', (req: Request, res: Response) => {
-    for (const [key, metrics] of metricsStore) {
-      metrics.sent = 0;
-      metrics.delivered = 0;
-      metrics.failed = 0;
-      metrics.bounced = 0;
-      metrics.opened = 0;
-      metrics.clicked = 0;
-      metrics.deliveryRate = 0;
-      metrics.openRate = 0;
-      metrics.clickRate = 0;
-    }
+  router.get('/delivery-logs', async (req: Request, res: Response) => {
+    try {
+      const { messageId, channel, status, limit = '50', offset = '0' } = req.query;
+      
+      let conditions = [];
+      
+      if (messageId && typeof messageId === 'string') {
+        conditions.push(eq(deliveryLogs.messageId, messageId));
+      }
+      
+      if (channel && typeof channel === 'string') {
+        conditions.push(eq(deliveryLogs.channelType, channel));
+      }
 
-    logger.info('Analytics metrics reset');
-    res.json({ success: true, message: 'Metrics reset successfully' });
+      if (status && typeof status === 'string') {
+        conditions.push(eq(deliveryLogs.status, status));
+      }
+
+      const logs = conditions.length > 0
+        ? await db.select().from(deliveryLogs)
+            .where(and(...conditions))
+            .limit(parseInt(limit as string))
+            .offset(parseInt(offset as string))
+            .orderBy(desc(deliveryLogs.createdAt))
+        : await db.select().from(deliveryLogs)
+            .limit(parseInt(limit as string))
+            .offset(parseInt(offset as string))
+            .orderBy(desc(deliveryLogs.createdAt));
+
+      const totalLogsQuery = db.select({ count: count() }).from(deliveryLogs);
+      const [total] = conditions.length > 0 
+        ? await totalLogsQuery.where(and(...conditions))
+        : await totalLogsQuery;
+
+      res.json({
+        logs,
+        total: total?.count || 0,
+        limit: parseInt(limit as string),
+        offset: parseInt(offset as string),
+      });
+    } catch (error) {
+      logger.error('Failed to fetch delivery logs:', error);
+      res.status(500).json({ error: 'Failed to fetch delivery logs' });
+    }
+  });
+
+  router.get('/templates/usage', async (req: Request, res: Response) => {
+    try {
+      const templates = await db.select().from(messageTemplates);
+      
+      const usage = await Promise.all(
+        templates.map(async (template) => {
+          const [sent] = await db
+            .select({ count: count() })
+            .from(messageQueue)
+            .where(eq(messageQueue.templateId, template.id));
+
+          return {
+            templateId: template.id,
+            slug: template.slug,
+            name: template.name,
+            channelType: template.channelType,
+            usageCount: sent?.count || 0,
+          };
+        })
+      );
+
+      res.json({
+        templates: usage,
+        total: usage.length,
+      });
+    } catch (error) {
+      logger.error('Failed to fetch template usage:', error);
+      res.status(500).json({ error: 'Failed to fetch template usage' });
+    }
   });
 
   return router;
