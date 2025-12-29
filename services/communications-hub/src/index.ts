@@ -38,16 +38,22 @@ async function main() {
   const messageQueue = new MessageQueue(channelManager);
   await messageQueue.initialize();
 
+  const healthResponse = () => ({
+    status: 'healthy',
+    service: 'molochain-communications-hub',
+    version: '1.2.0',
+    timestamp: new Date().toISOString(),
+    database: dbConnected ? 'connected' : 'disconnected',
+    channels: channelManager.getChannelStatus(),
+    queue: messageQueue.getStats(),
+  });
+
   app.get('/health', (req, res) => {
-    res.json({
-      status: 'healthy',
-      service: 'molochain-communications-hub',
-      version: '1.1.0',
-      timestamp: new Date().toISOString(),
-      database: dbConnected ? 'connected' : 'disconnected',
-      channels: channelManager.getChannelStatus(),
-      queue: messageQueue.getStats(),
-    });
+    res.json(healthResponse());
+  });
+
+  app.get('/api/health', (req, res) => {
+    res.json(healthResponse());
   });
 
   app.use('/api/messages', createMessageRoutes(messageQueue, channelManager));
