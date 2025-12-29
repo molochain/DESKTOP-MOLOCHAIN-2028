@@ -4,6 +4,7 @@ import { emailSettings, emailTemplates, notificationRecipients, formTypes, email
 import { eq, and } from 'drizzle-orm';
 import { createLoggerWithContext } from '../utils/logger';
 import { emailMonitoringService } from './email-monitoring.service';
+import { commsHubAdapter, isCommsHubEnabled } from './comms-hub.adapter';
 
 const log = createLoggerWithContext('EmailService');
 
@@ -186,6 +187,30 @@ class EmailService {
   }
 
   async sendEmail(
+    to: string,
+    subject: string,
+    html: string,
+    text?: string
+  ): Promise<boolean> {
+    if (isCommsHubEnabled()) {
+      const adapterResult = await commsHubAdapter.sendEmail(to, subject, html, text);
+      if (adapterResult.success) {
+        emailMonitoringService.recordSuccess(to);
+        await this.logEmailAttempt(to, 'sent');
+        return true;
+      }
+      if (!adapterResult.shouldFallback) {
+        emailMonitoringService.recordFailure(to, 'Comms Hub failed without fallback');
+        await this.logEmailAttempt(to, 'failed', 'Comms Hub failed');
+        return false;
+      }
+      log.info('Comms Hub unavailable, falling back to direct nodemailer', { to });
+    }
+
+    return this.sendEmailDirect(to, subject, html, text);
+  }
+
+  private async sendEmailDirect(
     to: string,
     subject: string,
     html: string,
@@ -439,6 +464,28 @@ class EmailService {
   }
 
   async sendAuthEmail(
+    type: 'login' | 'register' | 'password-reset',
+    userEmail: string,
+    variables: Record<string, string>,
+    subdomain?: string
+  ): Promise<boolean> {
+    if (isCommsHubEnabled()) {
+      const adapterResult = await commsHubAdapter.sendAuthEmail(type, userEmail, variables, subdomain);
+      if (adapterResult.success) {
+        log.info('Auth email sent via Communications Hub', { type, userEmail });
+        return true;
+      }
+      if (!adapterResult.shouldFallback) {
+        log.error('Auth email failed via Communications Hub without fallback', { type, userEmail });
+        return false;
+      }
+      log.info('Comms Hub unavailable for auth email, falling back to direct', { type });
+    }
+
+    return this.sendAuthEmailDirect(type, userEmail, variables, subdomain);
+  }
+
+  private async sendAuthEmailDirect(
     type: 'login' | 'register' | 'password-reset',
     userEmail: string,
     variables: Record<string, string>,
