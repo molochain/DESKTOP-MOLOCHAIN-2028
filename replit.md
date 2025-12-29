@@ -65,14 +65,31 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Architecture:** Docker containerized with Redis for message queue, Channel Manager (Email, SMS, WhatsApp, Push), Message Queue with priority and retry logic, Template System, PostgreSQL persistence layer (Drizzle ORM).
 - **Database Tables:** `message_channels`, `message_templates`, `message_queue`, `delivery_logs`, `user_notification_preferences`.
 - **Channel Status (Production):** Email, WhatsApp, Push enabled and healthy; SMS disabled (needs Twilio credentials).
-- **API Endpoints:** Send messages, bulk send, channel status, list templates, delivery analytics, create Plesk mail account.
+- **API Endpoints:** Send messages, bulk send, channel status, list templates, delivery analytics, create Plesk mail account, user preferences.
 - **Admin Dashboard:** Component and page for multi-channel communications management.
-- **Proxy Route:** `server/routes/communications-proxy.ts` forwards requests to the microservice.
+- **Proxy Routes:**
+  - `server/routes/communications-proxy.ts` - Admin proxy to microservice (requires admin auth)
+  - `server/routes/notification-preferences.routes.ts` - User preferences API (requires user auth)
 - **Phase 1 Complete (Dec 2024):** Database persistence fully implemented:
   - Centralized `db/operations.ts` with typed status values (MessageStatus, DeliveryStatus)
   - Queue-to-database synchronization: status updates on processing/delivered/retry_pending/failed
   - Delivery logging for all outcomes including retries
   - 7 database indexes for performance
+- **Phase 2 Complete (Dec 2024):** System unification:
+  - `server/services/comms-hub.adapter.ts` - Routes legacy emailService through Communications Hub
+  - `server/services/push-websocket-bridge.ts` - Connects Push channel to UnifiedWebSocketManager
+  - `server/routes/internal-push.routes.ts` - Internal API for push notifications
+  - Feature flag: `FEATURE_COMMS_HUB_ENABLED` (opt-in with fallback to direct nodemailer)
+- **Phase 3 Complete (Dec 2024):** Event integration:
+  - `server/services/comms-events.ts` - EventEmitter system for platform events
+  - Auth events: login, register, password_reset (in auth.service.ts, password-reset.service.ts)
+  - Order events: created, status_changed (in bookings.ts)
+  - System alerts: emitSystemAlert function for admin notifications
+- **Phase 4 Complete (Dec 2024):** User preferences:
+  - Database operations: getUserPreferences, upsertUserPreference, isChannelEnabledForUser
+  - API endpoints: GET/PUT /:userId, GET/PUT /:userId/:channel, POST /:userId/unsubscribe/:channel
+  - User-facing route: `/api/notification-preferences/*`
+- **Phase 5 Pending:** SMS (Twilio) and WhatsApp (Meta Cloud API) credential configuration
 - **Folder Structure:** `services/communications-hub/src/` with api/, channels/, db/, queue/, plesk/, utils/
 
 **Server Management Scripts:**
