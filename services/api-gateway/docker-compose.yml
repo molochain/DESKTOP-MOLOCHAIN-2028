@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: molochain-api-gateway
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - NODE_ENV=production
+      - GATEWAY_PORT=4000
+      - GATEWAY_HOST=0.0.0.0
+      - REDIS_URL=redis://gateway-redis:6379
+      - JWT_SECRET=${JWT_SECRET}
+      - MOLOCHAIN_CORE_URL=http://host.docker.internal:5000
+      - MOLOLINK_URL=http://host.docker.internal:7010
+      - RAYANAVA_GATEWAY_URL=http://rayanava-gateway:5001
+      - RAYANAVA_AI_URL=http://rayanava-ai-agents:5002
+      - COMMS_HUB_URL=http://molochain-communications-hub:7020
+      - RAYANAVA_WORKFLOWS_URL=http://rayanava-workflows:5004
+      - RAYANAVA_VOICE_URL=http://rayanava-voice:5005
+      - RAYANAVA_NOTIFICATIONS_URL=http://rayanava-notifications:5006
+      - RAYANAVA_MONITORING_URL=http://rayanava-monitoring:5007
+      - JAEGER_ENDPOINT=http://rayanava-jaeger:4318/v1/traces
+      - CORS_ORIGINS=https://molochain.com,https://admin.molochain.com,https://app.molochain.com,https://auth.molochain.com,https://mololink.molochain.com,https://brain.molochain.com,https://rayanava.molochain.com,https://api.molochain.com
+      - LOG_LEVEL=info
+    networks:
+      - molochain-ecosystem
+      - rayanava-ai_default
+    depends_on:
+      gateway-redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:4000/health/live"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  gateway-redis:
+    image: redis:7-alpine
+    container_name: molochain-gateway-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    volumes:
+      - gateway-redis-data:/data
+    networks:
+      - molochain-ecosystem
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  molochain-ecosystem:
+    external: true
+  rayanava-ai_default:
+    external: true
+
+volumes:
+  gateway-redis-data:

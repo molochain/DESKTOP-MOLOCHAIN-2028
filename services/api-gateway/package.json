@@ -1,0 +1,46 @@
+{
+  "name": "@molochain/api-gateway",
+  "version": "1.0.0",
+  "description": "Unified API Gateway for Molochain Ecosystem - REST & WebSocket routing",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "docker:build": "docker build -t molochain-api-gateway .",
+    "docker:run": "docker run -p 4000:4000 molochain-api-gateway"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "http-proxy-middleware": "^3.0.3",
+    "ws": "^8.18.0",
+    "helmet": "^8.0.0",
+    "cors": "^2.8.5",
+    "morgan": "^1.10.0",
+    "compression": "^1.7.4",
+    "ioredis": "^5.4.1",
+    "jsonwebtoken": "^9.0.2",
+    "rate-limiter-flexible": "^5.0.3",
+    "prom-client": "^15.1.0",
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/sdk-node": "^0.52.1",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.52.1",
+    "@opentelemetry/auto-instrumentations-node": "^0.47.1",
+    "winston": "^3.17.0",
+    "dotenv": "^16.4.5",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.0",
+    "@types/ws": "^8.5.12",
+    "@types/cors": "^2.8.17",
+    "@types/morgan": "^1.9.9",
+    "@types/compression": "^1.7.5",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/uuid": "^10.0.0",
+    "typescript": "^5.6.3",
+    "tsx": "^4.19.2"
+  }
+}

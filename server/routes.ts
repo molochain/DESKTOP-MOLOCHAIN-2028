@@ -87,6 +87,7 @@ import otmsPublicRoutes from "./api/otms/otms-public.routes";
 import communicationsProxyRoutes from "./routes/communications-proxy";
 import notificationPreferencesRoutes from "./routes/notification-preferences.routes";
 import internalPushRoutes from "./routes/internal-push.routes";
+import internalApiKeyValidation from "./routes/internal-api-key-validation";
 import externalApiKeysRoutes from "./routes/external-api-keys";
 
 // Query parameter schemas
@@ -311,6 +312,7 @@ export async function registerRoutes(
   // Internal Push WebSocket Bridge routes (for Communications Hub to send push notifications)
   // This endpoint is protected - only accepts requests from localhost/internal network or with valid API key
   app.use("/api/internal", internalPushRoutes);
+  app.use("/api/internal", internalApiKeyValidation);
 
   // User notification preferences routes (allows users to manage their own notification settings)
   app.use("/api/notification-preferences", notificationPreferencesRoutes);
