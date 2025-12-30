@@ -43,13 +43,24 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Containerization (Docker):** Dockerfiles and `docker-compose.yml` for services (Admin, Main, Auth, PostgreSQL, Redis) utilizing multi-stage builds, health checks, non-root users, and Nginx reverse proxy.
 - **Shared Packages:** `packages/shared-permissions/` (RBAC), `packages/shared-auth/` (Auth types), `packages/shared-audit/` (Audit logging).
 - **Unified API Gateway:** `services/api-gateway/` - Grade A+ enterprise gateway for the Molochain ecosystem:
-  - **Endpoints:** `api.molochain.com` (REST), `ws.molochain.com` (WebSocket)
-  - **Authentication:** JWT + API Key dual authentication
-  - **Security:** Sensitive endpoints blocked (/, /schema, /docs, /internal), SQL injection/XSS/path traversal protection
-  - **Features:** Circuit breaker, Redis-backed caching, rate limiting, request/response logging, API versioning (v1/v2)
-  - **Services:** Routes to 9 microservices (molochain-core, mololink, rayanava-gateway, rayanava-ai, communications-hub, rayanava-workflows, rayanava-voice, rayanava-notifications, rayanava-monitoring)
-  - **Deployment:** Docker containerized at port 4000, Redis for caching/rate-limiting, NGINX configs ready for SSL
-  - **Status:** Running on production server (31.186.24.19), awaiting SSL certificates for public access
+  - **Endpoints:** `https://api.molochain.com` (REST), `https://ws.molochain.com` (WebSocket)
+  - **Authentication:** JWT + API Key dual authentication (401 on all routes without auth)
+  - **Security:** Sensitive endpoints blocked (/, /schema, /docs, /internal → 404), /metrics requires auth (401)
+  - **Features:** Circuit breaker, Redis-backed caching (128MB), rate limiting, request/response logging, API versioning (v1/v2)
+  - **Services:** Routes to 9 microservices - all healthy:
+    - `molochain-core` → `/api/v1` (port 5000)
+    - `mololink` → `/api/mololink` (mololink-app:5001)
+    - `rayanava-gateway` → `/api/rayanava` (port 5001)
+    - `rayanava-ai` → `/api/ai` (port 5002)
+    - `communications-hub` → `/api/comms` (port 7020)
+    - `rayanava-workflows` → `/api/workflows` (port 5004)
+    - `rayanava-voice` → `/api/voice` (port 5005)
+    - `rayanava-notifications` → `/api/notifications` (port 5006)
+    - `rayanava-monitoring` → `/api/monitoring` (port 5007)
+  - **Deployment:** Docker containerized at port 4000, Redis for caching/rate-limiting
+  - **Networks:** Connected to 9 Docker networks for full microservice connectivity
+  - **SSL:** Valid certificate (Let's Encrypt, expires Mar 2026)
+  - **Status:** ✅ LIVE and healthy on production server (31.186.24.19)
 
 ## External Dependencies
 
