@@ -14,9 +14,16 @@ import { createProxyRouter } from './routes/proxy.js';
 import { createHealthRouter } from './routes/health.js';
 import { initializeWebSocketGateway } from './routes/websocket.js';
 import { metricsMiddleware, getMetricsHandler } from './middleware/metrics.js';
+import { initializeCache } from './middleware/cache.js';
+import { securityMiddleware, protectedEndpointMiddleware } from './middleware/security.js';
+import { requestLoggerMiddleware, auditLogMiddleware } from './middleware/request-logger.js';
+import { apiVersioningMiddleware } from './middleware/api-versioning.js';
+import { validateRequestSize } from './middleware/request-validation.js';
 
 async function startGateway() {
   const app = express();
+  
+  app.set('trust proxy', true);
   
   app.use(helmet({
     contentSecurityPolicy: false,
@@ -28,7 +35,8 @@ async function startGateway() {
   app.use(morgan('combined', {
     stream: {
       write: (message) => logger.info(message.trim())
-    }
+    },
+    skip: (req) => req.path === '/health/live' || req.path === '/health/ready'
   }));
   
   app.use(corsMiddleware);
@@ -38,13 +46,26 @@ async function startGateway() {
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
   
+  app.use(securityMiddleware());
+  
+  app.use(validateRequestSize());
+  
   await initializeRateLimiter();
+  await initializeCache();
   
   app.use(metricsMiddleware);
+  
+  app.use(requestLoggerMiddleware());
+  
+  app.use(auditLogMiddleware());
+  
+  app.use(protectedEndpointMiddleware());
   
   app.use(createHealthRouter());
   
   app.get('/metrics', getMetricsHandler());
+  
+  app.use(apiVersioningMiddleware());
   
   app.use(createProxyRouter());
   
@@ -75,7 +96,16 @@ async function startGateway() {
     logger.info('API Gateway started', {
       host: gatewayConfig.host,
       port: gatewayConfig.port,
-      env: process.env.NODE_ENV || 'development'
+      env: process.env.NODE_ENV || 'development',
+      features: [
+        'circuit-breaker',
+        'rate-limiting',
+        'caching',
+        'request-logging',
+        'security-middleware',
+        'api-versioning',
+        'request-validation'
+      ]
     });
     
     logger.info('Registered services', {

@@ -4,8 +4,17 @@ import { services, ServiceConfig } from '../config/services.js';
 import { createLoggerWithContext } from '../utils/logger.js';
 import { authMiddleware } from '../middleware/auth.js';
 import { rateLimitMiddleware } from '../middleware/rate-limit.js';
+import { circuitBreakerMiddleware, recordSuccess, recordFailure } from '../middleware/circuit-breaker.js';
+import { cacheMiddleware } from '../middleware/cache.js';
 
 const logger = createLoggerWithContext('proxy');
+
+const cacheableServices = new Set(['molochain-core', 'mololink']);
+const cacheablePaths = [
+  /\/api\/v1\/public\//,
+  /\/api\/v1\/catalog\//,
+  /\/api\/v1\/config\//
+];
 
 export function createProxyRouter(): Router {
   const router = Router();
@@ -23,6 +32,7 @@ export function createProxyRouter(): Router {
           proxyReq.setHeader('X-Correlation-ID', req.correlationId || '');
           proxyReq.setHeader('X-Forwarded-For', req.ip || '');
           proxyReq.setHeader('X-Gateway-Time', Date.now().toString());
+          proxyReq.setHeader('X-Gateway-Version', '1.0.0');
           
           if (req.user) {
             proxyReq.setHeader('X-User-ID', req.user.id.toString());
@@ -33,6 +43,11 @@ export function createProxyRouter(): Router {
           if (req.apiKey) {
             proxyReq.setHeader('X-API-Key-ID', req.apiKey.id.toString());
             proxyReq.setHeader('X-API-Key-Name', req.apiKey.name);
+            proxyReq.setHeader('X-API-Key-Scopes', req.apiKey.scopes.join(','));
+          }
+          
+          if (req.apiVersion) {
+            proxyReq.setHeader('X-API-Version', req.apiVersion);
           }
           
           logger.debug('Proxying request', {
@@ -42,7 +57,15 @@ export function createProxyRouter(): Router {
           });
         },
         proxyRes: (proxyRes, req: any) => {
-          const duration = Date.now() - (parseInt(req.headers['x-gateway-time'] as string) || Date.now());
+          const gatewayTime = parseInt(req.headers['x-gateway-time'] as string) || Date.now();
+          const duration = Date.now() - gatewayTime;
+          
+          if (proxyRes.statusCode && proxyRes.statusCode < 500) {
+            recordSuccess(service.name);
+          } else {
+            recordFailure(service.name);
+          }
+          
           logger.info('Request proxied', {
             service: service.name,
             path: req.path,
@@ -51,6 +74,8 @@ export function createProxyRouter(): Router {
           });
         },
         error: (err, req: any, res: any) => {
+          recordFailure(service.name);
+          
           logger.error('Proxy error', {
             service: service.name,
             path: req?.path,
@@ -61,7 +86,8 @@ export function createProxyRouter(): Router {
             res.status(503).json({
               error: 'Service Unavailable',
               message: `${service.name} is temporarily unavailable`,
-              service: service.name
+              service: service.name,
+              retryAfter: 30
             });
           }
         }
@@ -70,18 +96,31 @@ export function createProxyRouter(): Router {
     
     const proxy = createProxyMiddleware(proxyOptions);
     
-    router.use(
-      service.pathPrefix,
+    const middlewares: any[] = [
+      circuitBreakerMiddleware(service.name),
       authMiddleware(service.authentication || 'both'),
-      rateLimitMiddleware(service),
-      proxy
-    );
+      rateLimitMiddleware(service)
+    ];
+    
+    if (cacheableServices.has(service.name)) {
+      middlewares.push(cacheMiddleware({
+        ttl: 60,
+        methods: ['GET'],
+        paths: cacheablePaths
+      }));
+    }
+    
+    middlewares.push(proxy);
+    
+    router.use(service.pathPrefix, ...middlewares);
     
     logger.info('Proxy route registered', {
       service: service.name,
       prefix: service.pathPrefix,
       target: service.target,
-      auth: service.authentication
+      auth: service.authentication,
+      circuitBreaker: true,
+      cache: cacheableServices.has(service.name)
     });
   }
   
