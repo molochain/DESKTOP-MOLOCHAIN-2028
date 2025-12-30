@@ -35,13 +35,31 @@ Unified API Gateway for the Molochain Ecosystem - handles REST API routing and W
 
 ## Features
 
-- **REST Proxy**: Routes API requests to backend microservices
+### Core Features
+- **REST Proxy**: Routes API requests to 9 backend microservices
 - **WebSocket Proxy**: Handles WS upgrade and bidirectional proxying
-- **Authentication**: JWT tokens and API keys (compatible with existing system)
-- **Rate Limiting**: Redis-backed with per-service limits
-- **Security**: Helmet, CORS, request validation
-- **Observability**: Prometheus metrics, Jaeger tracing, structured logging
+- **Authentication**: JWT tokens + API keys (dual authentication)
+- **Rate Limiting**: Redis-backed with per-service configurable limits
+
+### Grade A+ Security
+- **Sensitive Endpoint Protection**: Blocks access to `/`, `/schema`, `/docs`, `/internal`, `/swagger`
+- **SQL Injection Protection**: Request body scanning and blocking
+- **XSS Protection**: Script tag and event handler detection
+- **Path Traversal Protection**: Blocks `../` and encoded variants
+- **Metrics Protection**: `/metrics` requires authentication
+
+### Enterprise Features
+- **Circuit Breaker**: Prevents cascade failures when services are down
+- **Response Caching**: Redis-backed TTL caching for GET requests
+- **Request Logging**: Structured logging with Winston, audit trails
+- **API Versioning**: v1/v2 support with deprecation notices
+- **Request Validation**: Size limits, content-type validation
 - **Health Checks**: Individual service health + aggregate status
+
+### Observability
+- **Prometheus Metrics**: Request counts, latencies, active connections
+- **Jaeger Tracing**: Distributed tracing support
+- **Structured Logging**: JSON logs with request IDs
 
 ## Quick Start
 

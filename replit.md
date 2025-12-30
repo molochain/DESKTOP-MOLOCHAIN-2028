@@ -42,7 +42,14 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Mololink Microservice:** Independent Express microservice with its own PostgreSQL, React SPA, RESTful API, and hybrid JWT authentication.
 - **Containerization (Docker):** Dockerfiles and `docker-compose.yml` for services (Admin, Main, Auth, PostgreSQL, Redis) utilizing multi-stage builds, health checks, non-root users, and Nginx reverse proxy.
 - **Shared Packages:** `packages/shared-permissions/` (RBAC), `packages/shared-auth/` (Auth types), `packages/shared-audit/` (Audit logging).
-- **Unified API Gateway:** `services/api-gateway/` - Complete REST + WebSocket gateway for the Molochain ecosystem, with JWT + API Key authentication, Redis-backed rate limiting, and Docker deployment.
+- **Unified API Gateway:** `services/api-gateway/` - Grade A+ enterprise gateway for the Molochain ecosystem:
+  - **Endpoints:** `api.molochain.com` (REST), `ws.molochain.com` (WebSocket)
+  - **Authentication:** JWT + API Key dual authentication
+  - **Security:** Sensitive endpoints blocked (/, /schema, /docs, /internal), SQL injection/XSS/path traversal protection
+  - **Features:** Circuit breaker, Redis-backed caching, rate limiting, request/response logging, API versioning (v1/v2)
+  - **Services:** Routes to 9 microservices (molochain-core, mololink, rayanava-gateway, rayanava-ai, communications-hub, rayanava-workflows, rayanava-voice, rayanava-notifications, rayanava-monitoring)
+  - **Deployment:** Docker containerized at port 4000, Redis for caching/rate-limiting, NGINX configs ready for SSL
+  - **Status:** Running on production server (31.186.24.19), awaiting SSL certificates for public access
 
 ## External Dependencies
 

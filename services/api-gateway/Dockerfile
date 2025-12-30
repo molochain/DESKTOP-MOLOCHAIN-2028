@@ -12,7 +12,8 @@ RUN npm run build
 
 FROM node:20-alpine AS runner
 
-RUN addgroup -g 1001 -S nodejs && \
+RUN apk add --no-cache curl && \
+    addgroup -g 1001 -S nodejs && \
     adduser -S gateway -u 1001
 
 WORKDIR /app
@@ -30,7 +31,7 @@ ENV GATEWAY_HOST=0.0.0.0
 
 EXPOSE 4000
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:4000/health/live || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
+  CMD curl -f http://localhost:4000/health/live || exit 1
 
 CMD ["node", "dist/index.js"]
