@@ -143,11 +143,6 @@ export function authMiddleware(required: 'none' | 'jwt' | 'apikey' | 'both' = 'b
       }
     }
     
-    if (required === 'none') {
-      req.authMethod = 'none';
-      return next();
-    }
-    
     logger.warn('Authentication failed', {
       path: req.path,
       ip: req.ip,

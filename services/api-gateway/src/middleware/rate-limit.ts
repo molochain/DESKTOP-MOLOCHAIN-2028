@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { RateLimiterRedis, RateLimiterMemory, RateLimiterAbstract } from 'rate-limiter-flexible';
-import Redis from 'ioredis';
+import { Redis } from 'ioredis';
 import { gatewayConfig, ServiceConfig } from '../config/services.js';
 import { createLoggerWithContext } from '../utils/logger.js';
 import { AuthenticatedRequest } from './auth.js';
@@ -14,7 +14,7 @@ export async function initializeRateLimiter(): Promise<void> {
   try {
     redis = new Redis(gatewayConfig.redisUrl, {
       maxRetriesPerRequest: 3,
-      retryStrategy: (times) => Math.min(times * 100, 3000),
+      retryStrategy: (times: number) => Math.min(times * 100, 3000),
       lazyConnect: true
     });
     

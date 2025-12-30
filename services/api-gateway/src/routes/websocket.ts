@@ -155,7 +155,7 @@ class WebSocketGateway {
     
     const clientWss = new WebSocketServer({ noServer: true });
     
-    clientWss.handleUpgrade(req, socket, head, (clientWs) => {
+    clientWss.handleUpgrade(req, socket, head, (clientWs: WebSocket) => {
       const connectionId = `${service.name}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       
       this.connections.set(connectionId, {
@@ -166,19 +166,19 @@ class WebSocketGateway {
         connectedAt: new Date()
       });
       
-      clientWs.on('message', (data) => {
+      clientWs.on('message', (data: Buffer | string) => {
         if (backendWs.readyState === WebSocket.OPEN) {
           backendWs.send(data);
         }
       });
       
-      backendWs.on('message', (data) => {
+      backendWs.on('message', (data: Buffer | string) => {
         if (clientWs.readyState === WebSocket.OPEN) {
           clientWs.send(data);
         }
       });
       
-      clientWs.on('close', (code, reason) => {
+      clientWs.on('close', (code: number, reason: Buffer) => {
         logger.debug('Client WebSocket closed', { 
           connectionId, 
           code, 
@@ -190,7 +190,7 @@ class WebSocketGateway {
         }
       });
       
-      backendWs.on('close', (code, reason) => {
+      backendWs.on('close', (code: number, reason: Buffer) => {
         logger.debug('Backend WebSocket closed', { 
           connectionId, 
           code, 
@@ -201,14 +201,14 @@ class WebSocketGateway {
         }
       });
       
-      clientWs.on('error', (error) => {
+      clientWs.on('error', (error: Error) => {
         logger.error('Client WebSocket error', { 
           connectionId, 
           error: error.message 
         });
       });
       
-      backendWs.on('error', (error) => {
+      backendWs.on('error', (error: Error) => {
         logger.error('Backend WebSocket error', { 
           connectionId, 
           error: error.message 
