@@ -118,9 +118,27 @@ export function protectedEndpointMiddleware() {
   };
 }
 
+function isInternalNetwork(ip: string | undefined): boolean {
+  if (!ip) return false;
+  const cleanIp = ip.replace(/^::ffff:/, '');
+  return (
+    cleanIp.startsWith('10.') ||
+    cleanIp.startsWith('172.') ||
+    cleanIp.startsWith('192.168.') ||
+    cleanIp === '127.0.0.1' ||
+    cleanIp === 'localhost' ||
+    cleanIp === '::1'
+  );
+}
+
 export function metricsProtectionMiddleware() {
   return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     if (req.path !== '/metrics') {
+      return next();
+    }
+    
+    if (isInternalNetwork(req.ip)) {
+      logger.debug('Metrics access allowed from internal network', { ip: req.ip });
       return next();
     }
     

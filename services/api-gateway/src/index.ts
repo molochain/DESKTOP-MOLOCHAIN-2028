@@ -91,6 +91,21 @@ async function startGateway() {
   });
   
   app.get('/metrics', (req, res, next) => {
+    const ip = req.ip || '';
+    const cleanIp = ip.replace(/^::ffff:/, '');
+    const isInternal = (
+      cleanIp.startsWith('10.') ||
+      cleanIp.startsWith('172.') ||
+      cleanIp.startsWith('192.168.') ||
+      cleanIp === '127.0.0.1' ||
+      cleanIp === 'localhost' ||
+      cleanIp === '::1'
+    );
+    
+    if (isInternal) {
+      return next();
+    }
+    
     const authHeader = req.headers.authorization;
     const apiKey = req.headers['x-api-key'];
     
