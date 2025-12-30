@@ -25,7 +25,7 @@ export const services: ServiceConfig[] = [
   },
   {
     name: 'mololink',
-    target: process.env.MOLOLINK_URL || 'http://127.0.0.1:7010',
+    target: process.env.MOLOLINK_URL || 'http://mololink-app:5001',
     pathPrefix: '/api/mololink',
     wsEnabled: true,
     wsPath: '/ws/mololink',

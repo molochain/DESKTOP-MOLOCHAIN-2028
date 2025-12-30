@@ -18,7 +18,7 @@ services:
       - REDIS_URL=redis://gateway-redis:6379
       - JWT_SECRET=${JWT_SECRET}
       - MOLOCHAIN_CORE_URL=http://host.docker.internal:5000
-      - MOLOLINK_URL=http://host.docker.internal:7010
+      - MOLOLINK_URL=http://mololink-app:5001
       - RAYANAVA_GATEWAY_URL=http://rayanava-gateway:5001
       - RAYANAVA_AI_URL=http://rayanava-ai-agents:5002
       - COMMS_HUB_URL=http://molochain-communications-hub:7020
@@ -38,6 +38,7 @@ services:
       - rayanava-workflows_default
       - rayanava-monitoring_default
       - rayanava-communications_rayanava-comm-network
+      - molochain-network
     depends_on:
       gateway-redis:
         condition: service_healthy
@@ -84,6 +85,8 @@ networks:
   rayanava-monitoring_default:
     external: true
   rayanava-communications_rayanava-comm-network:
+    external: true
+  molochain-network:
     external: true
 
 volumes:
