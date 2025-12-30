@@ -30,8 +30,8 @@ services:
       - CORS_ORIGINS=https://molochain.com,https://admin.molochain.com,https://app.molochain.com,https://auth.molochain.com,https://mololink.molochain.com,https://brain.molochain.com,https://rayanava.molochain.com,https://api.molochain.com
       - LOG_LEVEL=info
     networks:
-      - molochain-ecosystem
-      - rayanava-ai_default
+      - molochain-core
+      - rayanava-gateway_default
     depends_on:
       gateway-redis:
         condition: service_healthy
@@ -55,7 +55,7 @@ services:
     volumes:
       - gateway-redis-data:/data
     networks:
-      - molochain-ecosystem
+      - molochain-core
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -63,9 +63,9 @@ services:
       retries: 3
 
 networks:
-  molochain-ecosystem:
+  molochain-core:
     external: true
-  rayanava-ai_default:
+  rayanava-gateway_default:
     external: true
 
 volumes:
