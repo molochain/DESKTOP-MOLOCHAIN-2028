@@ -91,16 +91,34 @@ async function startGateway() {
   });
   
   app.get('/metrics', (req, res, next) => {
-    const ip = req.ip || '';
-    const cleanIp = ip.replace(/^::ffff:/, '');
-    const isInternal = (
-      cleanIp.startsWith('10.') ||
-      cleanIp.startsWith('172.') ||
-      cleanIp.startsWith('192.168.') ||
-      cleanIp === '127.0.0.1' ||
-      cleanIp === 'localhost' ||
-      cleanIp === '::1'
-    );
+    const ipToNumber = (ip: string): number => {
+      const parts = ip.split('.').map(Number);
+      return ((parts[0] << 24) | (parts[1] << 16) | (parts[2] << 8) | parts[3]) >>> 0;
+    };
+    
+    const isInCIDR = (ip: string, cidr: string): boolean => {
+      const [network, prefixLen] = cidr.split('/');
+      const prefix = parseInt(prefixLen, 10);
+      const mask = prefix === 0 ? 0 : (~0 << (32 - prefix)) >>> 0;
+      return (ipToNumber(ip) & mask) === (ipToNumber(network) & mask);
+    };
+    
+    const isRFC1918 = (ip: string): boolean => {
+      const cleanIp = ip.replace(/^::ffff:/, '');
+      if (!/^\d{1,3}(\.\d{1,3}){3}$/.test(cleanIp)) {
+        return cleanIp === '::1' || cleanIp === 'localhost';
+      }
+      return (
+        isInCIDR(cleanIp, '10.0.0.0/8') ||
+        isInCIDR(cleanIp, '172.16.0.0/12') ||
+        isInCIDR(cleanIp, '192.168.0.0/16') ||
+        cleanIp === '127.0.0.1'
+      );
+    };
+    
+    const reqIp = (req.ip || '').replace(/^::ffff:/, '');
+    const socketIp = (req.socket?.remoteAddress || '').replace(/^::ffff:/, '');
+    const isInternal = isRFC1918(reqIp) && (socketIp ? isRFC1918(socketIp) : true);
     
     if (isInternal) {
       return next();

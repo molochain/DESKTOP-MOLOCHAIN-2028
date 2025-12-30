@@ -1,0 +1,145 @@
+{
+  "dashboard": {
+    "uid": "api-gateway-overview",
+    "title": "API Gateway Monitoring",
+    "tags": ["api-gateway", "microservices", "monitoring"],
+    "timezone": "browser",
+    "refresh": "10s",
+    "schemaVersion": 38,
+    "panels": [
+      {
+        "id": 1,
+        "title": "Total Requests",
+        "type": "stat",
+        "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+        "targets": [{ "refId": "A", "expr": "sum(gateway_http_requests_total)", "legendFormat": "Total" }],
+        "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "thresholds": { "steps": [{ "color": "green", "value": null }] } } },
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 2,
+        "title": "Success Rate",
+        "type": "gauge",
+        "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+        "targets": [{ "refId": "A", "expr": "sum(rate(gateway_http_requests_total{status=~\"2..\"}[5m])) / sum(rate(gateway_http_requests_total[5m])) * 100 or vector(100)", "legendFormat": "Success %" }],
+        "fieldConfig": { "defaults": { "unit": "percent", "min": 0, "max": 100, "thresholds": { "steps": [{ "color": "red", "value": null }, { "color": "yellow", "value": 95 }, { "color": "green", "value": 99 }] } } },
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 3,
+        "title": "Avg Response Time",
+        "type": "stat",
+        "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
+        "targets": [{ "refId": "A", "expr": "avg(rate(gateway_http_request_duration_seconds_sum[5m]) / rate(gateway_http_request_duration_seconds_count[5m])) or vector(0)", "legendFormat": "Avg Duration" }],
+        "fieldConfig": { "defaults": { "unit": "s", "thresholds": { "steps": [{ "color": "green", "value": null }, { "color": "yellow", "value": 0.5 }, { "color": "red", "value": 1 }] } } },
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 4,
+        "title": "Error Rate",
+        "type": "stat",
+        "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
+        "targets": [{ "refId": "A", "expr": "sum(rate(gateway_http_requests_total{status=~\"5..\"}[5m])) / sum(rate(gateway_http_requests_total[5m])) * 100 or vector(0)", "legendFormat": "Error %" }],
+        "fieldConfig": { "defaults": { "unit": "percent", "thresholds": { "steps": [{ "color": "green", "value": null }, { "color": "yellow", "value": 1 }, { "color": "red", "value": 5 }] } } },
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 5,
+        "title": "Requests per Second by Service",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+        "targets": [{ "refId": "A", "expr": "sum by (service) (rate(gateway_http_requests_total[5m]))", "legendFormat": "{{service}}" }],
+        "fieldConfig": { "defaults": { "unit": "reqps" } },
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 6,
+        "title": "Response Time by Service",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 },
+        "targets": [{ "refId": "A", "expr": "avg by (service) (rate(gateway_http_request_duration_seconds_sum[5m]) / rate(gateway_http_request_duration_seconds_count[5m]))", "legendFormat": "{{service}}" }],
+        "fieldConfig": { "defaults": { "unit": "s" } },
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 7,
+        "title": "HTTP Status Distribution",
+        "type": "piechart",
+        "gridPos": { "h": 8, "w": 8, "x": 0, "y": 12 },
+        "targets": [{ "refId": "A", "expr": "sum by (status) (gateway_http_requests_total)", "legendFormat": "{{status}}" }],
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 8,
+        "title": "Rate Limit Hits",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 8, "x": 8, "y": 12 },
+        "targets": [{ "refId": "A", "expr": "sum by (service) (rate(gateway_rate_limit_hits_total[5m]))", "legendFormat": "{{service}}" }],
+        "fieldConfig": { "defaults": { "unit": "short" } },
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 9,
+        "title": "Service Health",
+        "type": "stat",
+        "gridPos": { "h": 8, "w": 8, "x": 16, "y": 12 },
+        "targets": [{ "refId": "A", "expr": "gateway_service_health", "legendFormat": "{{service}}" }],
+        "fieldConfig": { "defaults": { "mappings": [{ "type": "value", "options": { "1": { "text": "Healthy", "color": "green" }, "0": { "text": "Unhealthy", "color": "red" } } }] } },
+        "options": { "graphMode": "none", "textMode": "auto", "orientation": "horizontal" },
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 10,
+        "title": "WebSocket Active Connections",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 20 },
+        "targets": [{ "refId": "A", "expr": "gateway_ws_connections_active", "legendFormat": "{{service}}" }],
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 11,
+        "title": "WebSocket Messages per Second",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 20 },
+        "targets": [{ "refId": "A", "expr": "sum by (service, direction) (rate(gateway_ws_messages_total[5m]))", "legendFormat": "{{service}} - {{direction}}" }],
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 12,
+        "title": "Gateway Memory Usage",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 28 },
+        "targets": [{ "refId": "A", "expr": "process_resident_memory_bytes{job=\"molochain-api-gateway\"}", "legendFormat": "Resident Memory" }],
+        "fieldConfig": { "defaults": { "unit": "bytes" } },
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 13,
+        "title": "Gateway CPU Usage",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 28 },
+        "targets": [{ "refId": "A", "expr": "rate(process_cpu_seconds_total{job=\"molochain-api-gateway\"}[5m])", "legendFormat": "CPU seconds/s" }],
+        "fieldConfig": { "defaults": { "unit": "short" } },
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      },
+      {
+        "id": 14,
+        "title": "Per-Service Request Details",
+        "type": "table",
+        "gridPos": { "h": 10, "w": 24, "x": 0, "y": 36 },
+        "targets": [
+          { "refId": "A", "expr": "sum by (service) (gateway_http_requests_total)", "legendFormat": "{{service}}", "format": "table", "instant": true },
+          { "refId": "B", "expr": "sum by (service) (rate(gateway_http_requests_total[5m]))", "legendFormat": "", "format": "table", "instant": true },
+          { "refId": "C", "expr": "sum by (service) (rate(gateway_http_requests_total{status=~\"5..\"}[5m])) / sum by (service) (rate(gateway_http_requests_total[5m])) * 100", "legendFormat": "", "format": "table", "instant": true }
+        ],
+        "transformations": [
+          { "id": "merge" },
+          { "id": "organize", "options": { "renameByName": { "Value #A": "Total Requests", "Value #B": "Req/s", "Value #C": "Error %" } } }
+        ],
+        "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }
+      }
+    ]
+  },
+  "folderId": 1,
+  "overwrite": true
+}

@@ -102,17 +102,44 @@ export async function validateApiKey(key: string, secret: string): Promise<Authe
   }
 }
 
-function isInternalNetwork(ip: string | undefined): boolean {
+function ipToNumber(ip: string): number {
+  const parts = ip.split('.').map(Number);
+  return ((parts[0] << 24) | (parts[1] << 16) | (parts[2] << 8) | parts[3]) >>> 0;
+}
+
+function isInCIDR(ip: string, cidr: string): boolean {
+  const [network, prefixLen] = cidr.split('/');
+  const prefix = parseInt(prefixLen, 10);
+  const mask = prefix === 0 ? 0 : (~0 << (32 - prefix)) >>> 0;
+  const ipNum = ipToNumber(ip);
+  const networkNum = ipToNumber(network);
+  return (ipNum & mask) === (networkNum & mask);
+}
+
+function isRFC1918(ip: string): boolean {
+  const cleanIp = ip.replace(/^::ffff:/, '');
+  if (!/^\d{1,3}(\.\d{1,3}){3}$/.test(cleanIp)) {
+    return cleanIp === '::1' || cleanIp === 'localhost';
+  }
+  return (
+    isInCIDR(cleanIp, '10.0.0.0/8') ||
+    isInCIDR(cleanIp, '172.16.0.0/12') ||
+    isInCIDR(cleanIp, '192.168.0.0/16') ||
+    cleanIp === '127.0.0.1'
+  );
+}
+
+function isInternalNetwork(ip: string | undefined, socketRemoteAddress?: string): boolean {
   if (!ip) return false;
   const cleanIp = ip.replace(/^::ffff:/, '');
-  return (
-    cleanIp.startsWith('10.') ||
-    cleanIp.startsWith('172.') ||
-    cleanIp.startsWith('192.168.') ||
-    cleanIp === '127.0.0.1' ||
-    cleanIp === 'localhost' ||
-    cleanIp === '::1'
-  );
+  if (!isRFC1918(cleanIp)) {
+    return false;
+  }
+  if (socketRemoteAddress) {
+    const cleanSocket = socketRemoteAddress.replace(/^::ffff:/, '');
+    return isRFC1918(cleanSocket);
+  }
+  return true;
 }
 
 export function authMiddleware(required: 'none' | 'jwt' | 'apikey' | 'both' = 'both') {
@@ -122,7 +149,7 @@ export function authMiddleware(required: 'none' | 'jwt' | 'apikey' | 'both' = 'b
       return next();
     }
     
-    if (req.path === '/metrics' && isInternalNetwork(req.ip)) {
+    if (req.path === '/metrics' && isInternalNetwork(req.ip, req.socket?.remoteAddress)) {
       req.authMethod = 'none';
       return next();
     }

@@ -1,0 +1,92 @@
+groups:
+  - name: api-gateway-alerts
+    rules:
+      - alert: GatewayHighErrorRate
+        expr: sum(rate(gateway_http_requests_total{status=~"5.."}[5m])) / sum(rate(gateway_http_requests_total[5m])) * 100 > 5
+        for: 2m
+        labels:
+          severity: critical
+          service: api-gateway
+        annotations:
+          summary: "API Gateway high error rate"
+          description: "Error rate is {{ $value | printf \"%.2f\" }}% (threshold: 5%)"
+
+      - alert: GatewayHighLatency
+        expr: avg(rate(gateway_http_request_duration_seconds_sum[5m]) / rate(gateway_http_request_duration_seconds_count[5m])) > 1
+        for: 5m
+        labels:
+          severity: warning
+          service: api-gateway
+        annotations:
+          summary: "API Gateway high latency"
+          description: "Average response time is {{ $value | printf \"%.2f\" }}s (threshold: 1s)"
+
+      - alert: GatewayServiceDown
+        expr: up{job="molochain-api-gateway"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: api-gateway
+        annotations:
+          summary: "API Gateway is down"
+          description: "API Gateway has been unreachable for more than 1 minute"
+
+      - alert: GatewayServiceUnhealthy
+        expr: gateway_service_health == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: api-gateway
+        annotations:
+          summary: "Backend service unhealthy"
+          description: "Service {{ $labels.service }} is unhealthy"
+
+      - alert: GatewayHighRateLimiting
+        expr: sum(rate(gateway_rate_limit_hits_total[5m])) > 10
+        for: 5m
+        labels:
+          severity: warning
+          service: api-gateway
+        annotations:
+          summary: "High rate limiting activity"
+          description: "Rate limit hits: {{ $value | printf \"%.0f\" }} per second"
+
+      - alert: GatewayHighMemoryUsage
+        expr: process_resident_memory_bytes{job="molochain-api-gateway"} > 500000000
+        for: 5m
+        labels:
+          severity: warning
+          service: api-gateway
+        annotations:
+          summary: "API Gateway high memory usage"
+          description: "Memory usage is {{ $value | humanize1024 }}"
+
+      - alert: GatewayWebSocketConnectionsHigh
+        expr: sum(gateway_ws_connections_active) > 1000
+        for: 5m
+        labels:
+          severity: warning
+          service: api-gateway
+        annotations:
+          summary: "High WebSocket connections"
+          description: "Active WebSocket connections: {{ $value }}"
+
+      - alert: SSLCertificateExpiringSoon
+        expr: probe_ssl_earliest_cert_expiry - time() < 86400 * 30
+        for: 1h
+        labels:
+          severity: warning
+          service: api-gateway
+        annotations:
+          summary: "SSL certificate expiring soon"
+          description: "SSL certificate expires in {{ $value | humanizeDuration }}"
+
+      - alert: SSLCertificateExpired
+        expr: probe_ssl_earliest_cert_expiry - time() < 0
+        for: 1m
+        labels:
+          severity: critical
+          service: api-gateway
+        annotations:
+          summary: "SSL certificate expired"
+          description: "SSL certificate has expired!"
