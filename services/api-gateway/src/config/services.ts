@@ -24,6 +24,16 @@ export const services: ServiceConfig[] = [
     authentication: 'both'
   },
   {
+    name: 'molochain-core-v2',
+    target: process.env.MOLOCHAIN_CORE_URL || 'http://127.0.0.1:5000',
+    pathPrefix: '/api/v2',
+    wsEnabled: true,
+    wsPath: '/ws/v2',
+    healthCheck: '/api/health',
+    rateLimit: { points: 1500, duration: 3600 },
+    authentication: 'both'
+  },
+  {
     name: 'mololink',
     target: process.env.MOLOLINK_URL || 'http://mololink-app:5001',
     pathPrefix: '/api/mololink',

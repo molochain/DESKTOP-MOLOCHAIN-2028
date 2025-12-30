@@ -9,12 +9,22 @@ import { cacheMiddleware } from '../middleware/cache.js';
 
 const logger = createLoggerWithContext('proxy');
 
-const cacheableServices = new Set(['molochain-core', 'mololink']);
+const cacheableServices = new Set(['molochain-core', 'molochain-core-v2', 'mololink']);
 const cacheablePaths = [
-  /\/api\/v1\/public\//,
-  /\/api\/v1\/catalog\//,
-  /\/api\/v1\/config\//
+  /\/api\/v[12]\/public\//,
+  /\/api\/v[12]\/catalog\//,
+  /\/api\/v[12]\/config\//,
+  /\/api\/v[12]\/products\/?$/,
+  /\/api\/v[12]\/categories\/?$/,
+  /\/api\/mololink\/public\//
 ];
+
+const cacheTTLs: Record<string, number> = {
+  'molochain-core': 60,
+  'molochain-core-v2': 60,
+  'mololink': 120,
+  'default': 30
+};
 
 export function createProxyRouter(): Router {
   const router = Router();
@@ -103,7 +113,7 @@ export function createProxyRouter(): Router {
     
     if (cacheableServices.has(service.name)) {
       middlewares.push(cacheMiddleware({
-        ttl: 60,
+        ttl: cacheTTLs[service.name] || cacheTTLs['default'],
         methods: ['GET'],
         paths: cacheablePaths
       }));

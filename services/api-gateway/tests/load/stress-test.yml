@@ -1,0 +1,46 @@
+config:
+  target: "https://api.molochain.com"
+  phases:
+    - duration: 30
+      arrivalRate: 10
+      name: "Baseline"
+    - duration: 60
+      arrivalRate: 50
+      name: "Normal load"
+    - duration: 60
+      arrivalRate: 100
+      name: "High load"
+    - duration: 60
+      arrivalRate: 200
+      name: "Stress load"
+    - duration: 30
+      arrivalRate: 500
+      name: "Breaking point test"
+  defaults:
+    headers:
+      Content-Type: "application/json"
+  plugins:
+    expect: {}
+    metrics-by-endpoint: {}
+
+scenarios:
+  - name: "Mixed endpoint stress"
+    flow:
+      - get:
+          url: "/health/ready"
+      - get:
+          url: "/api/v1/public/config"
+      - get:
+          url: "/api/v2/public/config"
+      - get:
+          url: "/api/mololink/public/status"
+      - get:
+          url: "/api/ai/health"
+
+  - name: "Rate limit test"
+    flow:
+      - loop:
+          - get:
+              url: "/api/v1/public/config"
+          - think: 0.1
+        count: 50

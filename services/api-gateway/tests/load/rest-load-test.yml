@@ -1,0 +1,99 @@
+config:
+  target: "https://api.molochain.com"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: "Warm up"
+    - duration: 120
+      arrivalRate: 20
+      name: "Ramp up load"
+    - duration: 180
+      arrivalRate: 50
+      name: "Sustained load"
+    - duration: 60
+      arrivalRate: 100
+      name: "Peak load"
+  defaults:
+    headers:
+      Content-Type: "application/json"
+  plugins:
+    expect: {}
+
+scenarios:
+  - name: "Health check endpoints"
+    weight: 10
+    flow:
+      - get:
+          url: "/health/live"
+          expect:
+            - statusCode: 200
+      - get:
+          url: "/health/ready"
+          expect:
+            - statusCode: 200
+      - get:
+          url: "/health/services"
+          expect:
+            - statusCode: 200
+
+  - name: "API v1 public endpoints"
+    weight: 30
+    flow:
+      - get:
+          url: "/api/v1/public/config"
+          expect:
+            - statusCode: 
+                - 200
+                - 401
+      - think: 1
+      - get:
+          url: "/api/v1/public/catalog"
+          expect:
+            - statusCode:
+                - 200
+                - 401
+
+  - name: "API v2 endpoints"
+    weight: 20
+    flow:
+      - get:
+          url: "/api/v2/public/config"
+          headers:
+            X-API-Version: "v2"
+          expect:
+            - statusCode:
+                - 200
+                - 401
+      - think: 1
+
+  - name: "Mololink endpoints"
+    weight: 15
+    flow:
+      - get:
+          url: "/api/mololink/public/status"
+          expect:
+            - statusCode:
+                - 200
+                - 401
+                - 404
+
+  - name: "Rayanava AI endpoints"
+    weight: 15
+    flow:
+      - get:
+          url: "/api/ai/health"
+          expect:
+            - statusCode:
+                - 200
+                - 401
+
+  - name: "Communications hub"
+    weight: 10
+    flow:
+      - get:
+          url: "/api/comms/status"
+          expect:
+            - statusCode:
+                - 200
+                - 401
+                - 404

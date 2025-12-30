@@ -167,15 +167,19 @@ class WebSocketGateway {
         connectedAt: new Date()
       });
       
+      wsConnectionsActive.inc({ service: service.name });
+      
       clientWs.on('message', (data: Buffer | string) => {
         if (backendWs.readyState === WebSocket.OPEN) {
           backendWs.send(data);
+          wsMessagesTotal.inc({ service: service.name, direction: 'inbound' });
         }
       });
       
       backendWs.on('message', (data: Buffer | string) => {
         if (clientWs.readyState === WebSocket.OPEN) {
           clientWs.send(data);
+          wsMessagesTotal.inc({ service: service.name, direction: 'outbound' });
         }
       });
       
@@ -186,6 +190,7 @@ class WebSocketGateway {
           reason: reason.toString() 
         });
         this.connections.delete(connectionId);
+        wsConnectionsActive.dec({ service: service.name });
         if (backendWs.readyState === WebSocket.OPEN) {
           backendWs.close(code, reason);
         }

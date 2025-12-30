@@ -1,0 +1,38 @@
+config:
+  target: "wss://ws.molochain.com"
+  phases:
+    - duration: 60
+      arrivalRate: 2
+      name: "Warm up"
+    - duration: 120
+      arrivalRate: 10
+      name: "Sustained connections"
+    - duration: 60
+      arrivalRate: 20
+      name: "Peak connections"
+  engines:
+    ws: {}
+
+scenarios:
+  - name: "WebSocket connection lifecycle"
+    engine: ws
+    flow:
+      - send:
+          payload: '{"type":"ping"}'
+      - think: 5
+      - send:
+          payload: '{"type":"subscribe","channel":"notifications"}'
+      - think: 10
+      - send:
+          payload: '{"type":"unsubscribe","channel":"notifications"}'
+      - think: 2
+
+  - name: "High frequency messaging"
+    engine: ws
+    flow:
+      - loop:
+          - send:
+              payload: '{"type":"message","data":"test-{{ $loopCount }}"}'
+          - think: 0.5
+        count: 20
+      - think: 5

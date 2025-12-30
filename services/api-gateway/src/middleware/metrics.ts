@@ -81,6 +81,7 @@ function extractServiceFromPath(path: string): string {
   if (segments[0] === 'api' && segments[1]) {
     switch (segments[1]) {
       case 'v1': return 'molochain-core';
+      case 'v2': return 'molochain-core-v2';
       case 'mololink': return 'mololink';
       case 'rayanava': return 'rayanava-gateway';
       case 'ai': return 'rayanava-ai';
