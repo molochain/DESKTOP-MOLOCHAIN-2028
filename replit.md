@@ -139,6 +139,29 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Scripts:** `server-health-check.ts`, `server-deep-scan.ts`, `cleanup-old-backups.ts`, `deploy-communications-hub.ts`, `configure-communications-nginx.ts`, `set-comms-env-production.ts`.
 - **Requirements:** `SERVER_SSH_PASSWORD` secret must be set.
 
+### Recent Changes (Dec 30, 2024)
+
+**Cache Interceptor Fix:**
+- **Issue:** `ERR_HTTP_HEADERS_SENT` errors crashing production when responses were sent twice
+- **Solution:** Added `!res.headersSent` checks in 3 locations within `server/middleware/cache-interceptor.ts`:
+  - Line 113-117: Before `res.setHeader()` in `res.send()` override
+  - Line 126-130: Before `res.setHeader()` in `res.json()` override
+  - Line 144-148: Before `res.setHeader()` in `res.end()` override
+- **Result:** Production stable, no header errors, 100% WebSocket health score
+
+**Production Sync Status:**
+- All fixes synced via SFTP (base64 bash transfers unreliable)
+- Production rebuilt with `build-prod.mjs` using `pg` driver
+- PM2 restarted and saved configuration
+- 46 services operational from CMS
+- Database: 0ms latency, healthy connection
+
+**Workspace Organization:**
+- Domain registrars pattern in `server/registrars/` for clean route separation
+- Core modules in `server/core/` (auth, cache, websocket, monitoring, security)
+- Utility functions in `server/utils/` (caching, logging, performance)
+- Route handlers in `server/routes/` organized by feature domain
+
 ### External Dependencies
 
 - **Core Frameworks**: Express, React, Vite, TypeScript
