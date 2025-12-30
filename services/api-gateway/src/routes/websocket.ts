@@ -5,6 +5,7 @@ import { URL } from 'url';
 import jwt from 'jsonwebtoken';
 import { services, gatewayConfig, ServiceConfig } from '../config/services.js';
 import { createLoggerWithContext } from '../utils/logger.js';
+import { wsConnectionsActive, wsMessagesTotal } from '../middleware/metrics.js';
 
 const logger = createLoggerWithContext('websocket');
 
