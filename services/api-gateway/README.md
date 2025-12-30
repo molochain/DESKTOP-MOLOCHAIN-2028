@@ -136,6 +136,64 @@ See `.env.example` for all configuration options.
 
 ## Deployment
 
+### Prerequisites
+
+1. **Docker Networks** - Create external networks on production server:
+   ```bash
+   docker network create molochain-ecosystem
+   docker network create rayanava-ai_default
+   ```
+
+2. **SSL Certificates** - Obtain certificates for api.molochain.com and ws.molochain.com:
+   ```bash
+   certbot certonly --webroot -w /var/www/certbot -d api.molochain.com
+   certbot certonly --webroot -w /var/www/certbot -d ws.molochain.com
+   ```
+
+3. **Environment Variables** - Required secrets:
+   - `JWT_SECRET` - Must match molochain-core JWT secret
+   - `REDIS_URL` - Redis connection (or use bundled Redis)
+
+### Deployment Steps
+
+1. **Build deployment package:**
+   ```bash
+   cd services/api-gateway
+   ./scripts/prepare-deployment.sh
+   ```
+
+2. **Upload to production:**
+   ```bash
+   scp api-gateway-*.tar.gz user@production:/opt/molochain/
+   ```
+
+3. **Deploy on production:**
+   ```bash
+   cd /opt/molochain
+   tar -xzf api-gateway-*.tar.gz
+   export JWT_SECRET="your-production-jwt-secret"
+   ./scripts/deploy.sh
+   ```
+
+4. **Configure NGINX:**
+   ```bash
+   sudo cp nginx/*.conf /etc/nginx/sites-available/
+   sudo ln -sf /etc/nginx/sites-available/api.molochain.com.conf /etc/nginx/sites-enabled/
+   sudo ln -sf /etc/nginx/sites-available/ws.molochain.com.conf /etc/nginx/sites-enabled/
+   sudo nginx -t && sudo systemctl reload nginx
+   ```
+
+### Production Checklist
+
+- [ ] Docker networks created (`molochain-ecosystem`, `rayanava-ai_default`)
+- [ ] SSL certificates installed for both domains
+- [ ] JWT_SECRET environment variable set
+- [ ] NGINX configs installed and tested
+- [ ] Health check passing: `curl https://api.molochain.com/health/live`
+- [ ] WebSocket test: `wscat -c wss://ws.molochain.com/ws/main`
+- [ ] Rate limiting verified
+- [ ] Metrics accessible from internal network
+
 ### Production NGINX Config
 
 ```nginx
