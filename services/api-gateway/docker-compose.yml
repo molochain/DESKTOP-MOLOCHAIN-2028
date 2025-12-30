@@ -32,6 +32,12 @@ services:
     networks:
       - molochain-core
       - rayanava-gateway_default
+      - rayanava-ai-agents_rayanava-network
+      - rayanava-notifications_default
+      - rayanava-voice_default
+      - rayanava-workflows_default
+      - rayanava-monitoring_default
+      - rayanava-communications_rayanava-comm-network
     depends_on:
       gateway-redis:
         condition: service_healthy
@@ -66,6 +72,18 @@ networks:
   molochain-core:
     external: true
   rayanava-gateway_default:
+    external: true
+  rayanava-ai-agents_rayanava-network:
+    external: true
+  rayanava-notifications_default:
+    external: true
+  rayanava-voice_default:
+    external: true
+  rayanava-workflows_default:
+    external: true
+  rayanava-monitoring_default:
+    external: true
+  rayanava-communications_rayanava-comm-network:
     external: true
 
 volumes:
