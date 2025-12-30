@@ -53,6 +53,15 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Containerization (Docker):** Dockerfiles and `docker-compose.yml` for services (Admin, Main, Auth, PostgreSQL, Redis) utilizing multi-stage builds, health checks, non-root users, and Nginx reverse proxy.
 - **Shared Packages (Microservice-ready):** `packages/shared-permissions/` (RBAC), `packages/shared-auth/` (Auth types), `packages/shared-audit/` (Audit logging).
 - **API Gateway (Prepared):** `server/gateway/` for admin gateway middleware (rate limiting, circuit breaker, correlation IDs).
+- **Unified API Gateway (Dec 2024):** `services/api-gateway/` - Complete REST + WebSocket gateway for the Molochain ecosystem.
+  - **Architecture:** Express + TypeScript, http-proxy-middleware for REST, custom WebSocket gateway with upgrade handlers
+  - **Authentication:** JWT + API Key dual auth, validates against molochain-core via internal endpoint
+  - **Rate Limiting:** Redis-backed with configurable per-service limits
+  - **Docker:** Multi-stage build, connects to molochain-ecosystem and rayanava-ai_default networks
+  - **Services Routed:** molochain-core, mololink, rayanava-gateway, rayanava-ai-agents, communications-hub, rayanava-workflows, rayanava-voice, rayanava-notifications, rayanava-monitoring
+  - **Internal Validation Endpoint:** `/api/internal/validate-api-key` - IPv6-normalized IP check for Docker compatibility
+  - **NGINX Configs:** `services/api-gateway/nginx/` for api.molochain.com and ws.molochain.com
+  - **Status:** Ready for production deployment (Phases 1-9 complete, deployment pending)
 
 **Production Build Pipeline:**
 - **Purpose:** Custom esbuild configuration for production deployments.
