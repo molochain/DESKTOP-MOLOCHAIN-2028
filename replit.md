@@ -45,10 +45,11 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Unified API Gateway:** `services/api-gateway/` - Grade A+ enterprise gateway for the Molochain ecosystem:
   - **Endpoints:** `https://api.molochain.com` (REST), `https://ws.molochain.com` (WebSocket)
   - **Authentication:** JWT + API Key dual authentication (401 on all routes without auth)
-  - **Security:** Sensitive endpoints blocked (/, /schema, /docs, /internal → 404), /metrics requires auth (401)
-  - **Features:** Circuit breaker, Redis-backed caching (128MB), rate limiting, request/response logging, API versioning (v1/v2)
-  - **Services:** Routes to 9 microservices - all healthy:
+  - **Security:** Sensitive endpoints blocked (/, /schema, /docs, /internal → 404), /metrics blocked externally (403)
+  - **Features:** Circuit breaker, Redis-backed caching with per-service TTLs, rate limiting, request/response logging, API versioning (v1/v2), WebSocket monitoring
+  - **Services:** Routes to 10 microservices - all healthy:
     - `molochain-core` → `/api/v1` (port 5000)
+    - `molochain-core-v2` → `/api/v2` (port 5000, v2 API)
     - `mololink` → `/api/mololink` (mololink-app:5001)
     - `rayanava-gateway` → `/api/rayanava` (port 5001)
     - `rayanava-ai` → `/api/ai` (port 5002)
@@ -57,10 +58,14 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
     - `rayanava-voice` → `/api/voice` (port 5005)
     - `rayanava-notifications` → `/api/notifications` (port 5006)
     - `rayanava-monitoring` → `/api/monitoring` (port 5007)
-  - **Deployment:** Docker containerized at port 4000, Redis for caching/rate-limiting
-  - **Networks:** Connected to 9 Docker networks for full microservice connectivity
+  - **Caching:** Per-service TTLs (60s core, 120s mololink), cacheable paths for public/catalog/config endpoints
+  - **Monitoring:** Prometheus metrics (286 lines), WebSocket connection/message tracking, Grafana dashboard
+  - **Load Testing:** Artillery test scripts for REST, WebSocket, and stress testing
+  - **Deployment:** Docker containerized at port 4000 (bound to 127.0.0.1), Redis for caching/rate-limiting
+  - **Networks:** Connected to 13 Docker networks for full microservice connectivity
   - **SSL:** Valid certificate (Let's Encrypt, expires Mar 2026)
   - **Status:** ✅ LIVE and healthy on production server (31.186.24.19)
+  - **Last Updated:** December 30, 2025
 
 ## External Dependencies
 
