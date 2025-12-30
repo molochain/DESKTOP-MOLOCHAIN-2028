@@ -8,17 +8,33 @@ import { createServer } from 'http';
 import { gatewayConfig } from './config/services.js';
 import { logger } from './utils/logger.js';
 import { corsMiddleware } from './middleware/cors.js';
-import { requestIdMiddleware, RequestWithId } from './middleware/request-id.js';
+import { requestIdMiddleware } from './middleware/request-id.js';
 import { initializeRateLimiter } from './middleware/rate-limit.js';
 import { createProxyRouter } from './routes/proxy.js';
 import { createHealthRouter } from './routes/health.js';
 import { initializeWebSocketGateway } from './routes/websocket.js';
 import { metricsMiddleware, getMetricsHandler } from './middleware/metrics.js';
 import { initializeCache } from './middleware/cache.js';
-import { securityMiddleware, protectedEndpointMiddleware } from './middleware/security.js';
+import { securityMiddleware } from './middleware/security.js';
 import { requestLoggerMiddleware, auditLogMiddleware } from './middleware/request-logger.js';
 import { apiVersioningMiddleware } from './middleware/api-versioning.js';
 import { validateRequestSize } from './middleware/request-validation.js';
+import { authMiddleware, AuthenticatedRequest } from './middleware/auth.js';
+
+const sensitiveEndpoints = [
+  /^\/$/,
+  /^\/schema/,
+  /^\/docs/,
+  /^\/swagger/,
+  /^\/api-docs/,
+  /^\/openapi/,
+  /^\/debug/,
+  /^\/internal/
+];
+
+function isSensitivePath(path: string): boolean {
+  return sensitiveEndpoints.some(pattern => pattern.test(path));
+}
 
 async function startGateway() {
   const app = express();
@@ -57,13 +73,54 @@ async function startGateway() {
   
   app.use(requestLoggerMiddleware());
   
-  app.use(auditLogMiddleware());
+  app.get('/health/live', (_req, res) => {
+    res.json({ status: 'live', timestamp: new Date().toISOString() });
+  });
   
-  app.use(protectedEndpointMiddleware());
+  app.get('/health/ready', (_req, res) => {
+    res.json({ status: 'ready', timestamp: new Date().toISOString() });
+  });
   
   app.use(createHealthRouter());
   
-  app.get('/metrics', getMetricsHandler());
+  app.get('/version', (_req, res) => {
+    res.json({
+      gateway: '1.0.0',
+      api: { current: 'v1', supported: ['v1', 'v2'] }
+    });
+  });
+  
+  app.get('/metrics', (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    const apiKey = req.headers['x-api-key'];
+    
+    if (!authHeader && !apiKey) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+        message: 'Authentication required for metrics endpoint'
+      });
+    }
+    
+    next();
+  }, getMetricsHandler());
+  
+  app.use((req, res, next) => {
+    if (isSensitivePath(req.path)) {
+      logger.warn('Sensitive endpoint access blocked', {
+        path: req.path,
+        ip: req.ip,
+        userAgent: req.get('user-agent')
+      });
+      
+      return res.status(404).json({
+        error: 'Not Found',
+        message: 'The requested endpoint does not exist'
+      });
+    }
+    next();
+  });
+  
+  app.use(auditLogMiddleware());
   
   app.use(apiVersioningMiddleware());
   

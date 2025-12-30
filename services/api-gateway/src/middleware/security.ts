@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { createLoggerWithContext } from '../utils/logger.js';
+import { AuthenticatedRequest } from './auth.js';
 
 const logger = createLoggerWithContext('security');
 
@@ -78,30 +79,38 @@ export function securityMiddleware() {
   };
 }
 
-export function adminOnlyMiddleware(adminIPs: string[] = []) {
-  const allowedIPs = new Set([
-    '127.0.0.1',
-    '::1',
-    ...adminIPs,
-    ...(process.env.ADMIN_IPS?.split(',') || [])
-  ]);
-  
-  return (req: Request, res: Response, next: NextFunction) => {
-    const clientIP = req.ip || req.socket.remoteAddress || '';
+const sensitiveEndpoints = [
+  /^\/$/,
+  /^\/schema/,
+  /^\/docs/,
+  /^\/swagger/,
+  /^\/api-docs/,
+  /^\/openapi/,
+  /^\/debug/,
+  /^\/internal/
+];
+
+export function protectedEndpointMiddleware() {
+  return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    const isSensitive = sensitiveEndpoints.some(pattern => pattern.test(req.path));
     
-    const isAdmin = (req as any).user?.role === 'admin' || 
-                    (req as any).user?.role === 'superadmin';
+    if (!isSensitive) {
+      return next();
+    }
     
-    if (!isAdmin && !allowedIPs.has(clientIP)) {
-      logger.warn('Admin access denied', {
+    const isAdmin = req.user?.role === 'admin' || req.user?.role === 'superadmin';
+    
+    if (!isAdmin) {
+      logger.warn('Sensitive endpoint access blocked', {
         path: req.path,
-        ip: clientIP,
-        userId: (req as any).user?.id
+        ip: req.ip,
+        userId: req.user?.id,
+        hasAuth: !!req.user || !!req.apiKey
       });
       
-      return res.status(403).json({
-        error: 'Forbidden',
-        message: 'Admin access required'
+      return res.status(404).json({
+        error: 'Not Found',
+        message: 'The requested endpoint does not exist'
       });
     }
     
@@ -109,69 +118,48 @@ export function adminOnlyMiddleware(adminIPs: string[] = []) {
   };
 }
 
-const protectedEndpoints = [
-  { pattern: /^\/$/, require: 'admin' },
-  { pattern: /^\/schema/, require: 'admin' },
-  { pattern: /^\/docs/, require: 'admin' },
-  { pattern: /^\/swagger/, require: 'admin' },
-  { pattern: /^\/api-docs/, require: 'admin' },
-  { pattern: /^\/openapi/, require: 'admin' },
-  { pattern: /^\/debug/, require: 'admin' },
-  { pattern: /^\/internal/, require: 'admin' },
-  { pattern: /^\/metrics/, require: 'internal' },
-  { pattern: /^\/health\/services/, require: 'internal' }
-];
-
-export function protectedEndpointMiddleware() {
-  const internalIPs = new Set([
-    '127.0.0.1',
-    '::1',
-    ...(process.env.INTERNAL_IPS?.split(',') || []),
-    ...Array.from({ length: 256 }, (_, i) => `172.${16 + Math.floor(i / 16)}.${i % 16}.${i % 256}`).slice(0, 100),
-    ...Array.from({ length: 256 }, (_, i) => `10.0.${Math.floor(i / 256)}.${i % 256}`).slice(0, 100)
-  ]);
-  
-  return (req: Request, res: Response, next: NextFunction) => {
-    const clientIP = req.ip || req.socket.remoteAddress || '';
-    const isInternalRequest = internalIPs.has(clientIP) || 
-                               clientIP.startsWith('172.') || 
-                               clientIP.startsWith('10.') ||
-                               clientIP.startsWith('192.168.');
+export function metricsProtectionMiddleware() {
+  return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    if (req.path !== '/metrics') {
+      return next();
+    }
     
-    for (const endpoint of protectedEndpoints) {
-      if (endpoint.pattern.test(req.path)) {
-        if (endpoint.require === 'admin') {
-          const isAdmin = (req as any).user?.role === 'admin' || 
-                          (req as any).user?.role === 'superadmin';
-          
-          if (!isAdmin && !isInternalRequest) {
-            logger.warn('Protected endpoint access denied', {
-              path: req.path,
-              ip: clientIP,
-              require: endpoint.require
-            });
-            
-            return res.status(404).json({
-              error: 'Not Found',
-              message: 'The requested endpoint does not exist'
-            });
-          }
-        }
-        
-        if (endpoint.require === 'internal' && !isInternalRequest) {
-          logger.warn('Internal endpoint access denied', {
-            path: req.path,
-            ip: clientIP
-          });
-          
-          return res.status(404).json({
-            error: 'Not Found',
-            message: 'The requested endpoint does not exist'
-          });
-        }
-        
-        break;
-      }
+    const isAdmin = req.user?.role === 'admin' || req.user?.role === 'superadmin';
+    const hasMetricsScope = req.apiKey?.scopes?.includes('metrics') || req.apiKey?.scopes?.includes('*');
+    
+    if (!isAdmin && !hasMetricsScope) {
+      logger.warn('Metrics endpoint access blocked', {
+        path: req.path,
+        ip: req.ip,
+        userId: req.user?.id,
+        apiKeyId: req.apiKey?.id
+      });
+      
+      return res.status(404).json({
+        error: 'Not Found',
+        message: 'The requested endpoint does not exist'
+      });
+    }
+    
+    next();
+  };
+}
+
+export function adminOnlyMiddleware() {
+  return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    const isAdmin = req.user?.role === 'admin' || req.user?.role === 'superadmin';
+    
+    if (!isAdmin) {
+      logger.warn('Admin access denied', {
+        path: req.path,
+        ip: req.ip,
+        userId: req.user?.id
+      });
+      
+      return res.status(403).json({
+        error: 'Forbidden',
+        message: 'Admin access required'
+      });
     }
     
     next();

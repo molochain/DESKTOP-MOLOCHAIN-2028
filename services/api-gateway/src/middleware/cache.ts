@@ -11,7 +11,7 @@ export async function initializeCache(): Promise<void> {
   try {
     redis = new Redis(gatewayConfig.redisUrl, {
       maxRetriesPerRequest: 3,
-      retryStrategy: (times) => Math.min(times * 50, 2000),
+      retryStrategy: (times: number) => Math.min(times * 50, 2000),
       lazyConnect: true
     });
     
@@ -84,7 +84,7 @@ export function cacheMiddleware(options: CacheOptions = {}) {
             body
           };
           
-          redis!.setex(cacheKey, opts.ttl!, JSON.stringify(cacheData)).catch(err => {
+          redis!.setex(cacheKey, opts.ttl!, JSON.stringify(cacheData)).catch((err: Error) => {
             logger.error('Cache write failed', { error: err.message });
           });
         }

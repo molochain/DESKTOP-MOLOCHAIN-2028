@@ -1,10 +1,10 @@
-import { Router } from 'express';
+import { Router, Response } from 'express';
 import { createProxyMiddleware, Options } from 'http-proxy-middleware';
 import { services, ServiceConfig } from '../config/services.js';
 import { createLoggerWithContext } from '../utils/logger.js';
 import { authMiddleware } from '../middleware/auth.js';
 import { rateLimitMiddleware } from '../middleware/rate-limit.js';
-import { circuitBreakerMiddleware, recordSuccess, recordFailure } from '../middleware/circuit-breaker.js';
+import { circuitBreakerMiddleware, recordSuccess, recordFailure, RequestWithTiming } from '../middleware/circuit-breaker.js';
 import { cacheMiddleware } from '../middleware/cache.js';
 
 const logger = createLoggerWithContext('proxy');
@@ -31,7 +31,6 @@ export function createProxyRouter(): Router {
           proxyReq.setHeader('X-Request-ID', req.requestId || '');
           proxyReq.setHeader('X-Correlation-ID', req.correlationId || '');
           proxyReq.setHeader('X-Forwarded-For', req.ip || '');
-          proxyReq.setHeader('X-Gateway-Time', Date.now().toString());
           proxyReq.setHeader('X-Gateway-Version', '1.0.0');
           
           if (req.user) {
@@ -57,8 +56,8 @@ export function createProxyRouter(): Router {
           });
         },
         proxyRes: (proxyRes, req: any) => {
-          const gatewayTime = parseInt(req.headers['x-gateway-time'] as string) || Date.now();
-          const duration = Date.now() - gatewayTime;
+          const startTime = (req as RequestWithTiming).gatewayStartTime || Date.now();
+          const duration = Date.now() - startTime;
           
           if (proxyRes.statusCode && proxyRes.statusCode < 500) {
             recordSuccess(service.name);
