@@ -1,0 +1,56 @@
+import axios from 'axios';
+
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
+export const api = axios.create({
+  baseURL: API_BASE,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
+export async function login(email: string, password: string) {
+  const response = await api.post('/api/auth/login', { email, password });
+  return response.data;
+}
+
+export async function logout() {
+  const response = await api.post('/api/auth/logout');
+  return response.data;
+}
+
+export async function getSystemMetrics() {
+  const response = await api.get('/api/admin/microservices/system-metrics');
+  return response.data;
+}
+
+export async function getContainers() {
+  const response = await api.get('/api/admin/microservices/containers');
+  return response.data;
+}
+
+export async function restartContainer(containerName: string) {
+  const response = await api.post(`/api/admin/microservices/restart/${containerName}`);
+  return response.data;
+}
+
+export async function getContainerLogs(containerName: string, lines = 100) {
+  const response = await api.get(`/api/admin/microservices/logs/${containerName}?lines=${lines}`);
+  return response.data;
+}
+
+export async function getHealth() {
+  const response = await api.get('/api/health');
+  return response.data;
+}
