@@ -107,9 +107,16 @@ The following containerized services are LIVE on production server (31.186.24.19
 - **check-production-server.ts:** SSH health check for production server status
 - **quick-sync.ts:** Fast deployment sync to production (build + upload + restart)
 - **sync-to-production.ts:** Full deployment with npm install and container restart
-- **cleanup-workspaces.ts:** Clean old packages and logs on both local and production
+- **incremental-sync.ts:** Lightweight sync for changed files only (faster than full sync)
+- **cleanup-workspaces.ts:** Clean old packages and logs on production
 - **SSH Access:** root@31.186.24.19 (password in SERVER_SSH_PASSWORD secret)
 - **Deploy Path:** /var/www/vhosts/molochain.com/molochain-core
+
+### WebSocket Configuration
+- **Client Heartbeat:** 30-second ping interval, 5-minute timeout before reconnect
+- **Server Heartbeat:** 25-30 second interval, 35-45 second timeout
+- **Auto-Reconnect:** Enabled with exponential backoff (max 5 attempts)
+- **Status:** Stable - timeout warnings are expected behavior during idle periods
 
 ## External Dependencies
 
