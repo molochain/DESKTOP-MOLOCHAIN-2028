@@ -99,9 +99,15 @@ The following containerized services are LIVE on production server (31.186.24.19
   - **Integration:** API Gateway routes `/api/orchestrator`, connects to Mastra/Inngest
   - **Monitoring Integration:** ✅ ACTIVE
     - Prometheus: Scraping `/api/metrics` every 15s (target: `molochain-workflow-orchestrator:5003`)
-    - Grafana: Dashboard "Workflow Orchestrator" (uid: workflow-orchestrator) with 6 panels
+    - Grafana: Dashboard "Workflow Orchestrator" (uid: workflow-orchestrator) on port 3001 with 6 panels:
+      - Workflow Runs (Success/Failed)
+      - Alerts Received / Forwarded
+      - Webhook Success Rate (gauge)
+      - Alerts by Severity (pie chart)
+      - Avg Workflow Duration (bar gauge)
+      - System Overview (uptime, workflow count)
     - Alertmanager: Routes to Communications Hub webhooks for critical/warning alerts
-    - Metrics: `workflow_runs_total`, `workflow_duration_ms_avg`, `workflows_registered_total`, `workflow_orchestrator_uptime_seconds`
+    - Metrics: `workflow_runs_total`, `workflow_duration_ms_avg`, `workflows_registered_total`, `workflow_orchestrator_uptime_seconds`, `alerts_received_total`, `alerts_forwarded_total`, `alerts_failed_total`, `alerts_by_severity_total`
   - **Docker Networks:** molochain-network, molochain-core, postgres-network, cms-laravel_cms-network
   - **Last Updated:** December 31, 2025
 
