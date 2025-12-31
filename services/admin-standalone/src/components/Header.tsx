@@ -1,5 +1,4 @@
 import { Sun, Moon, Bell, User } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 interface HeaderProps {
   theme: 'light' | 'dark';

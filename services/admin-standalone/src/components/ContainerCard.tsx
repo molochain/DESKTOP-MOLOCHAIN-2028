@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { RefreshCw, FileText, Terminal, ChevronDown, ChevronUp } from 'lucide-react';
+import { RefreshCw, FileText, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn, formatUptime, getHealthBgColor } from '@/lib/utils';
 import { Container } from '@/types';
 

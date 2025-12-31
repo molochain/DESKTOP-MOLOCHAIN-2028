@@ -1,27 +1,10 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { RefreshCw, Brain, Bot, Mic, Bell, BarChart3, Folders, Shield, Workflow } from 'lucide-react';
+import { RefreshCw, Brain, Bot, BarChart3 } from 'lucide-react';
 import { ContainerCard } from '@/components/ContainerCard';
 import { LogViewer } from '@/components/LogViewer';
 import { StatCard } from '@/components/StatCard';
 import { getContainers, restartContainer, getContainerLogs } from '@/lib/api';
-
-const RAYANAVA_SERVICES = [
-  { name: 'rayanava-gateway', icon: Brain, desc: 'API Gateway' },
-  { name: 'rayanava-ai-agents', icon: Bot, desc: 'AI Agents' },
-  { name: 'rayanava-voice', icon: Mic, desc: 'Voice Service' },
-  { name: 'rayanava-notifications', icon: Bell, desc: 'Notifications' },
-  { name: 'rayanava-monitoring', icon: BarChart3, desc: 'Monitoring' },
-  { name: 'rayanava-workspace', icon: Folders, desc: 'Workspace' },
-  { name: 'rayanava-backup', icon: Shield, desc: 'Backup' },
-  { name: 'rayanava-workflows', icon: Workflow, desc: 'Workflows' },
-  { name: 'rayanava-communications', icon: Bell, desc: 'Communications' },
-  { name: 'rayanava-dashboard', icon: BarChart3, desc: 'Dashboard' },
-  { name: 'rayanava-molochain-connector', icon: Brain, desc: 'Molochain Connector' },
-  { name: 'rayanava-prometheus', icon: BarChart3, desc: 'Prometheus' },
-  { name: 'rayanava-grafana', icon: BarChart3, desc: 'Grafana' },
-  { name: 'rayanava-jaeger', icon: BarChart3, desc: 'Jaeger Tracing' },
-];
 
 export function RayanaraAI() {
   const [selectedContainer, setSelectedContainer] = useState<string | null>(null);

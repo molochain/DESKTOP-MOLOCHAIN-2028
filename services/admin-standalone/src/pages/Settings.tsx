@@ -1,4 +1,4 @@
-import { Settings as SettingsIcon, User, Shield, Bell, Database, Globe } from 'lucide-react';
+import { User, Shield, Database, Globe } from 'lucide-react';
 
 export function Settings() {
   return (
