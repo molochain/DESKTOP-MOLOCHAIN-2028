@@ -1,7 +1,28 @@
 # Rest Express - Full-Stack TypeScript Application
 
 ## Overview
-Rest Express is a comprehensive Node.js/TypeScript full-stack application within Molochain's ecosystem, designed for business management. It integrates a React frontend, an Express backend, AI capabilities, real-time WebSocket services, and PostgreSQL. The project supports supply chain management, real-time collaboration, performance monitoring, and secure user interactions, serving as a central hub for various Molochain services with a vision for extensive business management and market potential.
+Rest Express is a comprehensive Node.js/TypeScript full-stack application within Molochain's ecosystem, designed for business management.
+
+## Admin System (Grade A+ Upgrade - COMPLETE)
+**URL:** https://admin.molochain.com (port 7001)
+
+### Completed Features:
+1. **Real-Time Dashboard** - CPU/Memory/Disk/Network metrics via Prometheus, embedded Grafana charts
+2. **Container Management** - 66 containers with bulk restart/stop, status filtering, health monitoring
+3. **User Management** - Admin CRUD with role-based access (super_admin, admin, viewer)
+4. **System Settings** - Alerts config, backup schedules, email notifications
+5. **Alerts & Notifications** - Threshold-based alerts for CPU/memory/disk/container health
+6. **Centralized Logs** - Multi-service aggregation with severity filtering, search, export
+7. **SSL Monitoring** - Certificate expiration tracking with TLS validation, distinguishes valid/expiring/invalid
+8. **Database Admin** - PostgreSQL management via sidecar (port 7003): table browsing, read-only SQL, backup/restore
+9. **API Documentation** - OpenAPI 3.0 spec at /openapi.json, Swagger UI integration
+
+### Architecture:
+- **Frontend:** React 18 + Vite + Tailwind + shadcn/ui (molochain-admin-frontend container)
+- **Backend:** Pre-built Docker image at port 7000 (molochain-admin-backend)
+- **Database Sidecar:** Node.js service at port 7003 (molochain-db-admin) for PostgreSQL admin
+- **SSL Sidecar:** Node.js TLS checker at port 7002 (ssl-checker)
+- **Networks:** molochain-core + rayanava-network (for Prometheus/Grafana access) It integrates a React frontend, an Express backend, AI capabilities, real-time WebSocket services, and PostgreSQL. The project supports supply chain management, real-time collaboration, performance monitoring, and secure user interactions, serving as a central hub for various Molochain services with a vision for extensive business management and market potential.
 
 ## User Preferences
 - Prefers clean, minimal solutions
