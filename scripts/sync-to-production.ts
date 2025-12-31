@@ -165,9 +165,16 @@ async function syncToProduction() {
         );
         
         log('Installing production dependencies...', 'info');
-        await executeCommand(conn, 
-          `cd ${config.deployPath} && npm ci --production --silent 2>&1 | tail -10`
+        const npmResult = await executeCommand(conn, 
+          `cd ${config.deployPath} && npm ci --production 2>&1; NPM_EXIT=$?; if [ $NPM_EXIT -ne 0 ]; then echo "NPM_INSTALL_FAILED"; exit $NPM_EXIT; fi`
         );
+        if (npmResult.includes('NPM_INSTALL_FAILED')) {
+          log('npm install failed! Aborting deployment', 'error');
+          if (fs.existsSync(packageFile)) fs.unlinkSync(packageFile);
+          conn.end();
+          process.exit(1);
+        }
+        log('Dependencies installed successfully', 'success');
         
         log('Setting up directories...', 'info');
         await executeCommand(conn, 

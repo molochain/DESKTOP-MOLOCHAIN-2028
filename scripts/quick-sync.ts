@@ -95,9 +95,15 @@ async function quickSync() {
         
         log('Installing dependencies...', 'info');
         const npmResult = await executeCommand(conn, 
-          `cd ${config.deployPath} && npm ci --production --silent 2>&1 | tail -3`
+          `cd ${config.deployPath} && npm ci --production 2>&1; NPM_EXIT=$?; if [ $NPM_EXIT -ne 0 ]; then echo "NPM_INSTALL_FAILED"; exit $NPM_EXIT; fi`
         );
-        if (npmResult.trim()) console.log(`   ${npmResult.trim()}`);
+        if (npmResult.includes('NPM_INSTALL_FAILED')) {
+          log('npm install failed! Aborting deployment', 'warn');
+          fs.unlinkSync(packageName);
+          conn.end();
+          process.exit(1);
+        }
+        log('Dependencies installed', 'success');
         
         log('Syncing frontend to httpdocs...', 'info');
         await executeCommand(conn,
