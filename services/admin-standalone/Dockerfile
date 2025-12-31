@@ -18,11 +18,16 @@ RUN npm run build
 # Production stage - Nginx
 FROM nginx:alpine AS production
 
-# Copy custom nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy custom nginx config template
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
 # Copy built assets from builder
 COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Create entrypoint script to substitute env vars
+RUN echo '#!/bin/sh' > /docker-entrypoint.d/20-envsubst-custom.sh && \
+    echo 'envsubst "\$INTERNAL_API_KEY" < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf' >> /docker-entrypoint.d/20-envsubst-custom.sh && \
+    chmod +x /docker-entrypoint.d/20-envsubst-custom.sh
 
 # Add healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
@@ -31,5 +36,5 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
 # Expose port
 EXPOSE 80
 
-# Start nginx
+# Start nginx (uses default entrypoint which runs envsubst scripts)
 CMD ["nginx", "-g", "daemon off;"]

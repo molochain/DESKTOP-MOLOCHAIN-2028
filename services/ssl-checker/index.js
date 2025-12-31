@@ -1,9 +1,24 @@
 const express = require('express');
 const tls = require('tls');
 const https = require('https');
-
 const app = express();
 const PORT = process.env.PORT || 7002;
+const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY;
+
+if (!INTERNAL_API_KEY) {
+  console.error('FATAL: INTERNAL_API_KEY environment variable is required');
+  process.exit(1);
+}
+
+const authenticateInternal = (req, res, next) => {
+  const apiKey = req.headers['x-internal-api-key'];
+  
+  if (!apiKey || apiKey !== INTERNAL_API_KEY) {
+    return res.status(401).json({ error: 'Unauthorized: Internal access only' });
+  }
+  
+  next();
+};
 
 const DOMAINS_TO_CHECK = [
   { domain: 'admin.molochain.com', label: 'Admin Panel' },
@@ -194,7 +209,7 @@ app.get('/health', (req, res) => {
   res.json({ status: 'healthy' });
 });
 
-app.get('/api/ssl/check', async (req, res) => {
+app.get('/api/ssl/check', authenticateInternal, async (req, res) => {
   const domain = req.query.domain;
   
   if (!domain) {
@@ -205,7 +220,7 @@ app.get('/api/ssl/check', async (req, res) => {
   res.json(result);
 });
 
-app.get('/api/ssl/check-all', async (req, res) => {
+app.get('/api/ssl/check-all', authenticateInternal, async (req, res) => {
   const results = await Promise.all(
     DOMAINS_TO_CHECK.map(d => checkSSLCertificate(d.domain))
   );

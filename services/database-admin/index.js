@@ -10,6 +10,22 @@ app.use(cors());
 app.use(express.json());
 
 const BACKUP_DIR = '/var/backups/postgres';
+const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY;
+
+if (!INTERNAL_API_KEY) {
+  console.error('FATAL: INTERNAL_API_KEY environment variable is required');
+  process.exit(1);
+}
+
+const authenticateInternal = (req, res, next) => {
+  const apiKey = req.headers['x-internal-api-key'];
+  
+  if (!apiKey || apiKey !== INTERNAL_API_KEY) {
+    return res.status(401).json({ error: 'Unauthorized: Internal access only' });
+  }
+  
+  next();
+};
 
 const pool = new Pool({
   host: process.env.PGHOST || 'molochain-db',
@@ -25,7 +41,7 @@ app.get('/health', (req, res) => {
   res.json({ status: 'healthy', service: 'database-admin', timestamp: new Date().toISOString() });
 });
 
-app.get('/api/database/tables', async (req, res) => {
+app.get('/api/database/tables', authenticateInternal, async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT 
@@ -45,7 +61,7 @@ app.get('/api/database/tables', async (req, res) => {
   }
 });
 
-app.get('/api/database/tables/:name', async (req, res) => {
+app.get('/api/database/tables/:name', authenticateInternal, async (req, res) => {
   try {
     const { name } = req.params;
     const page = parseInt(req.query.page) || 1;
@@ -82,7 +98,7 @@ app.get('/api/database/tables/:name', async (req, res) => {
   }
 });
 
-app.post('/api/database/query', async (req, res) => {
+app.post('/api/database/query', authenticateInternal, async (req, res) => {
   try {
     const { query } = req.body;
     if (!query) {
@@ -116,7 +132,7 @@ app.post('/api/database/query', async (req, res) => {
   }
 });
 
-app.get('/api/database/stats', async (req, res) => {
+app.get('/api/database/stats', authenticateInternal, async (req, res) => {
   try {
     const sizeResult = await pool.query(`SELECT pg_size_pretty(pg_database_size(current_database())) as size`);
     const tablesResult = await pool.query(`SELECT count(*) as count FROM information_schema.tables WHERE table_schema = 'public'`);
@@ -135,7 +151,7 @@ app.get('/api/database/stats', async (req, res) => {
   }
 });
 
-app.get('/api/database/backups', async (req, res) => {
+app.get('/api/database/backups', authenticateInternal, async (req, res) => {
   try {
     if (!fs.existsSync(BACKUP_DIR)) {
       return res.json({ backups: [] });
@@ -158,7 +174,7 @@ app.get('/api/database/backups', async (req, res) => {
   }
 });
 
-app.post('/api/database/backup', async (req, res) => {
+app.post('/api/database/backup', authenticateInternal, async (req, res) => {
   try {
     if (!fs.existsSync(BACKUP_DIR)) {
       fs.mkdirSync(BACKUP_DIR, { recursive: true });
@@ -193,7 +209,7 @@ app.post('/api/database/backup', async (req, res) => {
   }
 });
 
-app.post('/api/database/restore', async (req, res) => {
+app.post('/api/database/restore', authenticateInternal, async (req, res) => {
   try {
     const { filename, confirm } = req.body;
     if (!filename) {
