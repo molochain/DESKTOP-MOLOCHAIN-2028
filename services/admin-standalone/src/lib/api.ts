@@ -89,3 +89,13 @@ export async function deleteAdminUser(id: string) {
   const response = await api.delete(`/api/admin/users/${id}`);
   return response.data;
 }
+
+export async function checkSSLCertificates() {
+  const response = await api.get('/api/ssl/check-all');
+  return response.data;
+}
+
+export async function checkSSLCertificate(domain: string) {
+  const response = await api.get(`/api/ssl/check?domain=${encodeURIComponent(domain)}`);
+  return response.data;
+}

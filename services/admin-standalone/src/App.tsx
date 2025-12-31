@@ -15,6 +15,7 @@ import { CMS } from '@/pages/CMS';
 import { Settings } from '@/pages/Settings';
 import { Metrics } from '@/pages/Metrics';
 import { Logs } from '@/pages/Logs';
+import { Security } from '@/pages/Security';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function App() {
@@ -48,6 +49,7 @@ export default function App() {
           <Route path="/cms" element={<CMS />} />
           <Route path="/metrics" element={<Metrics />} />
           <Route path="/logs" element={<Logs />} />
+          <Route path="/security" element={<Security />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
