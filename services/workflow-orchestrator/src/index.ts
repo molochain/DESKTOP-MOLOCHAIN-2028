@@ -104,8 +104,8 @@ app.get('/api/history', (req, res) => {
   });
 });
 
-// Alertmanager webhook receiver - transforms alerts to Communications Hub format
-app.post('/api/webhooks/alerts', async (req, res) => {
+// Shared alert handler logic
+async function handleAlertWebhook(req: express.Request, res: express.Response) {
   const commsUrl = process.env.COMMS_HUB_URL || 'http://molochain-communications-hub:7020';
   const alerts = req.body.alerts || [];
   
@@ -147,18 +147,12 @@ app.post('/api/webhooks/alerts', async (req, res) => {
   }
   
   res.json({ success: true, processed, total: alerts.length });
-});
+}
 
-// Critical and warning alert variants - redirect to main handler
-app.post('/api/webhooks/alerts/critical', (req, res, next) => {
-  req.url = '/api/webhooks/alerts';
-  next();
-});
-
-app.post('/api/webhooks/alerts/warning', (req, res, next) => {
-  req.url = '/api/webhooks/alerts';
-  next();
-});
+// Alertmanager webhook receiver - transforms alerts to Communications Hub format
+app.post('/api/webhooks/alerts', handleAlertWebhook);
+app.post('/api/webhooks/alerts/critical', handleAlertWebhook);
+app.post('/api/webhooks/alerts/warning', handleAlertWebhook);
 
 app.get('/api/metrics', (req, res) => {
   const stats = orchestrator.getWorkflowStats();
