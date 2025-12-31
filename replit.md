@@ -38,7 +38,13 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **INTERNAL_API_KEY**: Environment variable required by all sidecars. Injected by nginx via envsubst.
 - **Audit Log Table**: `admin_audit_logs` with indexes on timestamp, action, category
 - **Notification Preferences Table**: `admin_notification_preferences` with per-user alert settings
-- **Backup Location**: `/var/backups/postgres` (Docker volume: postgres_backups) It integrates a React frontend, an Express backend, AI capabilities, real-time WebSocket services, and PostgreSQL. The project supports supply chain management, real-time collaboration, performance monitoring, and secure user interactions, serving as a central hub for various Molochain services with a vision for extensive business management and market potential.
+- **Backup Location**: `/var/backups/postgres` (Docker volume: postgres_backups)
+
+### Monitoring Schedules:
+- **Container Auto-Recovery**: 30-second interval (fast detection via container-monitor)
+- **Container Alert Notifications**: Every 5 minutes (user alerts via notification-service)
+- **SSL Certificate Checks**: Every 6 hours (via notification-service)
+- **Database Backups**: Daily at 2:00 AM UTC (via database-admin) It integrates a React frontend, an Express backend, AI capabilities, real-time WebSocket services, and PostgreSQL. The project supports supply chain management, real-time collaboration, performance monitoring, and secure user interactions, serving as a central hub for various Molochain services with a vision for extensive business management and market potential.
 
 ## User Preferences
 - Prefers clean, minimal solutions
