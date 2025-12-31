@@ -46,6 +46,18 @@ app.post('/api/workflows/:workflowId/trigger', async (req, res) => {
   }
 });
 
+// Alias route for API consistency (documented as POST /api/trigger/:workflowId)
+app.post('/api/trigger/:workflowId', async (req, res) => {
+  try {
+    const { workflowId } = req.params;
+    const result = await orchestrator.triggerWorkflow(workflowId, req.body);
+    res.json({ success: true, result });
+  } catch (error: any) {
+    logger.error('Failed to trigger workflow', { workflowId: req.params.workflowId, error: error.message });
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 app.get('/api/workflows/:workflowId/status', async (req, res) => {
   try {
     const { workflowId } = req.params;

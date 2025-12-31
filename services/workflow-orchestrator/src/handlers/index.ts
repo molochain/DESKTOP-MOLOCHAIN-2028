@@ -117,7 +117,7 @@ export function registerDefaultHandlers(orchestrator: WorkflowOrchestrator, logg
 
   orchestrator.registerHandler('notifyHandler', async (input) => {
     logger.info('Notify: Sending notification via Communications Hub');
-    const commsUrl = process.env.COMMS_HUB_URL || 'http://communications-hub:7020';
+    const commsUrl = process.env.COMMS_HUB_URL || 'http://molochain-communications-hub:7020';
     
     try {
       const { channel = 'email', recipient, subject = 'Workflow Notification', body, priority = 5 } = input || {};
@@ -379,7 +379,7 @@ export function registerDefaultHandlers(orchestrator: WorkflowOrchestrator, logg
 
   orchestrator.registerHandler('alertHandler', async (input) => {
     logger.info('Alert: Processing workflow alerts');
-    const commsUrl = process.env.COMMS_HUB_URL || 'http://communications-hub:7020';
+    const commsUrl = process.env.COMMS_HUB_URL || 'http://molochain-communications-hub:7020';
     
     const { alerts = [], severity = 'info' } = input || {};
     
@@ -571,7 +571,7 @@ export function registerDefaultHandlers(orchestrator: WorkflowOrchestrator, logg
 
   orchestrator.registerHandler('welcomeEmailHandler', async (input) => {
     logger.info('Onboarding: Sending welcome email');
-    const commsUrl = process.env.COMMS_HUB_URL || 'http://communications-hub:7020';
+    const commsUrl = process.env.COMMS_HUB_URL || 'http://molochain-communications-hub:7020';
     const { userId, email } = input || {};
     if (!email) {
       return { success: true, skipped: true, reason: 'No email provided', timestamp: new Date().toISOString() };
