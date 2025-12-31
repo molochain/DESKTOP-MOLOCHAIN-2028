@@ -19,6 +19,7 @@ import {
   Terminal,
   ShieldCheck,
   HardDrive,
+  ClipboardList,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -40,6 +41,7 @@ const menuItems = [
   { path: '/logs', icon: Terminal, label: 'Logs' },
   { path: '/security', icon: ShieldCheck, label: 'Security' },
   { path: '/database', icon: HardDrive, label: 'Database' },
+  { path: '/audit-logs', icon: ClipboardList, label: 'Audit Logs' },
   { path: '/api-docs', icon: FileCode, label: 'API Docs' },
   { path: '/mololink', icon: Link2, label: 'Mololink' },
   { path: '/communications', icon: MessageSquare, label: 'Communications' },

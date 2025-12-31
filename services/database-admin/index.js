@@ -4,12 +4,14 @@ const { Pool } = require('pg');
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const cron = require('node-cron');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const BACKUP_DIR = '/var/backups/postgres';
+const BACKUP_RETENTION_DAYS = parseInt(process.env.BACKUP_RETENTION_DAYS) || 7;
 const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY;
 
 if (!INTERNAL_API_KEY) {
@@ -36,6 +38,48 @@ const pool = new Pool({
   max: 5,
   idleTimeoutMillis: 30000,
 });
+
+async function initAuditTable() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS admin_audit_logs (
+        id SERIAL PRIMARY KEY,
+        timestamp TIMESTAMPTZ DEFAULT NOW(),
+        action VARCHAR(100) NOT NULL,
+        category VARCHAR(50) NOT NULL,
+        user_id VARCHAR(100),
+        user_email VARCHAR(255),
+        ip_address VARCHAR(45),
+        details JSONB,
+        severity VARCHAR(20) DEFAULT 'info',
+        success BOOLEAN DEFAULT true
+      )
+    `);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_audit_timestamp ON admin_audit_logs(timestamp DESC)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_audit_action ON admin_audit_logs(action)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_audit_category ON admin_audit_logs(category)`);
+    console.log('Audit logs table initialized');
+  } catch (err) {
+    console.error('Failed to initialize audit table:', err.message);
+  }
+}
+
+async function logAudit(action, category, details = {}, req = null, success = true, severity = 'info') {
+  try {
+    const userId = req?.headers['x-user-id'] || null;
+    const userEmail = req?.headers['x-user-email'] || null;
+    const ipAddress = req?.headers['x-real-ip'] || req?.headers['x-forwarded-for'] || req?.ip || null;
+    
+    await pool.query(`
+      INSERT INTO admin_audit_logs (action, category, user_id, user_email, ip_address, details, severity, success)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    `, [action, category, userId, userEmail, ipAddress, JSON.stringify(details), severity, success]);
+  } catch (err) {
+    console.error('Failed to log audit event:', err.message);
+  }
+}
+
+initAuditTable();
 
 app.get('/health', (req, res) => {
   res.json({ status: 'healthy', service: 'database-admin', timestamp: new Date().toISOString() });
@@ -99,8 +143,8 @@ app.get('/api/database/tables/:name', authenticateInternal, async (req, res) => 
 });
 
 app.post('/api/database/query', authenticateInternal, async (req, res) => {
+  const { query } = req.body;
   try {
-    const { query } = req.body;
     if (!query) {
       return res.status(400).json({ error: 'Query is required' });
     }
@@ -121,6 +165,8 @@ app.post('/api/database/query', authenticateInternal, async (req, res) => {
     const result = await pool.query(query);
     const duration = Date.now() - startTime;
 
+    await logAudit('sql_query', 'database', { query: query.substring(0, 500), rowCount: result.rowCount, duration }, req, true, 'info');
+
     res.json({
       columns: result.fields.map(f => f.name),
       rows: result.rows,
@@ -128,6 +174,7 @@ app.post('/api/database/query', authenticateInternal, async (req, res) => {
       duration,
     });
   } catch (err) {
+    await logAudit('sql_query', 'database', { query: (query || '').substring(0, 500), error: err.message }, req, false, 'warning');
     res.status(400).json({ error: err.message });
   }
 });
@@ -195,16 +242,18 @@ app.post('/api/database/backup', authenticateInternal, async (req, res) => {
     execSync(`pg_dump | gzip > "${filepath}"`, { env, shell: '/bin/sh' });
 
     const stat = fs.statSync(filepath);
-    res.json({
-      success: true,
-      backup: {
-        name: filename,
-        size: stat.size,
-        sizeFormatted: formatBytes(stat.size),
-        created: stat.mtime.toISOString(),
-      },
-    });
+    const backup = {
+      name: filename,
+      size: stat.size,
+      sizeFormatted: formatBytes(stat.size),
+      created: stat.mtime.toISOString(),
+    };
+    
+    await logAudit('database_backup', 'database', { filename, size: backup.sizeFormatted }, req, true, 'info');
+    
+    res.json({ success: true, backup });
   } catch (err) {
+    await logAudit('database_backup', 'database', { error: err.message }, req, false, 'error');
     res.status(500).json({ error: `Backup failed: ${err.message}` });
   }
 });
@@ -241,8 +290,11 @@ app.post('/api/database/restore', authenticateInternal, async (req, res) => {
 
     execSync(restoreCmd, { env, shell: '/bin/sh' });
 
+    await logAudit('database_restore', 'database', { filename: safeFilename }, req, true, 'warning');
+    
     res.json({ success: true, message: `Database restored from ${safeFilename}` });
   } catch (err) {
+    await logAudit('database_restore', 'database', { filename: safeFilename, error: err.message }, req, false, 'error');
     res.status(500).json({ error: `Restore failed: ${err.message}` });
   }
 });
@@ -254,6 +306,227 @@ function formatBytes(bytes) {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
+
+app.get('/api/audit/logs', authenticateInternal, async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = Math.min(parseInt(req.query.limit) || 50, 200);
+    const offset = (page - 1) * limit;
+    const category = req.query.category;
+    const action = req.query.action;
+    const severity = req.query.severity;
+    const startDate = req.query.startDate;
+    const endDate = req.query.endDate;
+    const search = req.query.search;
+
+    let whereClause = 'WHERE 1=1';
+    const params = [];
+    let paramIndex = 1;
+
+    if (category) {
+      whereClause += ` AND category = $${paramIndex++}`;
+      params.push(category);
+    }
+    if (action) {
+      whereClause += ` AND action ILIKE $${paramIndex++}`;
+      params.push(`%${action}%`);
+    }
+    if (severity) {
+      whereClause += ` AND severity = $${paramIndex++}`;
+      params.push(severity);
+    }
+    if (startDate) {
+      whereClause += ` AND timestamp >= $${paramIndex++}`;
+      params.push(startDate);
+    }
+    if (endDate) {
+      whereClause += ` AND timestamp <= $${paramIndex++}`;
+      params.push(endDate);
+    }
+    if (search) {
+      whereClause += ` AND (action ILIKE $${paramIndex} OR user_email ILIKE $${paramIndex} OR details::text ILIKE $${paramIndex})`;
+      params.push(`%${search}%`);
+      paramIndex++;
+    }
+
+    const countResult = await pool.query(`SELECT count(*) as total FROM admin_audit_logs ${whereClause}`, params);
+    const total = parseInt(countResult.rows[0]?.total || 0);
+
+    const logsResult = await pool.query(
+      `SELECT * FROM admin_audit_logs ${whereClause} ORDER BY timestamp DESC LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`,
+      [...params, limit, offset]
+    );
+
+    res.json({
+      logs: logsResult.rows,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/audit/stats', authenticateInternal, async (req, res) => {
+  try {
+    const totalResult = await pool.query(`SELECT count(*) as total FROM admin_audit_logs`);
+    const todayResult = await pool.query(`SELECT count(*) as today FROM admin_audit_logs WHERE timestamp >= CURRENT_DATE`);
+    const failedResult = await pool.query(`SELECT count(*) as failed FROM admin_audit_logs WHERE success = false`);
+    const categoriesResult = await pool.query(`
+      SELECT category, count(*) as count 
+      FROM admin_audit_logs 
+      GROUP BY category 
+      ORDER BY count DESC 
+      LIMIT 10
+    `);
+    const recentResult = await pool.query(`
+      SELECT action, category, timestamp, user_email, success 
+      FROM admin_audit_logs 
+      ORDER BY timestamp DESC 
+      LIMIT 5
+    `);
+
+    res.json({
+      total: parseInt(totalResult.rows[0]?.total || 0),
+      today: parseInt(todayResult.rows[0]?.today || 0),
+      failed: parseInt(failedResult.rows[0]?.failed || 0),
+      byCategory: categoriesResult.rows,
+      recent: recentResult.rows,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/audit/log', authenticateInternal, async (req, res) => {
+  try {
+    const { action, category, details, severity, success } = req.body;
+    if (!action || !category) {
+      return res.status(400).json({ error: 'Action and category are required' });
+    }
+    await logAudit(action, category, details || {}, req, success !== false, severity || 'info');
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+async function performAutomatedBackup() {
+  console.log('[AUTO-BACKUP] Starting scheduled backup...');
+  try {
+    if (!fs.existsSync(BACKUP_DIR)) {
+      fs.mkdirSync(BACKUP_DIR, { recursive: true });
+    }
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const filename = `molochain_auto_${timestamp}.sql.gz`;
+    const filepath = path.join(BACKUP_DIR, filename);
+
+    const env = {
+      ...process.env,
+      PGHOST: process.env.PGHOST || 'molochain-db',
+      PGPORT: process.env.PGPORT || '5432',
+      PGDATABASE: process.env.PGDATABASE || 'molochain',
+      PGUSER: process.env.PGUSER || 'molochain',
+      PGPASSWORD: process.env.PGPASSWORD,
+    };
+
+    execSync(`pg_dump | gzip > "${filepath}"`, { env, shell: '/bin/sh' });
+
+    const stat = fs.statSync(filepath);
+    console.log(`[AUTO-BACKUP] Backup created: ${filename} (${formatBytes(stat.size)})`);
+    
+    await logAudit('automated_backup', 'database', { 
+      filename, 
+      size: formatBytes(stat.size),
+      type: 'scheduled'
+    }, null, true, 'info');
+    
+    await cleanupOldBackups();
+    return { success: true, filename };
+  } catch (err) {
+    console.error('[AUTO-BACKUP] Backup failed:', err.message);
+    await logAudit('automated_backup', 'database', { error: err.message }, null, false, 'error');
+    return { success: false, error: err.message };
+  }
+}
+
+async function cleanupOldBackups() {
+  console.log(`[AUTO-BACKUP] Cleaning up backups older than ${BACKUP_RETENTION_DAYS} days...`);
+  try {
+    if (!fs.existsSync(BACKUP_DIR)) return;
+    
+    const files = fs.readdirSync(BACKUP_DIR)
+      .filter(f => f.startsWith('molochain_') && (f.endsWith('.sql') || f.endsWith('.sql.gz')));
+    
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - BACKUP_RETENTION_DAYS);
+    
+    let deletedCount = 0;
+    for (const file of files) {
+      const filepath = path.join(BACKUP_DIR, file);
+      const stat = fs.statSync(filepath);
+      if (stat.mtime < cutoffDate) {
+        fs.unlinkSync(filepath);
+        deletedCount++;
+        console.log(`[AUTO-BACKUP] Deleted old backup: ${file}`);
+      }
+    }
+    
+    if (deletedCount > 0) {
+      await logAudit('backup_cleanup', 'database', { 
+        deletedCount, 
+        retentionDays: BACKUP_RETENTION_DAYS 
+      }, null, true, 'info');
+    }
+    console.log(`[AUTO-BACKUP] Cleanup complete. Removed ${deletedCount} old backup(s).`);
+  } catch (err) {
+    console.error('[AUTO-BACKUP] Cleanup failed:', err.message);
+  }
+}
+
+app.get('/api/database/backup/schedule', authenticateInternal, async (req, res) => {
+  res.json({
+    enabled: true,
+    schedule: '0 2 * * *',
+    scheduleDescription: 'Daily at 2:00 AM',
+    retentionDays: BACKUP_RETENTION_DAYS,
+    nextRun: getNextCronRun('0 2 * * *'),
+  });
+});
+
+app.post('/api/database/backup/trigger', authenticateInternal, async (req, res) => {
+  const result = await performAutomatedBackup();
+  if (result.success) {
+    res.json({ success: true, message: 'Backup completed', filename: result.filename });
+  } else {
+    res.status(500).json({ success: false, error: result.error });
+  }
+});
+
+function getNextCronRun(cronExpression) {
+  const now = new Date();
+  const [minute, hour] = cronExpression.split(' ');
+  const nextRun = new Date();
+  nextRun.setHours(parseInt(hour), parseInt(minute), 0, 0);
+  if (nextRun <= now) {
+    nextRun.setDate(nextRun.getDate() + 1);
+  }
+  return nextRun.toISOString();
+}
+
+cron.schedule('0 2 * * *', async () => {
+  console.log('[CRON] Triggering scheduled database backup');
+  await performAutomatedBackup();
+}, {
+  scheduled: true,
+  timezone: 'UTC'
+});
+
+console.log(`[AUTO-BACKUP] Scheduler initialized: Daily at 2:00 AM UTC, retention: ${BACKUP_RETENTION_DAYS} days`);
 
 const PORT = process.env.PORT || 7003;
 app.listen(PORT, '0.0.0.0', () => {

@@ -3,10 +3,10 @@
 ## Overview
 Rest Express is a comprehensive Node.js/TypeScript full-stack application within Molochain's ecosystem, designed for business management.
 
-## Admin System (Grade A+ Upgrade - COMPLETE)
+## Admin System (Grade A+ Upgrade - Phase 2 Complete)
 **URL:** https://admin.molochain.com (port 7001)
 
-### Completed Features:
+### Phase 1 Features (Complete):
 1. **Real-Time Dashboard** - CPU/Memory/Disk/Network metrics via Prometheus, embedded Grafana charts
 2. **Container Management** - 66 containers with bulk restart/stop, status filtering, health monitoring
 3. **User Management** - Admin CRUD with role-based access (super_admin, admin, viewer)
@@ -17,12 +17,28 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 8. **Database Admin** - PostgreSQL management via sidecar (port 7003): table browsing, read-only SQL, backup/restore
 9. **API Documentation** - OpenAPI 3.0 spec at /openapi.json, Swagger UI integration
 
+### Phase 2 Features (NEW - Complete):
+1. **Security Hardening** - Internal API key authentication for all sidecar services (SSL checker, DB admin, container monitor, notification service). Nginx injects API key via envsubst.
+2. **Audit Logging System** - Complete admin action tracking with admin_audit_logs table. Tracks: action, category, user, IP, severity, success status. Searchable UI at /audit-logs.
+3. **Automated Database Backups** - node-cron scheduler for daily PostgreSQL backups at 2:00 AM UTC with configurable retention (default 7 days). Manual trigger available.
+4. **Container Auto-Recovery** - Health monitoring service that auto-restarts unhealthy/stopped containers. Configurable max restart attempts and cooldown periods.
+5. **Real-Time WebSocket Notifications** - Socket.IO-based notification service for instant alerts. Broadcasts container failures, SSL warnings, backup status.
+6. **Notification Preferences** - Per-user configurable alerts (container, SSL, backup, security). Adjustable thresholds for CPU/memory/disk warnings.
+
 ### Architecture:
 - **Frontend:** React 18 + Vite + Tailwind + shadcn/ui (molochain-admin-frontend container)
 - **Backend:** Pre-built Docker image at port 7000 (molochain-admin-backend)
 - **Database Sidecar:** Node.js service at port 7003 (molochain-db-admin) for PostgreSQL admin
 - **SSL Sidecar:** Node.js TLS checker at port 7002 (ssl-checker)
-- **Networks:** molochain-core + rayanava-network (for Prometheus/Grafana access) It integrates a React frontend, an Express backend, AI capabilities, real-time WebSocket services, and PostgreSQL. The project supports supply chain management, real-time collaboration, performance monitoring, and secure user interactions, serving as a central hub for various Molochain services with a vision for extensive business management and market potential.
+- **Container Monitor:** Node.js health checker at port 7004 (container-monitor) - auto-recovery
+- **Notification Service:** Node.js + Socket.IO at port 7005 (notification-service) - real-time alerts
+- **Networks:** molochain-core + rayanava-network (for Prometheus/Grafana access)
+
+### Phase 2 Service Details:
+- **INTERNAL_API_KEY**: Environment variable required by all sidecars. Injected by nginx via envsubst.
+- **Audit Log Table**: `admin_audit_logs` with indexes on timestamp, action, category
+- **Notification Preferences Table**: `admin_notification_preferences` with per-user alert settings
+- **Backup Location**: `/var/backups/postgres` (Docker volume: postgres_backups) It integrates a React frontend, an Express backend, AI capabilities, real-time WebSocket services, and PostgreSQL. The project supports supply chain management, real-time collaboration, performance monitoring, and secure user interactions, serving as a central hub for various Molochain services with a vision for extensive business management and market potential.
 
 ## User Preferences
 - Prefers clean, minimal solutions
