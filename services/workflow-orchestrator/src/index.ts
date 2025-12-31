@@ -19,6 +19,13 @@ const eventBus = new EventBus({
 const registry = new WorkflowRegistry(logger);
 const orchestrator = new WorkflowOrchestrator(eventBus, registry, logger);
 
+const alertMetrics = {
+  received: 0,
+  forwarded: 0,
+  failed: 0,
+  bySeverity: { critical: 0, warning: 0, info: 0 } as Record<string, number>
+};
+
 app.get('/health', (req, res) => {
   res.json({
     status: 'healthy',
@@ -109,6 +116,7 @@ async function handleAlertWebhook(req: express.Request, res: express.Response) {
   const commsUrl = process.env.COMMS_HUB_URL || 'http://molochain-communications-hub:7020';
   const alerts = req.body.alerts || [];
   
+  alertMetrics.received += alerts.length;
   logger.info('Received Alertmanager webhook', { alertCount: alerts.length });
   
   let processed = 0;
@@ -118,6 +126,8 @@ async function handleAlertWebhook(req: express.Request, res: express.Response) {
       const alertName = alert.labels?.alertname || 'Unknown Alert';
       const workflow = alert.labels?.workflow || alert.labels?.service || 'system';
       const status = alert.status || 'firing';
+      
+      alertMetrics.bySeverity[severity] = (alertMetrics.bySeverity[severity] || 0) + 1;
       
       const subject = `[${severity.toUpperCase()}] ${status === 'resolved' ? 'RESOLVED: ' : ''}${alertName}`;
       const body = `${alert.annotations?.summary || alertName}\n\n${alert.annotations?.description || ''}\n\nWorkflow: ${workflow}\nSeverity: ${severity}\nStatus: ${status}`;
@@ -139,9 +149,13 @@ async function handleAlertWebhook(req: express.Request, res: express.Response) {
       
       if (response.ok) {
         processed++;
+        alertMetrics.forwarded++;
         logger.info('Alert forwarded to Communications Hub', { alertName, severity, status });
+      } else {
+        alertMetrics.failed++;
       }
     } catch (error: any) {
+      alertMetrics.failed++;
       logger.warn('Failed to forward alert', { alertName: alert.labels?.alertname, error: error.message });
     }
   }
@@ -180,6 +194,24 @@ app.get('/api/metrics', (req, res) => {
   metrics += '\n# HELP workflows_registered_total Total number of registered workflows\n';
   metrics += '# TYPE workflows_registered_total gauge\n';
   metrics += `workflows_registered_total ${workflows.length}\n`;
+  
+  metrics += '\n# HELP alerts_received_total Total alerts received from Alertmanager\n';
+  metrics += '# TYPE alerts_received_total counter\n';
+  metrics += `alerts_received_total ${alertMetrics.received}\n`;
+  
+  metrics += '\n# HELP alerts_forwarded_total Total alerts successfully forwarded to Communications Hub\n';
+  metrics += '# TYPE alerts_forwarded_total counter\n';
+  metrics += `alerts_forwarded_total ${alertMetrics.forwarded}\n`;
+  
+  metrics += '\n# HELP alerts_failed_total Total alerts that failed to forward\n';
+  metrics += '# TYPE alerts_failed_total counter\n';
+  metrics += `alerts_failed_total ${alertMetrics.failed}\n`;
+  
+  metrics += '\n# HELP alerts_by_severity_total Alerts received by severity level\n';
+  metrics += '# TYPE alerts_by_severity_total counter\n';
+  for (const [severity, count] of Object.entries(alertMetrics.bySeverity)) {
+    metrics += `alerts_by_severity_total{severity="${severity}"} ${count}\n`;
+  }
   
   res.set('Content-Type', 'text/plain');
   res.send(metrics);
