@@ -116,12 +116,12 @@ The following containerized services are LIVE on production server (31.186.24.19
   - **Last Updated:** December 31, 2025
 
 ### Infrastructure Summary (December 31, 2025)
-- **Total Containers:** 54 running
-- **Healthy Containers:** 41 marked healthy
-- **Key Services:** CMS (5), PostgreSQL (3), Workers (3), API Gateway (2), plus 41 other microservices
-- **Networks:** cms-network, molochain-network, postgres-network, workers-network
+- **Total Containers:** 56 running
+- **Healthy Containers:** 43 marked healthy
+- **Key Services:** CMS (5), PostgreSQL (3), Workers (3), Workflow Orchestrator (2), API Gateway (2), plus 41 other microservices
+- **Networks:** cms-network, molochain-network, postgres-network, workers-network, workflow-network
 - **Server Uptime:** 46+ days
-- **Disk Usage:** 70% (47GB free)
+- **Disk Usage:** 66% (51GB free)
 - **Memory:** 4GB used, 3.5GB available
 
 ### Deployment & Sync Tools (scripts/)
