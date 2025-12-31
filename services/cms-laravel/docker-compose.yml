@@ -60,7 +60,7 @@ services:
     depends_on:
       - cms-app
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost/ping"]
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
       interval: 30s
       timeout: 5s
       retries: 3
