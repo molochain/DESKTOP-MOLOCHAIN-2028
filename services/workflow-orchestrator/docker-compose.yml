@@ -9,7 +9,7 @@ services:
     container_name: molochain-workflow-orchestrator
     restart: unless-stopped
     ports:
-      - "127.0.0.1:5003:5003"
+      - "127.0.0.1:5013:5003"
     environment:
       - NODE_ENV=production
       - PORT=5003

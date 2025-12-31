@@ -63,9 +63,9 @@ The following containerized services are LIVE on production server (31.186.24.19
   - **Last Updated:** December 31, 2025
 
 - **Workflow Orchestrator** (`services/workflow-orchestrator/`):
-  - **Status:** 🔧 READY FOR DEPLOYMENT
+  - **Status:** ✅ DEPLOYED - Both containers healthy
   - **Services:** workflow-orchestrator (Node.js), workflow-redis (Redis 7)
-  - **Port:** 5003 (localhost)
+  - **Port:** 5013 (localhost), internal 5003
   - **Features:** Unified workflow management with 10 registered workflows:
     - `cms-sync` (*/5 * * * *): CMS content synchronization
     - `database-backup` (0 2 * * *): Daily PostgreSQL backup

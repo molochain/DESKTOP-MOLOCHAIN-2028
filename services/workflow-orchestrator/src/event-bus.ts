@@ -1,4 +1,4 @@
-import Redis from 'ioredis';
+import { Redis } from 'ioredis';
 import { Logger } from 'winston';
 
 interface EventBusConfig {
@@ -29,7 +29,7 @@ export class EventBus {
       this.redis = new Redis(this.config.redisUrl);
       this.subscriber = new Redis(this.config.redisUrl);
 
-      this.subscriber.on('message', async (channel, message) => {
+      this.subscriber.on('message', async (channel: string, message: string) => {
         try {
           const event = JSON.parse(message) as WorkflowEvent;
           const handlers = this.handlers.get(channel) || [];
@@ -91,6 +91,6 @@ export class EventBus {
   async getRecentEvents(limit: number = 50): Promise<WorkflowEvent[]> {
     if (!this.redis) return [];
     const events = await this.redis.lrange('workflow:events:recent', 0, limit - 1);
-    return events.map(e => JSON.parse(e));
+    return events.map((e: string) => JSON.parse(e));
   }
 }
