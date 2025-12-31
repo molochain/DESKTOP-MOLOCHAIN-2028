@@ -16,6 +16,7 @@ import {
   Boxes,
   Users,
   Bell,
+  Terminal,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -34,6 +35,7 @@ const menuItems = [
   { path: '/rayanava', icon: Brain, label: 'Rayanava AI' },
   { path: '/infrastructure', icon: Database, label: 'Infrastructure' },
   { path: '/metrics', icon: LineChart, label: 'Metrics' },
+  { path: '/logs', icon: Terminal, label: 'Logs' },
   { path: '/mololink', icon: Link2, label: 'Mololink' },
   { path: '/communications', icon: MessageSquare, label: 'Communications' },
   { path: '/workflows', icon: Workflow, label: 'Workflows' },
