@@ -104,6 +104,62 @@ app.get('/api/history', (req, res) => {
   });
 });
 
+// Alertmanager webhook receiver - transforms alerts to Communications Hub format
+app.post('/api/webhooks/alerts', async (req, res) => {
+  const commsUrl = process.env.COMMS_HUB_URL || 'http://molochain-communications-hub:7020';
+  const alerts = req.body.alerts || [];
+  
+  logger.info('Received Alertmanager webhook', { alertCount: alerts.length });
+  
+  let processed = 0;
+  for (const alert of alerts) {
+    try {
+      const severity = alert.labels?.severity || 'info';
+      const alertName = alert.labels?.alertname || 'Unknown Alert';
+      const workflow = alert.labels?.workflow || alert.labels?.service || 'system';
+      const status = alert.status || 'firing';
+      
+      const subject = `[${severity.toUpperCase()}] ${status === 'resolved' ? 'RESOLVED: ' : ''}${alertName}`;
+      const body = `${alert.annotations?.summary || alertName}\n\n${alert.annotations?.description || ''}\n\nWorkflow: ${workflow}\nSeverity: ${severity}\nStatus: ${status}`;
+      
+      const payload = {
+        channel: 'email',
+        recipient: process.env.ALERT_EMAIL || 'admin@molochain.com',
+        subject,
+        body,
+        priority: severity === 'critical' ? 10 : severity === 'warning' ? 7 : 5,
+        metadata: { source: 'alertmanager', alertname: alertName, workflow }
+      };
+      
+      const response = await fetch(`${commsUrl}/api/messages/send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      
+      if (response.ok) {
+        processed++;
+        logger.info('Alert forwarded to Communications Hub', { alertName, severity, status });
+      }
+    } catch (error: any) {
+      logger.warn('Failed to forward alert', { alertName: alert.labels?.alertname, error: error.message });
+    }
+  }
+  
+  res.json({ success: true, processed, total: alerts.length });
+});
+
+// Critical and warning alert variants - redirect to main handler
+app.post('/api/webhooks/alerts/critical', (req, res, next) => {
+  req.url = '/api/webhooks/alerts';
+  next();
+});
+
+app.post('/api/webhooks/alerts/warning', (req, res, next) => {
+  req.url = '/api/webhooks/alerts';
+  next();
+});
+
 app.get('/api/metrics', (req, res) => {
   const stats = orchestrator.getWorkflowStats();
   const workflows = registry.getRegisteredWorkflows();
