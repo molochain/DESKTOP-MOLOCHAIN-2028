@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 LOG_FILE="/var/log/health-monitor/health.log"
 CHECK_INTERVAL="${CHECK_INTERVAL:-60}"
