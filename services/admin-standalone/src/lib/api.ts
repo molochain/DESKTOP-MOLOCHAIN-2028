@@ -54,3 +54,18 @@ export async function getHealth() {
   const response = await api.get('/api/health');
   return response.data;
 }
+
+export async function getPrometheusMetrics() {
+  const response = await api.get('/api/admin/microservices/prometheus/metrics');
+  return response.data;
+}
+
+export async function getMetricHistory(metric: string, range: string = '1h') {
+  const response = await api.get(`/api/admin/microservices/prometheus/query?metric=${metric}&range=${range}`);
+  return response.data;
+}
+
+export async function getAvailableMetrics() {
+  const response = await api.get('/api/admin/microservices/prometheus/available-metrics');
+  return response.data;
+}

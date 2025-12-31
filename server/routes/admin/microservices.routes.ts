@@ -540,4 +540,159 @@ router.get("/:serviceId/logs", requirePermission(PERMISSIONS.INFRASTRUCTURE_VIEW
   }
 });
 
+router.get("/prometheus/metrics", requirePermission(PERMISSIONS.INFRASTRUCTURE_VIEW), async (_req, res) => {
+  try {
+    const queries = [
+      { name: 'cpu_usage', query: '100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)' },
+      { name: 'memory_usage', query: '(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100' },
+      { name: 'disk_usage', query: '(1 - (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"})) * 100' },
+      { name: 'gateway_connections', query: 'gateway_active_connections' },
+      { name: 'workflow_runs', query: 'sum(workflow_runs_total)' },
+      { name: 'http_request_rate', query: 'sum(rate(gateway_http_request_duration_seconds_count[5m]))' },
+      { name: 'alerts_total', query: 'sum(alerts_by_severity_total)' },
+    ];
+
+    const results: Record<string, number | null> = {};
+
+    for (const { name, query } of queries) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        const response = await fetch(
+          `${PROMETHEUS_URL}/api/v1/query?query=${encodeURIComponent(query)}`,
+          { signal: controller.signal }
+        );
+        clearTimeout(timeoutId);
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.status === 'success' && data.data?.result?.[0]?.value) {
+            results[name] = parseFloat(data.data.result[0].value[1]);
+          } else {
+            results[name] = null;
+          }
+        } else {
+          results[name] = null;
+        }
+      } catch (error) {
+        logger.debug(`Failed to fetch metric ${name}:`, error);
+        results[name] = null;
+      }
+    }
+
+    res.json({
+      metrics: results,
+      prometheusUrl: PROMETHEUS_URL,
+      grafanaUrl: GRAFANA_URL,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    logger.error("Error fetching Prometheus metrics:", error);
+    res.status(500).json({ error: "Failed to fetch Prometheus metrics" });
+  }
+});
+
+router.get("/prometheus/query", requirePermission(PERMISSIONS.INFRASTRUCTURE_VIEW), async (req, res) => {
+  try {
+    const { metric, range = '1h', step = '60' } = req.query;
+    
+    if (!metric) {
+      return res.status(400).json({ error: "Metric query parameter is required" });
+    }
+
+    const rangeMap: Record<string, number> = {
+      '1h': 3600,
+      '6h': 21600,
+      '24h': 86400,
+      '7d': 604800,
+    };
+
+    const rangeSeconds = rangeMap[range as string] || 3600;
+    const end = Math.floor(Date.now() / 1000);
+    const start = end - rangeSeconds;
+
+    const metricQueries: Record<string, string> = {
+      'cpu': '100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)',
+      'memory': '(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100',
+      'disk': '(1 - (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"})) * 100',
+      'network_in': 'rate(node_network_receive_bytes_total{device!="lo"}[5m])',
+      'network_out': 'rate(node_network_transmit_bytes_total{device!="lo"}[5m])',
+      'gateway_connections': 'gateway_active_connections',
+      'http_requests': 'sum(rate(gateway_http_request_duration_seconds_count[5m]))',
+      'workflow_runs': 'sum(increase(workflow_runs_total[5m]))',
+      'container_cpu': 'sum by(name) (rate(container_cpu_usage_seconds_total[5m])) * 100',
+      'container_memory': 'sum by(name) (container_memory_usage_bytes) / 1024 / 1024',
+    };
+
+    const query = metricQueries[metric as string] || metric;
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    
+    const response = await fetch(
+      `${PROMETHEUS_URL}/api/v1/query_range?query=${encodeURIComponent(query as string)}&start=${start}&end=${end}&step=${step}`,
+      { signal: controller.signal }
+    );
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      logger.error(`Prometheus query failed: ${response.status}`);
+      return res.status(502).json({ error: "Prometheus query failed" });
+    }
+
+    const data = await response.json();
+    
+    if (data.status !== 'success') {
+      return res.status(502).json({ error: data.error || "Prometheus query failed" });
+    }
+
+    const chartData = data.data.result.map((result: { metric: Record<string, string>; values: [number, string][] }) => ({
+      metric: result.metric,
+      values: result.values.map(([timestamp, value]: [number, string]) => ({
+        timestamp: timestamp * 1000,
+        value: parseFloat(value),
+      })),
+    }));
+
+    res.json({
+      metric: metric,
+      range: range,
+      data: chartData,
+      prometheusUrl: PROMETHEUS_URL,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    logger.error("Error querying Prometheus:", error);
+    res.status(500).json({ error: "Failed to query Prometheus" });
+  }
+});
+
+router.get("/prometheus/available-metrics", requirePermission(PERMISSIONS.INFRASTRUCTURE_VIEW), async (_req, res) => {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    
+    const response = await fetch(
+      `${PROMETHEUS_URL}/api/v1/label/__name__/values`,
+      { signal: controller.signal }
+    );
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      return res.status(502).json({ error: "Failed to fetch available metrics" });
+    }
+
+    const data = await response.json();
+    
+    res.json({
+      metrics: data.data || [],
+      count: (data.data || []).length,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    logger.error("Error fetching available metrics:", error);
+    res.status(500).json({ error: "Failed to fetch available metrics" });
+  }
+});
+
 export default router;

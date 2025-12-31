@@ -10,6 +10,7 @@ import { Communications } from '@/pages/Communications';
 import { Workflows } from '@/pages/Workflows';
 import { CMS } from '@/pages/CMS';
 import { Settings } from '@/pages/Settings';
+import { Metrics } from '@/pages/Metrics';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function App() {
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/communications" element={<Communications />} />
           <Route path="/workflows" element={<Workflows />} />
           <Route path="/cms" element={<CMS />} />
+          <Route path="/metrics" element={<Metrics />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
