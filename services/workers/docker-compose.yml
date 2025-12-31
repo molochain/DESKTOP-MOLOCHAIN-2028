@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  backup-worker:
+    build:
+      context: ./backup
+      dockerfile: Dockerfile
+    image: molochain/backup-worker:latest
+    container_name: molochain-backup-worker
+    restart: unless-stopped
+    environment:
+      - PGHOST=${PGHOST:-molochain-postgres}
+      - PGPORT=${PGPORT:-5432}
+      - PGUSER=${PGUSER:-molochain}
+      - PGPASSWORD=${PGPASSWORD}
+      - BACKUP_RETENTION_DAYS=${BACKUP_RETENTION_DAYS:-30}
+      - BACKUP_SCHEDULE=${BACKUP_SCHEDULE:-0 2 * * *}
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL:-}
+      - ALERT_EMAIL=${ALERT_EMAIL:-}
+    volumes:
+      - backup-data:/backups
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - molochain-network
+      - postgres-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service,environment"
+    labels:
+      - "promtail.collect=true"
+      - "service=backup-worker"
+
+  health-monitor:
+    build:
+      context: ./health-monitor
+      dockerfile: Dockerfile
+    image: molochain/health-monitor:latest
+    container_name: molochain-health-monitor
+    restart: unless-stopped
+    environment:
+      - CHECK_INTERVAL=${CHECK_INTERVAL:-60}
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL:-}
+      - ALERT_EMAIL=${ALERT_EMAIL:-}
+      - PROMETHEUS_PUSHGATEWAY=${PROMETHEUS_PUSHGATEWAY:-http://rayanava-prometheus:9091}
+      - CONTAINERS_TO_MONITOR=${CONTAINERS_TO_MONITOR:-molochain-admin,molochain-app,molochain-api-gateway,auth-service,mololink-app}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - health-logs:/var/log/health-monitor
+    networks:
+      - molochain-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service,environment"
+    labels:
+      - "promtail.collect=true"
+      - "service=health-monitor"
+
+  log-aggregator:
+    image: grafana/promtail:2.9.0
+    container_name: molochain-worker-promtail
+    restart: unless-stopped
+    volumes:
+      - ./scripts/promtail-config.yml:/etc/promtail/config.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - health-logs:/var/log/health-monitor:ro
+      - backup-data:/backups:ro
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - molochain-network
+    depends_on:
+      - backup-worker
+      - health-monitor
+
+volumes:
+  backup-data:
+    driver: local
+  health-logs:
+    driver: local
+
+networks:
+  molochain-network:
+    external: true
+  postgres-network:
+    external: true

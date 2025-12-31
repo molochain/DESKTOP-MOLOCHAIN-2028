@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  molochain-postgres:
+    image: postgres:16-alpine
+    container_name: molochain-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-molochain}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB:-molochaindb}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./config/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+      - ./config/pg_hba.conf:/etc/postgresql/pg_hba.conf:ro
+      - ./scripts/init-databases.sql:/docker-entrypoint-initdb.d/01-init-databases.sql:ro
+      - ./scripts/init-wal-dir.sh:/docker-entrypoint-initdb.d/00-init-wal-dir.sh:ro
+      - postgres-backups:/backups
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    ports:
+      - "127.0.0.1:5433:5432"
+    networks:
+      - molochain-network
+      - postgres-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-molochain} -d ${POSTGRES_DB:-molochaindb}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 512M
+
+  postgres-backup:
+    image: postgres:16-alpine
+    container_name: molochain-postgres-backup
+    restart: unless-stopped
+    environment:
+      - PGHOST=molochain-postgres
+      - PGUSER=${POSTGRES_USER:-molochain}
+      - PGPASSWORD=${POSTGRES_PASSWORD}
+      - BACKUP_RETENTION_DAYS=30
+    volumes:
+      - postgres-backups:/backups
+      - ./scripts/backup.sh:/scripts/backup.sh:ro
+    entrypoint: ["/bin/sh", "-c"]
+    command: 
+      - |
+        echo "Starting backup scheduler..."
+        while true; do
+          current_hour=$(date +%H)
+          if [ "$current_hour" = "02" ]; then
+            echo "[$(date)] Running scheduled backup..."
+            /scripts/backup.sh
+            sleep 3600
+          fi
+          sleep 300
+        done
+    networks:
+      - postgres-network
+    depends_on:
+      molochain-postgres:
+        condition: service_healthy
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: molochain-pgadmin
+    restart: unless-stopped
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL:-admin@molochain.com}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+      - PGADMIN_CONFIG_SERVER_MODE=True
+      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=True
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - "127.0.0.1:5050:80"
+    networks:
+      - postgres-network
+    depends_on:
+      - molochain-postgres
+
+volumes:
+  postgres-data:
+    driver: local
+  postgres-backups:
+    driver: local
+  pgadmin-data:
+    driver: local
+
+networks:
+  molochain-network:
+    external: true
+  postgres-network:
+    driver: bridge

@@ -1,0 +1,152 @@
+version: '3.8'
+
+services:
+  cms-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_ENV: production
+    image: molochain/cms-laravel:latest
+    container_name: molochain-cms-app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=https://cms.molochain.com
+      - APP_KEY=${APP_KEY}
+      - DB_CONNECTION=pgsql
+      - DB_HOST=molochain-postgres
+      - DB_PORT=5432
+      - DB_DATABASE=${CMS_DB_NAME:-cmsdb}
+      - DB_USERNAME=${CMS_DB_USER:-cmsuser}
+      - DB_PASSWORD=${CMS_DB_PASSWORD}
+      - CACHE_DRIVER=redis
+      - SESSION_DRIVER=redis
+      - QUEUE_CONNECTION=redis
+      - REDIS_HOST=cms-redis
+      - REDIS_PORT=6379
+    volumes:
+      - cms-storage:/var/www/html/storage
+      - cms-logs:/var/log/php
+    networks:
+      - cms-network
+      - molochain-network
+    depends_on:
+      cms-redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "php-fpm -t 2>/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  cms-nginx:
+    image: nginx:alpine
+    container_name: molochain-cms-nginx
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8090:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - cms-storage:/var/www/html/storage:ro
+      - cms-nginx-logs:/var/log/nginx
+    networks:
+      - cms-network
+    depends_on:
+      - cms-app
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  cms-queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: molochain/cms-laravel:latest
+    container_name: molochain-cms-queue
+    restart: unless-stopped
+    command: ["/bin/bash", "/var/www/html/scripts/queue-worker.sh"]
+    environment:
+      - APP_ENV=production
+      - DB_CONNECTION=pgsql
+      - DB_HOST=molochain-postgres
+      - DB_PORT=5432
+      - DB_DATABASE=${CMS_DB_NAME:-cmsdb}
+      - DB_USERNAME=${CMS_DB_USER:-cmsuser}
+      - DB_PASSWORD=${CMS_DB_PASSWORD}
+      - REDIS_HOST=cms-redis
+      - REDIS_PORT=6379
+      - QUEUE_CONNECTION=redis
+    volumes:
+      - cms-storage:/var/www/html/storage
+      - ./scripts:/var/www/html/scripts:ro
+    networks:
+      - cms-network
+      - molochain-network
+    depends_on:
+      - cms-app
+      - cms-redis
+
+  cms-scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: molochain/cms-laravel:latest
+    container_name: molochain-cms-scheduler
+    restart: unless-stopped
+    command: ["/bin/bash", "/var/www/html/scripts/scheduler.sh"]
+    environment:
+      - APP_ENV=production
+      - DB_CONNECTION=pgsql
+      - DB_HOST=molochain-postgres
+      - DB_PORT=5432
+      - DB_DATABASE=${CMS_DB_NAME:-cmsdb}
+      - DB_USERNAME=${CMS_DB_USER:-cmsuser}
+      - DB_PASSWORD=${CMS_DB_PASSWORD}
+      - REDIS_HOST=cms-redis
+      - REDIS_PORT=6379
+    volumes:
+      - cms-storage:/var/www/html/storage
+      - ./scripts:/var/www/html/scripts:ro
+    networks:
+      - cms-network
+      - molochain-network
+    depends_on:
+      - cms-app
+      - cms-redis
+
+  cms-redis:
+    image: redis:7-alpine
+    container_name: molochain-cms-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - cms-redis-data:/data
+    networks:
+      - cms-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  cms-storage:
+    driver: local
+  cms-logs:
+    driver: local
+  cms-nginx-logs:
+    driver: local
+  cms-redis-data:
+    driver: local
+
+networks:
+  cms-network:
+    driver: bridge
+  molochain-network:
+    external: true

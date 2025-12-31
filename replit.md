@@ -35,6 +35,31 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Communications Hub Microservice:** Unified multi-channel communications (Email, SMS, WhatsApp, Push) with Plesk integration, Docker containerized with Redis for message queuing, and PostgreSQL persistence. Includes API endpoints for sending messages, channel status, template management, and user preferences.
 - **External API Key System:** Enables third-party integrations with API key authentication, configurable rate limiting, IP whitelisting, scope-based permissions, key expiration, and usage logging.
 
+### Containerization Roadmap (NEW)
+The following services have Docker configurations ready for migration from host to containers:
+
+- **Laravel CMS Containerization** (`services/cms-laravel/`):
+  - **Status:** Ready for deployment
+  - **Services:** cms-app (PHP 8.4-FPM), cms-nginx, cms-queue, cms-scheduler, cms-redis
+  - **Features:** Zero-downtime deployments, horizontal scaling, unified logging
+  - **Port:** 8090 (localhost)
+  - **Migration:** From Plesk PHP-FPM to Docker containers
+
+- **PostgreSQL Cluster** (`services/postgres-cluster/`):
+  - **Status:** Ready for deployment
+  - **Services:** molochain-postgres (PostgreSQL 16), postgres-backup, pgadmin
+  - **Databases:** molochaindb, mololinkdb, cmsdb
+  - **Features:** Automated backups, WAL archiving, 30-day retention
+  - **Port:** 5433 (localhost)
+  - **Migration:** From host PostgreSQL 13 to containerized PostgreSQL 16
+
+- **Background Workers** (`services/workers/`):
+  - **Status:** Ready for deployment
+  - **Services:** backup-worker, health-monitor, log-aggregator (Promtail)
+  - **Features:** Scheduled backups, container health monitoring, Slack/Email alerts
+  - **Integration:** Prometheus metrics push, Loki log aggregation
+  - **Migration:** From host cron jobs to containerized workers
+
 ### System Design Choices
 - **Microservice Architecture:** Part of a larger digital logistics ecosystem with specialized subdomains.
 - **Subdomain Routing:** Public routes on `molochain.com`, admin routes on `admin.molochain.com`.
