@@ -79,6 +79,9 @@ The following containerized services are LIVE on production server (31.186.24.19
     - `GET /api/history` - Last 100 workflow execution records
     - `GET /api/metrics` - Prometheus-format metrics for Grafana integration
     - `POST /api/trigger/:workflowId` - Manual workflow trigger
+    - `POST /api/webhooks/alerts` - Alertmanager webhook receiver (forwards to Communications Hub)
+    - `POST /api/webhooks/alerts/critical` - Critical alert receiver (redirects to main)
+    - `POST /api/webhooks/alerts/warning` - Warning alert receiver (redirects to main)
   - **Workflows:** 10 registered workflows:
     - `cms-sync` (*/5 * * * *): CMS content synchronization
     - `database-backup` (0 2 * * *): Daily PostgreSQL backup
