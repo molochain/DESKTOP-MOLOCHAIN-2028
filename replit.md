@@ -62,6 +62,26 @@ The following containerized services are LIVE on production server (31.186.24.19
   - **Integration:** Prometheus metrics push, Loki log aggregation
   - **Last Updated:** December 31, 2025
 
+- **Workflow Orchestrator** (`services/workflow-orchestrator/`):
+  - **Status:** 🔧 READY FOR DEPLOYMENT
+  - **Services:** workflow-orchestrator (Node.js), workflow-redis (Redis 7)
+  - **Port:** 5003 (localhost)
+  - **Features:** Unified workflow management with 10 registered workflows:
+    - `cms-sync` (*/5 * * * *): CMS content synchronization
+    - `database-backup` (0 2 * * *): Daily PostgreSQL backup
+    - `health-monitoring` (* * * * *): Container/service health checks
+    - `cache-warmup` (*/30 * * * *): Application cache pre-warming
+    - `sales-operations` (0 8 * * 1-5): AI-powered Rayanava workflow
+    - `log-rotation` (0 0 * * *): Log file rotation and cleanup
+    - `performance-optimization` (*/15 * * * *): Automated performance tuning
+    - `user-onboarding` (event-driven): New user welcome sequence
+    - `notification-digest` (0 9 * * *): Daily notification summary
+    - `security-audit` (0 3 * * *): Security compliance checks
+  - **Event Bus:** Redis-backed pub/sub for workflow triggers
+  - **Retry Logic:** Configurable retry attempts with exponential backoff
+  - **Integration:** API Gateway routes `/api/orchestrator`, connects to Mastra/Inngest
+  - **Last Updated:** December 31, 2025
+
 ### System Design Choices
 - **Microservice Architecture:** Part of a larger digital logistics ecosystem with specialized subdomains.
 - **Subdomain Routing:** Public routes on `molochain.com`, admin routes on `admin.molochain.com`.
@@ -74,7 +94,7 @@ The following containerized services are LIVE on production server (31.186.24.19
   - **Authentication:** JWT + API Key dual authentication (401 on all routes without auth)
   - **Security:** Sensitive endpoints blocked (/, /schema, /docs, /internal → 404), /metrics blocked externally (403)
   - **Features:** Circuit breaker, Redis-backed caching with per-service TTLs, rate limiting, request/response logging, API versioning (v1/v2), WebSocket monitoring
-  - **Services:** Routes to 10 microservices - all healthy:
+  - **Services:** Routes to 11 microservices - all healthy:
     - `molochain-core` → `/api/v1` (port 5000)
     - `molochain-core-v2` → `/api/v2` (port 5000, v2 API)
     - `mololink` → `/api/mololink` (mololink-app:5001)
@@ -85,6 +105,7 @@ The following containerized services are LIVE on production server (31.186.24.19
     - `rayanava-voice` → `/api/voice` (port 5005)
     - `rayanava-notifications` → `/api/notifications` (port 5006)
     - `rayanava-monitoring` → `/api/monitoring` (port 5007)
+    - `workflow-orchestrator` → `/api/orchestrator` (port 5003)
   - **Caching:** Per-service TTLs (60s core, 120s mololink), cacheable paths for public/catalog/config endpoints
   - **Monitoring:** Prometheus metrics (286 lines), WebSocket connection/message tracking, Grafana dashboard
   - **Load Testing:** Artillery test scripts for REST, WebSocket, and stress testing

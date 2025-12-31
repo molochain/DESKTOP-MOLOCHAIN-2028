@@ -111,6 +111,15 @@ export const services: ServiceConfig[] = [
     healthCheck: '/health',
     rateLimit: { points: 500, duration: 3600 },
     authentication: 'jwt'
+  },
+  {
+    name: 'workflow-orchestrator',
+    target: process.env.WORKFLOW_ORCHESTRATOR_URL || 'http://molochain-workflow-orchestrator:5003',
+    pathPrefix: '/api/orchestrator',
+    wsEnabled: false,
+    healthCheck: '/health',
+    rateLimit: { points: 300, duration: 3600 },
+    authentication: 'apikey'
   }
 ];
 

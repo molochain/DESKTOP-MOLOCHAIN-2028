@@ -3,6 +3,7 @@ import { WorkflowOrchestrator } from './orchestrator.js';
 import { EventBus } from './event-bus.js';
 import { WorkflowRegistry } from './registry.js';
 import { createLogger } from './logger.js';
+import { registerDefaultHandlers } from './handlers/index.js';
 
 const app = express();
 const port = process.env.PORT || 5003;
@@ -81,6 +82,12 @@ async function start() {
 
     registry.registerBuiltInWorkflows();
     logger.info('Built-in workflows registered', { count: registry.getRegisteredWorkflows().length });
+
+    registerDefaultHandlers(orchestrator, logger);
+    logger.info('Default handlers registered');
+
+    orchestrator.setupEventHandlers();
+    logger.info('Event handlers configured');
 
     orchestrator.startScheduler();
     logger.info('Workflow scheduler started');

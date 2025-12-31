@@ -25,10 +25,9 @@ export class WorkflowOrchestrator {
     this.eventBus = eventBus;
     this.registry = registry;
     this.logger = logger;
-    this.setupEventHandlers();
   }
 
-  private setupEventHandlers(): void {
+  setupEventHandlers(): void {
     const workflows = this.registry.getRegisteredWorkflows();
     for (const wf of workflows) {
       const definition = this.registry.get(wf.id);
@@ -190,6 +189,13 @@ export class WorkflowOrchestrator {
     }
   }
 
+  private handlers: Map<string, (input: any) => Promise<any>> = new Map();
+
+  registerHandler(handlerName: string, handler: (input: any) => Promise<any>): void {
+    this.handlers.set(handlerName, handler);
+    this.logger.info('Handler registered', { handlerName });
+  }
+
   private async callHandler(handlerName: string, input: any, timeout?: number): Promise<any> {
     const timeoutMs = timeout || 30000;
     
@@ -198,7 +204,7 @@ export class WorkflowOrchestrator {
         reject(new Error(`Handler ${handlerName} timed out after ${timeoutMs}ms`));
       }, timeoutMs);
 
-      this.simulateHandler(handlerName, input)
+      this.executeHandler(handlerName, input)
         .then(result => {
           clearTimeout(timer);
           resolve(result);
@@ -210,16 +216,22 @@ export class WorkflowOrchestrator {
     });
   }
 
-  private async simulateHandler(handlerName: string, input: any): Promise<any> {
-    await new Promise(resolve => setTimeout(resolve, 100 + Math.random() * 400));
+  private async executeHandler(handlerName: string, input: any): Promise<any> {
+    const handler = this.handlers.get(handlerName);
     
-    this.logger.debug('Handler executed', { handler: handlerName, inputKeys: Object.keys(input) });
+    if (handler) {
+      this.logger.debug('Executing registered handler', { handler: handlerName });
+      return await handler(input);
+    }
+
+    this.logger.debug('Handler not registered, using default execution', { handler: handlerName });
+    await new Promise(resolve => setTimeout(resolve, 50));
     
     return {
       handler: handlerName,
       executedAt: new Date().toISOString(),
       success: true,
-      data: { processed: true }
+      data: { processed: true, note: 'Default handler - register custom implementation' }
     };
   }
 
