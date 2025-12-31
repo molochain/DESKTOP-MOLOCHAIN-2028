@@ -35,30 +35,32 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Communications Hub Microservice:** Unified multi-channel communications (Email, SMS, WhatsApp, Push) with Plesk integration, Docker containerized with Redis for message queuing, and PostgreSQL persistence. Includes API endpoints for sending messages, channel status, template management, and user preferences.
 - **External API Key System:** Enables third-party integrations with API key authentication, configurable rate limiting, IP whitelisting, scope-based permissions, key expiration, and usage logging.
 
-### Containerization Roadmap (NEW)
-The following services have Docker configurations ready for migration from host to containers:
+### Containerization (DEPLOYED)
+The following containerized services are LIVE on production server (31.186.24.19):
 
 - **Laravel CMS Containerization** (`services/cms-laravel/`):
-  - **Status:** Ready for deployment
+  - **Status:** ✅ DEPLOYED - All 5 containers healthy
   - **Services:** cms-app (PHP 8.4-FPM), cms-nginx, cms-queue, cms-scheduler, cms-redis
+  - **Database:** 26 tables in cmsdb (users, posts, pages, media_assets, etc.)
   - **Features:** Zero-downtime deployments, horizontal scaling, unified logging
-  - **Port:** 8090 (localhost)
-  - **Migration:** From Plesk PHP-FPM to Docker containers
+  - **Port:** 8090 (localhost) - HTTP 200 verified
+  - **Last Updated:** December 31, 2025
 
-- **PostgreSQL Cluster** (`services/postgres-cluster/`):
-  - **Status:** Ready for deployment
+- **PostgreSQL 16 Cluster** (`services/postgres-cluster/`):
+  - **Status:** ✅ DEPLOYED - PostgreSQL healthy, accepting connections
   - **Services:** molochain-postgres (PostgreSQL 16), postgres-backup, pgadmin
-  - **Databases:** molochaindb, mololinkdb, cmsdb
-  - **Features:** Automated backups, WAL archiving, 30-day retention
-  - **Port:** 5433 (localhost)
-  - **Migration:** From host PostgreSQL 13 to containerized PostgreSQL 16
+  - **Databases:** molochaindb, mololinkdb, cmsdb - all created with proper permissions
+  - **Credentials:** Stored securely in server environment variables (see `/root/molochain-services/postgres-cluster/.env`)
+  - **Features:** Automated daily backups, WAL archiving, 30-day retention
+  - **Port:** 5433 (PostgreSQL), 5050 (pgAdmin)
+  - **Last Updated:** December 31, 2025
 
 - **Background Workers** (`services/workers/`):
-  - **Status:** Ready for deployment
+  - **Status:** ✅ DEPLOYED - All 3 workers healthy
   - **Services:** backup-worker, health-monitor, log-aggregator (Promtail)
-  - **Features:** Scheduled backups, container health monitoring, Slack/Email alerts
+  - **Features:** Scheduled backups at 2 AM, container health monitoring, Slack/Email alerts
   - **Integration:** Prometheus metrics push, Loki log aggregation
-  - **Migration:** From host cron jobs to containerized workers
+  - **Last Updated:** December 31, 2025
 
 ### System Design Choices
 - **Microservice Architecture:** Part of a larger digital logistics ecosystem with specialized subdomains.
@@ -90,7 +92,13 @@ The following services have Docker configurations ready for migration from host 
   - **Networks:** Connected to 13 Docker networks for full microservice connectivity
   - **SSL:** Valid certificate (Let's Encrypt, expires Mar 2026)
   - **Status:** ✅ LIVE and healthy on production server (31.186.24.19)
-  - **Last Updated:** December 30, 2025
+  - **Last Updated:** December 31, 2025
+
+### Infrastructure Summary (December 31, 2025)
+- **Total Containers:** 54 running
+- **Healthy Containers:** 41 marked healthy
+- **Key Services:** CMS (5), PostgreSQL (3), Workers (3), API Gateway (2), plus 41 other microservices
+- **Networks:** cms-network, molochain-network, postgres-network, workers-network
 
 ## External Dependencies
 
