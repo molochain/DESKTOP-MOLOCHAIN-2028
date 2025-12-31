@@ -12,15 +12,10 @@ interface ServiceHealth {
 const MICROSERVICES = [
   { name: 'molochain-core', url: 'http://molochain-core:5000/api/health' },
   { name: 'mololink', url: 'http://mololink-app:5001/api/health' },
-  { name: 'rayanava-gateway', url: 'http://rayanava-gateway:5001/health' },
-  { name: 'rayanava-ai', url: 'http://rayanava-ai:5002/health' },
-  { name: 'communications-hub', url: 'http://communications-hub:7020/health' },
-  { name: 'rayanava-workflows', url: 'http://rayanava-workflows:5004/health' },
-  { name: 'rayanava-voice', url: 'http://rayanava-voice:5005/health' },
-  { name: 'rayanava-notifications', url: 'http://rayanava-notifications:5006/health' },
-  { name: 'rayanava-monitoring', url: 'http://rayanava-monitoring:5007/health' },
-  { name: 'cms-app', url: 'http://cms-app:8090/api/health' },
-  { name: 'api-gateway', url: 'http://molochain-api-gateway:4000/health' }
+  { name: 'communications-hub', url: 'http://molochain-communications-hub:7020/health' },
+  { name: 'cms-app', url: 'http://molochain-cms-app:9000/api/health' },
+  { name: 'api-gateway', url: 'http://molochain-api-gateway:4000/health' },
+  { name: 'admin-app', url: 'http://molochain-admin:5000/api/health' }
 ];
 
 async function fetchWithTimeout(url: string, timeoutMs: number = 5000): Promise<Response> {

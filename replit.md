@@ -66,7 +66,20 @@ The following containerized services are LIVE on production server (31.186.24.19
   - **Status:** ✅ DEPLOYED - Both containers healthy
   - **Services:** workflow-orchestrator (Node.js), workflow-redis (Redis 7)
   - **Port:** 5013 (localhost), internal 5003
-  - **Features:** Unified workflow management with 10 registered workflows:
+  - **Handlers:** 35 registered handlers with real service integrations:
+    - `cmsSyncHandler`: Fetches content from Laravel CMS API (/api/services, /api/pages, /api/menu, /api/posts)
+    - `containerHealthHandler`: Checks 6 core microservices (core, mololink, communications-hub, cms, api-gateway, admin)
+    - `backupHandler`: Triggers PostgreSQL backup via backup-worker API with cron fallback
+    - `notifyHandler`: Sends notifications via Communications Hub (POST with proper payload)
+    - `cacheWarmupHandler`: Pre-warms application caches by hitting key endpoints
+    - Plus 30 additional handlers for log rotation, metrics, alerts, and security audits
+  - **API Endpoints:**
+    - `GET /health` - Service health status with workflow list
+    - `GET /api/stats` - Workflow execution statistics (runs, success rate, avg duration)
+    - `GET /api/history` - Last 100 workflow execution records
+    - `GET /api/metrics` - Prometheus-format metrics for Grafana integration
+    - `POST /api/trigger/:workflowId` - Manual workflow trigger
+  - **Workflows:** 10 registered workflows:
     - `cms-sync` (*/5 * * * *): CMS content synchronization
     - `database-backup` (0 2 * * *): Daily PostgreSQL backup
     - `health-monitoring` (* * * * *): Container/service health checks
@@ -79,6 +92,7 @@ The following containerized services are LIVE on production server (31.186.24.19
     - `security-audit` (0 3 * * *): Security compliance checks
   - **Event Bus:** Redis-backed pub/sub for workflow triggers
   - **Retry Logic:** Configurable retry attempts with exponential backoff
+  - **Execution Tracking:** totalRuns, successfulRuns, failedRuns, averageDurationMs per workflow
   - **Integration:** API Gateway routes `/api/orchestrator`, connects to Mastra/Inngest
   - **Last Updated:** December 31, 2025
 
