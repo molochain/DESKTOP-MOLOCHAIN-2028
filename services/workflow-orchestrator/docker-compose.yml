@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  workflow-orchestrator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: molochain/workflow-orchestrator:latest
+    container_name: molochain-workflow-orchestrator
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5003:5003"
+    environment:
+      - NODE_ENV=production
+      - PORT=5003
+      - REDIS_URL=${REDIS_URL:-redis://workflow-redis:6379}
+      - DATABASE_URL=${DATABASE_URL}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - INNGEST_EVENT_KEY=${INNGEST_EVENT_KEY:-}
+      - INNGEST_SIGNING_KEY=${INNGEST_SIGNING_KEY:-}
+    volumes:
+      - workflow-logs:/app/logs
+    networks:
+      - molochain-network
+      - postgres-network
+    depends_on:
+      - workflow-redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    labels:
+      - "promtail.collect=true"
+      - "service=workflow-orchestrator"
+
+  workflow-redis:
+    image: redis:7-alpine
+    container_name: molochain-workflow-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - workflow-redis-data:/data
+    networks:
+      - molochain-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "3"
+    labels:
+      - "service=workflow-redis"
+
+volumes:
+  workflow-logs:
+    driver: local
+  workflow-redis-data:
+    driver: local
+
+networks:
+  molochain-network:
+    external: true
+  postgres-network:
+    external: true
