@@ -13,9 +13,9 @@ const MICROSERVICES = [
   { name: 'molochain-core', url: 'http://molochain-core:5000/api/health' },
   { name: 'mololink', url: 'http://mololink-app:5001/api/health' },
   { name: 'communications-hub', url: 'http://molochain-communications-hub:7020/health' },
-  { name: 'cms-app', url: 'http://molochain-cms-app:9000/api/health' },
+  { name: 'cms-nginx', url: 'http://molochain-cms-nginx:80/api/health' },
   { name: 'api-gateway', url: 'http://molochain-api-gateway:4000/health' },
-  { name: 'admin-app', url: 'http://molochain-admin:5000/api/health' }
+  { name: 'admin-app', url: 'http://molochain-admin:7000/api/health' }
 ];
 
 async function fetchWithTimeout(url: string, timeoutMs: number = 5000): Promise<Response> {

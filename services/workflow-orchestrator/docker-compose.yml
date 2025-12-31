@@ -22,7 +22,9 @@ services:
       - workflow-logs:/app/logs
     networks:
       - molochain-network
+      - molochain-core
       - postgres-network
+      - cms-network
     depends_on:
       - workflow-redis
     healthcheck:
@@ -71,5 +73,10 @@ volumes:
 networks:
   molochain-network:
     external: true
+  molochain-core:
+    external: true
   postgres-network:
+    external: true
+  cms-network:
+    name: cms-laravel_cms-network
     external: true
