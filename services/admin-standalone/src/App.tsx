@@ -3,6 +3,7 @@ import { Layout } from '@/components/Layout';
 import { Login } from '@/pages/Login';
 import { Dashboard } from '@/pages/Dashboard';
 import { Containers } from '@/pages/Containers';
+import { Users } from '@/pages/Users';
 import { CoreServices } from '@/pages/CoreServices';
 import { RayanaraAI } from '@/pages/RayanaraAI';
 import { Infrastructure } from '@/pages/Infrastructure';
@@ -34,6 +35,7 @@ export default function App() {
         <Route element={<Layout isAuthenticated={isAuthenticated} username={user?.username} onLogout={logout} />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/containers" element={<Containers />} />
+          <Route path="/users" element={<Users />} />
           <Route path="/core" element={<CoreServices />} />
           <Route path="/rayanava" element={<RayanaraAI />} />
           <Route path="/infrastructure" element={<Infrastructure />} />

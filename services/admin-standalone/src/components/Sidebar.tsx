@@ -14,6 +14,7 @@ import {
   ChevronRight,
   LineChart,
   Boxes,
+  Users,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -26,6 +27,7 @@ interface SidebarProps {
 const menuItems = [
   { path: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { path: '/containers', icon: Boxes, label: 'Containers' },
+  { path: '/users', icon: Users, label: 'Users' },
   { path: '/core', icon: Server, label: 'Core Services' },
   { path: '/rayanava', icon: Brain, label: 'Rayanava AI' },
   { path: '/infrastructure', icon: Database, label: 'Infrastructure' },

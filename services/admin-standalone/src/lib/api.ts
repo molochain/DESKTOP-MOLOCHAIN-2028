@@ -69,3 +69,23 @@ export async function getAvailableMetrics() {
   const response = await api.get('/api/admin/microservices/prometheus/available-metrics');
   return response.data;
 }
+
+export async function getAdminUsers() {
+  const response = await api.get('/api/admin/users');
+  return response.data;
+}
+
+export async function createAdminUser(data: { username: string; email: string; password: string; role: string }) {
+  const response = await api.post('/api/admin/users', data);
+  return response.data;
+}
+
+export async function updateAdminUser(id: string, data: { username?: string; email?: string; role?: string }) {
+  const response = await api.patch(`/api/admin/users/${id}`, data);
+  return response.data;
+}
+
+export async function deleteAdminUser(id: string) {
+  const response = await api.delete(`/api/admin/users/${id}`);
+  return response.data;
+}
