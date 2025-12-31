@@ -75,6 +75,7 @@ import webSocketHealthRoutes from "./api/websocket/websocket-health.routes";
 import projectsRoutes from "./api/projects/projects.routes";
 import formSubmissionsRouter from "./routes/admin/form-submissions.routes";
 import emailSettingsRouter from "./routes/admin/email-settings.routes";
+import microservicesRoutes from "./routes/admin/microservices.routes";
 import emailApiRouter from "./routes/email-api.routes";
 import { subdomainMiddleware } from "./middleware/subdomain";
 import { auditLogger } from "./middleware/auditLogger";
@@ -302,6 +303,9 @@ export async function registerRoutes(
 
   // Email settings and template management routes
   app.use("/api/admin/email", emailSettingsRouter);
+
+  // Microservices control panel routes
+  app.use("/api/admin/microservices", microservicesRoutes);
 
   // External API Key management routes (admin only)
   app.use("/api/admin/api-keys", externalApiKeysRoutes);

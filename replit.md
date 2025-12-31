@@ -29,6 +29,15 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 
 ### Feature Specifications
 - **Core Features:** Supply chain management, real-time collaboration, performance monitoring, secure user authentication/authorization, file management, API documentation, and a Communications Hub.
+- **Microservices Control Panel (NEW):** Real-time monitoring of all Docker microservices at `/admin/microservices`:
+  - Fetches live health data from production `/api/health` endpoint
+  - Displays service status (healthy/unhealthy), response times, and system uptime
+  - Shows 8 ecosystem services (blockchain-tracking, smart-contracts, transport services, etc.) plus database status
+  - Links to Grafana dashboard for detailed metrics (http://31.186.24.19:3001)
+  - Auto-refreshes every 30 seconds with manual refresh button
+  - No fabricated data - all metrics come directly from production health endpoint
+  - Backend: `server/routes/admin/microservices.routes.ts`
+  - Frontend: `client/src/pages/admin/operations/MicroservicesPanel.tsx`
 - **Authentication (SSO):** Cross-subdomain SSO architecture with Redis-backed session for `admin.molochain.com` and JWT-based cookie for other subdomains. A standalone React SPA at `auth.molochain.com` handles login, registration, and password management.
 - **Page Distribution:** Approximately 60 pages across various sections.
 - **Route Protection:** Public, Auth Required, and Admin Required routes.

@@ -161,6 +161,7 @@ const TranslationSuggestions = lazy(() => import('@/pages/admin/intelligence/tra
 const AdminProfile = lazy(() => import('@/pages/profile/AdminProfile'));
 const CommunicationsHub = lazy(() => import('@/pages/admin/operations/CommunicationsHub'));
 const MultiChannelComms = lazy(() => import('@/pages/admin/operations/MultiChannelComms'));
+const MicroservicesPanel = lazy(() => import('@/pages/admin/operations/MicroservicesPanel'));
 const MololinkAdmin = lazy(() => import('@/modules/mololink/MololinkMain'));
 
 // Developer pages
@@ -367,6 +368,21 @@ export const adminPages: AdminPageConfig[] = [
     requireAuth: true,
     requireAdmin: true,
     requiredPermission: PERMISSIONS.OPERATIONS_MANAGE,
+    order: 4,
+    enabled: true
+  },
+  {
+    id: 'microservices-panel',
+    name: 'Microservices Panel',
+    description: 'Real-time status monitoring of Docker microservices',
+    path: '/admin/microservices',
+    component: MicroservicesPanel,
+    icon: Server,
+    category: 'infrastructure',
+    badge: 'NEW',
+    requireAuth: true,
+    requireAdmin: true,
+    requiredPermission: PERMISSIONS.INFRASTRUCTURE_VIEW,
     order: 4,
     enabled: true
   },
