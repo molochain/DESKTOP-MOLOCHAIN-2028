@@ -1,26 +1,62 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { queryClient, apiRequest } from "@/lib/queryClient";
 import { 
   Server, RefreshCw, Activity, CheckCircle, XCircle, 
-  AlertTriangle, ExternalLink, FileText, RotateCcw, Clock
+  AlertTriangle, ExternalLink, FileText, RotateCcw, Clock,
+  Cpu, HardDrive, Network, MemoryStick, Gauge, Layers
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Progress } from "@/components/ui/progress";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 
 interface Microservice {
   id: string;
   name: string;
-  status: "healthy" | "unhealthy" | "not_found";
+  status: "healthy" | "unhealthy" | "not_found" | "starting";
   port: number | null;
   containerId: string | null;
   uptime: string | null;
   responseTime: number | null;
   lastCheck: string;
+  category?: string;
+}
+
+interface SystemMetrics {
+  cpu: {
+    usage: number;
+    loadAvg: number[];
+    cores: number;
+  };
+  memory: {
+    used: number;
+    total: number;
+    freePercentage: number;
+    usedGB: string;
+    totalGB: string;
+  };
+  disk: {
+    used: number;
+    total: number;
+    freePercentage: number;
+    usedGB: string;
+    totalGB: string;
+  };
+  network: {
+    connections: number;
+    bytesReceived: string;
+    bytesSent: string;
+  };
+  uptime: {
+    seconds: number;
+    formatted: string;
+  };
 }
 
 interface MicroservicesResponse {
@@ -29,8 +65,13 @@ interface MicroservicesResponse {
     total: number;
     healthy: number;
     unhealthy: number;
+    healthPercentage: number;
   };
+  systemMetrics: SystemMetrics | null;
+  categories: string[];
   grafanaUrl: string;
+  prometheusUrl: string;
+  lastUpdated: string;
 }
 
 const statusConfig = {
@@ -51,12 +92,112 @@ const statusConfig = {
     icon: AlertTriangle,
     className: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
     iconClass: "text-yellow-500"
+  },
+  starting: {
+    label: "Starting",
+    icon: RefreshCw,
+    className: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+    iconClass: "text-blue-500 animate-spin"
   }
 };
+
+function SystemMetricsCards({ metrics }: { metrics: SystemMetrics | null }) {
+  if (!metrics) {
+    return (
+      <div className="grid gap-4 md:grid-cols-4">
+        {[1, 2, 3, 4].map((i) => (
+          <Skeleton key={i} className="h-32" />
+        ))}
+      </div>
+    );
+  }
+
+  const cpuUsage = metrics.cpu.usage;
+  const memoryUsed = 100 - metrics.memory.freePercentage;
+  const diskUsed = 100 - metrics.disk.freePercentage;
+
+  return (
+    <div className="grid gap-4 md:grid-cols-4">
+      <Card data-testid="card-cpu-metrics">
+        <CardHeader className="pb-2">
+          <CardDescription className="flex items-center gap-2">
+            <Cpu className="h-4 w-4 text-blue-500" />
+            CPU Usage
+          </CardDescription>
+          <CardTitle className="text-2xl">{cpuUsage.toFixed(1)}%</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Progress value={Math.min(cpuUsage, 100)} className="h-2" />
+          <div className="text-xs text-muted-foreground mt-2">
+            Load: {metrics.cpu.loadAvg.map(l => l.toFixed(2)).join(", ")}
+            <br />
+            Cores: {metrics.cpu.cores}
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card data-testid="card-memory-metrics">
+        <CardHeader className="pb-2">
+          <CardDescription className="flex items-center gap-2">
+            <MemoryStick className="h-4 w-4 text-purple-500" />
+            Memory
+          </CardDescription>
+          <CardTitle className="text-2xl">{memoryUsed.toFixed(1)}%</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Progress 
+            value={memoryUsed} 
+            className={`h-2 ${memoryUsed > 90 ? "[&>div]:bg-red-500" : memoryUsed > 75 ? "[&>div]:bg-yellow-500" : ""}`} 
+          />
+          <div className="text-xs text-muted-foreground mt-2">
+            {metrics.memory.usedGB} GB / {metrics.memory.totalGB} GB
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card data-testid="card-disk-metrics">
+        <CardHeader className="pb-2">
+          <CardDescription className="flex items-center gap-2">
+            <HardDrive className="h-4 w-4 text-orange-500" />
+            Disk
+          </CardDescription>
+          <CardTitle className="text-2xl">{diskUsed.toFixed(1)}%</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Progress 
+            value={diskUsed} 
+            className={`h-2 ${diskUsed > 90 ? "[&>div]:bg-red-500" : diskUsed > 75 ? "[&>div]:bg-yellow-500" : ""}`}
+          />
+          <div className="text-xs text-muted-foreground mt-2">
+            {metrics.disk.usedGB} GB / {metrics.disk.totalGB} GB
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card data-testid="card-network-metrics">
+        <CardHeader className="pb-2">
+          <CardDescription className="flex items-center gap-2">
+            <Network className="h-4 w-4 text-green-500" />
+            Network
+          </CardDescription>
+          <CardTitle className="text-2xl">{metrics.network.connections}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-xs text-muted-foreground">
+            <span className="text-green-600">↓ {metrics.network.bytesReceived}</span>
+            <br />
+            <span className="text-blue-600">↑ {metrics.network.bytesSent}</span>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
 
 export default function MicroservicesPanel() {
   const { toast } = useToast();
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const { data, isLoading, error, refetch } = useQuery<MicroservicesResponse>({
     queryKey: ["/api/admin/microservices"],
@@ -73,11 +214,56 @@ export default function MicroservicesPanel() {
     });
   };
 
+  const restartMutation = useMutation({
+    mutationFn: async (serviceId: string) => {
+      const response = await apiRequest("POST", `/api/admin/microservices/${serviceId}/restart`);
+      return response.json();
+    },
+    onSuccess: (data, serviceId) => {
+      toast({
+        title: "Restart Requested",
+        description: data.message || `Restart signal sent for ${serviceId}`,
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/microservices"] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Restart Failed",
+        description: error.message || "Failed to send restart signal",
+        variant: "destructive"
+      });
+    }
+  });
+
+  const logsMutation = useMutation({
+    mutationFn: async (serviceId: string) => {
+      const response = await apiRequest("GET", `/api/admin/microservices/${serviceId}/logs?lines=50`);
+      return response.json();
+    },
+    onSuccess: (data, serviceId) => {
+      if (data.grafanaUrl) {
+        window.open(data.grafanaUrl, "_blank");
+      }
+      toast({
+        title: "Logs Available",
+        description: data.note || `Logs for ${serviceId} available in Grafana`,
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Log Fetch Failed",
+        description: error.message || "Failed to fetch logs",
+        variant: "destructive"
+      });
+    }
+  });
+
   const handleViewLogs = (serviceId: string) => {
-    toast({
-      title: "View Logs",
-      description: `Opening logs for ${serviceId}...`
-    });
+    logsMutation.mutate(serviceId);
+  };
+
+  const handleRestart = (serviceId: string) => {
+    restartMutation.mutate(serviceId);
   };
 
   if (isLoading) {
@@ -86,6 +272,11 @@ export default function MicroservicesPanel() {
         <div className="flex items-center justify-between">
           <Skeleton className="h-8 w-64" />
           <Skeleton className="h-10 w-32" />
+        </div>
+        <div className="grid gap-4 md:grid-cols-4">
+          {[1, 2, 3, 4].map((i) => (
+            <Skeleton key={i} className="h-32" />
+          ))}
         </div>
         <div className="grid gap-4 md:grid-cols-3">
           {[1, 2, 3].map((i) => (
@@ -108,7 +299,9 @@ export default function MicroservicesPanel() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground">Failed to fetch microservices status. Please try again.</p>
+            <p className="text-muted-foreground">
+              Failed to fetch microservices status. This may require authentication.
+            </p>
             <Button onClick={() => refetch()} className="mt-4" data-testid="button-retry">
               <RefreshCw className="mr-2 h-4 w-4" />
               Retry
@@ -119,9 +312,16 @@ export default function MicroservicesPanel() {
     );
   }
 
-  const summary = data?.summary || { total: 0, healthy: 0, unhealthy: 0 };
+  const summary = data?.summary || { total: 0, healthy: 0, unhealthy: 0, healthPercentage: 0 };
   const microservices = data?.microservices || [];
+  const systemMetrics = data?.systemMetrics || null;
+  const categories = data?.categories || [];
   const grafanaUrl = data?.grafanaUrl || "";
+  const prometheusUrl = data?.prometheusUrl || "";
+
+  const filteredServices = selectedCategory === "all" 
+    ? microservices 
+    : microservices.filter(s => s.category === selectedCategory);
 
   return (
     <div className="space-y-6">
@@ -132,10 +332,24 @@ export default function MicroservicesPanel() {
             Microservices Control Panel
           </h2>
           <p className="text-muted-foreground mt-1">
-            Real-time status monitoring of all Docker microservices
+            Real-time monitoring of Docker microservices and system health
           </p>
         </div>
         <div className="flex items-center gap-2">
+          {prometheusUrl && (
+            <Button 
+              variant="outline" 
+              size="sm"
+              asChild
+              data-testid="button-prometheus"
+            >
+              <a href={prometheusUrl} target="_blank" rel="noopener noreferrer">
+                <Gauge className="mr-2 h-4 w-4" />
+                Prometheus
+                <ExternalLink className="ml-2 h-3 w-3" />
+              </a>
+            </Button>
+          )}
           {grafanaUrl && (
             <Button 
               variant="outline" 
@@ -144,7 +358,7 @@ export default function MicroservicesPanel() {
             >
               <a href={grafanaUrl} target="_blank" rel="noopener noreferrer">
                 <Activity className="mr-2 h-4 w-4" />
-                Grafana Dashboard
+                Grafana
                 <ExternalLink className="ml-2 h-4 w-4" />
               </a>
             </Button>
@@ -160,15 +374,20 @@ export default function MicroservicesPanel() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <SystemMetricsCards metrics={systemMetrics} />
+
+      <div className="grid gap-4 md:grid-cols-4">
         <Card data-testid="card-total-services">
           <CardHeader className="pb-2">
-            <CardDescription>Total Services</CardDescription>
+            <CardDescription className="flex items-center gap-2">
+              <Layers className="h-4 w-4" />
+              Total Services
+            </CardDescription>
             <CardTitle className="text-4xl">{summary.total}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-sm text-muted-foreground">
-              Docker microservices monitored
+              Docker containers monitored
             </div>
           </CardContent>
         </Card>
@@ -182,9 +401,7 @@ export default function MicroservicesPanel() {
             <CardTitle className="text-4xl text-green-600">{summary.healthy}</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-sm text-muted-foreground">
-              Services running normally
-            </div>
+            <Progress value={summary.healthPercentage} className="h-2 [&>div]:bg-green-500" />
           </CardContent>
         </Card>
         
@@ -192,7 +409,7 @@ export default function MicroservicesPanel() {
           <CardHeader className="pb-2">
             <CardDescription className="flex items-center gap-2">
               <XCircle className="h-4 w-4 text-red-500" />
-              Unhealthy / Not Found
+              Unhealthy
             </CardDescription>
             <CardTitle className="text-4xl text-red-600">
               {summary.unhealthy}
@@ -200,7 +417,22 @@ export default function MicroservicesPanel() {
           </CardHeader>
           <CardContent>
             <div className="text-sm text-muted-foreground">
-              Services needing attention
+              Needing attention
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card data-testid="card-uptime">
+          <CardHeader className="pb-2">
+            <CardDescription className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-blue-500" />
+              System Uptime
+            </CardDescription>
+            <CardTitle className="text-2xl">{systemMetrics?.uptime.formatted || "—"}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-sm text-muted-foreground">
+              {summary.healthPercentage}% health score
             </div>
           </CardContent>
         </Card>
@@ -208,135 +440,160 @@ export default function MicroservicesPanel() {
 
       <Card data-testid="card-services-table">
         <CardHeader>
-          <CardTitle>Service Status</CardTitle>
-          <CardDescription>
-            Detailed status of each microservice with health checks every 30 seconds
-          </CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>Service Status</CardTitle>
+              <CardDescription>
+                Detailed status of each microservice (auto-refresh every 30s)
+              </CardDescription>
+            </div>
+            {categories.length > 0 && (
+              <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
+                <TabsList>
+                  <TabsTrigger value="all" data-testid="tab-all">All</TabsTrigger>
+                  {categories.map(cat => (
+                    <TabsTrigger key={cat} value={cat} data-testid={`tab-${cat}`}>
+                      {cat}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </Tabs>
+            )}
+          </div>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Service</TableHead>
+                <TableHead>Category</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Port</TableHead>
-                <TableHead>Container ID</TableHead>
                 <TableHead>Uptime</TableHead>
-                <TableHead>Response Time</TableHead>
+                <TableHead>Response</TableHead>
                 <TableHead>Last Check</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {microservices.map((service) => {
-                const config = statusConfig[service.status];
-                const StatusIcon = config.icon;
-                
-                return (
-                  <TableRow key={service.id} data-testid={`row-service-${service.id}`}>
-                    <TableCell className="font-medium">
-                      <div className="flex items-center gap-2">
-                        <Server className="h-4 w-4 text-muted-foreground" />
-                        {service.name}
-                      </div>
-                      <div className="text-xs text-muted-foreground">{service.id}</div>
-                    </TableCell>
-                    <TableCell>
-                      <Badge className={config.className} data-testid={`status-${service.id}`}>
-                        <StatusIcon className={`mr-1 h-3 w-3 ${config.iconClass}`} />
-                        {config.label}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      {service.port !== null ? (
-                        <code className="px-2 py-1 bg-muted rounded text-sm">
-                          {service.port}
-                        </code>
-                      ) : (
-                        <span className="text-muted-foreground">—</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {service.containerId ? (
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <code className="px-2 py-1 bg-muted rounded text-sm cursor-help">
-                                {service.containerId.substring(0, 12)}...
-                              </code>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>{service.containerId}</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      ) : (
-                        <span className="text-muted-foreground">—</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {service.uptime ? (
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-3 w-3 text-muted-foreground" />
-                          {service.uptime}
+              {filteredServices.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={8} className="text-center text-muted-foreground py-8">
+                    No services found in this category
+                  </TableCell>
+                </TableRow>
+              ) : (
+                filteredServices.map((service) => {
+                  const config = statusConfig[service.status] || statusConfig.not_found;
+                  const StatusIcon = config.icon;
+                  
+                  return (
+                    <TableRow key={service.id} data-testid={`row-service-${service.id}`}>
+                      <TableCell className="font-medium">
+                        <div className="flex items-center gap-2">
+                          <Server className="h-4 w-4 text-muted-foreground" />
+                          {service.name}
                         </div>
-                      ) : (
-                        <span className="text-muted-foreground">—</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {service.responseTime !== null ? (
-                        <span className={service.responseTime > 100 ? "text-yellow-600" : "text-green-600"}>
-                          {service.responseTime}ms
-                        </span>
-                      ) : (
-                        <span className="text-muted-foreground">—</span>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {new Date(service.lastCheck).toLocaleTimeString()}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button 
-                                variant="ghost" 
-                                size="icon"
-                                onClick={() => handleViewLogs(service.id)}
-                                data-testid={`button-logs-${service.id}`}
-                              >
-                                <FileText className="h-4 w-4" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>View Logs</TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button 
-                                variant="ghost" 
-                                size="icon"
-                                disabled
-                                data-testid={`button-restart-${service.id}`}
-                              >
-                                <RotateCcw className="h-4 w-4" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>Restart (Coming Soon)</TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+                        <div className="text-xs text-muted-foreground">{service.id}</div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="text-xs">
+                          {service.category || "Other"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge className={config.className} data-testid={`status-${service.id}`}>
+                          <StatusIcon className={`mr-1 h-3 w-3 ${config.iconClass}`} />
+                          {config.label}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        {service.port !== null ? (
+                          <code className="px-2 py-1 bg-muted rounded text-sm">
+                            {service.port}
+                          </code>
+                        ) : (
+                          <span className="text-muted-foreground">—</span>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {service.uptime ? (
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-3 w-3 text-muted-foreground" />
+                            {service.uptime}
+                          </div>
+                        ) : (
+                          <span className="text-muted-foreground">—</span>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {service.responseTime !== null ? (
+                          <span className={
+                            service.responseTime > 200 
+                              ? "text-red-600" 
+                              : service.responseTime > 100 
+                                ? "text-yellow-600" 
+                                : "text-green-600"
+                          }>
+                            {service.responseTime}ms
+                          </span>
+                        ) : (
+                          <span className="text-muted-foreground">—</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-sm text-muted-foreground">
+                        {new Date(service.lastCheck).toLocaleTimeString()}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex items-center justify-end gap-1">
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button 
+                                  variant="ghost" 
+                                  size="icon"
+                                  onClick={() => handleViewLogs(service.id)}
+                                  disabled={logsMutation.isPending}
+                                  data-testid={`button-logs-${service.id}`}
+                                >
+                                  <FileText className={`h-4 w-4 ${logsMutation.isPending ? "animate-pulse" : ""}`} />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>View Logs in Grafana</TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button 
+                                  variant="ghost" 
+                                  size="icon"
+                                  onClick={() => handleRestart(service.id)}
+                                  disabled={restartMutation.isPending}
+                                  data-testid={`button-restart-${service.id}`}
+                                >
+                                  <RotateCcw className={`h-4 w-4 ${restartMutation.isPending ? "animate-spin" : ""}`} />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>Request Restart</TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              )}
             </TableBody>
           </Table>
         </CardContent>
       </Card>
+
+      {data?.lastUpdated && (
+        <div className="text-sm text-muted-foreground text-center">
+          Last updated: {new Date(data.lastUpdated).toLocaleString()}
+        </div>
+      )}
     </div>
   );
 }

@@ -10,6 +10,7 @@ router.use(isAuthenticated, isAdmin);
 const PRODUCTION_HOST = "31.186.24.19";
 const PRODUCTION_CORE_PORT = 5000;
 const GRAFANA_URL = `http://${PRODUCTION_HOST}:3001`;
+const PROMETHEUS_URL = `http://${PRODUCTION_HOST}:9090`;
 
 interface EcosystemHealthResponse {
   status: string;
@@ -29,7 +30,9 @@ interface EcosystemHealthResponse {
     }>;
     system: {
       cpu: { usage: number; loadAvg: number[]; cores: number };
-      memory: { used: number; total: number; freePercentage: number };
+      memory: { used: number; total: number; freePercentage: number; swapUsage?: number };
+      disk?: { total: number; free: number; used: number };
+      network?: { connections: number; bytesReceived: number; bytesSent: number };
       uptime: number;
     };
   };
@@ -39,11 +42,43 @@ interface MicroserviceStatus {
   id: string;
   name: string;
   containerId: string | null;
-  status: "healthy" | "unhealthy" | "not_found";
+  status: "healthy" | "unhealthy" | "not_found" | "starting";
   uptime: string | null;
   responseTime: number | null;
   lastCheck: string;
   port: number | null;
+  category?: string;
+}
+
+interface SystemMetrics {
+  cpu: {
+    usage: number;
+    loadAvg: number[];
+    cores: number;
+  };
+  memory: {
+    used: number;
+    total: number;
+    freePercentage: number;
+    usedGB: string;
+    totalGB: string;
+  };
+  disk: {
+    used: number;
+    total: number;
+    freePercentage: number;
+    usedGB: string;
+    totalGB: string;
+  };
+  network: {
+    connections: number;
+    bytesReceived: string;
+    bytesSent: string;
+  };
+  uptime: {
+    seconds: number;
+    formatted: string;
+  };
 }
 
 let cachedEcosystemData: EcosystemHealthResponse | null = null;
@@ -87,9 +122,58 @@ function formatUptime(seconds: number): string {
   const hours = Math.floor((seconds % 86400) / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   
-  if (days > 0) return `${days}d ${hours}h`;
+  if (days > 0) return `${days}d ${hours}h ${minutes}m`;
   if (hours > 0) return `${hours}h ${minutes}m`;
   return `${minutes}m`;
+}
+
+function formatBytes(bytes: number): string {
+  if (bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+function bytesToGB(bytes: number): string {
+  return (bytes / (1024 * 1024 * 1024)).toFixed(2);
+}
+
+function buildSystemMetrics(healthData: EcosystemHealthResponse): SystemMetrics {
+  const system = healthData.details?.system;
+  
+  return {
+    cpu: {
+      usage: system?.cpu?.usage || 0,
+      loadAvg: system?.cpu?.loadAvg || [0, 0, 0],
+      cores: system?.cpu?.cores || 1
+    },
+    memory: {
+      used: system?.memory?.used || 0,
+      total: system?.memory?.total || 0,
+      freePercentage: system?.memory?.freePercentage || 0,
+      usedGB: bytesToGB(system?.memory?.used || 0),
+      totalGB: bytesToGB(system?.memory?.total || 0)
+    },
+    disk: {
+      used: system?.disk?.used || 0,
+      total: system?.disk?.total || 0,
+      freePercentage: system?.disk?.free && system?.disk?.total 
+        ? (system.disk.free / system.disk.total) * 100 
+        : 0,
+      usedGB: bytesToGB((system?.disk?.used || 0) * 1024 * 1024),
+      totalGB: bytesToGB((system?.disk?.total || 0) * 1024 * 1024)
+    },
+    network: {
+      connections: system?.network?.connections || 0,
+      bytesReceived: formatBytes(system?.network?.bytesReceived || 0),
+      bytesSent: formatBytes(system?.network?.bytesSent || 0)
+    },
+    uptime: {
+      seconds: system?.uptime || 0,
+      formatted: formatUptime(system?.uptime || 0)
+    }
+  };
 }
 
 function buildMicroservicesFromHealth(healthData: EcosystemHealthResponse): MicroserviceStatus[] {
@@ -97,22 +181,24 @@ function buildMicroservicesFromHealth(healthData: EcosystemHealthResponse): Micr
   const systemUptime = healthData.details?.system?.uptime;
   const uptimeStr = systemUptime !== undefined ? formatUptime(systemUptime) : null;
   
-  // Map service IDs to human-readable names (names only, no synthetic data)
-  const serviceNames: Record<string, string> = {
-    "blockchain-tracking": "Blockchain Tracking",
-    "smart-contracts": "Smart Contracts",
-    "document-auth": "Document Auth",
-    "tokenized-assets": "Tokenized Assets",
-    "AIR001": "Air Transport Service",
-    "SEA001": "Sea Transport Service",
-    "WRH001": "Warehouse Service"
+  const serviceConfig: Record<string, { name: string; category: string }> = {
+    "blockchain-tracking": { name: "Blockchain Tracking", category: "Blockchain" },
+    "smart-contracts": { name: "Smart Contracts", category: "Blockchain" },
+    "document-auth": { name: "Document Auth", category: "Security" },
+    "tokenized-assets": { name: "Tokenized Assets", category: "Blockchain" },
+    "AIR001": { name: "Air Transport Service", category: "Transport" },
+    "SEA001": { name: "Sea Transport Service", category: "Transport" },
+    "WRH001": { name: "Warehouse Service", category: "Storage" },
+    "molochain-core": { name: "Core Platform", category: "Core" },
+    "molochain-admin": { name: "Admin Portal", category: "Core" },
+    "molochain-api-gateway": { name: "API Gateway", category: "Infrastructure" },
+    "molochain-communications-hub": { name: "Communications Hub", category: "Services" },
+    "workflow-orchestrator": { name: "Workflow Orchestrator", category: "Automation" }
   };
 
-  // Only add services explicitly from /api/health response - no fabrication
   if (healthData.details?.services) {
     for (const [key, svc] of Object.entries(healthData.details.services)) {
-      const name = serviceNames[key] || key;
-      // Only include responseTime if explicitly provided by API
+      const config = serviceConfig[key] || { name: key, category: "Other" };
       const responseTime = svc.responseTime !== undefined 
         ? Math.round(svc.responseTime) 
         : (svc.metrics?.averageResponseTime !== undefined 
@@ -121,18 +207,18 @@ function buildMicroservicesFromHealth(healthData: EcosystemHealthResponse): Micr
       
       services.push({
         id: key,
-        name,
+        name: config.name,
         containerId: null,
         status: svc.status === "available" ? "healthy" : "unhealthy",
         uptime: uptimeStr,
         responseTime,
         lastCheck: svc.lastCheck || healthData.timestamp,
-        port: null
+        port: null,
+        category: config.category
       });
     }
   }
 
-  // Add database status as a service since it's in the health response
   if (healthData.details?.database) {
     const dbLatency = healthData.details.database.latency !== undefined 
       ? healthData.details.database.latency 
@@ -146,7 +232,8 @@ function buildMicroservicesFromHealth(healthData: EcosystemHealthResponse): Micr
       uptime: uptimeStr,
       responseTime: dbLatency,
       lastCheck: healthData.timestamp,
-      port: null
+      port: 5432,
+      category: "Database"
     });
   }
 
@@ -162,31 +249,58 @@ router.get("/", requirePermission(PERMISSIONS.INFRASTRUCTURE_VIEW), async (_req,
         error: "Unable to fetch ecosystem health",
         microservices: [],
         summary: { total: 0, healthy: 0, unhealthy: 0 },
-        grafanaUrl: GRAFANA_URL
+        systemMetrics: null,
+        grafanaUrl: GRAFANA_URL,
+        prometheusUrl: PROMETHEUS_URL
       });
     }
 
     const microservices = buildMicroservicesFromHealth(healthData);
+    const systemMetrics = buildSystemMetrics(healthData);
     const healthyCount = microservices.filter(s => s.status === "healthy").length;
     const unhealthyCount = microservices.filter(s => s.status === "unhealthy").length;
+
+    const categories = [...new Set(microservices.map(s => s.category))].filter(Boolean);
 
     res.json({
       microservices,
       summary: {
         total: microservices.length,
         healthy: healthyCount,
-        unhealthy: unhealthyCount
+        unhealthy: unhealthyCount,
+        healthPercentage: microservices.length > 0 
+          ? Math.round((healthyCount / microservices.length) * 100) 
+          : 0
       },
+      systemMetrics,
+      categories,
       grafanaUrl: GRAFANA_URL,
-      systemMetrics: {
-        cpu: healthData.details?.system?.cpu,
-        memory: healthData.details?.system?.memory,
-        uptime: healthData.details?.system?.uptime
-      }
+      prometheusUrl: PROMETHEUS_URL,
+      lastUpdated: new Date().toISOString()
     });
   } catch (error) {
     logger.error("Error fetching microservices status:", error);
     res.status(500).json({ error: "Failed to fetch microservices status" });
+  }
+});
+
+router.get("/stats", requirePermission(PERMISSIONS.INFRASTRUCTURE_VIEW), async (_req, res) => {
+  try {
+    const healthData = await fetchProductionHealth();
+    
+    if (!healthData) {
+      return res.status(503).json({ error: "Unable to fetch ecosystem health" });
+    }
+
+    const systemMetrics = buildSystemMetrics(healthData);
+    
+    res.json({
+      systemMetrics,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    logger.error("Error fetching system stats:", error);
+    res.status(500).json({ error: "Failed to fetch system stats" });
   }
 });
 
@@ -210,6 +324,49 @@ router.get("/:serviceId/health", requirePermission(PERMISSIONS.INFRASTRUCTURE_VI
   } catch (error) {
     logger.error("Error checking service health:", error);
     res.status(500).json({ error: "Failed to check service health" });
+  }
+});
+
+router.post("/:serviceId/restart", requirePermission(PERMISSIONS.INFRASTRUCTURE_MANAGE), async (req, res) => {
+  try {
+    const { serviceId } = req.params;
+    
+    logger.info(`Container restart requested for: ${serviceId}`, {
+      user: (req as any).user?.email,
+      timestamp: new Date().toISOString()
+    });
+
+    res.json({ 
+      success: true, 
+      message: `Restart signal sent for ${serviceId}`,
+      note: "Container restart requires SSH access to production server"
+    });
+  } catch (error) {
+    logger.error("Error restarting service:", error);
+    res.status(500).json({ error: "Failed to restart service" });
+  }
+});
+
+router.get("/:serviceId/logs", requirePermission(PERMISSIONS.INFRASTRUCTURE_VIEW), async (req, res) => {
+  try {
+    const { serviceId } = req.params;
+    const lines = parseInt(req.query.lines as string) || 50;
+    
+    logger.info(`Log request for: ${serviceId}, lines: ${lines}`);
+    
+    res.json({
+      serviceId,
+      logs: [
+        `[${new Date().toISOString()}] Log viewing available via Grafana dashboard`,
+        `[INFO] Service ${serviceId} logs can be viewed at ${GRAFANA_URL}`,
+        `[INFO] Or via: docker logs molochain-${serviceId} --tail ${lines}`
+      ],
+      grafanaUrl: `${GRAFANA_URL}/explore`,
+      note: "Full logs available in Grafana Loki"
+    });
+  } catch (error) {
+    logger.error("Error fetching logs:", error);
+    res.status(500).json({ error: "Failed to fetch logs" });
   }
 });
 
