@@ -14,17 +14,64 @@ interface WorkflowRun {
   error?: string;
 }
 
+interface WorkflowStats {
+  totalRuns: number;
+  successfulRuns: number;
+  failedRuns: number;
+  averageDurationMs: number;
+  lastRunAt?: string;
+  lastStatus?: string;
+}
+
 export class WorkflowOrchestrator {
   private eventBus: EventBus;
   private registry: WorkflowRegistry;
   private logger: Logger;
   private scheduledJobs: Map<string, cron.ScheduledTask> = new Map();
   private activeRuns: Map<string, WorkflowRun> = new Map();
+  private executionHistory: WorkflowRun[] = [];
+  private workflowStats: Map<string, WorkflowStats> = new Map();
 
   constructor(eventBus: EventBus, registry: WorkflowRegistry, logger: Logger) {
     this.eventBus = eventBus;
     this.registry = registry;
     this.logger = logger;
+  }
+
+  getExecutionHistory(limit: number = 50): WorkflowRun[] {
+    return this.executionHistory.slice(-limit);
+  }
+
+  getWorkflowStats(): Record<string, WorkflowStats> {
+    return Object.fromEntries(this.workflowStats);
+  }
+
+  private updateStats(workflowId: string, run: WorkflowRun): void {
+    const current = this.workflowStats.get(workflowId) || {
+      totalRuns: 0,
+      successfulRuns: 0,
+      failedRuns: 0,
+      averageDurationMs: 0
+    };
+
+    current.totalRuns++;
+    if (run.status === 'completed') {
+      current.successfulRuns++;
+    } else if (run.status === 'failed') {
+      current.failedRuns++;
+    }
+
+    if (run.completedAt && run.startedAt) {
+      const duration = new Date(run.completedAt).getTime() - new Date(run.startedAt).getTime();
+      current.averageDurationMs = Math.round(
+        (current.averageDurationMs * (current.totalRuns - 1) + duration) / current.totalRuns
+      );
+    }
+
+    current.lastRunAt = run.completedAt || run.startedAt;
+    current.lastStatus = run.status;
+
+    this.workflowStats.set(workflowId, current);
   }
 
   setupEventHandlers(): void {
@@ -163,6 +210,11 @@ export class WorkflowOrchestrator {
     }
 
     this.activeRuns.set(run.runId, run);
+    this.executionHistory.push(run);
+    if (this.executionHistory.length > 1000) {
+      this.executionHistory.shift();
+    }
+    this.updateStats(workflow.id, run);
   }
 
   private async executeStep(
