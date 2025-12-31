@@ -14,6 +14,8 @@ import { Progress } from "@/components/ui/progress";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 
 interface Microservice {
@@ -194,10 +196,25 @@ function SystemMetricsCards({ metrics }: { metrics: SystemMetrics | null }) {
   );
 }
 
+interface LogsDialogState {
+  open: boolean;
+  serviceId: string;
+  containerName: string;
+  logs: string[];
+  loading: boolean;
+}
+
 export default function MicroservicesPanel() {
   const { toast } = useToast();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [logsDialog, setLogsDialog] = useState<LogsDialogState>({
+    open: false,
+    serviceId: "",
+    containerName: "",
+    logs: [],
+    loading: false
+  });
 
   const { data, isLoading, error, refetch } = useQuery<MicroservicesResponse>({
     queryKey: ["/api/admin/microservices"],
@@ -237,16 +254,16 @@ export default function MicroservicesPanel() {
 
   const logsMutation = useMutation({
     mutationFn: async (serviceId: string) => {
-      const response = await apiRequest("GET", `/api/admin/microservices/${serviceId}/logs?lines=50`);
+      const response = await apiRequest("GET", `/api/admin/microservices/${serviceId}/logs?lines=100`);
       return response.json();
     },
     onSuccess: (data, serviceId) => {
-      if (data.grafanaUrl) {
-        window.open(data.grafanaUrl, "_blank");
-      }
-      toast({
-        title: "Logs Available",
-        description: data.note || `Logs for ${serviceId} available in Grafana`,
+      setLogsDialog({
+        open: true,
+        serviceId,
+        containerName: data.containerName || serviceId,
+        logs: data.logs || [],
+        loading: false
       });
     },
     onError: (error: Error) => {
@@ -255,10 +272,18 @@ export default function MicroservicesPanel() {
         description: error.message || "Failed to fetch logs",
         variant: "destructive"
       });
+      setLogsDialog(prev => ({ ...prev, loading: false }));
     }
   });
 
   const handleViewLogs = (serviceId: string) => {
+    setLogsDialog({
+      open: true,
+      serviceId,
+      containerName: "",
+      logs: [],
+      loading: true
+    });
     logsMutation.mutate(serviceId);
   };
 
@@ -559,7 +584,7 @@ export default function MicroservicesPanel() {
                                   <FileText className={`h-4 w-4 ${logsMutation.isPending ? "animate-pulse" : ""}`} />
                                 </Button>
                               </TooltipTrigger>
-                              <TooltipContent>View Logs in Grafana</TooltipContent>
+                              <TooltipContent>View Container Logs</TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
                           <TooltipProvider>
@@ -594,6 +619,56 @@ export default function MicroservicesPanel() {
           Last updated: {new Date(data.lastUpdated).toLocaleString()}
         </div>
       )}
+
+      <Dialog open={logsDialog.open} onOpenChange={(open) => setLogsDialog(prev => ({ ...prev, open }))}>
+        <DialogContent className="max-w-4xl max-h-[80vh]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <FileText className="h-5 w-5" />
+              Container Logs: {logsDialog.containerName || logsDialog.serviceId}
+            </DialogTitle>
+            <DialogDescription>
+              Last 100 log lines from the container
+            </DialogDescription>
+          </DialogHeader>
+          <ScrollArea className="h-[60vh] w-full rounded-md border bg-muted/50 p-4">
+            {logsDialog.loading ? (
+              <div className="flex items-center justify-center h-full">
+                <RefreshCw className="h-6 w-6 animate-spin text-muted-foreground" />
+                <span className="ml-2 text-muted-foreground">Loading logs...</span>
+              </div>
+            ) : logsDialog.logs.length > 0 ? (
+              <pre className="text-xs font-mono whitespace-pre-wrap break-all">
+                {logsDialog.logs.map((line, i) => (
+                  <div key={i} className="py-0.5 hover:bg-muted/80">
+                    {line}
+                  </div>
+                ))}
+              </pre>
+            ) : (
+              <div className="text-center text-muted-foreground py-8">
+                No logs available
+              </div>
+            )}
+          </ScrollArea>
+          <div className="flex justify-between items-center pt-2">
+            <span className="text-xs text-muted-foreground">
+              {logsDialog.logs.length} lines
+            </span>
+            {data?.grafanaUrl && (
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => window.open(`${data.grafanaUrl}/explore`, "_blank")}
+                data-testid="button-open-grafana"
+              >
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Open in Grafana
+              </Button>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
