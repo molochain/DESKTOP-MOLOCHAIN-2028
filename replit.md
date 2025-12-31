@@ -99,6 +99,17 @@ The following containerized services are LIVE on production server (31.186.24.19
 - **Healthy Containers:** 41 marked healthy
 - **Key Services:** CMS (5), PostgreSQL (3), Workers (3), API Gateway (2), plus 41 other microservices
 - **Networks:** cms-network, molochain-network, postgres-network, workers-network
+- **Server Uptime:** 46+ days
+- **Disk Usage:** 70% (47GB free)
+- **Memory:** 4GB used, 3.5GB available
+
+### Deployment & Sync Tools (scripts/)
+- **check-production-server.ts:** SSH health check for production server status
+- **quick-sync.ts:** Fast deployment sync to production (build + upload + restart)
+- **sync-to-production.ts:** Full deployment with npm install and container restart
+- **cleanup-workspaces.ts:** Clean old packages and logs on both local and production
+- **SSH Access:** root@31.186.24.19 (password in SERVER_SSH_PASSWORD secret)
+- **Deploy Path:** /var/www/vhosts/molochain.com/molochain-core
 
 ## External Dependencies
 
