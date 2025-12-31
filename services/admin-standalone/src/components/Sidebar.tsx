@@ -40,6 +40,7 @@ const menuItems = [
   { path: '/logs', icon: Terminal, label: 'Logs' },
   { path: '/security', icon: ShieldCheck, label: 'Security' },
   { path: '/database', icon: HardDrive, label: 'Database' },
+  { path: '/api-docs', icon: FileCode, label: 'API Docs' },
   { path: '/mololink', icon: Link2, label: 'Mololink' },
   { path: '/communications', icon: MessageSquare, label: 'Communications' },
   { path: '/workflows', icon: Workflow, label: 'Workflows' },

@@ -17,6 +17,7 @@ import { Metrics } from '@/pages/Metrics';
 import { Logs } from '@/pages/Logs';
 import { Security } from '@/pages/Security';
 import Database from '@/pages/Database';
+import ApiDocs from '@/pages/ApiDocs';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function App() {
@@ -52,6 +53,7 @@ export default function App() {
           <Route path="/logs" element={<Logs />} />
           <Route path="/security" element={<Security />} />
           <Route path="/database" element={<Database />} />
+          <Route path="/api-docs" element={<ApiDocs />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />

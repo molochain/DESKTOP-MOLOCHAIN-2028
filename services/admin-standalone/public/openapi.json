@@ -1,0 +1,663 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Molochain Admin API",
+    "description": "REST API for the Molochain Admin System. Provides endpoints for container management, system metrics, SSL certificate monitoring, database administration, user management, and system settings.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Molochain Support",
+      "url": "https://molochain.com/support"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://admin.molochain.com",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/api/admin/microservices/containers": {
+      "get": {
+        "tags": ["Containers"],
+        "summary": "List all containers",
+        "description": "Returns a list of all Docker containers with their status, health, and resource usage",
+        "responses": {
+          "200": {
+            "description": "List of containers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Container" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/microservices/containers/{name}/restart": {
+      "post": {
+        "tags": ["Containers"],
+        "summary": "Restart a container",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Container name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Container restarted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "message": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/microservices/containers/{name}/logs": {
+      "get": {
+        "tags": ["Containers"],
+        "summary": "Get container logs",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "lines",
+            "in": "query",
+            "schema": { "type": "integer", "default": 100 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Container logs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "logs": { "type": "array", "items": { "type": "string" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/microservices/metrics": {
+      "get": {
+        "tags": ["Metrics"],
+        "summary": "Get system metrics",
+        "description": "Returns CPU, memory, disk, and network metrics",
+        "responses": {
+          "200": {
+            "description": "System metrics",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SystemMetrics" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ssl/check-all": {
+      "get": {
+        "tags": ["SSL"],
+        "summary": "Check all SSL certificates",
+        "description": "Checks SSL certificates for all monitored domains",
+        "responses": {
+          "200": {
+            "description": "SSL certificate status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "summary": { "$ref": "#/components/schemas/SSLSummary" },
+                    "certificates": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/SSLCertificate" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ssl/check": {
+      "get": {
+        "tags": ["SSL"],
+        "summary": "Check SSL certificate for domain",
+        "parameters": [
+          {
+            "name": "domain",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SSL certificate details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SSLCertificate" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/database/stats": {
+      "get": {
+        "tags": ["Database"],
+        "summary": "Get database statistics",
+        "responses": {
+          "200": {
+            "description": "Database stats",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DatabaseStats" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/database/tables": {
+      "get": {
+        "tags": ["Database"],
+        "summary": "List all tables",
+        "responses": {
+          "200": {
+            "description": "List of tables",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tables": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/TableInfo" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/database/tables/{name}": {
+      "get": {
+        "tags": ["Database"],
+        "summary": "Get table data",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": { "type": "integer", "default": 1 }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer", "default": 50, "maximum": 100 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Table data with pagination",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TableData" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/database/query": {
+      "post": {
+        "tags": ["Database"],
+        "summary": "Execute SQL query",
+        "description": "Execute a read-only SQL query (SELECT, EXPLAIN, SHOW only)",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["query"],
+                "properties": {
+                  "query": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Query results",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/QueryResult" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/database/backups": {
+      "get": {
+        "tags": ["Database"],
+        "summary": "List backups",
+        "responses": {
+          "200": {
+            "description": "List of backups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "backups": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Backup" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/database/backup": {
+      "post": {
+        "tags": ["Database"],
+        "summary": "Create backup",
+        "responses": {
+          "200": {
+            "description": "Backup created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "backup": { "$ref": "#/components/schemas/Backup" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/database/restore": {
+      "post": {
+        "tags": ["Database"],
+        "summary": "Restore from backup",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["filename", "confirm"],
+                "properties": {
+                  "filename": { "type": "string" },
+                  "confirm": { "type": "string", "enum": ["RESTORE"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Database restored",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "message": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/auth/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Admin login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": { "type": "string", "format": "email" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "user": { "$ref": "#/components/schemas/AdminUser" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/auth/logout": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Admin logout",
+        "responses": {
+          "200": {
+            "description": "Logout successful"
+          }
+        }
+      }
+    },
+    "/api/admin/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "List admin users",
+        "responses": {
+          "200": {
+            "description": "List of admin users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/AdminUser" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create admin user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["username", "email", "password", "role"],
+                "properties": {
+                  "username": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "password": { "type": "string" },
+                  "role": { "type": "string", "enum": ["super_admin", "admin", "viewer"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          }
+        }
+      }
+    },
+    "/api/admin/users/{id}": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Update admin user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": { "type": "string" },
+                  "email": { "type": "string" },
+                  "role": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Delete admin user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Container": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "status": { "type": "string", "enum": ["running", "stopped", "exited"] },
+          "health": { "type": "string", "enum": ["healthy", "unhealthy", "starting"], "nullable": true },
+          "image": { "type": "string" },
+          "ports": { "type": "string" },
+          "created": { "type": "string", "format": "date-time" }
+        }
+      },
+      "SystemMetrics": {
+        "type": "object",
+        "properties": {
+          "cpu": {
+            "type": "object",
+            "properties": {
+              "usage": { "type": "number" },
+              "cores": { "type": "integer" }
+            }
+          },
+          "memory": {
+            "type": "object",
+            "properties": {
+              "used": { "type": "integer" },
+              "total": { "type": "integer" },
+              "percentage": { "type": "number" }
+            }
+          },
+          "disk": {
+            "type": "object",
+            "properties": {
+              "used": { "type": "integer" },
+              "total": { "type": "integer" },
+              "percentage": { "type": "number" }
+            }
+          }
+        }
+      },
+      "SSLCertificate": {
+        "type": "object",
+        "properties": {
+          "domain": { "type": "string" },
+          "label": { "type": "string" },
+          "status": { "type": "string", "enum": ["valid", "expiring", "expired", "invalid", "error"] },
+          "issuer": { "type": "string", "nullable": true },
+          "subject": { "type": "string", "nullable": true },
+          "validFrom": { "type": "string", "format": "date-time", "nullable": true },
+          "validTo": { "type": "string", "format": "date-time", "nullable": true },
+          "daysRemaining": { "type": "integer", "nullable": true },
+          "authorized": { "type": "boolean" },
+          "authorizationError": { "type": "string", "nullable": true }
+        }
+      },
+      "SSLSummary": {
+        "type": "object",
+        "properties": {
+          "total": { "type": "integer" },
+          "valid": { "type": "integer" },
+          "expiring": { "type": "integer" },
+          "expired": { "type": "integer" },
+          "invalid": { "type": "integer" },
+          "error": { "type": "integer" },
+          "lastChecked": { "type": "string", "format": "date-time" }
+        }
+      },
+      "DatabaseStats": {
+        "type": "object",
+        "properties": {
+          "databaseName": { "type": "string" },
+          "size": { "type": "string" },
+          "tableCount": { "type": "integer" },
+          "activeConnections": { "type": "integer" },
+          "version": { "type": "string" }
+        }
+      },
+      "TableInfo": {
+        "type": "object",
+        "properties": {
+          "table_name": { "type": "string" },
+          "table_type": { "type": "string" },
+          "size": { "type": "string" },
+          "column_count": { "type": "integer" },
+          "row_count": { "type": "integer" }
+        }
+      },
+      "TableData": {
+        "type": "object",
+        "properties": {
+          "table": { "type": "string" },
+          "columns": { "type": "array", "items": { "$ref": "#/components/schemas/ColumnInfo" } },
+          "rows": { "type": "array", "items": { "type": "object" } },
+          "pagination": { "$ref": "#/components/schemas/Pagination" }
+        }
+      },
+      "ColumnInfo": {
+        "type": "object",
+        "properties": {
+          "column_name": { "type": "string" },
+          "data_type": { "type": "string" },
+          "is_nullable": { "type": "string" },
+          "column_default": { "type": "string", "nullable": true }
+        }
+      },
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "page": { "type": "integer" },
+          "limit": { "type": "integer" },
+          "total": { "type": "integer" },
+          "totalPages": { "type": "integer" }
+        }
+      },
+      "QueryResult": {
+        "type": "object",
+        "properties": {
+          "columns": { "type": "array", "items": { "type": "string" } },
+          "rows": { "type": "array", "items": { "type": "object" } },
+          "rowCount": { "type": "integer" },
+          "duration": { "type": "integer" }
+        }
+      },
+      "Backup": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "size": { "type": "integer" },
+          "sizeFormatted": { "type": "string" },
+          "created": { "type": "string", "format": "date-time" }
+        }
+      },
+      "AdminUser": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "username": { "type": "string" },
+          "email": { "type": "string" },
+          "role": { "type": "string", "enum": ["super_admin", "admin", "viewer"] },
+          "lastLogin": { "type": "string", "format": "date-time", "nullable": true },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "session"
+      }
+    }
+  },
+  "security": [
+    { "cookieAuth": [] }
+  ],
+  "tags": [
+    { "name": "Authentication", "description": "Admin authentication endpoints" },
+    { "name": "Containers", "description": "Docker container management" },
+    { "name": "Metrics", "description": "System metrics and monitoring" },
+    { "name": "SSL", "description": "SSL certificate monitoring" },
+    { "name": "Database", "description": "PostgreSQL database administration" },
+    { "name": "Users", "description": "Admin user management" }
+  ]
+}
