@@ -21,6 +21,12 @@ export function shouldRedirectToAuthPortal(): boolean {
     return false;
   }
   
+  // Admin subdomain uses its own secure authentication - no SSO redirect
+  // This ensures admin access is isolated and more controlled
+  if (hostname.startsWith('admin.')) {
+    return false;
+  }
+  
   // In production, redirect if we're NOT on auth.molochain.com
   if (hostname.endsWith(PRODUCTION_DOMAIN) && !hostname.startsWith('auth.')) {
     return true;
