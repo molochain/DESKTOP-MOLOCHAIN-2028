@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { Client } from "ssh2";
 import { logger } from "../../utils/logger";
 import { isAuthenticated, isAdmin } from "../../core/auth/auth.service";
 import { requirePermission, PERMISSIONS } from "../../middleware/requirePermission";
@@ -9,6 +10,97 @@ router.use(isAuthenticated, isAdmin);
 
 const PRODUCTION_HOST = "31.186.24.19";
 const PRODUCTION_CORE_PORT = 5000;
+const SSH_USER = "root";
+const SSH_PASSWORD = process.env.SERVER_SSH_PASSWORD;
+
+const CONTAINER_NAME_MAP: Record<string, string> = {
+  "molochain-core": "molochain-core",
+  "molochain-admin": "molochain-admin",
+  "molochain-api-gateway": "molochain-api-gateway",
+  "molochain-communications-hub": "molochain-communications-hub",
+  "workflow-orchestrator": "molochain-workflow-orchestrator",
+  "mololink": "mololink-app",
+  "cms": "molochain-cms-app",
+  "database": "molochain-postgres",
+  "blockchain-tracking": "molochain-blockchain-tracking",
+  "smart-contracts": "molochain-smart-contracts",
+  "document-auth": "molochain-document-auth",
+  "tokenized-assets": "molochain-tokenized-assets",
+  "AIR001": "molochain-air-transport",
+  "SEA001": "molochain-sea-transport",
+  "WRH001": "molochain-warehouse"
+};
+
+function executeSSHCommand(command: string, timeout = 30000): Promise<{ success: boolean; output: string; error?: string }> {
+  return new Promise((resolve) => {
+    if (!SSH_PASSWORD) {
+      resolve({ success: false, output: "", error: "SSH password not configured" });
+      return;
+    }
+
+    const conn = new Client();
+    let output = "";
+    let errorOutput = "";
+    let resolved = false;
+
+    const timeoutId = setTimeout(() => {
+      if (!resolved) {
+        resolved = true;
+        conn.end();
+        resolve({ success: false, output, error: "Command timeout exceeded" });
+      }
+    }, timeout);
+
+    conn.on("ready", () => {
+      conn.exec(command, (err, stream) => {
+        if (err) {
+          clearTimeout(timeoutId);
+          resolved = true;
+          conn.end();
+          resolve({ success: false, output: "", error: err.message });
+          return;
+        }
+
+        stream.on("close", (code: number) => {
+          clearTimeout(timeoutId);
+          if (!resolved) {
+            resolved = true;
+            conn.end();
+            resolve({ 
+              success: code === 0, 
+              output: output.trim(), 
+              error: code !== 0 ? errorOutput.trim() || `Exit code: ${code}` : undefined 
+            });
+          }
+        });
+
+        stream.on("data", (data: Buffer) => {
+          output += data.toString();
+        });
+
+        stream.stderr.on("data", (data: Buffer) => {
+          errorOutput += data.toString();
+        });
+      });
+    });
+
+    conn.on("error", (err) => {
+      clearTimeout(timeoutId);
+      if (!resolved) {
+        resolved = true;
+        resolve({ success: false, output: "", error: err.message });
+      }
+    });
+
+    conn.connect({
+      host: PRODUCTION_HOST,
+      port: 22,
+      username: SSH_USER,
+      password: SSH_PASSWORD,
+      readyTimeout: 10000
+    });
+  });
+}
 const GRAFANA_URL = `http://${PRODUCTION_HOST}:3001`;
 const PROMETHEUS_URL = `http://${PRODUCTION_HOST}:9090`;
 
@@ -330,17 +422,55 @@ router.get("/:serviceId/health", requirePermission(PERMISSIONS.INFRASTRUCTURE_VI
 router.post("/:serviceId/restart", requirePermission(PERMISSIONS.INFRASTRUCTURE_MANAGE), async (req, res) => {
   try {
     const { serviceId } = req.params;
+    const userEmail = (req as any).user?.email || "unknown";
     
     logger.info(`Container restart requested for: ${serviceId}`, {
-      user: (req as any).user?.email,
+      user: userEmail,
       timestamp: new Date().toISOString()
     });
 
-    res.json({ 
-      success: true, 
-      message: `Restart signal sent for ${serviceId}`,
-      note: "Container restart requires SSH access to production server"
-    });
+    const containerName = CONTAINER_NAME_MAP[serviceId] || `molochain-${serviceId}`;
+    
+    if (serviceId === "database") {
+      return res.status(400).json({
+        success: false,
+        error: "Database restart not allowed via this interface for safety reasons"
+      });
+    }
+
+    const checkResult = await executeSSHCommand(`docker ps -q -f name=^${containerName}$`);
+    
+    if (!checkResult.success || !checkResult.output) {
+      logger.warn(`Container not found: ${containerName}`);
+      return res.status(404).json({
+        success: false,
+        error: `Container '${containerName}' not found or not running`
+      });
+    }
+
+    const restartResult = await executeSSHCommand(`docker restart ${containerName}`, 60000);
+    
+    if (restartResult.success) {
+      logger.info(`Container restarted successfully: ${containerName}`, {
+        user: userEmail,
+        output: restartResult.output
+      });
+      
+      res.json({ 
+        success: true, 
+        message: `Container '${containerName}' restarted successfully`,
+        containerId: restartResult.output
+      });
+    } else {
+      logger.error(`Failed to restart container: ${containerName}`, {
+        error: restartResult.error
+      });
+      
+      res.status(500).json({
+        success: false,
+        error: `Failed to restart container: ${restartResult.error}`
+      });
+    }
   } catch (error) {
     logger.error("Error restarting service:", error);
     res.status(500).json({ error: "Failed to restart service" });
@@ -350,20 +480,41 @@ router.post("/:serviceId/restart", requirePermission(PERMISSIONS.INFRASTRUCTURE_
 router.get("/:serviceId/logs", requirePermission(PERMISSIONS.INFRASTRUCTURE_VIEW), async (req, res) => {
   try {
     const { serviceId } = req.params;
-    const lines = parseInt(req.query.lines as string) || 50;
+    const lines = Math.min(parseInt(req.query.lines as string) || 50, 200);
     
     logger.info(`Log request for: ${serviceId}, lines: ${lines}`);
     
-    res.json({
-      serviceId,
-      logs: [
-        `[${new Date().toISOString()}] Log viewing available via Grafana dashboard`,
-        `[INFO] Service ${serviceId} logs can be viewed at ${GRAFANA_URL}`,
-        `[INFO] Or via: docker logs molochain-${serviceId} --tail ${lines}`
-      ],
-      grafanaUrl: `${GRAFANA_URL}/explore`,
-      note: "Full logs available in Grafana Loki"
-    });
+    const containerName = CONTAINER_NAME_MAP[serviceId] || `molochain-${serviceId}`;
+    
+    const logsResult = await executeSSHCommand(
+      `docker logs ${containerName} --tail ${lines} 2>&1`,
+      15000
+    );
+    
+    if (logsResult.success && logsResult.output) {
+      const logLines = logsResult.output.split('\n').filter(line => line.trim());
+      
+      res.json({
+        serviceId,
+        containerName,
+        logs: logLines,
+        lineCount: logLines.length,
+        grafanaUrl: `${GRAFANA_URL}/explore`,
+        note: "Live container logs fetched successfully"
+      });
+    } else {
+      res.json({
+        serviceId,
+        containerName,
+        logs: [
+          `Unable to fetch live logs: ${logsResult.error || 'Unknown error'}`,
+          `View logs in Grafana: ${GRAFANA_URL}/explore`,
+          `Or SSH and run: docker logs ${containerName} --tail ${lines}`
+        ],
+        grafanaUrl: `${GRAFANA_URL}/explore`,
+        note: "Fallback to Grafana for log viewing"
+      });
+    }
   } catch (error) {
     logger.error("Error fetching logs:", error);
     res.status(500).json({ error: "Failed to fetch logs" });
