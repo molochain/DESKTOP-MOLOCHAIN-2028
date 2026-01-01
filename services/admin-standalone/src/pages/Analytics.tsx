@@ -305,9 +305,9 @@ function TrendChart({
                 dataKey="cpu"
                 stroke="#3b82f6"
                 strokeWidth={2}
-                dot={(props) => {
+                dot={(props: any) => {
                   const { cx, cy, payload } = props;
-                  if (payload.cpuAnomaly) {
+                  if (payload?.cpuAnomaly) {
                     return (
                       <circle
                         cx={cx}
@@ -319,7 +319,7 @@ function TrendChart({
                       />
                     );
                   }
-                  return null;
+                  return <circle cx={cx} cy={cy} r={0} />;
                 }}
                 activeDot={{ r: 6, fill: '#3b82f6' }}
               />
@@ -330,9 +330,9 @@ function TrendChart({
                 dataKey="memory"
                 stroke="#8b5cf6"
                 strokeWidth={2}
-                dot={(props) => {
+                dot={(props: any) => {
                   const { cx, cy, payload } = props;
-                  if (payload.memoryAnomaly) {
+                  if (payload?.memoryAnomaly) {
                     return (
                       <circle
                         cx={cx}
@@ -344,7 +344,7 @@ function TrendChart({
                       />
                     );
                   }
-                  return null;
+                  return <circle cx={cx} cy={cy} r={0} />;
                 }}
                 activeDot={{ r: 6, fill: '#8b5cf6' }}
               />
@@ -355,9 +355,9 @@ function TrendChart({
                 dataKey="disk"
                 stroke="#f59e0b"
                 strokeWidth={2}
-                dot={(props) => {
+                dot={(props: any) => {
                   const { cx, cy, payload } = props;
-                  if (payload.diskAnomaly) {
+                  if (payload?.diskAnomaly) {
                     return (
                       <circle
                         cx={cx}
@@ -369,7 +369,7 @@ function TrendChart({
                       />
                     );
                   }
-                  return null;
+                  return <circle cx={cx} cy={cy} r={0} />;
                 }}
                 activeDot={{ r: 6, fill: '#f59e0b' }}
               />

@@ -16,7 +16,6 @@ import {
   History,
   Play,
   Pause,
-  RefreshCw,
 } from 'lucide-react';
 import {
   getAlertRules,
@@ -674,7 +673,7 @@ export function Incidents() {
     queryFn: getAlertRules,
   });
 
-  const { data: pendingData, isLoading: pendingLoading } = useQuery({
+  const { data: pendingData } = useQuery({
     queryKey: ['/api/admin/database/incidents', 'pending'],
     queryFn: () => getIncidents({ status: 'pending' }),
     refetchInterval: 30000,
