@@ -245,6 +245,7 @@
         "rail": "ریلی"
       },
       "servicesCount": "{{count}} خدمت",
+      "servicesCount_one": "{{count}} خدمت",
       "active": "فعال",
       "defaultDescription": "خدمات لجستیک حرفه‌ای",
       "viewDetails": "مشاهده جزئیات",
@@ -512,10 +513,13 @@
       }
     },
     "cta": {
-      "title": "آماده تحول در لجستیک خود هستید؟",
-      "subtitle": "به هزاران کسب‌وکار در سراسر جهان بپیوندید که برای نیازهای لجستیکی خود به مولوچین اعتماد کرده‌اند",
-      "getStarted": "شروع کنید",
-      "contactUs": "تماس با ما"
+      "title": "آماده همکاری با مولوچین هستید؟",
+      "subtitle": "به هزاران کسب‌وکار در سراسر جهان بپیوندید که برای نیازهای لجستیکی خود به مولوچین اعتماد کرده‌اند. بیایید در مورد چگونگی بهینه‌سازی زنجیره تأمین شما صحبت کنیم.",
+      "getInTouch": "تماس بگیرید",
+      "viewServices": "مشاهده تمام خدمات",
+      "support247": "پشتیبانی ۲۴/۷",
+      "countriesCount": "بیش از ۱۸۰ کشور",
+      "secureReliable": "امن و قابل اعتماد"
     },
     "expertise": {
       "title": "تخصص ما",
@@ -609,29 +613,34 @@
   },
   "contact": {
     "title": "تماس با ما",
-    "subtitle": "در تماس باشید",
+    "subtitle": "با شبکه جهانی متخصصان لجستیک ما در ارتباط باشید",
     "tabs": {
-      "general": "عمومی",
-      "offices": "دفاتر",
-      "agents": "نمایندگان",
-      "professional": "حرفه‌ای",
+      "general": "پرسش‌های عمومی",
+      "offices": "دفاتر جهانی",
+      "agents": "نمایندگان منطقه‌ای",
+      "professional": "خدمات حرفه‌ای",
       "generalInquiries": "پرسش‌های عمومی",
       "globalOffices": "دفاتر جهانی",
       "regionalAgents": "نمایندگان منطقه‌ای",
       "professionalServices": "خدمات حرفه‌ای"
     },
     "status": {
-      "unavailable": "در دسترس نیست"
+      "unavailable": "به‌روزرسانی وضعیت نمایندگان در لحظه موقتاً در دسترس نیست. اطلاعات تماس و فرم‌ها کاملاً کاربردی هستند."
     },
     "form": {
+      "title": "برای ما پیام ارسال کنید",
       "name": "نام",
+      "namePlaceholder": "نام شما",
       "firstName": "نام",
       "lastName": "نام خانوادگی",
       "email": "ایمیل",
+      "emailPlaceholder": "ایمیل شما",
       "phone": "تلفن",
       "company": "شرکت",
       "subject": "موضوع",
+      "subjectPlaceholder": "موضوع پیام",
       "message": "پیام",
+      "messagePlaceholder": "پیام شما",
       "submit": "ارسال پیام",
       "sending": "در حال ارسال...",
       "success": "پیام شما با موفقیت ارسال شد!",
@@ -661,14 +670,24 @@
       }
     },
     "info": {
-      "address": "آدرس",
+      "title": "اطلاعات تماس",
+      "centerOffice": "دفتر مرکزی",
+      "phoneFax": "تلفن و فکس",
+      "phoneAndFax": "تلفن و فکس",
       "phone": "تلفن",
+      "fax": "فکس",
       "email": "ایمیل",
+      "hours": "ساعات کاری",
+      "whatsapp": "واتساپ",
+      "address": "محله ماسلاک، خیابان اسکی بویوکدره، مسیر آیازاغا\nپلازا گیز۲۰۰۰ شماره:۷ شیشلی / استانبول ترکیه",
+      "coordinates": "41° 6' 31.3272\"N, 29° 0' 53.8884\"E (41.1087024, 29.014969)",
+      "operatingHours": "دوشنبه - جمعه: ۹:۰۰ صبح - ۶:۰۰ عصر",
+      "headquartersLocation": "موقعیت دفتر مرکزی",
+      "mapPlaceholder": "نگهدارنده نقشه",
       "workingHours": "ساعات کاری",
       "workingHoursValue": "شنبه - پنجشنبه: ۹:۰۰ - ۱۸:۰۰",
       "headquarters": "دفتر مرکزی",
       "regional": "دفاتر منطقه‌ای",
-      "phoneAndFax": "تلفن و فکس",
       "connected": "متصل",
       "connectionSuccess": "اتصال بلادرنگ با موفقیت برقرار شد"
     },
@@ -677,6 +696,10 @@
       "subtitle": "دفاتر جهانی ما را پیدا کنید",
       "headquarters": "دفتر مرکزی",
       "regional": "منطقه‌ای",
+      "noOffices": "هیچ دفتری یافت نشد",
+      "noOfficesHint": "لطفاً دوباره تلاش کنید",
+      "port": "بندر",
+      "services": "خدمات",
       "istanbul": {
         "city": "استانبول",
         "country": "ترکیه",
@@ -718,7 +741,12 @@
       "premium": "ممتاز",
       "contactAgent": "تماس با نماینده",
       "viewProfile": "مشاهده پروفایل",
-      "noAgentsFound": "نماینده‌ای یافت نشد"
+      "noAgentsFound": "نماینده‌ای یافت نشد",
+      "liveEnabled": "آنلاین",
+      "liveDisabled": "آفلاین",
+      "hideDashboard": "پنهان کردن داشبورد",
+      "showDashboard": "نمایش داشبورد",
+      "noAgents": "هیچ نماینده‌ای یافت نشد"
     },
     "services": {
       "title": "خدمات تماس",
@@ -738,7 +766,10 @@
       "partnership": {
         "title": "مشارکت",
         "description": "فرصت‌های مشارکت و همکاری را کاوش کنید"
-      }
+      },
+      "expertise": "تخصص",
+      "availability": "دسترسی",
+      "responseTime": "زمان پاسخ"
     },
     "network": {
       "title": "شبکه جهانی ما",

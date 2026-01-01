@@ -609,12 +609,12 @@
     }
   },
   "contact": {
-    "title": "İletişim",
-    "subtitle": "İletişime Geçin",
+    "title": "Bize Ulaşın",
+    "subtitle": "Küresel lojistik profesyonellerimizle iletişime geçin",
     "tabs": {
-      "general": "Genel İletişim",
-      "offices": "Ofislerimiz",
-      "agents": "Temsilciler",
+      "general": "Genel Sorular",
+      "offices": "Küresel Ofisler",
+      "agents": "Bölgesel Acenteler",
       "professional": "Profesyonel Hizmetler",
       "generalInquiries": "Genel Sorular",
       "globalOffices": "Küresel Ofisler",
@@ -622,17 +622,22 @@
       "professionalServices": "Profesyonel Hizmetler"
     },
     "status": {
-      "unavailable": "Şu anda müsait değil"
+      "unavailable": "Gerçek zamanlı acente durum güncellemeleri geçici olarak kullanılamıyor. İletişim bilgileri ve formlar tamamen işlevsel olmaya devam ediyor."
     },
     "form": {
+      "title": "Bize mesaj gönderin",
       "name": "Ad",
+      "namePlaceholder": "Adınız",
       "firstName": "Ad",
       "lastName": "Soyad",
       "email": "E-posta",
+      "emailPlaceholder": "E-postanız",
       "phone": "Telefon",
       "company": "Şirket",
       "subject": "Konu",
+      "subjectPlaceholder": "Mesaj konusu",
       "message": "Mesaj",
+      "messagePlaceholder": "Mesajınız",
       "submit": "Mesaj Gönder",
       "sending": "Gönderiliyor...",
       "success": "Mesajınız başarıyla gönderildi!",
@@ -660,14 +665,23 @@
     },
     "info": {
       "title": "İletişim Bilgileri",
-      "address": "Adres",
+      "centerOffice": "Merkez Ofis",
+      "phoneFax": "Telefon & Faks",
+      "phoneAndFax": "Telefon & Faks",
       "phone": "Telefon",
+      "fax": "Faks",
       "email": "E-posta",
+      "hours": "Çalışma Saatleri",
+      "whatsapp": "WhatsApp",
+      "address": "Maslak Mah. Eski Büyükdere Cad. Ayazağa Yolu\nGiz2000 Plaza No:7 Şişli / İstanbul TÜRKİYE",
+      "coordinates": "41° 6' 31.3272\"N, 29° 0' 53.8884\"E (41.1087024, 29.014969)",
+      "operatingHours": "Pazartesi - Cuma: 09:00 - 18:00",
+      "headquartersLocation": "Genel Merkez Konumu",
+      "mapPlaceholder": "Harita Alanı",
       "workingHours": "Çalışma Saatleri",
       "workingHoursValue": "Pazartesi - Cuma: 09:00 - 18:00",
       "emergency": "Acil Durum Hattı",
       "emergencyAvailable": "7/24 Destek",
-      "phoneAndFax": "Telefon & Faks",
       "connected": "Bağlandı",
       "connectionSuccess": "Gerçek zamanlı bağlantı başarıyla kuruldu"
     },
@@ -679,7 +693,12 @@
       "salesOffice": "Satış Ofisi",
       "viewOnMap": "Haritada Görüntüle",
       "getDirections": "Yol Tarifi Al",
-      "callNow": "Şimdi Ara"
+      "callNow": "Şimdi Ara",
+      "noOffices": "Ofis bulunamadı",
+      "noOfficesHint": "Lütfen tekrar deneyin",
+      "regional": "Bölgesel",
+      "port": "Liman",
+      "services": "Hizmetler"
     },
     "agents": {
       "title": "Yetkili Temsilcilerimiz",
@@ -695,7 +714,12 @@
       "specialties": "Uzmanlık Alanları",
       "languages": "Diller",
       "rating": "Değerlendirme",
-      "responseTime": "Yanıt Süresi"
+      "responseTime": "Yanıt Süresi",
+      "liveEnabled": "Çevrimiçi",
+      "liveDisabled": "Çevrimdışı",
+      "hideDashboard": "Paneli Gizle",
+      "showDashboard": "Paneli Göster",
+      "noAgents": "Temsilci bulunamadı"
     },
     "services": {
       "title": "Profesyonel Hizmetler",
@@ -717,7 +741,14 @@
         "description": "7/24 teknik destek ve sorun çözme hizmeti"
       },
       "requestService": "Hizmet Talep Et",
-      "learnMore": "Daha Fazla Bilgi"
+      "learnMore": "Daha Fazla Bilgi",
+      "expertise": "Uzmanlık",
+      "availability": "Müsaitlik",
+      "responseTime": "Yanıt Süresi"
+    },
+    "network": {
+      "title": "Küresel Ağımız",
+      "subtitle": "Dünya çapında bağlantılarımız"
     },
     "globalOffices": {
       "types": {
