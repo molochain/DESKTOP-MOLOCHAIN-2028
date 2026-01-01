@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -98,12 +99,12 @@ const getServiceIcon = (slug: string): React.ReactNode => {
   return serviceIconMap[slug] || <Package className="w-6 h-6" />;
 };
 
-// Transform CMS service to the local Service interface
-const transformCMSService = (cmsService: CMSService): Service => ({
+// Transform CMS service to the local Service interface (uses translation key for fallback)
+const transformCMSService = (cmsService: CMSService, t: (key: string) => string): Service => ({
   id: cmsService.slug,
   name: cmsService.name,
   code: cmsService.slug.toUpperCase(),
-  description: cmsService.short_description || `Professional ${cmsService.name} logistics service`,
+  description: cmsService.short_description || t('services.page.defaultDescription'),
   category: cmsService.category || 'general',
   title: cmsService.name,
   active: true,
@@ -293,6 +294,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
 };
 
 const Services = () => {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [showComparison, setShowComparison] = useState(false);
@@ -363,10 +365,10 @@ const Services = () => {
 
   // Service stats
   const stats = [
-    { label: "Countries", value: "180+", icon: <Globe className="w-5 h-5" /> },
-    { label: "Services", value: "46+", icon: <Package className="w-5 h-5" /> },
-    { label: "Years Experience", value: "25+", icon: <Award className="w-5 h-5" /> },
-    { label: "Active Users", value: "10K+", icon: <Users className="w-5 h-5" /> }
+    { label: t('services.page.stats.countries'), value: "180+", icon: <Globe className="w-5 h-5" /> },
+    { label: t('services.page.stats.services'), value: "46+", icon: <Package className="w-5 h-5" /> },
+    { label: t('services.page.stats.yearsExperience'), value: "25+", icon: <Award className="w-5 h-5" /> },
+    { label: t('services.page.stats.activeUsers'), value: "10K+", icon: <Users className="w-5 h-5" /> }
   ];
 
   return (
@@ -399,11 +401,10 @@ const Services = () => {
               </div>
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
-              MoloChain Global Services
+              {t('services.page.heroTitle')}
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-8">
-              Comprehensive logistics solutions powered by innovation. From air freight to warehousing, 
-              we deliver excellence across 180+ countries.
+              {t('services.page.heroSubtitle')}
             </p>
             
             {/* Search Bar */}
@@ -412,7 +413,7 @@ const Services = () => {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <Input
                   type="text"
-                  placeholder="Search services..."
+                  placeholder={t('services.page.searchPlaceholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-12 pr-4 py-6 text-lg bg-white/95 backdrop-blur-sm text-gray-900 rounded-full border-0 shadow-xl"
@@ -429,7 +430,7 @@ const Services = () => {
                 data-testid="button-compare-services"
               >
                 <BarChart3 className="w-4 h-4 mr-2" />
-                Compare Services
+                {t('services.page.compareServices')}
               </Button>
               <Button 
                 onClick={() => setShowCalculator(true)}
@@ -437,12 +438,12 @@ const Services = () => {
                 data-testid="button-pricing-calculator"
               >
                 <Calculator className="w-4 h-4 mr-2" />
-                Pricing Calculator
+                {t('services.page.pricingCalculator')}
               </Button>
               <Link href="/services/recommender">
                 <Button className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 border-0">
                   <Sparkles className="w-4 h-4 mr-2" />
-                  AI Recommendations
+                  {t('services.page.aiRecommendations')}
                 </Button>
               </Link>
             </div>
@@ -467,25 +468,25 @@ const Services = () => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Filter className="w-5 h-5 text-gray-500" />
-              <h2 className="text-lg font-semibold">Filter by Category</h2>
+              <h2 className="text-lg font-semibold">{t('services.page.filterByCategory')}</h2>
             </div>
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
               <SelectTrigger className="w-[200px]" data-testid="select-category">
-                <SelectValue placeholder="Select category" />
+                <SelectValue placeholder={t('services.page.selectCategory')} />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((category) => (
                   <SelectItem key={category} value={category} data-testid={`option-category-${category}`}>
                     <div className="flex items-center gap-2 capitalize">
                       {categoryIcons[category] || <Package className="w-4 h-4" />}
-                      {category === "all" ? "All Services" : category}
+                      {t(`services.page.categories.${category}`, { defaultValue: category })}
                     </div>
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
             <Badge variant="secondary">
-              {filteredServices.length} services
+              {t('services.page.servicesCount', { count: filteredServices.length })}
             </Badge>
           </div>
         </div>
@@ -514,10 +515,10 @@ const Services = () => {
             <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
               <Package className="w-8 h-8 text-red-500" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Unable to Load Services</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">We're having trouble loading our services. Please try again later.</p>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('services.page.error.title')}</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">{t('services.page.error.subtitle')}</p>
             <Button onClick={() => window.location.reload()} variant="outline" data-testid="button-retry-services">
-              Try Again
+              {t('services.page.tryAgain')}
             </Button>
           </div>
         ) : filteredServices.length === 0 ? (
@@ -525,10 +526,10 @@ const Services = () => {
             <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
               <Search className="w-8 h-8 text-gray-400" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No Services Found</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">Try adjusting your search or filter to find what you're looking for.</p>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('services.page.noResults.title')}</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">{t('services.page.noResults.subtitle')}</p>
             <Button onClick={() => { setSearchQuery(""); setSelectedCategory("all"); }} variant="outline" data-testid="button-clear-filters">
-              Clear Filters
+              {t('services.page.clearFilters')}
             </Button>
           </div>
         ) : (
@@ -549,7 +550,7 @@ const Services = () => {
                         </div>
                         {service.active !== false && (
                           <Badge variant="secondary" className="text-xs bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                            Active
+                            {t('services.page.active')}
                           </Badge>
                         )}
                       </div>
@@ -557,7 +558,7 @@ const Services = () => {
                         {service.title || service.name || service.code}
                       </CardTitle>
                       <CardDescription className="line-clamp-2 text-gray-600 dark:text-gray-300">
-                        {service.description || "Professional logistics service"}
+                        {service.description || t('services.page.defaultDescription')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -573,15 +574,15 @@ const Services = () => {
                           <>
                             <div className="flex items-center text-sm text-gray-700 dark:text-gray-300">
                               <Shield className="w-3 h-3 text-green-500 mr-2 flex-shrink-0" />
-                              Secure & Reliable
+                              {t('services.page.features.secure')}
                             </div>
                             <div className="flex items-center text-sm text-gray-700 dark:text-gray-300">
                               <Clock className="w-3 h-3 text-blue-500 mr-2 flex-shrink-0" />
-                              24/7 Support
+                              {t('services.page.features.support')}
                             </div>
                             <div className="flex items-center text-sm text-gray-700 dark:text-gray-300">
                               <Globe className="w-3 h-3 text-purple-500 mr-2 flex-shrink-0" />
-                              Global Coverage
+                              {t('services.page.features.global')}
                             </div>
                           </>
                         )}
@@ -593,7 +594,7 @@ const Services = () => {
                           <span className="text-xs text-gray-500 dark:text-gray-400">(245)</span>
                         </div>
                         <div className="flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300">
-                          View Details
+                          {t('services.page.viewDetails')}
                           <ArrowRight className="w-3 h-3 ml-1" />
                         </div>
                       </div>
@@ -608,9 +609,9 @@ const Services = () => {
         {/* Features Section */}
         <div className="mt-16 py-12 border-t">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Why Choose MoloChain?</h2>
+            <h2 className="text-3xl font-bold mb-4">{t('services.page.whyChoose.title')}</h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Industry-leading logistics solutions with cutting-edge technology and global reach
+              {t('services.page.whyChoose.subtitle')}
             </p>
           </div>
           
@@ -619,27 +620,27 @@ const Services = () => {
               <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-full flex items-center justify-center mb-4">
                 <Zap className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Fast & Efficient</h3>
+              <h3 className="text-xl font-semibold mb-2">{t('services.page.whyChoose.fast.title')}</h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Optimized routes and real-time tracking for fastest delivery times
+                {t('services.page.whyChoose.fast.description')}
               </p>
             </div>
             <div className="text-center">
               <div className="mx-auto w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-full flex items-center justify-center mb-4">
                 <Shield className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Secure & Reliable</h3>
+              <h3 className="text-xl font-semibold mb-2">{t('services.page.whyChoose.secure.title')}</h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Advanced security protocols and insurance coverage for all shipments
+                {t('services.page.whyChoose.secure.description')}
               </p>
             </div>
             <div className="text-center">
               <div className="mx-auto w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 text-white rounded-full flex items-center justify-center mb-4">
                 <Target className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Custom Solutions</h3>
+              <h3 className="text-xl font-semibold mb-2">{t('services.page.whyChoose.custom.title')}</h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Tailored logistics strategies to meet your specific business needs
+                {t('services.page.whyChoose.custom.description')}
               </p>
             </div>
           </div>
@@ -647,20 +648,20 @@ const Services = () => {
 
         {/* Call to Action */}
         <div className="mt-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Logistics?</h2>
+          <h2 className="text-3xl font-bold mb-4">{t('services.page.cta.title')}</h2>
           <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-            Join thousands of businesses worldwide who trust MoloChain for their logistics needs
+            {t('services.page.cta.subtitle')}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/contact">
               <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                Get Started
+                {t('services.page.cta.getStarted')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
             <Link href="/about">
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                Learn More
+                {t('services.page.cta.learnMore')}
               </Button>
             </Link>
           </div>
@@ -672,7 +673,7 @@ const Services = () => {
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white dark:bg-gray-800 rounded-lg max-w-6xl w-full max-h-[90vh] overflow-y-auto p-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">Compare Services</h2>
+              <h2 className="text-2xl font-bold">{t('services.page.compareServices')}</h2>
               <Button 
                 variant="ghost" 
                 onClick={() => setShowComparison(false)}
@@ -691,7 +692,7 @@ const Services = () => {
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">Pricing Calculator</h2>
+              <h2 className="text-2xl font-bold">{t('services.page.pricingCalculator')}</h2>
               <Button 
                 variant="ghost" 
                 onClick={() => setShowCalculator(false)}
@@ -702,7 +703,7 @@ const Services = () => {
             </div>
             <ServicePricingCalculator 
               serviceId="general" 
-              serviceName="General Service" 
+              serviceName={t('services.page.generalService')} 
               category="general"
             />
           </div>

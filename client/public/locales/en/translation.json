@@ -152,6 +152,77 @@
     "customs": {
       "title": "Customs Clearance",
       "description": "Expert customs handling and documentation"
+    },
+    "page": {
+      "heroTitle": "MoloChain Global Services",
+      "heroSubtitle": "Comprehensive logistics solutions powered by innovation. From air freight to warehousing, we deliver excellence across 180+ countries.",
+      "searchPlaceholder": "Search services...",
+      "compareServices": "Compare Services",
+      "pricingCalculator": "Pricing Calculator",
+      "aiRecommendations": "AI Recommendations",
+      "filterByCategory": "Filter by Category",
+      "allServices": "All Services",
+      "servicesCount": "{{count}} services",
+      "servicesCount_one": "{{count}} service",
+      "active": "Active",
+      "defaultDescription": "Professional logistics service",
+      "viewDetails": "View Details",
+      "clearFilters": "Clear Filters",
+      "tryAgain": "Try Again",
+      "generalService": "General Service",
+      "stats": {
+        "countries": "Countries",
+        "services": "Services",
+        "yearsExperience": "Years Experience",
+        "activeUsers": "Active Users"
+      },
+      "features": {
+        "secure": "Secure & Reliable",
+        "support": "24/7 Support",
+        "global": "Global Coverage"
+      },
+      "error": {
+        "title": "Unable to Load Services",
+        "subtitle": "We're having trouble loading our services. Please try again later."
+      },
+      "noResults": {
+        "title": "No Services Found",
+        "subtitle": "Try adjusting your search or filter to find what you're looking for."
+      },
+      "whyChoose": {
+        "title": "Why Choose MoloChain?",
+        "subtitle": "Industry-leading logistics solutions with cutting-edge technology and global reach",
+        "fast": {
+          "title": "Fast & Efficient",
+          "description": "Optimized routes and real-time tracking for fastest delivery times"
+        },
+        "secure": {
+          "title": "Secure & Reliable",
+          "description": "Advanced security protocols and insurance coverage for all shipments"
+        },
+        "custom": {
+          "title": "Custom Solutions",
+          "description": "Tailored logistics strategies to meet your specific business needs"
+        }
+      },
+      "cta": {
+        "title": "Ready to Transform Your Logistics?",
+        "subtitle": "Join thousands of businesses worldwide who trust MoloChain for their logistics needs",
+        "getStarted": "Get Started",
+        "learnMore": "Learn More"
+      },
+      "selectCategory": "Select category",
+      "categories": {
+        "all": "All Services",
+        "transport": "Transport",
+        "warehouse": "Warehouse",
+        "customs": "Customs",
+        "financial": "Financial",
+        "general": "General",
+        "air": "Air Freight",
+        "maritime": "Maritime",
+        "rail": "Rail"
+      }
     }
   },
   "tools": {
@@ -203,6 +274,10 @@
   "about": {
     "title": "About Molo Logistics",
     "subtitle": "A leading force in global logistics and transportation",
+    "badge": "About MoloChain",
+    "heroTitle": "Connecting the World Through Logistics",
+    "heroSubtitle": "For over 25 years, MoloChain has been at the forefront of global logistics, delivering innovative solutions that keep businesses moving and economies growing.",
+    "exploreServices": "Explore Our Services",
     "approach": {
       "title": "Our Approach",
       "description": "At Molo, we believe in a human-centric and collaborative approach. Every customer is not just a client but a partner and friend. Our commitment to transparency, trust, and quality service delivery has made us a credible and trustworthy brand in the global transportation industry.",
@@ -226,9 +301,155 @@
         "description": "Collaborating with major commercial companies worldwide"
       }
     },
+    "stats": {
+      "countries": {
+        "label": "Countries",
+        "value": "180+",
+        "description": "Global presence across continents"
+      },
+      "services": {
+        "label": "Services",
+        "value": "46+",
+        "description": "Comprehensive logistics solutions"
+      },
+      "yearsExperience": {
+        "label": "Years Experience",
+        "value": "25+",
+        "description": "Industry expertise since 1999"
+      },
+      "activeCustomers": {
+        "label": "Active Customers",
+        "value": "10K+",
+        "description": "Trusted by businesses worldwide"
+      }
+    },
+    "mission": {
+      "badge": "Our Mission",
+      "title": "Empowering Global Trade Through Innovation",
+      "description1": "At MoloChain, we believe that efficient logistics is the backbone of global commerce. Our mission is to provide seamless, technology-driven supply chain solutions that enable businesses of all sizes to compete on the world stage.",
+      "description2": "Founded with a vision to revolutionize logistics, we've grown from a regional freight forwarder to a comprehensive global logistics provider. Today, we serve over 10,000 customers across 180+ countries, offering 46+ specialized services."
+    },
+    "certifications": {
+      "iso": "ISO 9001:2015 Certified",
+      "aeo": "AEO Authorized",
+      "iata": "IATA Member"
+    },
+    "transport": {
+      "land": {
+        "title": "Land",
+        "description": "Global trucking network"
+      },
+      "sea": {
+        "title": "Sea",
+        "description": "Ocean freight excellence"
+      },
+      "air": {
+        "title": "Air",
+        "description": "Express air cargo"
+      },
+      "multimodal": {
+        "title": "Multimodal",
+        "description": "Integrated solutions"
+      }
+    },
+    "values": {
+      "title": "Our Values",
+      "heading": "What Drives Us Forward",
+      "subtitle": "Our core values define who we are and guide every decision we make in serving our customers.",
+      "reliability": {
+        "title": "Reliability",
+        "description": "We deliver on our promises with consistent, dependable service that you can count on."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Leveraging cutting-edge technology to optimize logistics and drive efficiency."
+      },
+      "customerFocus": {
+        "title": "Customer Focus",
+        "description": "Your success is our priority. We build lasting partnerships through exceptional service."
+      },
+      "transparency": {
+        "title": "Transparency",
+        "description": "Clear communication and real-time visibility throughout your supply chain."
+      },
+      "excellence": {
+        "title": "Excellence",
+        "description": "Committed to continuous improvement and delivering best-in-class solutions."
+      },
+      "integrity": {
+        "title": "Integrity",
+        "description": "Operating with honesty and ethical standards in every business relationship."
+      }
+    },
+    "leadership": {
+      "title": "Our Leadership",
+      "heading": "Expert Team Driving Excellence",
+      "subtitle": "Our leadership team brings decades of combined experience in global logistics and supply chain management.",
+      "executive": {
+        "name": "Executive Team",
+        "role": "Strategic Leadership",
+        "description": "Guiding Molochain's global vision and growth strategy"
+      },
+      "operations": {
+        "name": "Operations Team",
+        "role": "Global Operations",
+        "description": "Managing worldwide logistics network and service delivery"
+      },
+      "technology": {
+        "name": "Technology Team",
+        "role": "Innovation & Tech",
+        "description": "Driving digital transformation and platform development"
+      },
+      "commercial": {
+        "name": "Commercial Team",
+        "role": "Business Development",
+        "description": "Building partnerships and expanding market presence"
+      }
+    },
     "globalPresence": {
       "title": "Global Presence",
+      "heading": "Strategically Located Worldwide",
+      "subtitle": "Our global network of offices ensures we're always close to where you need us.",
       "description": "Our strategic network of warehouses and shipping routes spans major global trading hubs, enabling efficient and reliable logistics solutions worldwide."
+    },
+    "offices": {
+      "istanbul": {
+        "city": "Istanbul",
+        "country": "Turkey",
+        "type": "Global Headquarters",
+        "address": "Maslak Business District",
+        "services": ["Operations", "Strategy", "Technology"]
+      },
+      "dubai": {
+        "city": "Dubai",
+        "country": "UAE",
+        "type": "Regional Hub",
+        "address": "Business Bay",
+        "services": ["Middle East Operations", "Air Freight"]
+      },
+      "hamburg": {
+        "city": "Hamburg",
+        "country": "Germany",
+        "type": "European Office",
+        "address": "HafenCity",
+        "services": ["European Distribution", "Ocean Freight"]
+      },
+      "singapore": {
+        "city": "Singapore",
+        "country": "Singapore",
+        "type": "Asia Pacific Hub",
+        "address": "Marina Bay",
+        "services": ["APAC Operations", "Transit Services"]
+      }
+    },
+    "cta": {
+      "title": "Ready to Partner with MoloChain?",
+      "subtitle": "Join thousands of businesses worldwide who trust MoloChain for their logistics needs. Let's discuss how we can help optimize your supply chain.",
+      "getInTouch": "Get in Touch",
+      "viewServices": "View All Services",
+      "support247": "24/7 Support",
+      "countriesCount": "180+ Countries",
+      "secureReliable": "Secure & Reliable"
     },
     "expertise": {
       "title": "Our Expertise",
@@ -253,6 +474,10 @@
         "value": "350+",
         "label": "Global Ports Serviced"
       }
+    },
+    "seo": {
+      "title": "About Us - MoloChain | Global Logistics Solutions",
+      "description": "Learn about MoloChain - a global logistics leader operating in 180+ countries with 25+ years of experience. Discover our mission, values, and commitment to excellence in supply chain solutions."
     }
   },
   "footer": {
@@ -318,17 +543,145 @@
   },
   "contact": {
     "title": "Contact Us",
-    "subtitle": "Get in Touch",
+    "subtitle": "Get in touch with our global network of logistics professionals",
+    "status": {
+      "unavailable": "Real-time agent status updates are temporarily unavailable. Contact information and forms remain fully functional."
+    },
+    "tabs": {
+      "general": "General Inquiries",
+      "offices": "Global Offices",
+      "agents": "Regional Agents",
+      "professional": "Professional Services",
+      "generalInquiries": "General Inquiries",
+      "globalOffices": "Global Offices",
+      "regionalAgents": "Regional Agents",
+      "professionalServices": "Professional Services"
+    },
     "form": {
+      "title": "Send us a message",
       "name": "Name",
+      "namePlaceholder": "Your name",
       "email": "Email",
+      "emailPlaceholder": "Your email",
+      "subject": "Subject",
+      "subjectPlaceholder": "Message subject",
       "message": "Message",
-      "submit": "Send Message"
+      "messagePlaceholder": "Your message",
+      "submit": "Send Message",
+      "placeholders": {
+        "name": "Your name",
+        "email": "Your email",
+        "subject": "Message subject"
+      },
+      "errors": {
+        "nameMinLength": "Name must be at least 2 characters",
+        "invalidEmail": "Invalid email address",
+        "subjectRequired": "Subject is required",
+        "messageMinLength": "Message must be at least 10 characters"
+      }
     },
     "info": {
-      "address": "Address",
+      "title": "Contact Information",
+      "centerOffice": "Center Office",
+      "phoneFax": "Phone & Fax",
+      "phoneAndFax": "Phone & Fax",
       "phone": "Phone",
-      "email": "Email"
+      "fax": "Fax",
+      "email": "Email",
+      "hours": "Hours",
+      "whatsapp": "WhatsApp",
+      "address": "Maslak Mah. Eski Büyükdere Cad. Ayazağa Yolu\nGiz2000 Plaza No:7 Şişli / İstanbul TÜRKİYE",
+      "coordinates": "41° 6' 31.3272\"N, 29° 0' 53.8884\"E (41.1087024, 29.014969)",
+      "operatingHours": "Monday - Friday: 9:00 AM - 6:00 PM",
+      "headquartersLocation": "Headquarters Location",
+      "mapPlaceholder": "Map Placeholder",
+      "connected": "Connected",
+      "connectionSuccess": "Real-time connection established successfully"
+    },
+    "offices": {
+      "title": "Global Office Network",
+      "subtitle": "Our strategically located offices ensure seamless logistics operations across continents",
+      "noOffices": "No offices found",
+      "noOfficesHint": "Try adjusting your search or filter criteria",
+      "headquarters": "Headquarters",
+      "regional": "Regional Office",
+      "port": "Port Office",
+      "services": "Services:"
+    },
+    "agents": {
+      "title": "Regional Agents by Country",
+      "subtitle": "Our dedicated agents provide localized expertise and support across regions",
+      "liveEnabled": "Live agent availability enabled",
+      "liveDisabled": "Live agent availability not connected",
+      "hideDashboard": "Hide Dashboard",
+      "showDashboard": "Show Agent Status Dashboard",
+      "noAgents": "No agents found"
+    },
+    "services": {
+      "title": "Specialized Teams",
+      "subtitle": "Contact our specialized teams for expert assistance across various aspects of logistics",
+      "expertise": "Expertise:",
+      "availability": "Availability:",
+      "responseTime": "Response Time:"
+    },
+    "network": {
+      "title": "Global Contact Network",
+      "subtitle": "Our worldwide presence ensures we can serve you wherever you are"
+    },
+    "globalOffices": {
+      "types": {
+        "headquarter": "Headquarters",
+        "regional": "Regional Office",
+        "port": "Port Office"
+      },
+      "istanbul": {
+        "name": "Istanbul Headquarters",
+        "country": "Turkey",
+        "address": "Maslak Mah. Eski Büyükdere Cad. Ayazağa Yolu\nGiz2000 Plaza No:7 Şişli / İstanbul TÜRKİYE",
+        "operatingHours": "Monday - Friday: 9:00 AM - 6:00 PM"
+      },
+      "dubai": {
+        "name": "Dubai Office",
+        "country": "United Arab Emirates",
+        "address": "Business Bay, Dubai, UAE",
+        "operatingHours": "Sunday - Thursday: 8:30 AM - 5:30 PM"
+      },
+      "london": {
+        "name": "London Office",
+        "country": "United Kingdom",
+        "address": "Canary Wharf, London, UK",
+        "operatingHours": "Monday - Friday: 9:00 AM - 5:30 PM"
+      },
+      "shanghai": {
+        "name": "Shanghai Office",
+        "country": "China",
+        "address": "Pudong District, Shanghai, China",
+        "operatingHours": "Monday - Friday: 8:30 AM - 5:30 PM"
+      },
+      "rotterdam": {
+        "name": "Rotterdam Office",
+        "country": "Netherlands",
+        "address": "Port of Rotterdam, Rotterdam, Netherlands",
+        "operatingHours": "Monday - Friday: 8:00 AM - 5:00 PM"
+      },
+      "newyork": {
+        "name": "New York Office",
+        "country": "United States",
+        "address": "Manhattan, New York, NY, USA",
+        "operatingHours": "Monday - Friday: 9:00 AM - 6:00 PM"
+      },
+      "casablanca": {
+        "name": "Casablanca Office",
+        "country": "Morocco",
+        "address": "Port of Casablanca, Casablanca, Morocco",
+        "operatingHours": "Monday - Friday: 8:30 AM - 5:30 PM"
+      },
+      "durban": {
+        "name": "Durban Office",
+        "country": "South Africa",
+        "address": "Port of Durban, Durban, South Africa",
+        "operatingHours": "Monday - Friday: 8:00 AM - 5:00 PM"
+      }
     }
   },
   "cta": {

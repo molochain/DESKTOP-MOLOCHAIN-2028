@@ -202,6 +202,77 @@
         "handling": "Hassas Kargo İşleme",
         "tracking": "Hassas Takip"
       }
+    },
+    "page": {
+      "heroTitle": "MoloChain Küresel Hizmetler",
+      "heroSubtitle": "İnovasyonla güçlendirilmiş kapsamlı lojistik çözümler. Hava taşımacılığından depolamaya, 180+ ülkede mükemmellik sunuyoruz.",
+      "searchPlaceholder": "Hizmet ara...",
+      "compareServices": "Hizmetleri Karşılaştır",
+      "pricingCalculator": "Fiyat Hesaplayıcı",
+      "aiRecommendations": "Yapay Zeka Önerileri",
+      "filterByCategory": "Kategoriye Göre Filtrele",
+      "allServices": "Tüm Hizmetler",
+      "selectCategory": "Kategori seç",
+      "categories": {
+        "all": "Tüm Hizmetler",
+        "transport": "Nakliye",
+        "warehouse": "Depolama",
+        "customs": "Gümrük",
+        "financial": "Finansal",
+        "general": "Genel",
+        "air": "Hava Taşımacılığı",
+        "maritime": "Deniz Taşımacılığı",
+        "rail": "Demiryolu"
+      },
+      "servicesCount": "{{count}} hizmet",
+      "servicesCount_one": "{{count}} hizmet",
+      "active": "Aktif",
+      "defaultDescription": "Profesyonel lojistik hizmeti",
+      "viewDetails": "Detayları Görüntüle",
+      "clearFilters": "Filtreleri Temizle",
+      "tryAgain": "Tekrar Dene",
+      "generalService": "Genel Hizmet",
+      "stats": {
+        "countries": "Ülke",
+        "services": "Hizmet",
+        "yearsExperience": "Yıllık Deneyim",
+        "activeUsers": "Aktif Kullanıcı"
+      },
+      "features": {
+        "secure": "Güvenli ve Güvenilir",
+        "support": "7/24 Destek",
+        "global": "Küresel Kapsama"
+      },
+      "error": {
+        "title": "Hizmetler Yüklenemedi",
+        "subtitle": "Hizmetlerimizi yüklerken sorun yaşıyoruz. Lütfen daha sonra tekrar deneyin."
+      },
+      "noResults": {
+        "title": "Hizmet Bulunamadı",
+        "subtitle": "Aramanızı veya filtrenizi ayarlamayı deneyin."
+      },
+      "whyChoose": {
+        "title": "Neden MoloChain?",
+        "subtitle": "Gelişmiş teknoloji ve küresel erişimle sektör lideri lojistik çözümler",
+        "fast": {
+          "title": "Hızlı ve Verimli",
+          "description": "En hızlı teslimat süreleri için optimize edilmiş rotalar ve gerçek zamanlı takip"
+        },
+        "secure": {
+          "title": "Güvenli ve Güvenilir",
+          "description": "Tüm gönderiler için gelişmiş güvenlik protokolleri ve sigorta kapsamı"
+        },
+        "custom": {
+          "title": "Özel Çözümler",
+          "description": "İşletmenizin özel ihtiyaçlarını karşılamak için özelleştirilmiş lojistik stratejileri"
+        }
+      },
+      "cta": {
+        "title": "Lojistiğinizi Dönüştürmeye Hazır mısınız?",
+        "subtitle": "Dünya çapında binlerce işletmeye katılın",
+        "getStarted": "Başla",
+        "learnMore": "Daha Fazla Bilgi"
+      }
     }
   },
   "tools": {
@@ -253,6 +324,10 @@
   "about": {
     "title": "Molo Lojistik Hakkında",
     "subtitle": "Küresel lojistik ve taşımacılıkta öncü güç",
+    "badge": "MoloChain Hakkında",
+    "heroTitle": "Lojistikle Dünyayı Birleştiriyoruz",
+    "heroSubtitle": "25 yılı aşkın süredir MoloChain, küresel lojistiğin ön saflarında yer alarak işletmelerin hareket etmesini ve ekonomilerin büyümesini sağlayan yenilikçi çözümler sunmaktadır.",
+    "exploreServices": "Hizmetlerimizi Keşfedin",
     "approach": {
       "title": "Yaklaşımımız",
       "description": "Molo'da insan odaklı ve işbirlikçi bir yaklaşıma inanıyoruz. Her müşteri sadece bir müşteri değil, aynı zamanda bir ortak ve dosttur. Şeffaflık, güven ve kaliteli hizmet sunumuna olan bağlılığımız, bizi küresel taşımacılık sektöründe güvenilir bir marka haline getirdi.",
@@ -276,9 +351,155 @@
         "description": "Dünya çapında büyük ticari şirketlerle işbirliği"
       }
     },
+    "stats": {
+      "countries": {
+        "label": "Ülke",
+        "value": "180+",
+        "description": "Kıtalar arası küresel varlık"
+      },
+      "services": {
+        "label": "Hizmet",
+        "value": "46+",
+        "description": "Kapsamlı lojistik çözümler"
+      },
+      "yearsExperience": {
+        "label": "Yıllık Deneyim",
+        "value": "25+",
+        "description": "1999'dan beri sektör uzmanlığı"
+      },
+      "activeCustomers": {
+        "label": "Aktif Müşteri",
+        "value": "10K+",
+        "description": "Dünya çapında işletmeler tarafından güveniliyor"
+      }
+    },
+    "mission": {
+      "badge": "Misyonumuz",
+      "title": "İnovasyonla Küresel Ticareti Güçlendirmek",
+      "description1": "MoloChain olarak, verimli lojistiğin küresel ticaretin omurgası olduğuna inanıyoruz. Misyonumuz, her ölçekteki işletmenin dünya sahnesinde rekabet etmesini sağlayan kesintisiz, teknoloji odaklı tedarik zinciri çözümleri sunmaktır.",
+      "description2": "Lojistiği devrimleştirme vizyonuyla kurulan şirketimiz, bölgesel bir nakliye acentesinden kapsamlı bir küresel lojistik sağlayıcısına dönüştü. Bugün, 180'den fazla ülkede 10.000'den fazla müşteriye hizmet veriyor ve 46'dan fazla özel hizmet sunuyoruz."
+    },
+    "certifications": {
+      "iso": "ISO 9001:2015 Sertifikalı",
+      "aeo": "AEO Yetkili",
+      "iata": "IATA Üyesi"
+    },
+    "transport": {
+      "land": {
+        "title": "Karayolu",
+        "description": "Küresel karayolu taşımacılığı ağı"
+      },
+      "sea": {
+        "title": "Denizyolu",
+        "description": "Okyanus taşımacılığında mükemmellik"
+      },
+      "air": {
+        "title": "Havayolu",
+        "description": "Ekspres hava kargo"
+      },
+      "multimodal": {
+        "title": "Multimodal",
+        "description": "Entegre çözümler"
+      }
+    },
+    "values": {
+      "title": "Değerlerimiz",
+      "heading": "Bizi İleriye Taşıyan Değerler",
+      "subtitle": "Temel değerlerimiz kim olduğumuzu tanımlar ve müşterilerimize hizmet ederken aldığımız her karara rehberlik eder.",
+      "reliability": {
+        "title": "Güvenilirlik",
+        "description": "Güvenebileceğiniz tutarlı ve bağlı hizmetle sözlerimizi tutuyoruz."
+      },
+      "innovation": {
+        "title": "İnovasyon",
+        "description": "Lojistiği optimize etmek ve verimliliği artırmak için en son teknolojiyi kullanıyoruz."
+      },
+      "customerFocus": {
+        "title": "Müşteri Odaklılık",
+        "description": "Başarınız bizim önceliğimizdir. Olağanüstü hizmetle kalıcı ortaklıklar kuruyoruz."
+      },
+      "transparency": {
+        "title": "Şeffaflık",
+        "description": "Tedarik zinciriniz boyunca açık iletişim ve gerçek zamanlı görünürlük."
+      },
+      "excellence": {
+        "title": "Mükemmellik",
+        "description": "Sürekli gelişim ve sınıfının en iyisi çözümler sunmaya kararlıyız."
+      },
+      "integrity": {
+        "title": "Dürüstlük",
+        "description": "Her iş ilişkisinde dürüstlük ve etik standartlarla hareket ediyoruz."
+      }
+    },
+    "leadership": {
+      "title": "Liderlik Ekibimiz",
+      "heading": "Mükemmelliği Yöneten Uzman Ekip",
+      "subtitle": "Liderlik ekibimiz, küresel lojistik ve tedarik zinciri yönetiminde onlarca yıllık deneyimi bir araya getirmektedir.",
+      "executive": {
+        "name": "Yönetim Ekibi",
+        "role": "Stratejik Liderlik",
+        "description": "Molochain'in küresel vizyonunu ve büyüme stratejisini yönlendiriyor"
+      },
+      "operations": {
+        "name": "Operasyon Ekibi",
+        "role": "Küresel Operasyonlar",
+        "description": "Dünya çapında lojistik ağı ve hizmet sunumunu yönetiyor"
+      },
+      "technology": {
+        "name": "Teknoloji Ekibi",
+        "role": "İnovasyon ve Teknoloji",
+        "description": "Dijital dönüşümü ve platform geliştirmeyi yönlendiriyor"
+      },
+      "commercial": {
+        "name": "Ticari Ekip",
+        "role": "İş Geliştirme",
+        "description": "Ortaklıklar kuruyor ve pazar varlığını genişletiyor"
+      }
+    },
     "globalPresence": {
       "title": "Küresel Varlık",
+      "heading": "Dünya Çapında Stratejik Konumlar",
+      "subtitle": "Küresel ofis ağımız, ihtiyaç duyduğunuz her yerde size yakın olmamızı sağlar.",
       "description": "Depo ve nakliye rotalarımızın stratejik ağı, başlıca küresel ticaret merkezlerini kapsayarak dünya çapında verimli ve güvenilir lojistik çözümler sunuyor."
+    },
+    "offices": {
+      "istanbul": {
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "type": "Küresel Merkez",
+        "address": "Maslak İş Merkezi",
+        "services": ["Operasyonlar", "Strateji", "Teknoloji"]
+      },
+      "dubai": {
+        "city": "Dubai",
+        "country": "BAE",
+        "type": "Bölgesel Merkez",
+        "address": "Business Bay",
+        "services": ["Orta Doğu Operasyonları", "Hava Kargo"]
+      },
+      "hamburg": {
+        "city": "Hamburg",
+        "country": "Almanya",
+        "type": "Avrupa Ofisi",
+        "address": "HafenCity",
+        "services": ["Avrupa Dağıtımı", "Deniz Taşımacılığı"]
+      },
+      "singapore": {
+        "city": "Singapur",
+        "country": "Singapur",
+        "type": "Asya Pasifik Merkezi",
+        "address": "Marina Bay",
+        "services": ["APAC Operasyonları", "Transit Hizmetleri"]
+      }
+    },
+    "cta": {
+      "title": "MoloChain ile Ortak Olmaya Hazır mısınız?",
+      "subtitle": "Lojistik ihtiyaçları için MoloChain'e güvenen dünya çapındaki binlerce işletmeye katılın. Tedarik zincirinizi nasıl optimize edebileceğimizi konuşalım.",
+      "getInTouch": "İletişime Geçin",
+      "viewServices": "Tüm Hizmetleri Görüntüle",
+      "support247": "7/24 Destek",
+      "countriesCount": "180+ Ülke",
+      "secureReliable": "Güvenli ve Güvenilir"
     },
     "expertise": {
       "title": "Uzmanlığımız",
@@ -303,6 +524,10 @@
         "value": "350+",
         "label": "Hizmet Verilen Küresel Liman"
       }
+    },
+    "seo": {
+      "title": "Hakkımızda - MoloChain | Küresel Lojistik Çözümleri",
+      "description": "MoloChain hakkında bilgi edinin - 180+ ülkede ve 25+ yıllık deneyimle küresel lojistik lideri."
     },
     "pricing": {
       "title": "Fiyatlandırma",
@@ -386,16 +611,168 @@
   "contact": {
     "title": "İletişim",
     "subtitle": "İletişime Geçin",
+    "tabs": {
+      "general": "Genel İletişim",
+      "offices": "Ofislerimiz",
+      "agents": "Temsilciler",
+      "professional": "Profesyonel Hizmetler",
+      "generalInquiries": "Genel Sorular",
+      "globalOffices": "Küresel Ofisler",
+      "regionalAgents": "Bölgesel Acenteler",
+      "professionalServices": "Profesyonel Hizmetler"
+    },
+    "status": {
+      "unavailable": "Şu anda müsait değil"
+    },
     "form": {
       "name": "Ad",
+      "firstName": "Ad",
+      "lastName": "Soyad",
       "email": "E-posta",
+      "phone": "Telefon",
+      "company": "Şirket",
+      "subject": "Konu",
       "message": "Mesaj",
-      "submit": "Mesaj Gönder"
+      "submit": "Mesaj Gönder",
+      "sending": "Gönderiliyor...",
+      "success": "Mesajınız başarıyla gönderildi!",
+      "error": "Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.",
+      "selectSubject": "Konu seçin",
+      "subjects": {
+        "general": "Genel Bilgi",
+        "quote": "Teklif İsteği",
+        "support": "Teknik Destek",
+        "partnership": "Ortaklık",
+        "careers": "Kariyer",
+        "other": "Diğer"
+      },
+      "placeholders": {
+        "name": "Adınız",
+        "email": "E-postanız",
+        "subject": "Mesaj konusu"
+      },
+      "errors": {
+        "nameMinLength": "İsim en az 2 karakter olmalıdır",
+        "invalidEmail": "Geçersiz e-posta adresi",
+        "subjectRequired": "Konu gereklidir",
+        "messageMinLength": "Mesaj en az 10 karakter olmalıdır"
+      }
     },
     "info": {
+      "title": "İletişim Bilgileri",
       "address": "Adres",
       "phone": "Telefon",
-      "email": "E-posta"
+      "email": "E-posta",
+      "workingHours": "Çalışma Saatleri",
+      "workingHoursValue": "Pazartesi - Cuma: 09:00 - 18:00",
+      "emergency": "Acil Durum Hattı",
+      "emergencyAvailable": "7/24 Destek",
+      "phoneAndFax": "Telefon & Faks",
+      "connected": "Bağlandı",
+      "connectionSuccess": "Gerçek zamanlı bağlantı başarıyla kuruldu"
+    },
+    "offices": {
+      "title": "Küresel Ofislerimiz",
+      "subtitle": "Dünya çapındaki ofislerimiz aracılığıyla size daha yakınız",
+      "headquarters": "Genel Merkez",
+      "regionalOffice": "Bölge Ofisi",
+      "salesOffice": "Satış Ofisi",
+      "viewOnMap": "Haritada Görüntüle",
+      "getDirections": "Yol Tarifi Al",
+      "callNow": "Şimdi Ara"
+    },
+    "agents": {
+      "title": "Yetkili Temsilcilerimiz",
+      "subtitle": "Bölgenizdeki yetkili temsilcilerimizle iletişime geçin",
+      "searchPlaceholder": "Temsilci ara...",
+      "filterByRegion": "Bölgeye Göre Filtrele",
+      "allRegions": "Tüm Bölgeler",
+      "available": "Müsait",
+      "busy": "Meşgul",
+      "offline": "Çevrimdışı",
+      "contactAgent": "Temsilciyle İletişime Geç",
+      "viewProfile": "Profili Görüntüle",
+      "specialties": "Uzmanlık Alanları",
+      "languages": "Diller",
+      "rating": "Değerlendirme",
+      "responseTime": "Yanıt Süresi"
+    },
+    "services": {
+      "title": "Profesyonel Hizmetler",
+      "subtitle": "İhtiyaçlarınıza uygun profesyonel lojistik danışmanlık hizmetleri",
+      "consultation": {
+        "title": "Danışmanlık",
+        "description": "Lojistik operasyonlarınız için uzman danışmanlık hizmeti"
+      },
+      "customSolutions": {
+        "title": "Özel Çözümler",
+        "description": "İşletmenize özel lojistik çözümler geliştiriyoruz"
+      },
+      "training": {
+        "title": "Eğitim",
+        "description": "Ekibiniz için profesyonel lojistik eğitim programları"
+      },
+      "support": {
+        "title": "Teknik Destek",
+        "description": "7/24 teknik destek ve sorun çözme hizmeti"
+      },
+      "requestService": "Hizmet Talep Et",
+      "learnMore": "Daha Fazla Bilgi"
+    },
+    "globalOffices": {
+      "types": {
+        "headquarter": "Genel Merkez",
+        "regional": "Bölge Ofisi",
+        "port": "Liman Ofisi"
+      },
+      "istanbul": {
+        "name": "İstanbul Genel Merkez",
+        "country": "Türkiye",
+        "address": "Maslak Mah. Eski Büyükdere Cad. Ayazağa Yolu\nGiz2000 Plaza No:7 Şişli / İstanbul TÜRKİYE",
+        "operatingHours": "Pazartesi - Cuma: 09:00 - 18:00"
+      },
+      "dubai": {
+        "name": "Dubai Ofisi",
+        "country": "Birleşik Arap Emirlikleri",
+        "address": "Business Bay, Dubai, BAE",
+        "operatingHours": "Pazar - Perşembe: 08:30 - 17:30"
+      },
+      "london": {
+        "name": "Londra Ofisi",
+        "country": "Birleşik Krallık",
+        "address": "Canary Wharf, Londra, İngiltere",
+        "operatingHours": "Pazartesi - Cuma: 09:00 - 17:30"
+      },
+      "shanghai": {
+        "name": "Şanghay Ofisi",
+        "country": "Çin",
+        "address": "Pudong Bölgesi, Şanghay, Çin",
+        "operatingHours": "Pazartesi - Cuma: 08:30 - 17:30"
+      },
+      "rotterdam": {
+        "name": "Rotterdam Ofisi",
+        "country": "Hollanda",
+        "address": "Rotterdam Limanı, Rotterdam, Hollanda",
+        "operatingHours": "Pazartesi - Cuma: 08:00 - 17:00"
+      },
+      "newyork": {
+        "name": "New York Ofisi",
+        "country": "Amerika Birleşik Devletleri",
+        "address": "Manhattan, New York, NY, ABD",
+        "operatingHours": "Pazartesi - Cuma: 09:00 - 18:00"
+      },
+      "casablanca": {
+        "name": "Kazablanka Ofisi",
+        "country": "Fas",
+        "address": "Kazablanka Limanı, Kazablanka, Fas",
+        "operatingHours": "Pazartesi - Cuma: 08:30 - 17:30"
+      },
+      "durban": {
+        "name": "Durban Ofisi",
+        "country": "Güney Afrika",
+        "address": "Durban Limanı, Durban, Güney Afrika",
+        "operatingHours": "Pazartesi - Cuma: 08:00 - 17:00"
+      }
     }
   },
   "cta": {

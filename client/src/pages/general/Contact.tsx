@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -68,11 +68,11 @@ interface AgentStatus {
   lastActive: string;
 }
 
-const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  subject: z.string().min(2, "Subject is required"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+const createFormSchema = (t: (key: string) => string) => z.object({
+  name: z.string().min(2, t('contact.form.errors.nameMinLength')),
+  email: z.string().email(t('contact.form.errors.invalidEmail')),
+  subject: z.string().min(2, t('contact.form.errors.subjectRequired')),
+  message: z.string().min(10, t('contact.form.errors.messageMinLength')),
 });
 
 // Define Office interface
@@ -92,120 +92,120 @@ interface Office {
   operatingHours: string;
 }
 
-// Main agent and contacts data
-const globalOffices: Office[] = [
+// Office data factory with translation support
+const getGlobalOffices = (t: (key: string) => string): Office[] => [
   {
     id: "istanbul",
-    name: "Istanbul Headquarters",
-    country: "Turkey",
-    address: "Maslak Mah. Eski Büyükdere Cad. Ayazağa Yolu\nGiz2000 Plaza No:7 Şişli / İstanbul TÜRKİYE",
+    name: t('contact.globalOffices.istanbul.name'),
+    country: t('contact.globalOffices.istanbul.country'),
+    address: t('contact.globalOffices.istanbul.address'),
     phone: "",
     fax: "",
     email: "istanbul@molochain.com",
     coordinates: [41.1087024, 29.014969],
-    type: "headquarter",
+    type: t('contact.globalOffices.types.headquarter'),
     services: ["Container", "Trucking", "Air Freight", "Transit", "Agency"],
     image: "/offices/istanbul.jpg",
     timezone: "GMT+3",
-    operatingHours: "Monday - Friday: 9:00 AM - 6:00 PM"
+    operatingHours: t('contact.globalOffices.istanbul.operatingHours')
   },
   {
     id: "dubai",
-    name: "Dubai Office",
-    country: "United Arab Emirates",
-    address: "Business Bay, Dubai, UAE",
+    name: t('contact.globalOffices.dubai.name'),
+    country: t('contact.globalOffices.dubai.country'),
+    address: t('contact.globalOffices.dubai.address'),
     phone: "",
     email: "dubai@molochain.com",
     coordinates: [25.2048, 55.2708],
-    type: "regional",
+    type: t('contact.globalOffices.types.regional'),
     services: ["Container", "Air Freight", "Transit"],
     image: "/offices/dubai.jpg",
     timezone: "GMT+4",
-    operatingHours: "Sunday - Thursday: 8:30 AM - 5:30 PM"
+    operatingHours: t('contact.globalOffices.dubai.operatingHours')
   },
   {
     id: "london",
-    name: "London Office",
-    country: "United Kingdom",
-    address: "Canary Wharf, London, UK",
+    name: t('contact.globalOffices.london.name'),
+    country: t('contact.globalOffices.london.country'),
+    address: t('contact.globalOffices.london.address'),
     phone: "",
     email: "london@molochain.com",
     coordinates: [51.5074, -0.1278],
-    type: "regional",
+    type: t('contact.globalOffices.types.regional'),
     services: ["Container", "Transit", "Agency"],
     image: "/offices/london.jpg",
     timezone: "GMT+0",
-    operatingHours: "Monday - Friday: 9:00 AM - 5:30 PM"
+    operatingHours: t('contact.globalOffices.london.operatingHours')
   },
   {
     id: "shanghai",
-    name: "Shanghai Office",
-    country: "China",
-    address: "Pudong District, Shanghai, China",
+    name: t('contact.globalOffices.shanghai.name'),
+    country: t('contact.globalOffices.shanghai.country'),
+    address: t('contact.globalOffices.shanghai.address'),
     phone: "",
     email: "shanghai@molochain.com",
     coordinates: [31.2304, 121.4737],
-    type: "regional",
+    type: t('contact.globalOffices.types.regional'),
     services: ["Container", "Air Freight", "Transit"],
     image: "/offices/shanghai.jpg",
     timezone: "GMT+8",
-    operatingHours: "Monday - Friday: 8:30 AM - 5:30 PM"
+    operatingHours: t('contact.globalOffices.shanghai.operatingHours')
   },
   {
     id: "rotterdam",
-    name: "Rotterdam Office",
-    country: "Netherlands",
-    address: "Port of Rotterdam, Rotterdam, Netherlands",
+    name: t('contact.globalOffices.rotterdam.name'),
+    country: t('contact.globalOffices.rotterdam.country'),
+    address: t('contact.globalOffices.rotterdam.address'),
     phone: "",
     email: "rotterdam@molochain.com",
     coordinates: [51.9225, 4.4792],
-    type: "port",
+    type: t('contact.globalOffices.types.port'),
     services: ["Container", "Transit"],
     image: "/offices/rotterdam.jpg",
     timezone: "GMT+1",
-    operatingHours: "Monday - Friday: 8:00 AM - 5:00 PM"
+    operatingHours: t('contact.globalOffices.rotterdam.operatingHours')
   },
   {
     id: "newyork",
-    name: "New York Office",
-    country: "United States",
-    address: "Manhattan, New York, NY, USA",
+    name: t('contact.globalOffices.newyork.name'),
+    country: t('contact.globalOffices.newyork.country'),
+    address: t('contact.globalOffices.newyork.address'),
     phone: "",
     email: "newyork@molochain.com",
     coordinates: [40.7128, -74.006],
-    type: "regional",
+    type: t('contact.globalOffices.types.regional'),
     services: ["Container", "Air Freight", "Transit", "Agency"],
     image: "/offices/newyork.jpg",
     timezone: "GMT-5",
-    operatingHours: "Monday - Friday: 9:00 AM - 6:00 PM"
+    operatingHours: t('contact.globalOffices.newyork.operatingHours')
   },
   {
     id: "casablanca",
-    name: "Casablanca Office",
-    country: "Morocco",
-    address: "Port of Casablanca, Casablanca, Morocco",
+    name: t('contact.globalOffices.casablanca.name'),
+    country: t('contact.globalOffices.casablanca.country'),
+    address: t('contact.globalOffices.casablanca.address'),
     phone: "",
     email: "casablanca@molochain.com",
     coordinates: [33.5731, -7.5898],
-    type: "port",
+    type: t('contact.globalOffices.types.port'),
     services: ["Container", "Transit"],
     image: "/offices/casablanca.jpg",
     timezone: "GMT+0",
-    operatingHours: "Monday - Friday: 8:30 AM - 5:30 PM"
+    operatingHours: t('contact.globalOffices.casablanca.operatingHours')
   },
   {
     id: "durban",
-    name: "Durban Office",
-    country: "South Africa",
-    address: "Port of Durban, Durban, South Africa",
+    name: t('contact.globalOffices.durban.name'),
+    country: t('contact.globalOffices.durban.country'),
+    address: t('contact.globalOffices.durban.address'),
     phone: "",
     email: "durban@molochain.com",
     coordinates: [-29.8587, 31.0218],
-    type: "port",
+    type: t('contact.globalOffices.types.port'),
     services: ["Container", "Transit"],
     image: "/offices/durban.jpg",
     timezone: "GMT+2",
-    operatingHours: "Monday - Friday: 8:00 AM - 5:00 PM"
+    operatingHours: t('contact.globalOffices.durban.operatingHours')
   }
 ];
 
@@ -492,6 +492,12 @@ const Contact = () => {
   const [, setLocation] = useLocation();
   const [activeTab, setActiveTab] = useState("general");
   
+  // Create form schema with translated error messages
+  const formSchema = useMemo(() => createFormSchema(t), [t]);
+  
+  // Get global offices with translated content
+  const globalOffices = useMemo(() => getGlobalOffices(t), [t]);
+  
   // Get agent status from reliable HTTP system
   const { agents: agentStatuses, connectionStatus, error: wsError, isHttpMode, refresh } = useAgentStatus();
   const [showStatusDashboard, setShowStatusDashboard] = useState(true);
@@ -577,8 +583,13 @@ const Contact = () => {
   };
   
   // State for filtered offices and agents
-  const [filteredOffices, setFilteredOffices] = useState(globalOffices);
+  const [filteredOffices, setFilteredOffices] = useState<Office[]>([]);
   const [filteredAgents, setFilteredAgents] = useState(regionalAgents);
+  
+  // Initialize filtered offices when globalOffices is available
+  useEffect(() => {
+    setFilteredOffices(globalOffices);
+  }, [globalOffices]);
   
   // Reset filters when tab changes
   useEffect(() => {
@@ -587,7 +598,7 @@ const Contact = () => {
     } else if (activeTab === "agents") {
       setFilteredAgents(regionalAgents);
     }
-  }, [activeTab]);
+  }, [activeTab, globalOffices]);
   
   // Note: Connection errors are shown inline in the UI banner, not as toasts
   // This provides a less intrusive user experience for non-critical status updates
@@ -651,13 +662,13 @@ const Contact = () => {
   const contactInfo: ContactInfoItem[] = [
     {
       icon: <MapPin className="w-6 h-6" />,
-      title: "Center Office",
-      content: "Maslak Mah. Eski Büyükdere Cad. Ayazağa Yolu\nGiz2000 Plaza No:7 Şişli / İstanbul TÜRKİYE",
-      coordinates: "41° 6' 31.3272\"N, 29° 0' 53.8884\"E (41.1087024, 29.014969)",
+      title: t('contact.info.centerOffice'),
+      content: t('contact.info.address'),
+      coordinates: t('contact.info.coordinates'),
     },
     {
       icon: <Phone className="w-6 h-6" />,
-      title: "Phone & Fax",
+      title: t('contact.info.phoneAndFax'),
       content: {
         phone: "",
         fax: "",
@@ -667,13 +678,13 @@ const Contact = () => {
     },
     {
       icon: <Mail className="w-6 h-6" />,
-      title: "Email",
+      title: t('contact.info.email'),
       content: "molochain@molochain.com",
     },
     {
       icon: <Clock className="w-6 h-6" />,
-      title: "Hours",
-      content: "Monday - Friday: 9:00 AM - 6:00 PM",
+      title: t('contact.info.hours'),
+      content: t('contact.info.operatingHours'),
     },
   ];
 
@@ -681,14 +692,14 @@ const Contact = () => {
     <div className="py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900">Contact Us</h1>
+          <h1 className="text-4xl font-bold text-gray-900">{t('contact.title')}</h1>
           <p className="mt-4 text-lg text-gray-600">
-            Get in touch with our global network of logistics professionals
+            {t('contact.subtitle')}
           </p>
           {connectionStatus === 'disconnected' && wsError && (
             <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
               <p className="text-sm text-blue-700">
-                Real-time agent status updates are temporarily unavailable. Contact information and forms remain fully functional.
+                {t('contact.status.unavailable')}
               </p>
             </div>
           )}
@@ -700,17 +711,17 @@ const Contact = () => {
           onValueChange={setActiveTab}
         >
           <TabsList className="grid w-full grid-cols-4 mb-8">
-            <TabsTrigger value="general">General Inquiries</TabsTrigger>
-            <TabsTrigger value="offices">Global Offices</TabsTrigger>
-            <TabsTrigger value="agents">Regional Agents</TabsTrigger>
-            <TabsTrigger value="services">Professional Services</TabsTrigger>
+            <TabsTrigger value="general">{t('contact.tabs.generalInquiries')}</TabsTrigger>
+            <TabsTrigger value="offices">{t('contact.tabs.globalOffices')}</TabsTrigger>
+            <TabsTrigger value="agents">{t('contact.tabs.regionalAgents')}</TabsTrigger>
+            <TabsTrigger value="services">{t('contact.tabs.professionalServices')}</TabsTrigger>
           </TabsList>
           
           {/* General Contact Information Tab */}
           <TabsContent value="general">
             <div className="grid gap-8 md:grid-cols-2">
               <div>
-                <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
+                <h2 className="text-2xl font-bold mb-6">{t('contact.form.title')}</h2>
                 <Card className="p-6">
                   <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -719,9 +730,9 @@ const Contact = () => {
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Name</FormLabel>
+                            <FormLabel>{t('contact.form.name')}</FormLabel>
                             <FormControl>
-                              <Input placeholder="Your name" {...field} />
+                              <Input placeholder={t('contact.form.placeholders.name')} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -733,9 +744,9 @@ const Contact = () => {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel>{t('contact.form.email')}</FormLabel>
                             <FormControl>
-                              <Input placeholder="Your email" {...field} />
+                              <Input placeholder={t('contact.form.placeholders.email')} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -747,9 +758,9 @@ const Contact = () => {
                         name="subject"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Subject</FormLabel>
+                            <FormLabel>{t('contact.form.subject')}</FormLabel>
                             <FormControl>
-                              <Input placeholder="Message subject" {...field} />
+                              <Input placeholder={t('contact.form.placeholders.subject')} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -761,10 +772,10 @@ const Contact = () => {
                         name="message"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Message</FormLabel>
+                            <FormLabel>{t('contact.form.message')}</FormLabel>
                             <FormControl>
                               <Textarea
-                                placeholder="Your message"
+                                placeholder={t('contact.form.messagePlaceholder')}
                                 className="min-h-[120px]"
                                 {...field}
                               />
@@ -775,7 +786,7 @@ const Contact = () => {
                       />
 
                       <Button type="submit" className="w-full">
-                        Send Message
+                        {t('contact.form.submit')}
                       </Button>
                     </form>
                   </Form>
@@ -783,7 +794,7 @@ const Contact = () => {
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
+                <h2 className="text-2xl font-bold mb-6">{t('contact.info.title')}</h2>
                 <div className="grid gap-6">
                   {contactInfo.map((info) => (
                     <Card key={info.title} className="p-6">
@@ -793,10 +804,10 @@ const Contact = () => {
                         </div>
                         <div>
                           <h3 className="font-semibold text-gray-900">{info.title}</h3>
-                          {info.title === "Phone & Fax" && typeof info.content !== 'string' ? (
+                          {info.title === t('contact.info.phoneAndFax') && typeof info.content !== 'string' ? (
                             <div className="space-y-1">
                               <p className="text-gray-600">
-                                Phone:{' '}
+                                {t('contact.info.phone')}:{' '}
                                 <a 
                                   href={`tel:${formatPhoneForTel((info.content as PhoneContactContent).phone)}`}
                                   className="text-primary hover:underline hover:text-primary/80 transition-colors"
@@ -806,10 +817,10 @@ const Contact = () => {
                                 {(info.content as PhoneContactContent).note}
                               </p>
                               <p className="text-gray-600">
-                                Fax: {(info.content as PhoneContactContent).fax}
+                                {t('contact.info.fax')}: {(info.content as PhoneContactContent).fax}
                               </p>
                               <p className="text-gray-600">
-                                WhatsApp:{' '}
+                                {t('contact.info.whatsapp')}:{' '}
                                 <a 
                                   href={`https://wa.me/${formatPhoneForTel((info.content as PhoneContactContent).whatsapp)}`}
                                   target="_blank"
@@ -820,7 +831,7 @@ const Contact = () => {
                                 </a>
                               </p>
                             </div>
-                          ) : info.title === "Email" && typeof info.content === 'string' ? (
+                          ) : info.title === t('contact.info.email') && typeof info.content === 'string' ? (
                             <a 
                               href={`mailto:${info.content}`}
                               className="text-primary hover:underline hover:text-primary/80 transition-colors"
@@ -844,11 +855,11 @@ const Contact = () => {
                 </div>
 
                 <div className="mt-8">
-                  <h2 className="text-2xl font-bold mb-6">Headquarters Location</h2>
+                  <h2 className="text-2xl font-bold mb-6">{t('contact.info.headquartersLocation')}</h2>
                   <Card className="p-4">
                     <div className="aspect-video bg-gray-100 rounded-lg">
                       <div className="w-full h-full flex items-center justify-center text-gray-500">
-                        Map Placeholder
+                        {t('contact.info.mapPlaceholder')}
                       </div>
                     </div>
                   </Card>
@@ -860,9 +871,9 @@ const Contact = () => {
           {/* Global Offices Tab */}
           <TabsContent value="offices">
             <div className="mb-6">
-              <h2 className="text-2xl font-bold mb-2">Global Office Network</h2>
+              <h2 className="text-2xl font-bold mb-2">{t('contact.offices.title')}</h2>
               <p className="text-gray-600">
-                Our strategically located offices ensure seamless logistics operations across continents
+                {t('contact.offices.subtitle')}
               </p>
             </div>
             
@@ -877,8 +888,8 @@ const Contact = () => {
                 <div className="mb-4 text-gray-400">
                   <Building className="w-12 h-12 mx-auto" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-1">No offices found</h3>
-                <p className="text-gray-600">Try adjusting your search or filter criteria</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-1">{t('contact.offices.noOffices')}</h3>
+                <p className="text-gray-600">{t('contact.offices.noOfficesHint')}</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -899,7 +910,7 @@ const Contact = () => {
                           variant={office.type === "headquarter" ? "default" : office.type === "regional" ? "outline" : "secondary"}
                           className="mt-1"
                         >
-                          {office.type === "headquarter" ? "Headquarters" : office.type === "regional" ? "Regional Office" : "Port Office"}
+                          {office.type === "headquarter" ? t('contact.offices.headquarters') : office.type === "regional" ? t('contact.offices.regional') : t('contact.offices.port')}
                         </Badge>
                       </div>
                       <CardTitle className="flex items-center">
@@ -943,7 +954,7 @@ const Contact = () => {
                       </div>
                       
                       <div className="mt-4">
-                        <p className="text-sm font-medium text-gray-700 mb-2">Services:</p>
+                        <p className="text-sm font-medium text-gray-700 mb-2">{t('contact.offices.services')}</p>
                         <div className="flex flex-wrap gap-2">
                           {office.services.map((service) => (
                             <Badge key={service} variant="outline" className="text-xs">
@@ -962,9 +973,9 @@ const Contact = () => {
           {/* Regional Agents Tab */}
           <TabsContent value="agents">
             <div className="mb-6">
-              <h2 className="text-2xl font-bold mb-2">Regional Agents by Country</h2>
+              <h2 className="text-2xl font-bold mb-2">{t('contact.agents.title')}</h2>
               <p className="text-gray-600">
-                Our dedicated agents provide localized expertise and support across regions
+                {t('contact.agents.subtitle')}
               </p>
             </div>
             
@@ -973,14 +984,14 @@ const Contact = () => {
               <div className="flex items-center mb-4 text-sm text-green-600">
                 <Badge variant="outline" className="border-green-200 bg-green-50 text-green-600 flex items-center gap-1.5">
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                  Live agent availability enabled
+                  {t('contact.agents.liveEnabled')}
                 </Badge>
               </div>
             ) : (
               <div className="flex items-center mb-4 text-sm text-gray-500">
                 <Badge variant="outline" className="border-gray-200 bg-gray-50 text-gray-500 flex items-center gap-1.5">
                   <AlertCircle className="w-3.5 h-3.5" />
-                  Live agent availability not connected
+                  {t('contact.agents.liveDisabled')}
                 </Badge>
               </div>
             )}
@@ -1004,7 +1015,7 @@ const Contact = () => {
                     onClick={() => setShowStatusDashboard(false)}
                     className="text-xs"
                   >
-                    Hide Dashboard
+                    {t('contact.agents.hideDashboard')}
                   </Button>
                 </div>
               </div>
@@ -1018,7 +1029,7 @@ const Contact = () => {
                   onClick={() => setShowStatusDashboard(true)}
                   className="text-xs"
                 >
-                  Show Agent Status Dashboard
+                  {t('contact.agents.showDashboard')}
                 </Button>
               </div>
             )}
@@ -1035,8 +1046,8 @@ const Contact = () => {
                 <div className="mb-4 text-gray-400">
                   <Users className="w-12 h-12 mx-auto" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-1">No agents found</h3>
-                <p className="text-gray-600">Try adjusting your search or filter criteria</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-1">{t('contact.agents.noAgents')}</h3>
+                <p className="text-gray-600">{t('contact.offices.noOfficesHint')}</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -1076,9 +1087,9 @@ const Contact = () => {
           {/* Professional Services Tab */}
           <TabsContent value="services">
             <div className="mb-6">
-              <h2 className="text-2xl font-bold mb-2">Specialized Teams</h2>
+              <h2 className="text-2xl font-bold mb-2">{t('contact.services.title')}</h2>
               <p className="text-gray-600">
-                Contact our specialized teams for expert assistance across various aspects of logistics
+                {t('contact.services.subtitle')}
               </p>
             </div>
             
@@ -1122,7 +1133,7 @@ const Contact = () => {
                       </div>
                       
                       <div>
-                        <p className="text-sm font-medium text-gray-700 mb-2">Expertise:</p>
+                        <p className="text-sm font-medium text-gray-700 mb-2">{t('contact.services.expertise')}</p>
                         <ul className="space-y-1 text-sm text-gray-600">
                           {team.skills.map((skill, index) => (
                             <li 
@@ -1147,11 +1158,11 @@ const Contact = () => {
                       <div className="bg-gray-50 p-3 rounded-md mt-4">
                         <div className="grid grid-cols-2 gap-2 text-sm">
                           <div>
-                            <p className="font-medium text-gray-700">Availability:</p>
+                            <p className="font-medium text-gray-700">{t('contact.services.availability')}</p>
                             <p className="text-gray-600">{team.availability}</p>
                           </div>
                           <div>
-                            <p className="font-medium text-gray-700">Response Time:</p>
+                            <p className="font-medium text-gray-700">{t('contact.services.responseTime')}</p>
                             <p className="text-gray-600">{team.responseTime}</p>
                           </div>
                         </div>
@@ -1167,9 +1178,9 @@ const Contact = () => {
         {/* Global presence map */}
         <div className="mt-20">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold">Global Contact Network</h2>
+            <h2 className="text-3xl font-bold">{t('contact.network.title')}</h2>
             <p className="mt-2 text-gray-600">
-              Our worldwide presence ensures we can serve you wherever you are
+              {t('contact.network.subtitle')}
             </p>
           </div>
           <Card className="p-4">
