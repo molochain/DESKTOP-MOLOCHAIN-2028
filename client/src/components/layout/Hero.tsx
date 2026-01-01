@@ -72,8 +72,10 @@ const HeroSkeleton = () => (
 );
 
 const Hero = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: heroSection, isLoading } = useCMSHomeSection('hero');
+  
+  const isEnglish = i18n.language === 'en' || i18n.language.startsWith('en-');
 
   const defaultFeatures = [
     { icon: Shield, text: t('features.enterpriseSecured', 'Enterprise Secured') },
@@ -93,9 +95,15 @@ const Hero = () => {
     return <HeroSkeleton />;
   }
 
-  const title = heroSection?.title || t('hero.title', 'Revolutionizing Global Logistics');
-  const subtitle = heroSection?.subtitle || t('hero.subtitle', 'ENTERPRISE LOGISTICS POWER');
-  const description = heroSection?.body || t('hero.description', 'Transform the $9.1 trillion logistics industry with our enterprise Super-App. AI-powered automation, smart integrations, and advanced analytics eliminate inefficiencies and reduce costs by 40%.');
+  const title = isEnglish 
+    ? (heroSection?.title || t('hero.title', 'Global Logistics Solutions'))
+    : t('hero.title', heroSection?.title || 'Global Logistics Solutions');
+  const subtitle = isEnglish
+    ? (heroSection?.subtitle || t('hero.subtitle', 'Connecting Continents, Delivering Excellence'))
+    : t('hero.subtitle', heroSection?.subtitle || 'Connecting Continents, Delivering Excellence');
+  const description = isEnglish
+    ? (heroSection?.body || t('hero.description', 'Molochain provides end-to-end supply chain solutions with cutting-edge technology and a global network spanning 150+ countries.'))
+    : t('hero.description', heroSection?.body || 'Molochain provides end-to-end supply chain solutions with cutting-edge technology and a global network spanning 150+ countries.');
 
   const features = heroSection?.items?.length 
     ? heroSection.items.slice(0, 4).map((item) => ({
