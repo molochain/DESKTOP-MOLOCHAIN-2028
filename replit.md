@@ -3,12 +3,12 @@
 ## Overview
 Rest Express is a comprehensive Node.js/TypeScript full-stack application within Molochain's ecosystem, designed for business management.
 
-## Admin System (Grade A+ Upgrade - Phase 2 Complete)
+## Admin System (Grade A+ Upgrade - Phase 3 Complete)
 **URL:** https://admin.molochain.com (port 7001)
 
 ### Phase 1 Features (Complete):
 1. **Real-Time Dashboard** - CPU/Memory/Disk/Network metrics via Prometheus, embedded Grafana charts
-2. **Container Management** - 66 containers with bulk restart/stop, status filtering, health monitoring
+2. **Container Management** - 70 containers with bulk restart/stop, status filtering, health monitoring
 3. **User Management** - Admin CRUD with role-based access (super_admin, admin, viewer)
 4. **System Settings** - Alerts config, backup schedules, email notifications
 5. **Alerts & Notifications** - Threshold-based alerts for CPU/memory/disk/container health
@@ -17,13 +17,26 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 8. **Database Admin** - PostgreSQL management via sidecar (port 7003): table browsing, read-only SQL, backup/restore
 9. **API Documentation** - OpenAPI 3.0 spec at /openapi.json, Swagger UI integration
 
-### Phase 2 Features (NEW - Complete):
+### Phase 2 Features (Complete):
 1. **Security Hardening** - Internal API key authentication for all sidecar services (SSL checker, DB admin, container monitor, notification service). Nginx injects API key via envsubst.
 2. **Audit Logging System** - Complete admin action tracking with admin_audit_logs table. Tracks: action, category, user, IP, severity, success status. Searchable UI at /audit-logs.
 3. **Automated Database Backups** - node-cron scheduler for daily PostgreSQL backups at 2:00 AM UTC with configurable retention (default 7 days). Manual trigger available.
 4. **Container Auto-Recovery** - Health monitoring service that auto-restarts unhealthy/stopped containers. Configurable max restart attempts and cooldown periods.
 5. **Real-Time WebSocket Notifications** - Socket.IO-based notification service for instant alerts. Broadcasts container failures, SSL warnings, backup status.
 6. **Notification Preferences** - Per-user configurable alerts (container, SSL, backup, security). Adjustable thresholds for CPU/memory/disk warnings.
+
+### Phase 3 Features (NEW - Complete):
+1. **Grafana Dashboard Embedding** - Live CPU/Memory metrics embedded via secure HTTPS proxy (/grafana/). Anonymous viewer access configured. Direct link to full Grafana dashboard.
+2. **Automated Runbooks System** - 9 one-click infrastructure fixes organized by category:
+   - **Containers:** Restart Unhealthy, Clear Restart Counters, Restart Core Services (high-risk)
+   - **Database:** Trigger Backup, Cleanup Old Backups
+   - **Cache:** Flush Redis (medium-risk)
+   - **Maintenance:** Rotate Logs, Full Health Check
+   - **Security:** Refresh SSL Status
+3. **Risk Level Indicators** - Each runbook displays Low/Medium/High risk with visual color coding
+4. **Confirmation Dialogs** - High-risk actions require explicit user confirmation with warning messages
+5. **Execution Feedback** - Real-time success/failure status with timestamps for all runbook executions
+6. **Audit Integration** - All runbook executions logged to audit trail for accountability
 
 ### Architecture:
 - **Frontend:** React 18 + Vite + Tailwind + shadcn/ui (molochain-admin-frontend container)
