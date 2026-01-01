@@ -112,12 +112,21 @@
     "contactShortDesc": "تواصل معنا",
     "controlCenter": "مركز التحكم"
   },
+  "features": {
+    "enterpriseSecured": "أمان مؤسسي",
+    "aiPowered": "مدعوم بالذكاء الاصطناعي",
+    "smartIntegration": "تكامل ذكي",
+    "marketSize": "سوق بقيمة 9.1 تريليون دولار"
+  },
   "hero": {
-    "title": "الخدمات اللوجستية الحديثة",
-    "subtitle": "للأعمال الحديثة",
+    "title": "ثورة في اللوجستيات العالمية",
+    "subtitle": "قوة اللوجستيات المؤسسية",
     "description": "قم بتحسين سلسلة التوريد الخاصة بك مع حلولنا اللوجستية الشاملة. سواء كنت شركة أو فردًا، نحن هنا لمساعدتك.",
     "getQuote": "احصل على عرض سعر",
-    "learnMore": "اعرف المزيد"
+    "learnMore": "اعرف المزيد",
+    "badge": "نظام اللوجستيات المؤسسي",
+    "isoCertified": "حاصل على شهادة ISO 9001",
+    "support247": "دعم على مدار الساعة"
   },
   "services": {
     "title": "خدماتنا",
@@ -353,5 +362,59 @@
       "cookies": "الكوكيز",
       "sitemap": "خريطة الموقع"
     }
+  },
+  "tools": {
+    "mololink": "مولولينك",
+    "molops": "مولوبس",
+    "trackingSystem": "نظام التتبع",
+    "analyticsHub": "مركز التحليلات",
+    "apiPortal": "بوابة API",
+    "documentation": "التوثيق"
+  },
+  "contact": {
+    "title": "تواصل معنا",
+    "subtitle": "تواصل",
+    "form": {
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "message": "الرسالة",
+      "submit": "إرسال الرسالة"
+    },
+    "info": {
+      "address": "العنوان",
+      "phone": "الهاتف",
+      "email": "البريد الإلكتروني"
+    }
+  },
+  "cta": {
+    "title": "هل أنت مستعد لتحويل لوجستياتك؟",
+    "subtitle": "ابدأ اليوم",
+    "button": "ابدأ الآن",
+    "learnMore": "اعرف المزيد"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجاح",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "back": "رجوع",
+    "next": "التالي",
+    "submit": "إرسال",
+    "close": "إغلاق",
+    "yes": "نعم",
+    "no": "لا",
+    "confirm": "تأكيد",
+    "welcome": "مرحباً",
+    "logout": "تسجيل الخروج"
+  },
+  "language": {
+    "select": "اختر اللغة",
+    "english": "English",
+    "arabic": "العربية",
+    "persian": "فارسی",
+    "turkish": "Türkçe"
   }
 }

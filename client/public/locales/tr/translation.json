@@ -112,12 +112,21 @@
     "contactShortDesc": "Bizimle iletişime geçin",
     "controlCenter": "Kontrol Merkezi"
   },
+  "features": {
+    "enterpriseSecured": "Kurumsal Güvenlik",
+    "aiPowered": "Yapay Zeka Destekli",
+    "smartIntegration": "Akıllı Entegrasyon",
+    "marketSize": "9.1 Trilyon Dolarlık Pazar"
+  },
   "hero": {
-    "title": "Modern Lojistik",
-    "subtitle": "Modern İşletmeler İçin",
+    "title": "Küresel Lojistikte Devrim",
+    "subtitle": "KURUMSAL LOJİSTİK GÜCÜ",
     "description": "Kapsamlı lojistik çözümlerimizle tedarik zincirinizi optimize edin. İster işletme ister bireysel olun, yanınızdayız.",
     "getQuote": "Teklif Al",
-    "learnMore": "Daha Fazla Bilgi"
+    "learnMore": "Daha Fazla Bilgi",
+    "badge": "Kurumsal Lojistik Ekosistemi",
+    "isoCertified": "ISO 9001 Sertifikalı",
+    "support247": "7/24 Destek"
   },
   "services": {
     "title": "Hizmetlerimiz",
@@ -368,5 +377,51 @@
       "cookies": "Çerezler",
       "sitemap": "Site Haritası"
     }
+  },
+  "contact": {
+    "title": "İletişim",
+    "subtitle": "İletişime Geçin",
+    "form": {
+      "name": "Ad",
+      "email": "E-posta",
+      "message": "Mesaj",
+      "submit": "Mesaj Gönder"
+    },
+    "info": {
+      "address": "Adres",
+      "phone": "Telefon",
+      "email": "E-posta"
+    }
+  },
+  "cta": {
+    "title": "Lojistiğinizi Dönüştürmeye Hazır mısınız?",
+    "subtitle": "Bugün başlayın",
+    "button": "Başlayın",
+    "learnMore": "Daha Fazla Bilgi"
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "back": "Geri",
+    "next": "İleri",
+    "submit": "Gönder",
+    "close": "Kapat",
+    "yes": "Evet",
+    "no": "Hayır",
+    "confirm": "Onayla",
+    "welcome": "Hoş Geldiniz",
+    "logout": "Çıkış"
+  },
+  "language": {
+    "select": "Dil Seçin",
+    "english": "English",
+    "arabic": "العربية",
+    "persian": "فارسی",
+    "turkish": "Türkçe"
   }
 }

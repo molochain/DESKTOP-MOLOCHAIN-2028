@@ -112,12 +112,21 @@
     "contactShortDesc": "Get in touch with us",
     "controlCenter": "Control Center"
   },
+  "features": {
+    "enterpriseSecured": "Enterprise Secured",
+    "aiPowered": "AI Powered",
+    "smartIntegration": "Smart Integration",
+    "marketSize": "$9.1T Market"
+  },
   "hero": {
-    "title": "Molochain World!",
-    "subtitle": "for Modern Business",
+    "title": "Revolutionizing Global Logistics",
+    "subtitle": "ENTERPRISE LOGISTICS POWER",
     "description": "Streamline your supply chain with our comprehensive logistics solutions. Whether you're a business or individual, we've got you covered.",
     "getQuote": "Get a Quote",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "badge": "Enterprise Logistics Ecosystem",
+    "isoCertified": "ISO 9001 Certified",
+    "support247": "24/7 Support"
   },
   "services": {
     "title": "Our Services",
@@ -301,5 +310,51 @@
       "cookies": "Cookies",
       "sitemap": "Sitemap"
     }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in Touch",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "submit": "Send Message"
+    },
+    "info": {
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email"
+    }
+  },
+  "cta": {
+    "title": "Ready to Transform Your Logistics?",
+    "subtitle": "Get started today",
+    "button": "Get Started",
+    "learnMore": "Learn More"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "confirm": "Confirm",
+    "welcome": "Welcome",
+    "logout": "Logout"
+  },
+  "language": {
+    "select": "Select Language",
+    "english": "English",
+    "arabic": "العربية",
+    "persian": "فارسی",
+    "turkish": "Türkçe"
   }
 }

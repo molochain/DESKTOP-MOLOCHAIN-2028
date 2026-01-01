@@ -76,25 +76,25 @@ const Hero = () => {
   const { data: heroSection, isLoading } = useCMSHomeSection('hero');
 
   const defaultFeatures = [
-    { icon: Shield, text: "Enterprise Secured" },
-    { icon: Cpu, text: "AI Powered" },
-    { icon: Link2, text: "Smart Integration" },
-    { icon: Globe, text: "$9.1T Market" }
+    { icon: Shield, text: t('features.enterpriseSecured', 'Enterprise Secured') },
+    { icon: Cpu, text: t('features.aiPowered', 'AI Powered') },
+    { icon: Link2, text: t('features.smartIntegration', 'Smart Integration') },
+    { icon: Globe, text: t('features.marketSize', '$9.1T Market') }
   ];
 
   const defaultStats = [
-    { value: "1,286", label: "Global Partners" },
-    { value: "186K", label: "Shipments Processed" },
-    { value: "$142M", label: "Network Value" },
-    { value: "48K+", label: "Active Integrations" }
+    { value: "1,286", label: t('stats.partners', 'Global Partners') },
+    { value: "186K", label: t('stats.shipments', 'Shipments Processed') },
+    { value: "$142M", label: t('stats.networkValue', 'Network Value') },
+    { value: "48K+", label: t('stats.integrations', 'Active Integrations') }
   ];
 
   if (isLoading) {
     return <HeroSkeleton />;
   }
 
-  const title = heroSection?.title || "Revolutionizing Global Logistics";
-  const subtitle = heroSection?.subtitle || "ENTERPRISE LOGISTICS POWER";
+  const title = heroSection?.title || t('hero.title', 'Revolutionizing Global Logistics');
+  const subtitle = heroSection?.subtitle || t('hero.subtitle', 'ENTERPRISE LOGISTICS POWER');
   const description = heroSection?.body || t('hero.description', 'Transform the $9.1 trillion logistics industry with our enterprise Super-App. AI-powered automation, smart integrations, and advanced analytics eliminate inefficiencies and reduce costs by 40%.');
 
   const features = heroSection?.items?.length 
@@ -129,7 +129,7 @@ const Hero = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 text-blue-600 text-sm font-semibold mb-6"
             >
               <Shield className="w-4 h-4" />
-              <span>Enterprise Logistics Ecosystem</span>
+              <span>{t('hero.badge', 'Enterprise Logistics Ecosystem')}</span>
             </motion.div>
 
             <motion.h1
@@ -201,11 +201,11 @@ const Hero = () => {
             >
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-500" />
-                <span>ISO 9001 Certified</span>
+                <span>{t('hero.isoCertified', 'ISO 9001 Certified')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-500" />
-                <span>24/7 Support</span>
+                <span>{t('hero.support247', '24/7 Support')}</span>
               </div>
             </motion.div>
           </div>
