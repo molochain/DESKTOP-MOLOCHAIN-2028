@@ -16,6 +16,8 @@ import {
   BookOpen,
   FileCode,
   Server,
+  Zap,
+  TrendingUp,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -32,11 +34,13 @@ const menuItems = [
   { path: '/alerts', icon: Bell, label: 'Alerts' },
   { path: '/users', icon: Users, label: 'Users' },
   { path: '/metrics', icon: LineChart, label: 'Metrics' },
+  { path: '/analytics', icon: TrendingUp, label: 'Analytics' },
   { path: '/logs', icon: Terminal, label: 'Logs' },
   { path: '/security', icon: ShieldCheck, label: 'Security' },
   { path: '/database', icon: HardDrive, label: 'Database' },
   { path: '/audit-logs', icon: ClipboardList, label: 'Audit Logs' },
   { path: '/runbooks', icon: BookOpen, label: 'Runbooks' },
+  { path: '/incidents', icon: Zap, label: 'Incidents' },
   { path: '/api-docs', icon: FileCode, label: 'API Docs' },
   { path: '/settings', icon: Settings, label: 'Settings' },
 ];

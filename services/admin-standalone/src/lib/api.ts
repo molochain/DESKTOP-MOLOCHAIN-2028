@@ -139,3 +139,160 @@ export async function removeAlertAcknowledgement(alertId: string) {
   const response = await api.delete(`/api/admin/database/alerts/acknowledgements/${encodeURIComponent(alertId)}`);
   return response.data;
 }
+
+// Phase 5: Alert Rules API
+export async function getAlertRules() {
+  const response = await api.get('/api/admin/database/alert-rules');
+  return response.data;
+}
+
+export async function getAlertRule(id: number) {
+  const response = await api.get(`/api/admin/database/alert-rules/${id}`);
+  return response.data;
+}
+
+export async function createAlertRule(data: {
+  name: string;
+  description?: string;
+  conditionType: string;
+  conditionValue: object;
+  actionType: string;
+  actionConfig?: object;
+  enabled?: boolean;
+  requiresApproval?: boolean;
+  cooldownSeconds?: number;
+}) {
+  const response = await api.post('/api/admin/database/alert-rules', data);
+  return response.data;
+}
+
+export async function updateAlertRule(id: number, data: {
+  name?: string;
+  description?: string;
+  conditionType?: string;
+  conditionValue?: object;
+  actionType?: string;
+  actionConfig?: object;
+  enabled?: boolean;
+  requiresApproval?: boolean;
+  cooldownSeconds?: number;
+}) {
+  const response = await api.put(`/api/admin/database/alert-rules/${id}`, data);
+  return response.data;
+}
+
+export async function deleteAlertRule(id: number) {
+  const response = await api.delete(`/api/admin/database/alert-rules/${id}`);
+  return response.data;
+}
+
+// Phase 5: Metrics History API
+export async function getMetricsHistory(params?: {
+  type?: string;
+  startDate?: string;
+  endDate?: string;
+  limit?: number;
+}) {
+  const queryParams = new URLSearchParams();
+  if (params?.type) queryParams.append('type', params.type);
+  if (params?.startDate) queryParams.append('startDate', params.startDate);
+  if (params?.endDate) queryParams.append('endDate', params.endDate);
+  if (params?.limit) queryParams.append('limit', params.limit.toString());
+  const response = await api.get(`/api/admin/database/metrics/history?${queryParams}`);
+  return response.data;
+}
+
+export async function getMetricsTrends(params?: {
+  type?: string;
+  period?: 'hourly' | 'daily';
+  days?: number;
+}) {
+  const queryParams = new URLSearchParams();
+  if (params?.type) queryParams.append('type', params.type);
+  if (params?.period) queryParams.append('period', params.period);
+  if (params?.days) queryParams.append('days', params.days.toString());
+  const response = await api.get(`/api/admin/database/metrics/trends?${queryParams}`);
+  return response.data;
+}
+
+// Phase 5: Deployments API
+export async function getDeployments(params?: {
+  service?: string;
+  status?: string;
+  page?: number;
+  limit?: number;
+}) {
+  const queryParams = new URLSearchParams();
+  if (params?.service) queryParams.append('service', params.service);
+  if (params?.status) queryParams.append('status', params.status);
+  if (params?.page) queryParams.append('page', params.page.toString());
+  if (params?.limit) queryParams.append('limit', params.limit.toString());
+  const response = await api.get(`/api/admin/database/deployments?${queryParams}`);
+  return response.data;
+}
+
+export async function getDeployment(id: number) {
+  const response = await api.get(`/api/admin/database/deployments/${id}`);
+  return response.data;
+}
+
+export async function createDeployment(data: {
+  serviceName: string;
+  version?: string;
+  environment?: string;
+  deployedBy?: string;
+  commitHash?: string;
+  commitMessage?: string;
+  deploymentType?: string;
+  metadata?: object;
+}) {
+  const response = await api.post('/api/admin/database/deployments', data);
+  return response.data;
+}
+
+export async function updateDeployment(id: number, data: { status: string; metadata?: object }) {
+  const response = await api.put(`/api/admin/database/deployments/${id}`, data);
+  return response.data;
+}
+
+// Phase 5: Incident Executions API
+export async function getIncidents(params?: {
+  ruleId?: number;
+  status?: string;
+  page?: number;
+  limit?: number;
+}) {
+  const queryParams = new URLSearchParams();
+  if (params?.ruleId) queryParams.append('ruleId', params.ruleId.toString());
+  if (params?.status) queryParams.append('status', params.status);
+  if (params?.page) queryParams.append('page', params.page.toString());
+  if (params?.limit) queryParams.append('limit', params.limit.toString());
+  const response = await api.get(`/api/admin/database/incidents?${queryParams}`);
+  return response.data;
+}
+
+export async function getIncident(id: number) {
+  const response = await api.get(`/api/admin/database/incidents/${id}`);
+  return response.data;
+}
+
+export async function createIncident(data: {
+  ruleId?: number;
+  triggerType: string;
+  triggerReason?: string;
+  actionType: string;
+  actionConfig?: object;
+}) {
+  const response = await api.post('/api/admin/database/incidents', data);
+  return response.data;
+}
+
+export async function approveIncident(id: number, approvedBy?: string) {
+  const response = await api.put(`/api/admin/database/incidents/${id}/approve`, { approvedBy });
+  return response.data;
+}
+
+export async function rejectIncident(id: number, rejectedBy?: string, reason?: string) {
+  const response = await api.put(`/api/admin/database/incidents/${id}/reject`, { rejectedBy, reason });
+  return response.data;
+}
