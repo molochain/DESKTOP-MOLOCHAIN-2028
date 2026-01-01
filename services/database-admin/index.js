@@ -5,6 +5,7 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const cron = require('node-cron');
+const os = require('os');
 
 const app = express();
 app.use(cors());
@@ -12,6 +13,7 @@ app.use(express.json());
 
 const BACKUP_DIR = '/var/backups/postgres';
 const BACKUP_RETENTION_DAYS = parseInt(process.env.BACKUP_RETENTION_DAYS) || 7;
+const METRICS_RETENTION_DAYS = parseInt(process.env.METRICS_RETENTION_DAYS) || 30;
 const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY;
 
 if (!INTERNAL_API_KEY) {
@@ -137,6 +139,114 @@ async function initDefaultSettings() {
 }
 
 initSettingsTable();
+
+async function initAlertRulesTable() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS admin_alert_rules (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        description TEXT,
+        condition_type VARCHAR(50) NOT NULL,
+        condition_value JSONB NOT NULL,
+        action_type VARCHAR(50) NOT NULL,
+        action_config JSONB,
+        enabled BOOLEAN DEFAULT true,
+        requires_approval BOOLEAN DEFAULT false,
+        cooldown_seconds INTEGER DEFAULT 300,
+        last_triggered_at TIMESTAMPTZ,
+        created_at TIMESTAMPTZ DEFAULT NOW(),
+        updated_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_alert_rules_enabled ON admin_alert_rules(enabled)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_alert_rules_condition_type ON admin_alert_rules(condition_type)`);
+    console.log('Alert rules table initialized');
+  } catch (err) {
+    console.error('Failed to initialize alert rules table:', err.message);
+  }
+}
+
+initAlertRulesTable();
+
+async function initMetricsHistoryTable() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS admin_metrics_history (
+        id SERIAL PRIMARY KEY,
+        timestamp TIMESTAMPTZ DEFAULT NOW(),
+        metric_type VARCHAR(50) NOT NULL,
+        value NUMERIC NOT NULL,
+        metadata JSONB
+      )
+    `);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_metrics_timestamp ON admin_metrics_history(timestamp DESC)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_metrics_type ON admin_metrics_history(metric_type)`);
+    console.log('Metrics history table initialized');
+  } catch (err) {
+    console.error('Failed to initialize metrics history table:', err.message);
+  }
+}
+
+initMetricsHistoryTable();
+
+async function initDeploymentsTable() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS admin_deployments (
+        id SERIAL PRIMARY KEY,
+        service_name VARCHAR(100) NOT NULL,
+        version VARCHAR(50),
+        environment VARCHAR(50) DEFAULT 'production',
+        status VARCHAR(50) DEFAULT 'completed',
+        deployed_by VARCHAR(255),
+        commit_hash VARCHAR(40),
+        commit_message TEXT,
+        deployment_type VARCHAR(50),
+        started_at TIMESTAMPTZ DEFAULT NOW(),
+        completed_at TIMESTAMPTZ,
+        metadata JSONB
+      )
+    `);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_deployments_service ON admin_deployments(service_name)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_deployments_status ON admin_deployments(status)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_deployments_started_at ON admin_deployments(started_at DESC)`);
+    console.log('Deployments table initialized');
+  } catch (err) {
+    console.error('Failed to initialize deployments table:', err.message);
+  }
+}
+
+initDeploymentsTable();
+
+async function initIncidentExecutionsTable() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS admin_incident_executions (
+        id SERIAL PRIMARY KEY,
+        rule_id INTEGER REFERENCES admin_alert_rules(id) ON DELETE SET NULL,
+        trigger_type VARCHAR(50) NOT NULL,
+        trigger_reason TEXT,
+        action_type VARCHAR(50) NOT NULL,
+        action_config JSONB,
+        status VARCHAR(50) DEFAULT 'pending',
+        result JSONB,
+        executed_at TIMESTAMPTZ,
+        completed_at TIMESTAMPTZ,
+        approved_by VARCHAR(255),
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_incidents_status ON admin_incident_executions(status)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_incidents_rule_id ON admin_incident_executions(rule_id)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_incidents_created_at ON admin_incident_executions(created_at DESC)`);
+    console.log('Incident executions table initialized');
+  } catch (err) {
+    console.error('Failed to initialize incident executions table:', err.message);
+  }
+}
+
+initIncidentExecutionsTable();
 
 app.get('/api/settings', authenticateInternal, async (req, res) => {
   try {
@@ -782,6 +892,656 @@ app.delete('/api/alerts/acknowledgements/:alertId', authenticateInternal, async 
   }
 });
 
+app.get('/api/alert-rules', authenticateInternal, async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT * FROM admin_alert_rules ORDER BY created_at DESC
+    `);
+    res.json({ rules: result.rows });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/alert-rules/:id', authenticateInternal, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(`SELECT * FROM admin_alert_rules WHERE id = $1`, [parseInt(id)]);
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Alert rule not found' });
+    }
+    
+    res.json({ rule: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/alert-rules', authenticateInternal, async (req, res) => {
+  try {
+    const { 
+      name, description, condition_type, condition_value, 
+      action_type, action_config, enabled, requires_approval, cooldown_seconds 
+    } = req.body;
+    
+    if (!name || !condition_type || !condition_value || !action_type) {
+      return res.status(400).json({ error: 'name, condition_type, condition_value, and action_type are required' });
+    }
+
+    const result = await pool.query(`
+      INSERT INTO admin_alert_rules 
+        (name, description, condition_type, condition_value, action_type, action_config, enabled, requires_approval, cooldown_seconds)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      RETURNING *
+    `, [
+      name, 
+      description || null, 
+      condition_type, 
+      JSON.stringify(condition_value), 
+      action_type, 
+      action_config ? JSON.stringify(action_config) : null,
+      enabled !== false,
+      requires_approval === true,
+      cooldown_seconds || 300
+    ]);
+
+    await logAudit('alert_rule_create', 'alerts', { ruleId: result.rows[0].id, name }, req, true, 'info');
+    
+    res.status(201).json({ success: true, rule: result.rows[0] });
+  } catch (err) {
+    await logAudit('alert_rule_create', 'alerts', { name: req.body?.name, error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put('/api/alert-rules/:id', authenticateInternal, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { 
+      name, description, condition_type, condition_value, 
+      action_type, action_config, enabled, requires_approval, cooldown_seconds 
+    } = req.body;
+
+    const existing = await pool.query(`SELECT * FROM admin_alert_rules WHERE id = $1`, [parseInt(id)]);
+    if (existing.rows.length === 0) {
+      return res.status(404).json({ error: 'Alert rule not found' });
+    }
+
+    const result = await pool.query(`
+      UPDATE admin_alert_rules SET
+        name = COALESCE($1, name),
+        description = COALESCE($2, description),
+        condition_type = COALESCE($3, condition_type),
+        condition_value = COALESCE($4, condition_value),
+        action_type = COALESCE($5, action_type),
+        action_config = COALESCE($6, action_config),
+        enabled = COALESCE($7, enabled),
+        requires_approval = COALESCE($8, requires_approval),
+        cooldown_seconds = COALESCE($9, cooldown_seconds),
+        updated_at = NOW()
+      WHERE id = $10
+      RETURNING *
+    `, [
+      name || null,
+      description,
+      condition_type || null,
+      condition_value ? JSON.stringify(condition_value) : null,
+      action_type || null,
+      action_config ? JSON.stringify(action_config) : null,
+      enabled,
+      requires_approval,
+      cooldown_seconds,
+      parseInt(id)
+    ]);
+
+    await logAudit('alert_rule_update', 'alerts', { ruleId: parseInt(id) }, req, true, 'info');
+    
+    res.json({ success: true, rule: result.rows[0] });
+  } catch (err) {
+    await logAudit('alert_rule_update', 'alerts', { ruleId: req.params?.id, error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.delete('/api/alert-rules/:id', authenticateInternal, async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const result = await pool.query(`DELETE FROM admin_alert_rules WHERE id = $1 RETURNING id`, [parseInt(id)]);
+    
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Alert rule not found' });
+    }
+
+    await logAudit('alert_rule_delete', 'alerts', { ruleId: parseInt(id) }, req, true, 'warning');
+    
+    res.json({ success: true, deletedId: parseInt(id) });
+  } catch (err) {
+    await logAudit('alert_rule_delete', 'alerts', { ruleId: req.params?.id, error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/metrics/history', authenticateInternal, async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = Math.min(parseInt(req.query.limit) || 100, 1000);
+    const offset = (page - 1) * limit;
+    const metricType = req.query.type;
+    const startDate = req.query.startDate;
+    const endDate = req.query.endDate;
+
+    let whereClause = 'WHERE 1=1';
+    const params = [];
+    let paramIndex = 1;
+
+    if (metricType) {
+      whereClause += ` AND metric_type = $${paramIndex++}`;
+      params.push(metricType);
+    }
+    if (startDate) {
+      whereClause += ` AND timestamp >= $${paramIndex++}`;
+      params.push(startDate);
+    }
+    if (endDate) {
+      whereClause += ` AND timestamp <= $${paramIndex++}`;
+      params.push(endDate);
+    }
+
+    const countResult = await pool.query(`SELECT count(*) as total FROM admin_metrics_history ${whereClause}`, params);
+    const total = parseInt(countResult.rows[0]?.total || 0);
+
+    const metricsResult = await pool.query(
+      `SELECT * FROM admin_metrics_history ${whereClause} ORDER BY timestamp DESC LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`,
+      [...params, limit, offset]
+    );
+
+    res.json({
+      metrics: metricsResult.rows,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/metrics/record', authenticateInternal, async (req, res) => {
+  try {
+    const { metric_type, value, metadata } = req.body;
+    
+    if (!metric_type || value === undefined) {
+      return res.status(400).json({ error: 'metric_type and value are required' });
+    }
+
+    const result = await pool.query(`
+      INSERT INTO admin_metrics_history (metric_type, value, metadata)
+      VALUES ($1, $2, $3)
+      RETURNING *
+    `, [metric_type, value, metadata ? JSON.stringify(metadata) : null]);
+
+    res.status(201).json({ success: true, metric: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/metrics/trends', authenticateInternal, async (req, res) => {
+  try {
+    const interval = req.query.interval || 'hourly';
+    const metricType = req.query.type;
+    const days = parseInt(req.query.days) || 7;
+
+    let timeFormat;
+    let groupBy;
+    if (interval === 'daily') {
+      timeFormat = 'YYYY-MM-DD';
+      groupBy = "date_trunc('day', timestamp)";
+    } else {
+      timeFormat = 'YYYY-MM-DD HH24:00';
+      groupBy = "date_trunc('hour', timestamp)";
+    }
+
+    let whereClause = `WHERE timestamp >= NOW() - INTERVAL '${days} days'`;
+    const params = [];
+    let paramIndex = 1;
+
+    if (metricType) {
+      whereClause += ` AND metric_type = $${paramIndex++}`;
+      params.push(metricType);
+    }
+
+    const result = await pool.query(`
+      SELECT 
+        metric_type,
+        ${groupBy} as time_bucket,
+        to_char(${groupBy}, '${timeFormat}') as time_label,
+        AVG(value) as avg_value,
+        MIN(value) as min_value,
+        MAX(value) as max_value,
+        COUNT(*) as sample_count
+      FROM admin_metrics_history 
+      ${whereClause}
+      GROUP BY metric_type, ${groupBy}
+      ORDER BY time_bucket DESC
+    `, params);
+
+    const trends = {};
+    for (const row of result.rows) {
+      if (!trends[row.metric_type]) {
+        trends[row.metric_type] = [];
+      }
+      trends[row.metric_type].push({
+        time: row.time_label,
+        avg: parseFloat(row.avg_value),
+        min: parseFloat(row.min_value),
+        max: parseFloat(row.max_value),
+        samples: parseInt(row.sample_count),
+      });
+    }
+
+    res.json({ trends, interval, days });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/deployments', authenticateInternal, async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = Math.min(parseInt(req.query.limit) || 50, 100);
+    const offset = (page - 1) * limit;
+    const serviceName = req.query.service;
+    const status = req.query.status;
+    const environment = req.query.environment;
+
+    let whereClause = 'WHERE 1=1';
+    const params = [];
+    let paramIndex = 1;
+
+    if (serviceName) {
+      whereClause += ` AND service_name ILIKE $${paramIndex++}`;
+      params.push(`%${serviceName}%`);
+    }
+    if (status) {
+      whereClause += ` AND status = $${paramIndex++}`;
+      params.push(status);
+    }
+    if (environment) {
+      whereClause += ` AND environment = $${paramIndex++}`;
+      params.push(environment);
+    }
+
+    const countResult = await pool.query(`SELECT count(*) as total FROM admin_deployments ${whereClause}`, params);
+    const total = parseInt(countResult.rows[0]?.total || 0);
+
+    const deploymentsResult = await pool.query(
+      `SELECT * FROM admin_deployments ${whereClause} ORDER BY started_at DESC LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`,
+      [...params, limit, offset]
+    );
+
+    res.json({
+      deployments: deploymentsResult.rows,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/deployments/:id', authenticateInternal, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(`SELECT * FROM admin_deployments WHERE id = $1`, [parseInt(id)]);
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Deployment not found' });
+    }
+    
+    res.json({ deployment: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/deployments', authenticateInternal, async (req, res) => {
+  try {
+    const { 
+      service_name, version, environment, status, deployed_by,
+      commit_hash, commit_message, deployment_type, metadata 
+    } = req.body;
+    
+    if (!service_name) {
+      return res.status(400).json({ error: 'service_name is required' });
+    }
+
+    const result = await pool.query(`
+      INSERT INTO admin_deployments 
+        (service_name, version, environment, status, deployed_by, commit_hash, commit_message, deployment_type, metadata)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      RETURNING *
+    `, [
+      service_name,
+      version || null,
+      environment || 'production',
+      status || 'pending',
+      deployed_by || null,
+      commit_hash || null,
+      commit_message || null,
+      deployment_type || 'manual',
+      metadata ? JSON.stringify(metadata) : null
+    ]);
+
+    await logAudit('deployment_create', 'deployments', { 
+      deploymentId: result.rows[0].id, 
+      service: service_name,
+      version 
+    }, req, true, 'info');
+    
+    res.status(201).json({ success: true, deployment: result.rows[0] });
+  } catch (err) {
+    await logAudit('deployment_create', 'deployments', { service: req.body?.service_name, error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put('/api/deployments/:id', authenticateInternal, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status, completed_at, metadata } = req.body;
+
+    const existing = await pool.query(`SELECT * FROM admin_deployments WHERE id = $1`, [parseInt(id)]);
+    if (existing.rows.length === 0) {
+      return res.status(404).json({ error: 'Deployment not found' });
+    }
+
+    const result = await pool.query(`
+      UPDATE admin_deployments SET
+        status = COALESCE($1, status),
+        completed_at = COALESCE($2, completed_at),
+        metadata = COALESCE($3, metadata)
+      WHERE id = $4
+      RETURNING *
+    `, [
+      status || null,
+      completed_at || (status === 'completed' || status === 'failed' ? new Date().toISOString() : null),
+      metadata ? JSON.stringify(metadata) : null,
+      parseInt(id)
+    ]);
+
+    await logAudit('deployment_update', 'deployments', { 
+      deploymentId: parseInt(id), 
+      status,
+      service: result.rows[0].service_name 
+    }, req, true, 'info');
+    
+    res.json({ success: true, deployment: result.rows[0] });
+  } catch (err) {
+    await logAudit('deployment_update', 'deployments', { deploymentId: req.params?.id, error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/incidents', authenticateInternal, async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = Math.min(parseInt(req.query.limit) || 50, 100);
+    const offset = (page - 1) * limit;
+    const status = req.query.status;
+    const triggerType = req.query.trigger_type;
+
+    let whereClause = 'WHERE 1=1';
+    const params = [];
+    let paramIndex = 1;
+
+    if (status) {
+      whereClause += ` AND ie.status = $${paramIndex++}`;
+      params.push(status);
+    }
+    if (triggerType) {
+      whereClause += ` AND ie.trigger_type = $${paramIndex++}`;
+      params.push(triggerType);
+    }
+
+    const countResult = await pool.query(`SELECT count(*) as total FROM admin_incident_executions ie ${whereClause}`, params);
+    const total = parseInt(countResult.rows[0]?.total || 0);
+
+    const incidentsResult = await pool.query(`
+      SELECT ie.*, ar.name as rule_name 
+      FROM admin_incident_executions ie
+      LEFT JOIN admin_alert_rules ar ON ie.rule_id = ar.id
+      ${whereClause} 
+      ORDER BY ie.created_at DESC 
+      LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
+    `, [...params, limit, offset]);
+
+    res.json({
+      incidents: incidentsResult.rows,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/incidents/:id', authenticateInternal, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(`
+      SELECT ie.*, ar.name as rule_name 
+      FROM admin_incident_executions ie
+      LEFT JOIN admin_alert_rules ar ON ie.rule_id = ar.id
+      WHERE ie.id = $1
+    `, [parseInt(id)]);
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Incident not found' });
+    }
+    
+    res.json({ incident: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/incidents', authenticateInternal, async (req, res) => {
+  try {
+    const { rule_id, trigger_type, trigger_reason, action_type, action_config } = req.body;
+    
+    if (!trigger_type || !action_type) {
+      return res.status(400).json({ error: 'trigger_type and action_type are required' });
+    }
+
+    const result = await pool.query(`
+      INSERT INTO admin_incident_executions 
+        (rule_id, trigger_type, trigger_reason, action_type, action_config, status)
+      VALUES ($1, $2, $3, $4, $5, 'pending')
+      RETURNING *
+    `, [
+      rule_id || null,
+      trigger_type,
+      trigger_reason || null,
+      action_type,
+      action_config ? JSON.stringify(action_config) : null
+    ]);
+
+    await logAudit('incident_create', 'incidents', { 
+      incidentId: result.rows[0].id, 
+      triggerType: trigger_type,
+      actionType: action_type 
+    }, req, true, 'warning');
+    
+    res.status(201).json({ success: true, incident: result.rows[0] });
+  } catch (err) {
+    await logAudit('incident_create', 'incidents', { error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put('/api/incidents/:id/approve', authenticateInternal, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const approvedBy = req.body.approved_by || req.headers['x-user-email'];
+
+    const existing = await pool.query(`SELECT * FROM admin_incident_executions WHERE id = $1`, [parseInt(id)]);
+    if (existing.rows.length === 0) {
+      return res.status(404).json({ error: 'Incident not found' });
+    }
+
+    if (existing.rows[0].status !== 'pending') {
+      return res.status(400).json({ error: 'Only pending incidents can be approved' });
+    }
+
+    const result = await pool.query(`
+      UPDATE admin_incident_executions SET
+        status = 'approved',
+        approved_by = $1,
+        executed_at = NOW()
+      WHERE id = $2
+      RETURNING *
+    `, [approvedBy, parseInt(id)]);
+
+    await logAudit('incident_approve', 'incidents', { 
+      incidentId: parseInt(id), 
+      approvedBy 
+    }, req, true, 'warning');
+    
+    res.json({ success: true, incident: result.rows[0] });
+  } catch (err) {
+    await logAudit('incident_approve', 'incidents', { incidentId: req.params?.id, error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put('/api/incidents/:id/reject', authenticateInternal, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const rejectedBy = req.body.rejected_by || req.headers['x-user-email'];
+
+    const existing = await pool.query(`SELECT * FROM admin_incident_executions WHERE id = $1`, [parseInt(id)]);
+    if (existing.rows.length === 0) {
+      return res.status(404).json({ error: 'Incident not found' });
+    }
+
+    if (existing.rows[0].status !== 'pending') {
+      return res.status(400).json({ error: 'Only pending incidents can be rejected' });
+    }
+
+    const result = await pool.query(`
+      UPDATE admin_incident_executions SET
+        status = 'rejected',
+        approved_by = $1,
+        completed_at = NOW()
+      WHERE id = $2
+      RETURNING *
+    `, [rejectedBy, parseInt(id)]);
+
+    await logAudit('incident_reject', 'incidents', { 
+      incidentId: parseInt(id), 
+      rejectedBy 
+    }, req, true, 'info');
+    
+    res.json({ success: true, incident: result.rows[0] });
+  } catch (err) {
+    await logAudit('incident_reject', 'incidents', { incidentId: req.params?.id, error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+async function collectSystemMetrics() {
+  console.log('[METRICS] Collecting system metrics...');
+  try {
+    const cpus = os.cpus();
+    const cpuUsage = cpus.reduce((acc, cpu) => {
+      const total = Object.values(cpu.times).reduce((a, b) => a + b, 0);
+      const idle = cpu.times.idle;
+      return acc + ((total - idle) / total) * 100;
+    }, 0) / cpus.length;
+
+    const totalMem = os.totalmem();
+    const freeMem = os.freemem();
+    const memoryUsage = ((totalMem - freeMem) / totalMem) * 100;
+
+    let diskUsage = 0;
+    try {
+      const dfOutput = execSync("df -h / | tail -1 | awk '{print $5}'", { shell: '/bin/sh' }).toString().trim();
+      diskUsage = parseFloat(dfOutput.replace('%', '')) || 0;
+    } catch (e) {
+      diskUsage = 0;
+    }
+
+    let containerCount = 0;
+    try {
+      const dockerOutput = execSync('docker ps -q 2>/dev/null | wc -l', { shell: '/bin/sh' }).toString().trim();
+      containerCount = parseInt(dockerOutput) || 0;
+    } catch (e) {
+      containerCount = 0;
+    }
+
+    await pool.query(`
+      INSERT INTO admin_metrics_history (metric_type, value, metadata) VALUES 
+        ('cpu', $1, $2),
+        ('memory', $3, $4),
+        ('disk', $5, $6),
+        ('containers', $7, $8)
+    `, [
+      cpuUsage.toFixed(2),
+      JSON.stringify({ cores: cpus.length }),
+      memoryUsage.toFixed(2),
+      JSON.stringify({ total: totalMem, free: freeMem }),
+      diskUsage,
+      JSON.stringify({ partition: '/' }),
+      containerCount,
+      JSON.stringify({ source: 'docker' })
+    ]);
+
+    console.log(`[METRICS] Collected: CPU=${cpuUsage.toFixed(2)}%, Memory=${memoryUsage.toFixed(2)}%, Disk=${diskUsage}%, Containers=${containerCount}`);
+    
+    await cleanupOldMetrics();
+    
+    return { success: true, cpu: cpuUsage, memory: memoryUsage, disk: diskUsage, containers: containerCount };
+  } catch (err) {
+    console.error('[METRICS] Collection failed:', err.message);
+    await logAudit('metrics_collection', 'metrics', { error: err.message }, null, false, 'error');
+    return { success: false, error: err.message };
+  }
+}
+
+async function cleanupOldMetrics() {
+  console.log(`[METRICS] Cleaning up metrics older than ${METRICS_RETENTION_DAYS} days...`);
+  try {
+    const result = await pool.query(`
+      DELETE FROM admin_metrics_history 
+      WHERE timestamp < NOW() - INTERVAL '${METRICS_RETENTION_DAYS} days'
+    `);
+    
+    if (result.rowCount > 0) {
+      console.log(`[METRICS] Deleted ${result.rowCount} old metric records`);
+      await logAudit('metrics_cleanup', 'metrics', { 
+        deletedCount: result.rowCount, 
+        retentionDays: METRICS_RETENTION_DAYS 
+      }, null, true, 'info');
+    }
+  } catch (err) {
+    console.error('[METRICS] Cleanup failed:', err.message);
+  }
+}
+
 cron.schedule('0 2 * * *', async () => {
   console.log('[CRON] Triggering scheduled database backup');
   await performAutomatedBackup();
@@ -790,7 +1550,16 @@ cron.schedule('0 2 * * *', async () => {
   timezone: 'UTC'
 });
 
+cron.schedule('0 * * * *', async () => {
+  console.log('[CRON] Triggering hourly metrics collection');
+  await collectSystemMetrics();
+}, {
+  scheduled: true,
+  timezone: 'UTC'
+});
+
 console.log(`[AUTO-BACKUP] Scheduler initialized: Daily at 2:00 AM UTC, retention: ${BACKUP_RETENTION_DAYS} days`);
+console.log(`[METRICS] Scheduler initialized: Hourly, retention: ${METRICS_RETENTION_DAYS} days`);
 
 const PORT = process.env.PORT || 7003;
 app.listen(PORT, '0.0.0.0', () => {
