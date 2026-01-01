@@ -24,6 +24,7 @@ import {
   Zap,
   Network,
   Database,
+  Maximize2,
 } from 'lucide-react';
 import { StatCard } from '@/components/StatCard';
 import { ProgressBar } from '@/components/ProgressBar';
@@ -381,6 +382,46 @@ export function Metrics() {
             <ProgressBar value={metrics.disk?.percent || 0} size="lg" />
           </div>
         </div>
+      </div>
+
+      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <BarChart3 size={18} className="text-orange-500" />
+            <h3 className="font-semibold text-slate-900 dark:text-white">Live Grafana Dashboard</h3>
+          </div>
+          <a
+            href="/grafana/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+            data-testid="btn-open-grafana"
+          >
+            <Maximize2 size={14} />
+            Open Full Dashboard
+          </a>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700" style={{ height: '300px' }}>
+            <iframe
+              src="/grafana/d-solo/node-exporter-full/node-exporter-full?orgId=1&panelId=77&theme=dark"
+              className="w-full h-full border-0"
+              title="CPU Usage Graph"
+              loading="lazy"
+            />
+          </div>
+          <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700" style={{ height: '300px' }}>
+            <iframe
+              src="/grafana/d-solo/node-exporter-full/node-exporter-full?orgId=1&panelId=78&theme=dark"
+              className="w-full h-full border-0"
+              title="Memory Usage Graph"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <p className="text-xs text-slate-500 mt-4 text-center">
+          Live metrics embedded from Grafana via secure proxy. If panels don't load, check that Grafana dashboards are configured.
+        </p>
       </div>
     </div>
   );

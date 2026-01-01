@@ -242,7 +242,119 @@ app.post('/api/monitor/clear-attempts', authenticateInternal, async (req, res) =
     restartAttempts.clear();
   }
   await logToAudit('restart_attempts_cleared', { containerId: containerId || 'all' }, true, 'info');
-  res.json({ success: true });
+  res.json({ success: true, message: 'Restart attempt counters cleared successfully' });
+});
+
+app.post('/api/runbooks/flush-redis', authenticateInternal, async (req, res) => {
+  try {
+    const redisContainers = getContainerStatus().filter(c => 
+      c.name.includes('redis') || c.name.includes('cache')
+    );
+    
+    let flushed = 0;
+    for (const container of redisContainers) {
+      try {
+        execSync(`docker exec ${container.id} redis-cli FLUSHALL`, { timeout: 10000 });
+        flushed++;
+      } catch (err) {
+        console.log(`[RUNBOOK] Could not flush ${container.name}: ${err.message}`);
+      }
+    }
+    
+    await logToAudit('runbook_flush_redis', { flushed, total: redisContainers.length }, true, 'warning');
+    res.json({ 
+      success: true, 
+      message: `Flushed ${flushed} Redis cache(s)`,
+      flushed,
+      total: redisContainers.length
+    });
+  } catch (err) {
+    await logToAudit('runbook_flush_redis', { error: err.message }, false, 'error');
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+app.post('/api/runbooks/cleanup-backups', authenticateInternal, async (req, res) => {
+  try {
+    const retentionDays = 7;
+    const result = execSync(
+      `find /var/backups/postgres -name "*.sql" -mtime +${retentionDays} -delete 2>/dev/null; echo "Cleanup complete"`,
+      { encoding: 'utf8', timeout: 30000 }
+    );
+    
+    await logToAudit('runbook_cleanup_backups', { retentionDays }, true, 'info');
+    res.json({ 
+      success: true, 
+      message: `Cleaned up backups older than ${retentionDays} days`,
+      retentionDays
+    });
+  } catch (err) {
+    await logToAudit('runbook_cleanup_backups', { error: err.message }, false, 'error');
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+app.post('/api/runbooks/restart-core', authenticateInternal, async (req, res) => {
+  try {
+    const coreServices = [
+      'molochain-admin',
+      'molochain-admin-service',
+      'molochain-app',
+      'auth-service'
+    ];
+    
+    const containers = getContainerStatus();
+    const toRestart = containers.filter(c => 
+      coreServices.some(name => c.name.includes(name))
+    );
+    
+    const results = [];
+    for (const container of toRestart) {
+      try {
+        execSync(`docker restart ${container.id}`, { timeout: 60000 });
+        results.push({ name: container.name, success: true });
+      } catch (err) {
+        results.push({ name: container.name, success: false, error: err.message });
+      }
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    }
+    
+    await logToAudit('runbook_restart_core', { results }, true, 'warning');
+    res.json({ 
+      success: true, 
+      message: `Restarted ${results.filter(r => r.success).length}/${toRestart.length} core services`,
+      results
+    });
+  } catch (err) {
+    await logToAudit('runbook_restart_core', { error: err.message }, false, 'error');
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+app.post('/api/runbooks/rotate-logs', authenticateInternal, async (req, res) => {
+  try {
+    const containers = getContainerStatus().filter(c => c.state === 'running');
+    let rotated = 0;
+    
+    for (const container of containers.slice(0, 20)) {
+      try {
+        execSync(`truncate -s 0 $(docker inspect --format='{{.LogPath}}' ${container.id}) 2>/dev/null || true`, { timeout: 5000 });
+        rotated++;
+      } catch (err) {
+        // Ignore errors for individual containers
+      }
+    }
+    
+    await logToAudit('runbook_rotate_logs', { rotated, total: containers.length }, true, 'info');
+    res.json({ 
+      success: true, 
+      message: `Rotated logs for ${rotated} containers`,
+      rotated
+    });
+  } catch (err) {
+    await logToAudit('runbook_rotate_logs', { error: err.message }, false, 'error');
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 setInterval(performHealthCheck, CHECK_INTERVAL_SECONDS * 1000);

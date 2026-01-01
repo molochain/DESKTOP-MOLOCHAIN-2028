@@ -19,6 +19,7 @@ import { Security } from '@/pages/Security';
 import Database from '@/pages/Database';
 import ApiDocs from '@/pages/ApiDocs';
 import AuditLogs from '@/pages/AuditLogs';
+import Runbooks from '@/pages/Runbooks';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function App() {
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="/security" element={<Security />} />
           <Route path="/database" element={<Database />} />
           <Route path="/audit-logs" element={<AuditLogs />} />
+          <Route path="/runbooks" element={<Runbooks />} />
           <Route path="/api-docs" element={<ApiDocs />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
