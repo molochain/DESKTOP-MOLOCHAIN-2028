@@ -156,5 +156,66 @@
       "list3": "伊斯坦布尔、梅尔辛和伊兹密尔的港口服务",
       "description5": "作为土耳其少数几家WCA全球组织高级会员公司之一。"
     }
+  },
+  "footer": {
+    "newsletter": {
+      "title": "保持联系",
+      "description": "获取有关物流创新和独家优惠的最新更新",
+      "placeholder": "输入您的电子邮件",
+      "subscribe": "订阅"
+    },
+    "brand": {
+      "tagline": "企业物流生态系统",
+      "description": "通过企业技术、人工智能自动化和高级分析，革新价值9.1万亿美元的物流行业。"
+    },
+    "services": {
+      "title": "服务",
+      "freight": "货运",
+      "warehouse": "仓储",
+      "distribution": "配送",
+      "tracking": "货物追踪"
+    },
+    "solutions": {
+      "title": "解决方案",
+      "mololink": "MOLOLINK 平台",
+      "ecosystem": "生态系统",
+      "partners": "我们的合作伙伴",
+      "allServices": "所有服务"
+    },
+    "company": {
+      "title": "公司",
+      "aboutUs": "关于我们",
+      "investor": "投资者关系",
+      "contact": "联系我们",
+      "careers": "招贤纳士"
+    },
+    "support": {
+      "title": "支持",
+      "helpSupport": "帮助与支持",
+      "getQuote": "获取报价",
+      "privacy": "隐私政策",
+      "terms": "服务条款"
+    },
+    "stats": {
+      "heading": "企业全球物流",
+      "subheading": "变革9.1万亿美元的行业",
+      "globalPartners": "全球合作伙伴",
+      "activeIntegrations": "活跃集成",
+      "shipmentsProcessed": "已处理货物",
+      "networkValue": "网络价值"
+    },
+    "trust": {
+      "secured": "企业级安全",
+      "fortune500": "财富500强信赖",
+      "countries": "150+国家",
+      "partners": "10,000+合作伙伴"
+    },
+    "copyright": "© {{year}} MOLOCHAIN. 保留所有权利。",
+    "links": {
+      "privacy": "隐私",
+      "terms": "条款",
+      "cookies": "Cookies",
+      "sitemap": "网站地图"
+    }
   }
 }

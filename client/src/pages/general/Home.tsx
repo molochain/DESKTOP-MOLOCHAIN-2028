@@ -87,38 +87,38 @@ const Home = () => {
   const services = [
     {
       id: "container",
-      title: "Container Services",
-      description: "Comprehensive container handling and management solutions",
+      title: t('home.services.container.title', 'Container Services'),
+      description: t('home.services.container.description', 'Comprehensive container handling and management solutions'),
       icon: <Container className="w-8 h-8" />,
     },
     {
       id: "trucking",
-      title: "Trucking Services",
-      description: "Reliable road transportation solutions",
+      title: t('home.services.trucking.title', 'Trucking Services'),
+      description: t('home.services.trucking.description', 'Reliable road transportation solutions'),
       icon: <Truck className="w-8 h-8" />,
     },
     {
       id: "airfreight",
-      title: "Air Freight Services",
-      description: "Fast and reliable worldwide air cargo transportation solutions",
+      title: t('home.services.airfreight.title', 'Air Freight Services'),
+      description: t('home.services.airfreight.description', 'Fast and reliable worldwide air cargo transportation solutions'),
       icon: <Plane className="w-8 h-8" />,
     },
     {
       id: "transit",
-      title: "Transit Services",
-      description: "Efficient cargo movement and transit management solutions",
+      title: t('home.services.transit.title', 'Transit Services'),
+      description: t('home.services.transit.description', 'Efficient cargo movement and transit management solutions'),
       icon: <Workflow className="w-8 h-8" />,
     },
     {
       id: "crossstaffing",
-      title: "Cross-Staffing Services",
-      description: "Flexible workforce solutions for logistics",
+      title: t('home.services.crossstaffing.title', 'Cross-Staffing Services'),
+      description: t('home.services.crossstaffing.description', 'Flexible workforce solutions for logistics'),
       icon: <Users className="w-8 h-8" />,
     },
     {
       id: "agency",
-      title: "Agency Services",
-      description: "Professional logistics recruitment solutions",
+      title: t('home.services.agency.title', 'Agency Services'),
+      description: t('home.services.agency.description', 'Professional logistics recruitment solutions'),
       icon: <Briefcase className="w-8 h-8" />,
     }
   ];
@@ -133,10 +133,10 @@ const Home = () => {
   const featuredProjects = [
     {
       id: 1,
-      title: "Global E-commerce Distribution Network",
-      description: "Implemented an integrated logistics solution for a major e-commerce platform, reducing delivery times by 40%",
+      title: t('home.projects.ecommerce.title', 'Global E-commerce Distribution Network'),
+      description: t('home.projects.ecommerce.description', 'Implemented an integrated logistics solution for a major e-commerce platform, reducing delivery times by 40%'),
       image: "attached_assets/uploads/b6c48f64-ba55-4a33-8e01-74ad13d66b00.jpg",
-      category: "E-commerce",
+      category: t('home.projects.ecommerce.category', 'E-commerce'),
       stats: {
         deliveryTime: "-40%",
         efficiency: "+35%",
@@ -145,10 +145,10 @@ const Home = () => {
     },
     {
       id: 4,
-      title: "Advanced AI for Logistics Innovation",
-      description: "Pioneering the development of artificial intelligence solutions to transform logistics planning",
+      title: t('home.projects.ai.title', 'Advanced AI for Logistics Innovation'),
+      description: t('home.projects.ai.description', 'Pioneering the development of artificial intelligence solutions to transform logistics planning'),
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa",
-      category: "Innovation",
+      category: t('home.projects.ai.category', 'Innovation'),
       stats: {
         accuracy: "99.9%",
         automation: "85%",
@@ -157,10 +157,10 @@ const Home = () => {
     },
     {
       id: 8,
-      title: "Future of Logistics Initiative",
-      description: "Transforming the global logistics landscape through breakthrough technologies and sustainable innovations",
+      title: t('home.projects.future.title', 'Future of Logistics Initiative'),
+      description: t('home.projects.future.description', 'Transforming the global logistics landscape through breakthrough technologies and sustainable innovations'),
       image: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3",
-      category: "Innovation",
+      category: t('home.projects.future.category', 'Innovation'),
       stats: {
         innovation: "150+ patents",
         impact: "Global Scale",
@@ -190,7 +190,7 @@ const Home = () => {
             {/* KPI Cards */}
             {[
               {
-                label: "Global Partners",
+                label: t('stats.partners', 'Global Partners'),
                 value: platformStats.partners.toLocaleString(),
                 change: "+32.4%",
                 trend: "up",
@@ -199,7 +199,7 @@ const Home = () => {
                 live: true
               },
               {
-                label: "Shipments Processed",
+                label: t('stats.shipments', 'Shipments Processed'),
                 value: platformStats.shipments.toLocaleString(),
                 change: "+48.7%",
                 trend: "up",
@@ -208,7 +208,7 @@ const Home = () => {
                 live: true
               },
               {
-                label: "Network Value",
+                label: t('stats.networkValue', 'Network Value'),
                 value: `$${platformStats.value}M`,
                 change: "+67.3%",
                 trend: "up",
@@ -217,7 +217,7 @@ const Home = () => {
                 live: true
               },
               {
-                label: "Active Integrations",
+                label: t('stats.integrations', 'Active Integrations'),
                 value: platformStats.integrations.toLocaleString(),
                 change: "+28.9%",
                 trend: "up",
@@ -283,36 +283,36 @@ const Home = () => {
           >
             <div className="text-center mb-8">
               <Badge className="mb-4" variant="outline">
-                <Target className="w-3 h-3 mr-1" /> Analytics
+                <Target className="w-3 h-3 mr-1" /> {t('home.analytics.badge', 'Analytics')}
               </Badge>
-              <h2 className="text-3xl font-bold mb-2">Performance Overview</h2>
-              <p className="text-muted-foreground">Real-time insights into your logistics operations</p>
+              <h2 className="text-3xl font-bold mb-2">{t('home.analytics.title', 'Performance Overview')}</h2>
+              <p className="text-muted-foreground">{t('home.analytics.subtitle', 'Real-time insights into your logistics operations')}</p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 {
-                  title: "Delivery Performance",
+                  title: t('home.analytics.delivery.title', 'Delivery Performance'),
                   metrics: [
-                    { label: "On-Time Rate", value: "98.5%", color: "green" },
-                    { label: "Average Delay", value: "12 min", color: "yellow" },
-                    { label: "Success Rate", value: "99.8%", color: "blue" }
+                    { label: t('home.analytics.delivery.onTimeRate', 'On-Time Rate'), value: "98.5%", color: "green" },
+                    { label: t('home.analytics.delivery.avgDelay', 'Average Delay'), value: "12 min", color: "yellow" },
+                    { label: t('home.analytics.delivery.successRate', 'Success Rate'), value: "99.8%", color: "blue" }
                   ]
                 },
                 {
-                  title: "Cost Efficiency",
+                  title: t('home.analytics.cost.title', 'Cost Efficiency'),
                   metrics: [
-                    { label: "Cost per Mile", value: "$2.34", color: "purple" },
-                    { label: "Fuel Savings", value: "18%", color: "green" },
-                    { label: "Route Optimization", value: "94%", color: "blue" }
+                    { label: t('home.analytics.cost.costPerMile', 'Cost per Mile'), value: "$2.34", color: "purple" },
+                    { label: t('home.analytics.cost.fuelSavings', 'Fuel Savings'), value: "18%", color: "green" },
+                    { label: t('home.analytics.cost.routeOptimization', 'Route Optimization'), value: "94%", color: "blue" }
                   ]
                 },
                 {
-                  title: "Customer Satisfaction",
+                  title: t('home.analytics.satisfaction.title', 'Customer Satisfaction'),
                   metrics: [
-                    { label: "NPS Score", value: "87", color: "green" },
-                    { label: "Resolution Time", value: "2.4h", color: "blue" },
-                    { label: "5-Star Reviews", value: "4.8/5", color: "yellow" }
+                    { label: t('home.analytics.satisfaction.npsScore', 'NPS Score'), value: "87", color: "green" },
+                    { label: t('home.analytics.satisfaction.resolutionTime', 'Resolution Time'), value: "2.4h", color: "blue" },
+                    { label: t('home.analytics.satisfaction.reviews', '5-Star Reviews'), value: "4.8/5", color: "yellow" }
                   ]
                 }
               ].map((category, index) => (

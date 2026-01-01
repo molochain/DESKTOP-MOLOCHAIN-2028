@@ -167,7 +167,7 @@ export const ProfileMenu = ({ user, onLogout }: { user: any; onLogout: () => Pro
               className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 font-medium"
             >
               <Settings className="mr-2 h-4 w-4 text-blue-600 dark:text-blue-400" />
-              <span className="text-blue-700 dark:text-blue-300">Control Center</span>
+              <span className="text-blue-700 dark:text-blue-300">{t('nav.controlCenter', 'Control Center')}</span>
             </DropdownMenuItem>
           </>
         )}
@@ -215,117 +215,117 @@ const Navigation = () => {
 
   const navigationGroups = {
     dashboard: user ? {
-      trigger: "Dashboard",
+      trigger: t('nav.dashboard', 'Dashboard'),
       items: [
         { 
           href: "/dashboard", 
-          label: "My Dashboard",
+          label: t('nav.myDashboard', 'My Dashboard'),
           icon: <Home className="h-4 w-4" />,
-          description: "Access your personalized dashboard"
+          description: t('nav.myDashboardDesc', 'Access your personalized dashboard')
         },
         { 
           href: "/profile", 
-          label: "Profile",
+          label: t('nav.profile', 'Profile'),
           icon: <User className="h-4 w-4" />,
-          description: "Manage your account settings"
+          description: t('nav.profileDesc', 'Manage your account settings')
         },
         { 
           href: "/settings", 
-          label: "Settings",
+          label: t('nav.settings', 'Settings'),
           icon: <Settings className="h-4 w-4" />,
-          description: "Configure your preferences"
+          description: t('nav.settingsDesc', 'Configure your preferences')
         }
       ]
     } : null,
     services: {
-      trigger: "Services",
+      trigger: t('nav.services', 'Services'),
       items: [
         { 
           href: "/services", 
-          label: "All Services",
+          label: t('nav.allServices', 'All Services'),
           icon: <Package className="h-4 w-4" />,
-          description: "View our complete service catalog"
+          description: t('nav.allServicesDesc', 'View our complete service catalog')
         },
         { 
           href: "/tracking", 
-          label: "Track Shipment",
+          label: t('nav.trackShipment', 'Track Shipment'),
           icon: <Truck className="h-4 w-4" />,
-          description: "Real-time shipment tracking"
+          description: t('nav.trackShipmentDesc', 'Real-time shipment tracking')
         },
         { 
           href: "/quote", 
-          label: "Get Quote",
+          label: t('nav.quote', 'Get Quote'),
           icon: <MessageSquare className="h-4 w-4" />,
-          description: "Request a custom quote"
+          description: t('nav.quoteDesc', 'Request a custom quote')
         }
       ]
     },
     solutions: {
-      trigger: "Solutions",
+      trigger: t('nav.solutions', 'Solutions'),
       items: [
         { 
           href: "https://mololink.molochain.com", 
-          label: "MOLOLINK",
+          label: t('nav.mololink', 'MOLOLINK'),
           icon: <Network className="h-4 w-4" />,
-          description: "Professional logistics network"
+          description: t('nav.mololinkDesc', 'Professional logistics network')
         },
         { 
           href: "/ecosystem", 
-          label: "Ecosystem",
+          label: t('nav.ecosystem', 'Ecosystem'),
           icon: <Globe className="h-4 w-4" />,
-          description: "Integrated platform ecosystem"
+          description: t('nav.ecosystemDesc', 'Integrated platform ecosystem')
         },
         { 
           href: "/partners", 
-          label: "Partners",
+          label: t('nav.partners', 'Partners'),
           icon: <Users className="h-4 w-4" />,
-          description: "Our trusted partners"
+          description: t('nav.partnersDesc', 'Our trusted partners')
         },
       ]
     },
     resources: {
-      trigger: "Resources",
+      trigger: t('nav.resources', 'Resources'),
       items: [
         { 
           href: "/terms", 
-          label: "Terms of Service",
+          label: t('nav.termsOfService', 'Terms of Service'),
           icon: <FileSearch className="h-4 w-4" />,
-          description: "Legal terms and policies"
+          description: t('nav.termsDesc', 'Legal terms and policies')
         },
         { 
           href: "/privacy", 
-          label: "Privacy Policy",
+          label: t('nav.privacyPolicy', 'Privacy Policy'),
           icon: <Shield className="h-4 w-4" />,
-          description: "Data protection and privacy"
+          description: t('nav.privacyDesc', 'Data protection and privacy')
         },
         { 
           href: "/contact", 
-          label: "Contact Us",
+          label: t('nav.contactUs', 'Contact Us'),
           icon: <Phone className="h-4 w-4" />,
-          description: "Get in touch with our team"
+          description: t('nav.contactDesc', 'Get in touch with our team')
         }
       ]
     },
     company: {
-      trigger: "Company",
+      trigger: t('nav.company', 'Company'),
       items: [
         { 
           href: "/about", 
-          label: "About Us",
+          label: t('nav.aboutUs', 'About Us'),
           icon: <Info className="h-4 w-4" />,
-          description: "Learn about MoloChain"
+          description: t('nav.aboutDesc', 'Learn about MoloChain')
         },
         { 
           href: "/partners", 
-          label: "Partners",
+          label: t('nav.partners', 'Partners'),
           icon: <Users className="h-4 w-4" />,
-          description: "Our trusted partners"
+          description: t('nav.partnersDesc', 'Our trusted partners')
         },
         { 
           href: "/contact", 
-          label: "Contact",
+          label: t('nav.contact', 'Contact'),
           icon: <Phone className="h-4 w-4" />,
-          description: "Get in touch with us"
+          description: t('nav.contactShortDesc', 'Get in touch with us')
         }
       ]
     }
@@ -355,7 +355,7 @@ const Navigation = () => {
               location !== "/" && "text-foreground/80 hover:text-foreground"
             )}
           >
-            Home
+            {t('nav.home', 'Home')}
           </button>
 
           {user && navigationGroups.dashboard && (
@@ -560,7 +560,7 @@ const Navigation = () => {
                     >
                       <div className="flex items-center gap-3">
                         <Home className="h-4 w-4" />
-                        Home
+                        {t('nav.home', 'Home')}
                       </div>
                     </button>
 

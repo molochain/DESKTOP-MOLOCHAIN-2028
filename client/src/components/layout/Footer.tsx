@@ -22,10 +22,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useCMSSettings } from '@/hooks/use-cms';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const { data: settings } = useCMSSettings();
+  const { t } = useTranslation();
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,39 +37,39 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   const footerSections = {
     services: {
-      title: "Services",
+      title: t('footer.services.title'),
       links: [
-        { href: "/services#freight", label: "Freight Shipping" },
-        { href: "/services#warehouse", label: "Warehousing" },
-        { href: "/services#distribution", label: "Distribution" },
-        { href: "/tracking", label: "Track Shipment" }
+        { href: "/services#freight", label: t('footer.services.freight') },
+        { href: "/services#warehouse", label: t('footer.services.warehouse') },
+        { href: "/services#distribution", label: t('footer.services.distribution') },
+        { href: "/tracking", label: t('footer.services.tracking') }
       ]
     },
     solutions: {
-      title: "Solutions",
+      title: t('footer.solutions.title'),
       links: [
-        { href: "https://mololink.molochain.com", label: "MOLOLINK Platform" },
-        { href: "/ecosystem", label: "Ecosystem" },
-        { href: "/partners", label: "Our Partners" },
-        { href: "/services", label: "All Services" }
+        { href: "https://mololink.molochain.com", label: t('footer.solutions.mololink') },
+        { href: "/ecosystem", label: t('footer.solutions.ecosystem') },
+        { href: "/partners", label: t('footer.solutions.partners') },
+        { href: "/services", label: t('footer.solutions.allServices') }
       ]
     },
     company: {
-      title: "Company",
+      title: t('footer.company.title'),
       links: [
-        { href: "/about", label: "About Us" },
-        { href: "/investor", label: "Investor Relations" },
-        { href: "/contact", label: "Contact" },
-        { href: "/careers", label: "Careers" }
+        { href: "/about", label: t('footer.company.aboutUs') },
+        { href: "/investor", label: t('footer.company.investor') },
+        { href: "/contact", label: t('footer.company.contact') },
+        { href: "/careers", label: t('footer.company.careers') }
       ]
     },
     support: {
-      title: "Support",
+      title: t('footer.support.title'),
       links: [
-        { href: "/contact", label: "Help & Support" },
-        { href: "/quote", label: "Get Quote" },
-        { href: "/privacy", label: "Privacy Policy" },
-        { href: "/terms", label: "Terms of Service" }
+        { href: "/contact", label: t('footer.support.helpSupport') },
+        { href: "/quote", label: t('footer.support.getQuote') },
+        { href: "/privacy", label: t('footer.support.privacy') },
+        { href: "/terms", label: t('footer.support.terms') }
       ]
     }
   };
@@ -88,23 +90,23 @@ const Footer = () => {
             <div className="text-center md:text-left">
               <h3 className="text-2xl font-bold flex items-center gap-2 justify-center md:justify-start">
                 <Sparkles className="h-6 w-6 text-primary" />
-                Stay Connected
+                {t('footer.newsletter.title')}
               </h3>
               <p className="mt-2 text-muted-foreground">
-                Get the latest updates on logistics innovations and exclusive offers
+                {t('footer.newsletter.description')}
               </p>
             </div>
             <form onSubmit={handleNewsletterSubmit} className="flex gap-2 w-full md:w-auto">
               <Input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t('footer.newsletter.placeholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full md:w-64"
                 required
               />
               <Button type="submit" className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary">
-                Subscribe
+                {t('footer.newsletter.subscribe')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </form>
@@ -129,14 +131,14 @@ const Footer = () => {
                     <h3 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                       MOLOCHAIN
                     </h3>
-                    <p className="text-xs text-muted-foreground">Enterprise Logistics Ecosystem</p>
+                    <p className="text-xs text-muted-foreground">{t('footer.brand.tagline')}</p>
                   </div>
                 </div>
               </Link>
             </div>
             
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Revolutionizing the $9.1 trillion logistics industry with enterprise technology, AI-powered automation, and advanced analytics. Building the future of transparent, efficient global trade.
+              {t('footer.brand.description')}
             </p>
 
             {/* Contact Info */}
@@ -207,43 +209,43 @@ const Footer = () => {
         {/* Statistics & Trust Badges */}
         <div className="mt-12 pt-8 border-t">
           <div className="text-center mb-6">
-            <h3 className="text-lg font-semibold mb-2">Enterprise Global Logistics</h3>
-            <p className="text-sm text-muted-foreground">Transforming the $9.1 Trillion Industry</p>
+            <h3 className="text-lg font-semibold mb-2">{t('footer.stats.heading')}</h3>
+            <p className="text-sm text-muted-foreground">{t('footer.stats.subheading')}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
             <div className="text-center">
               <div className="text-2xl font-bold text-primary">1,286</div>
-              <div className="text-xs text-muted-foreground">Global Partners</div>
+              <div className="text-xs text-muted-foreground">{t('footer.stats.globalPartners')}</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-primary">48K+</div>
-              <div className="text-xs text-muted-foreground">Active Integrations</div>
+              <div className="text-xs text-muted-foreground">{t('footer.stats.activeIntegrations')}</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-primary">186K</div>
-              <div className="text-xs text-muted-foreground">Shipments Processed</div>
+              <div className="text-xs text-muted-foreground">{t('footer.stats.shipmentsProcessed')}</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-primary">$142M</div>
-              <div className="text-xs text-muted-foreground">Network Value</div>
+              <div className="text-xs text-muted-foreground">{t('footer.stats.networkValue')}</div>
             </div>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-8 pt-6 border-t">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Shield className="h-5 w-5 text-primary" />
-              <span>Enterprise Secured</span>
+              <span>{t('footer.trust.secured')}</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Building className="h-5 w-5 text-primary" />
-              <span>Fortune 500 Trusted</span>
+              <span>{t('footer.trust.fortune500')}</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Globe className="h-5 w-5 text-primary" />
-              <span>150+ Countries</span>
+              <span>{t('footer.trust.countries')}</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Users className="h-5 w-5 text-primary" />
-              <span>10,000+ Partners</span>
+              <span>{t('footer.trust.partners')}</span>
             </div>
           </div>
         </div>
@@ -252,27 +254,27 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground text-center md:text-left">
-              © {currentYear} MOLOCHAIN. All rights reserved. Built with excellence and innovation.
+              {t('footer.copyright', { year: currentYear })}
             </p>
             <div className="flex items-center gap-6 text-sm">
               <Link href="/privacy">
                 <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                  Privacy
+                  {t('footer.links.privacy')}
                 </span>
               </Link>
               <Link href="/terms">
                 <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                  Terms
+                  {t('footer.links.terms')}
                 </span>
               </Link>
               <Link href="/cookies">
                 <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                  Cookies
+                  {t('footer.links.cookies')}
                 </span>
               </Link>
               <Link href="/sitemap">
                 <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                  Sitemap
+                  {t('footer.links.sitemap')}
                 </span>
               </Link>
             </div>

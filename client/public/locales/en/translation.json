@@ -1,11 +1,116 @@
 {
+  "home": {
+    "services": {
+      "container": {
+        "title": "Container Services",
+        "description": "Comprehensive container handling and management solutions"
+      },
+      "trucking": {
+        "title": "Trucking Services",
+        "description": "Reliable road transportation solutions"
+      },
+      "airfreight": {
+        "title": "Air Freight Services",
+        "description": "Fast and reliable worldwide air cargo transportation solutions"
+      },
+      "transit": {
+        "title": "Transit Services",
+        "description": "Efficient cargo movement and transit management solutions"
+      },
+      "crossstaffing": {
+        "title": "Cross-Staffing Services",
+        "description": "Flexible workforce solutions for logistics"
+      },
+      "agency": {
+        "title": "Agency Services",
+        "description": "Professional logistics recruitment solutions"
+      }
+    },
+    "projects": {
+      "ecommerce": {
+        "title": "Global E-commerce Distribution Network",
+        "description": "Implemented an integrated logistics solution for a major e-commerce platform, reducing delivery times by 40%",
+        "category": "E-commerce"
+      },
+      "ai": {
+        "title": "Advanced AI for Logistics Innovation",
+        "description": "Pioneering the development of artificial intelligence solutions to transform logistics planning",
+        "category": "Innovation"
+      },
+      "future": {
+        "title": "Future of Logistics Initiative",
+        "description": "Transforming the global logistics landscape through breakthrough technologies and sustainable innovations",
+        "category": "Innovation"
+      }
+    },
+    "analytics": {
+      "badge": "Analytics",
+      "title": "Performance Overview",
+      "subtitle": "Real-time insights into your logistics operations",
+      "delivery": {
+        "title": "Delivery Performance",
+        "onTimeRate": "On-Time Rate",
+        "avgDelay": "Average Delay",
+        "successRate": "Success Rate"
+      },
+      "cost": {
+        "title": "Cost Efficiency",
+        "costPerMile": "Cost per Mile",
+        "fuelSavings": "Fuel Savings",
+        "routeOptimization": "Route Optimization"
+      },
+      "satisfaction": {
+        "title": "Customer Satisfaction",
+        "npsScore": "NPS Score",
+        "resolutionTime": "Resolution Time",
+        "reviews": "5-Star Reviews"
+      }
+    }
+  },
+  "stats": {
+    "partners": "Global Partners",
+    "shipments": "Shipments Processed",
+    "networkValue": "Network Value",
+    "integrations": "Active Integrations"
+  },
   "nav": {
     "home": "Home",
     "services": "Services",
     "quote": "Get Quote",
     "contact": "Contact",
     "getStarted": "Get Started",
-    "tools": "Tools"
+    "tools": "Tools",
+    "dashboard": "Dashboard",
+    "myDashboard": "My Dashboard",
+    "myDashboardDesc": "Access your personalized dashboard",
+    "profile": "Profile",
+    "profileDesc": "Manage your account settings",
+    "settings": "Settings",
+    "settingsDesc": "Configure your preferences",
+    "allServices": "All Services",
+    "allServicesDesc": "View our complete service catalog",
+    "trackShipment": "Track Shipment",
+    "trackShipmentDesc": "Real-time shipment tracking",
+    "quoteDesc": "Request a custom quote",
+    "solutions": "Solutions",
+    "mololink": "MOLOLINK",
+    "mololinkDesc": "Professional logistics network",
+    "ecosystem": "Ecosystem",
+    "ecosystemDesc": "Integrated platform ecosystem",
+    "partners": "Partners",
+    "partnersDesc": "Our trusted partners",
+    "resources": "Resources",
+    "termsOfService": "Terms of Service",
+    "termsDesc": "Legal terms and policies",
+    "privacyPolicy": "Privacy Policy",
+    "privacyDesc": "Data protection and privacy",
+    "contactUs": "Contact Us",
+    "contactDesc": "Get in touch with our team",
+    "company": "Company",
+    "aboutUs": "About Us",
+    "aboutDesc": "Learn about MoloChain",
+    "contactShortDesc": "Get in touch with us",
+    "controlCenter": "Control Center"
   },
   "hero": {
     "title": "Molochain World!",
@@ -134,6 +239,67 @@
         "value": "350+",
         "label": "Global Ports Serviced"
       }
+    }
+  },
+  "footer": {
+    "newsletter": {
+      "title": "Stay Connected",
+      "description": "Get the latest updates on logistics innovations and exclusive offers",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe"
+    },
+    "brand": {
+      "tagline": "Enterprise Logistics Ecosystem",
+      "description": "Revolutionizing the $9.1 trillion logistics industry with enterprise technology, AI-powered automation, and advanced analytics. Building the future of transparent, efficient global trade."
+    },
+    "services": {
+      "title": "Services",
+      "freight": "Freight Shipping",
+      "warehouse": "Warehousing",
+      "distribution": "Distribution",
+      "tracking": "Track Shipment"
+    },
+    "solutions": {
+      "title": "Solutions",
+      "mololink": "MOLOLINK Platform",
+      "ecosystem": "Ecosystem",
+      "partners": "Our Partners",
+      "allServices": "All Services"
+    },
+    "company": {
+      "title": "Company",
+      "aboutUs": "About Us",
+      "investor": "Investor Relations",
+      "contact": "Contact",
+      "careers": "Careers"
+    },
+    "support": {
+      "title": "Support",
+      "helpSupport": "Help & Support",
+      "getQuote": "Get Quote",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    },
+    "stats": {
+      "heading": "Enterprise Global Logistics",
+      "subheading": "Transforming the $9.1 Trillion Industry",
+      "globalPartners": "Global Partners",
+      "activeIntegrations": "Active Integrations",
+      "shipmentsProcessed": "Shipments Processed",
+      "networkValue": "Network Value"
+    },
+    "trust": {
+      "secured": "Enterprise Secured",
+      "fortune500": "Fortune 500 Trusted",
+      "countries": "150+ Countries",
+      "partners": "10,000+ Partners"
+    },
+    "copyright": "© {{year}} MOLOCHAIN. All rights reserved. Built with excellence and innovation.",
+    "links": {
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "cookies": "Cookies",
+      "sitemap": "Sitemap"
     }
   }
 }

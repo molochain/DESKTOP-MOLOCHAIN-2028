@@ -1,11 +1,116 @@
 {
+  "home": {
+    "services": {
+      "container": {
+        "title": "Konteyner Hizmetleri",
+        "description": "Kapsamlı konteyner işleme ve yönetim çözümleri"
+      },
+      "trucking": {
+        "title": "Karayolu Taşımacılığı",
+        "description": "Güvenilir karayolu taşımacılığı çözümleri"
+      },
+      "airfreight": {
+        "title": "Hava Kargo Hizmetleri",
+        "description": "Dünya çapında hızlı ve güvenilir hava kargo taşımacılığı çözümleri"
+      },
+      "transit": {
+        "title": "Transit Hizmetleri",
+        "description": "Verimli kargo hareketi ve transit yönetimi çözümleri"
+      },
+      "crossstaffing": {
+        "title": "Personel Hizmetleri",
+        "description": "Lojistik için esnek işgücü çözümleri"
+      },
+      "agency": {
+        "title": "Acentelik Hizmetleri",
+        "description": "Profesyonel lojistik işe alım çözümleri"
+      }
+    },
+    "projects": {
+      "ecommerce": {
+        "title": "Küresel E-ticaret Dağıtım Ağı",
+        "description": "Büyük bir e-ticaret platformu için entegre lojistik çözümü uygulandı, teslimat süreleri %40 azaltıldı",
+        "category": "E-ticaret"
+      },
+      "ai": {
+        "title": "Lojistik İnovasyonu için Gelişmiş Yapay Zeka",
+        "description": "Lojistik planlamasını dönüştürmek için yapay zeka çözümlerinin geliştirilmesinde öncülük",
+        "category": "İnovasyon"
+      },
+      "future": {
+        "title": "Lojistiğin Geleceği Girişimi",
+        "description": "Çığır açan teknolojiler ve sürdürülebilir yeniliklerle küresel lojistik manzarasını dönüştürme",
+        "category": "İnovasyon"
+      }
+    },
+    "analytics": {
+      "badge": "Analitik",
+      "title": "Performans Genel Bakışı",
+      "subtitle": "Lojistik operasyonlarınıza gerçek zamanlı içgörüler",
+      "delivery": {
+        "title": "Teslimat Performansı",
+        "onTimeRate": "Zamanında Teslimat Oranı",
+        "avgDelay": "Ortalama Gecikme",
+        "successRate": "Başarı Oranı"
+      },
+      "cost": {
+        "title": "Maliyet Verimliliği",
+        "costPerMile": "Mil Başına Maliyet",
+        "fuelSavings": "Yakıt Tasarrufu",
+        "routeOptimization": "Rota Optimizasyonu"
+      },
+      "satisfaction": {
+        "title": "Müşteri Memnuniyeti",
+        "npsScore": "NPS Puanı",
+        "resolutionTime": "Çözüm Süresi",
+        "reviews": "5-Yıldızlı Değerlendirmeler"
+      }
+    }
+  },
+  "stats": {
+    "partners": "Küresel Ortaklar",
+    "shipments": "İşlenen Gönderiler",
+    "networkValue": "Ağ Değeri",
+    "integrations": "Aktif Entegrasyonlar"
+  },
   "nav": {
     "home": "Ana Sayfa",
     "services": "Hizmetler",
     "quote": "Teklif Al",
     "contact": "İletişim",
     "getStarted": "Başla",
-    "tools": "Araçlar"
+    "tools": "Araçlar",
+    "dashboard": "Kontrol Paneli",
+    "myDashboard": "Kontrol Panelim",
+    "myDashboardDesc": "Kişiselleştirilmiş kontrol panelinize erişin",
+    "profile": "Profil",
+    "profileDesc": "Hesap ayarlarınızı yönetin",
+    "settings": "Ayarlar",
+    "settingsDesc": "Tercihlerinizi yapılandırın",
+    "allServices": "Tüm Hizmetler",
+    "allServicesDesc": "Tam hizmet kataloğumuzu görüntüleyin",
+    "trackShipment": "Gönderi Takibi",
+    "trackShipmentDesc": "Gerçek zamanlı gönderi takibi",
+    "quoteDesc": "Özel teklif isteyin",
+    "solutions": "Çözümler",
+    "mololink": "MOLOLINK",
+    "mololinkDesc": "Profesyonel lojistik ağı",
+    "ecosystem": "Ekosistem",
+    "ecosystemDesc": "Entegre platform ekosistemi",
+    "partners": "Ortaklar",
+    "partnersDesc": "Güvenilir ortaklarımız",
+    "resources": "Kaynaklar",
+    "termsOfService": "Hizmet Şartları",
+    "termsDesc": "Yasal şartlar ve politikalar",
+    "privacyPolicy": "Gizlilik Politikası",
+    "privacyDesc": "Veri koruma ve gizlilik",
+    "contactUs": "Bize Ulaşın",
+    "contactDesc": "Ekibimizle iletişime geçin",
+    "company": "Şirket",
+    "aboutUs": "Hakkımızda",
+    "aboutDesc": "MoloChain hakkında bilgi edinin",
+    "contactShortDesc": "Bizimle iletişime geçin",
+    "controlCenter": "Kontrol Merkezi"
   },
   "hero": {
     "title": "Modern Lojistik",
@@ -201,6 +306,67 @@
       "list2": "Verimliliği artırmak için yeni teknolojilere yatırım yapmak",
       "list3": "Yeni ve yenilikçi lojistik çözümler geliştirmek",
       "description5": "Sürekli büyümemizin müşterilerimize ve küresel lojistik sektörüne fayda sağlayacağından eminiz."
+    }
+  },
+  "footer": {
+    "newsletter": {
+      "title": "Bağlantıda Kalın",
+      "description": "Lojistik yenilikleri ve özel teklifler hakkında en son güncellemeleri alın",
+      "placeholder": "E-posta adresinizi girin",
+      "subscribe": "Abone Ol"
+    },
+    "brand": {
+      "tagline": "Kurumsal Lojistik Ekosistemi",
+      "description": "9.1 trilyon dolarlık lojistik sektörünü kurumsal teknoloji, yapay zeka destekli otomasyon ve gelişmiş analizlerle dönüştürüyoruz."
+    },
+    "services": {
+      "title": "Hizmetler",
+      "freight": "Yük Taşımacılığı",
+      "warehouse": "Depolama",
+      "distribution": "Dağıtım",
+      "tracking": "Gönderi Takibi"
+    },
+    "solutions": {
+      "title": "Çözümler",
+      "mololink": "MOLOLINK Platformu",
+      "ecosystem": "Ekosistem",
+      "partners": "Ortaklarımız",
+      "allServices": "Tüm Hizmetler"
+    },
+    "company": {
+      "title": "Şirket",
+      "aboutUs": "Hakkımızda",
+      "investor": "Yatırımcı İlişkileri",
+      "contact": "İletişim",
+      "careers": "Kariyer"
+    },
+    "support": {
+      "title": "Destek",
+      "helpSupport": "Yardım ve Destek",
+      "getQuote": "Teklif Al",
+      "privacy": "Gizlilik Politikası",
+      "terms": "Hizmet Şartları"
+    },
+    "stats": {
+      "heading": "Kurumsal Küresel Lojistik",
+      "subheading": "9.1 Trilyon Dolarlık Sektörü Dönüştürüyoruz",
+      "globalPartners": "Küresel Ortaklar",
+      "activeIntegrations": "Aktif Entegrasyonlar",
+      "shipmentsProcessed": "İşlenen Gönderiler",
+      "networkValue": "Ağ Değeri"
+    },
+    "trust": {
+      "secured": "Kurumsal Güvenlik",
+      "fortune500": "Fortune 500 Güvencesi",
+      "countries": "150+ Ülke",
+      "partners": "10.000+ Ortak"
+    },
+    "copyright": "© {{year}} MOLOCHAIN. Tüm hakları saklıdır.",
+    "links": {
+      "privacy": "Gizlilik",
+      "terms": "Şartlar",
+      "cookies": "Çerezler",
+      "sitemap": "Site Haritası"
     }
   }
 }
