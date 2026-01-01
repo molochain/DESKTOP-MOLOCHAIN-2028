@@ -8,7 +8,7 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 
 ### Phase 1 Features (Complete):
 1. **Real-Time Dashboard** - CPU/Memory/Disk/Network metrics via Prometheus, embedded Grafana charts
-2. **Container Management** - 70 containers with bulk restart/stop, status filtering, health monitoring
+2. **Container Management** - 78 containers with bulk restart/stop, status filtering, health monitoring
 3. **User Management** - Admin CRUD with role-based access (super_admin, admin, viewer)
 4. **System Settings** - Alerts config, backup schedules, email notifications
 5. **Alerts & Notifications** - Threshold-based alerts for CPU/memory/disk/container health
@@ -94,6 +94,45 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Audit Log Table**: `admin_audit_logs` with indexes on timestamp, action, category
 - **Notification Preferences Table**: `admin_notification_preferences` with per-user alert settings
 - **Backup Location**: `/var/backups/postgres` (Docker volume: postgres_backups)
+
+## Design System (NEW)
+**URL:** https://design.molochain.com (port 7006) - Awaiting DNS A record
+**Location:** `/var/www/vhosts/molochain.com/molochain-design-system/`
+
+### Architecture:
+- **Monorepo:** Turborepo + pnpm workspace
+- **Package Manager:** pnpm v9.0.0
+- **Build Tool:** tsup for dual ESM/CJS exports
+
+### Packages:
+1. **@molochain/tokens** - Design tokens (colors, typography, spacing)
+   - Brand colors: Primary HSL(222,47%,11%), Accent HSL(142,76%,36%)
+   - shadcn-style CSS variables
+2. **@molochain/ui** - React component library (Button, Card, Input)
+   - CVA (class-variance-authority) + Tailwind CSS
+   - Peer dependencies: React 18
+3. **@molochain/i18n** - Internationalization
+   - react-i18next with EN/AR locales
+   - RTL support for Arabic
+4. **@molochain/tsconfig** - Shared TypeScript configuration
+
+### Apps:
+- **Storybook** - Component documentation (port 7006 via Docker)
+
+### Private NPM Registry:
+- **Verdaccio** - Port 4873 (localhost only, secured)
+- **Authentication:** htpasswd, no self-registration (max_users: -1)
+- **Scope:** `@molochain/*` packages require authentication
+
+### Frontend Integration:
+```bash
+npm config set @molochain:registry http://localhost:4873
+npm install @molochain/ui @molochain/tokens @molochain/i18n
+```
+
+### Docker Containers:
+- `molochain-design-system` - Storybook on port 7006
+- `molochain-verdaccio` - NPM registry on port 4873
 
 ### Monitoring Schedules:
 - **Container Auto-Recovery**: 30-second interval (fast detection via container-monitor)
