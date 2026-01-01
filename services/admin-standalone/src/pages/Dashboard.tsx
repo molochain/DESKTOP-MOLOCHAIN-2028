@@ -60,7 +60,13 @@ export function Dashboard() {
     refetchInterval: 30000,
   });
 
-  const allContainers: Container[] = containersData?.containers || [];
+  const allContainers: Container[] = useMemo(() => {
+    if (!containersData) return [];
+    if (Array.isArray(containersData)) return containersData;
+    if (Array.isArray(containersData?.containers)) return containersData.containers;
+    if (Array.isArray(containersData?.data)) return containersData.data;
+    return [];
+  }, [containersData]);
 
   const stats = useMemo(() => {
     if (allContainers.length === 0) {
