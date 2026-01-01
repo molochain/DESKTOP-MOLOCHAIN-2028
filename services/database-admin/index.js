@@ -81,6 +81,157 @@ async function logAudit(action, category, details = {}, req = null, success = tr
 
 initAuditTable();
 
+async function initSettingsTable() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS admin_settings (
+        id SERIAL PRIMARY KEY,
+        key VARCHAR(100) UNIQUE NOT NULL,
+        value JSONB NOT NULL,
+        updated_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_settings_key ON admin_settings(key)`);
+    console.log('Admin settings table initialized');
+    
+    await initDefaultSettings();
+  } catch (err) {
+    console.error('Failed to initialize settings table:', err.message);
+  }
+}
+
+async function initDefaultSettings() {
+  const defaultSettings = {
+    alerts: {
+      emailEnabled: true,
+      slackEnabled: false,
+      cpuThreshold: 80,
+      memoryThreshold: 85,
+      diskThreshold: 90,
+      containerDown: true,
+    },
+    backup: {
+      enabled: true,
+      schedule: 'daily_2am',
+      retention: 30,
+    },
+    email: {
+      smtpHost: 'smtp.molochain.com',
+      smtpPort: 587,
+      fromAddress: 'alerts@molochain.com',
+      recipients: 'admin@molochain.com',
+    },
+  };
+
+  for (const [key, value] of Object.entries(defaultSettings)) {
+    try {
+      await pool.query(
+        `INSERT INTO admin_settings (key, value) VALUES ($1, $2) ON CONFLICT (key) DO NOTHING`,
+        [key, JSON.stringify(value)]
+      );
+    } catch (err) {
+      console.error(`Failed to init default setting ${key}:`, err.message);
+    }
+  }
+  console.log('Default settings initialized');
+}
+
+initSettingsTable();
+
+app.get('/api/settings', authenticateInternal, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT key, value FROM admin_settings');
+    const settings = {};
+    for (const row of result.rows) {
+      settings[row.key] = row.value;
+    }
+    res.json(settings);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/settings', authenticateInternal, async (req, res) => {
+  try {
+    const { alerts, backup, email } = req.body;
+    const updates = [];
+    
+    if (alerts !== undefined) {
+      updates.push({ key: 'alerts', value: alerts });
+    }
+    if (backup !== undefined) {
+      updates.push({ key: 'backup', value: backup });
+    }
+    if (email !== undefined) {
+      updates.push({ key: 'email', value: email });
+    }
+
+    for (const { key, value } of updates) {
+      await pool.query(
+        `INSERT INTO admin_settings (key, value, updated_at) 
+         VALUES ($1, $2, NOW()) 
+         ON CONFLICT (key) DO UPDATE SET value = $2, updated_at = NOW()`,
+        [key, JSON.stringify(value)]
+      );
+    }
+
+    await logAudit('settings_update', 'settings', { keys: updates.map(u => u.key) }, req, true, 'info');
+
+    const result = await pool.query('SELECT key, value FROM admin_settings');
+    const settings = {};
+    for (const row of result.rows) {
+      settings[row.key] = row.value;
+    }
+    res.json({ success: true, settings });
+  } catch (err) {
+    await logAudit('settings_update', 'settings', { error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/settings/:key', authenticateInternal, async (req, res) => {
+  try {
+    const { key } = req.params;
+    const safeKey = key.replace(/[^a-zA-Z0-9_]/g, '');
+    
+    const result = await pool.query('SELECT value FROM admin_settings WHERE key = $1', [safeKey]);
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Setting not found' });
+    }
+    
+    res.json({ key: safeKey, value: result.rows[0].value });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put('/api/settings/:key', authenticateInternal, async (req, res) => {
+  try {
+    const { key } = req.params;
+    const { value } = req.body;
+    const safeKey = key.replace(/[^a-zA-Z0-9_]/g, '');
+    
+    if (value === undefined) {
+      return res.status(400).json({ error: 'Value is required' });
+    }
+
+    await pool.query(
+      `INSERT INTO admin_settings (key, value, updated_at) 
+       VALUES ($1, $2, NOW()) 
+       ON CONFLICT (key) DO UPDATE SET value = $2, updated_at = NOW()`,
+      [safeKey, JSON.stringify(value)]
+    );
+
+    await logAudit('setting_update', 'settings', { key: safeKey }, req, true, 'info');
+    
+    res.json({ success: true, key: safeKey, value });
+  } catch (err) {
+    await logAudit('setting_update', 'settings', { key: safeKey, error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get('/health', (req, res) => {
   res.json({ status: 'healthy', service: 'database-admin', timestamp: new Date().toISOString() });
 });
@@ -517,6 +668,119 @@ function getNextCronRun(cronExpression) {
   }
   return nextRun.toISOString();
 }
+
+async function initAlertAcknowledgementsTable() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS admin_alert_acknowledgements (
+        id SERIAL PRIMARY KEY,
+        alert_id VARCHAR(100) NOT NULL UNIQUE,
+        acknowledged_at TIMESTAMPTZ DEFAULT NOW(),
+        acknowledged_by VARCHAR(255),
+        expires_at TIMESTAMPTZ
+      )
+    `);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_alert_ack_alert_id ON admin_alert_acknowledgements(alert_id)`);
+    console.log('Alert acknowledgements table initialized');
+  } catch (err) {
+    console.error('Failed to initialize alert acknowledgements table:', err.message);
+  }
+}
+
+initAlertAcknowledgementsTable();
+
+app.get('/api/alerts/acknowledgements', authenticateInternal, async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT alert_id, acknowledged_at, acknowledged_by, expires_at 
+      FROM admin_alert_acknowledgements 
+      WHERE expires_at IS NULL OR expires_at > NOW()
+    `);
+    const acknowledgements = {};
+    for (const row of result.rows) {
+      acknowledgements[row.alert_id] = {
+        acknowledgedAt: row.acknowledged_at,
+        acknowledgedBy: row.acknowledged_by,
+        expiresAt: row.expires_at,
+      };
+    }
+    res.json({ acknowledgements });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/alerts/acknowledge', authenticateInternal, async (req, res) => {
+  try {
+    const { alertId, acknowledgedBy } = req.body;
+    if (!alertId) {
+      return res.status(400).json({ error: 'alertId is required' });
+    }
+
+    const safeAlertId = alertId.replace(/[^a-zA-Z0-9_-]/g, '').substring(0, 100);
+    
+    await pool.query(`
+      INSERT INTO admin_alert_acknowledgements (alert_id, acknowledged_by, acknowledged_at)
+      VALUES ($1, $2, NOW())
+      ON CONFLICT (alert_id) DO UPDATE SET acknowledged_at = NOW(), acknowledged_by = $2
+    `, [safeAlertId, acknowledgedBy || null]);
+
+    await logAudit('alert_acknowledge', 'alerts', { alertId: safeAlertId, acknowledgedBy }, req, true, 'info');
+
+    res.json({ success: true, alertId: safeAlertId });
+  } catch (err) {
+    await logAudit('alert_acknowledge', 'alerts', { alertId: req.body?.alertId, error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/alerts/acknowledge-all', authenticateInternal, async (req, res) => {
+  try {
+    const { alertIds, acknowledgedBy } = req.body;
+    if (!alertIds || !Array.isArray(alertIds) || alertIds.length === 0) {
+      return res.status(400).json({ error: 'alertIds array is required' });
+    }
+
+    const safeAlertIds = alertIds.map(id => id.replace(/[^a-zA-Z0-9_-]/g, '').substring(0, 100));
+    
+    for (const alertId of safeAlertIds) {
+      await pool.query(`
+        INSERT INTO admin_alert_acknowledgements (alert_id, acknowledged_by, acknowledged_at)
+        VALUES ($1, $2, NOW())
+        ON CONFLICT (alert_id) DO UPDATE SET acknowledged_at = NOW(), acknowledged_by = $2
+      `, [alertId, acknowledgedBy || null]);
+    }
+
+    await logAudit('alert_acknowledge_all', 'alerts', { count: safeAlertIds.length, acknowledgedBy }, req, true, 'info');
+
+    res.json({ success: true, count: safeAlertIds.length });
+  } catch (err) {
+    await logAudit('alert_acknowledge_all', 'alerts', { error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.delete('/api/alerts/acknowledgements/:alertId', authenticateInternal, async (req, res) => {
+  try {
+    const { alertId } = req.params;
+    const safeAlertId = alertId.replace(/[^a-zA-Z0-9_-]/g, '').substring(0, 100);
+
+    const result = await pool.query(`
+      DELETE FROM admin_alert_acknowledgements WHERE alert_id = $1
+    `, [safeAlertId]);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Acknowledgement not found' });
+    }
+
+    await logAudit('alert_unacknowledge', 'alerts', { alertId: safeAlertId }, req, true, 'info');
+
+    res.json({ success: true, alertId: safeAlertId });
+  } catch (err) {
+    await logAudit('alert_unacknowledge', 'alerts', { alertId: req.params?.alertId, error: err.message }, req, false, 'error');
+    res.status(500).json({ error: err.message });
+  }
+});
 
 cron.schedule('0 2 * * *', async () => {
   console.log('[CRON] Triggering scheduled database backup');

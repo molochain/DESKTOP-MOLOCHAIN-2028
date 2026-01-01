@@ -1,13 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
-  Server,
-  Brain,
-  Database,
-  Link2,
-  MessageSquare,
-  Workflow,
-  FileCode,
   Settings,
   LogOut,
   ChevronLeft,
@@ -21,6 +14,8 @@ import {
   HardDrive,
   ClipboardList,
   BookOpen,
+  FileCode,
+  Server,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -33,11 +28,9 @@ interface SidebarProps {
 const menuItems = [
   { path: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { path: '/containers', icon: Boxes, label: 'Containers' },
+  { path: '/services', icon: Server, label: 'Services' },
   { path: '/alerts', icon: Bell, label: 'Alerts' },
   { path: '/users', icon: Users, label: 'Users' },
-  { path: '/core', icon: Server, label: 'Core Services' },
-  { path: '/rayanava', icon: Brain, label: 'Rayanava AI' },
-  { path: '/infrastructure', icon: Database, label: 'Infrastructure' },
   { path: '/metrics', icon: LineChart, label: 'Metrics' },
   { path: '/logs', icon: Terminal, label: 'Logs' },
   { path: '/security', icon: ShieldCheck, label: 'Security' },
@@ -45,10 +38,6 @@ const menuItems = [
   { path: '/audit-logs', icon: ClipboardList, label: 'Audit Logs' },
   { path: '/runbooks', icon: BookOpen, label: 'Runbooks' },
   { path: '/api-docs', icon: FileCode, label: 'API Docs' },
-  { path: '/mololink', icon: Link2, label: 'Mololink' },
-  { path: '/communications', icon: MessageSquare, label: 'Communications' },
-  { path: '/workflows', icon: Workflow, label: 'Workflows' },
-  { path: '/cms', icon: FileCode, label: 'CMS' },
   { path: '/settings', icon: Settings, label: 'Settings' },
 ];
 

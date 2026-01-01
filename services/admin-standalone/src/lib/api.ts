@@ -99,3 +99,43 @@ export async function checkSSLCertificate(domain: string) {
   const response = await api.get(`/api/ssl/check?domain=${encodeURIComponent(domain)}`);
   return response.data;
 }
+
+export async function getSettings() {
+  const response = await api.get('/api/admin/database/settings');
+  return response.data;
+}
+
+export async function saveSettings(settings: { alerts?: object; backup?: object; email?: object }) {
+  const response = await api.post('/api/admin/database/settings', settings);
+  return response.data;
+}
+
+export async function getSetting(key: string) {
+  const response = await api.get(`/api/admin/database/settings/${key}`);
+  return response.data;
+}
+
+export async function updateSetting(key: string, value: object) {
+  const response = await api.put(`/api/admin/database/settings/${key}`, { value });
+  return response.data;
+}
+
+export async function getAlertAcknowledgements() {
+  const response = await api.get('/api/admin/database/alerts/acknowledgements');
+  return response.data;
+}
+
+export async function acknowledgeAlert(alertId: string, acknowledgedBy?: string) {
+  const response = await api.post('/api/admin/database/alerts/acknowledge', { alertId, acknowledgedBy });
+  return response.data;
+}
+
+export async function acknowledgeAllAlerts(alertIds: string[], acknowledgedBy?: string) {
+  const response = await api.post('/api/admin/database/alerts/acknowledge-all', { alertIds, acknowledgedBy });
+  return response.data;
+}
+
+export async function removeAlertAcknowledgement(alertId: string) {
+  const response = await api.delete(`/api/admin/database/alerts/acknowledgements/${encodeURIComponent(alertId)}`);
+  return response.data;
+}

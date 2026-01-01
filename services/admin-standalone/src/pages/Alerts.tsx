@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   Bell,
   AlertTriangle,
@@ -14,7 +14,7 @@ import {
   HardDrive,
   Activity,
 } from 'lucide-react';
-import { getContainers, getSystemMetrics } from '@/lib/api';
+import { getContainers, getSystemMetrics, getAlertAcknowledgements, acknowledgeAlert, acknowledgeAllAlerts } from '@/lib/api';
 import { cn } from '@/lib/utils';
 
 interface Alert {
@@ -26,6 +26,12 @@ interface Alert {
   timestamp: Date;
   acknowledged: boolean;
   source: string;
+}
+
+interface AcknowledgementData {
+  acknowledgedAt: string;
+  acknowledgedBy: string | null;
+  expiresAt: string | null;
 }
 
 const ALERT_COLORS = {
@@ -48,68 +54,17 @@ const CATEGORY_ICONS = {
   network: Activity,
 };
 
-// Storage keys
-const ACKNOWLEDGED_KEY = 'molochain-acknowledged-alerts';
-const TIMESTAMPS_KEY = 'molochain-alert-timestamps';
-const ACTIVE_ALERTS_KEY = 'molochain-active-alerts';
-
-// Load/save helpers
-function loadAcknowledged(): Record<string, number> {
-  try {
-    const stored = localStorage.getItem(ACKNOWLEDGED_KEY);
-    if (stored) return JSON.parse(stored);
-  } catch {}
-  return {};
-}
-
-function saveAcknowledged(acks: Record<string, number>) {
-  try {
-    localStorage.setItem(ACKNOWLEDGED_KEY, JSON.stringify(acks));
-  } catch {}
-}
-
-function loadTimestamps(): Record<string, number> {
-  try {
-    const stored = localStorage.getItem(TIMESTAMPS_KEY);
-    if (stored) return JSON.parse(stored);
-  } catch {}
-  return {};
-}
-
-function saveTimestamps(ts: Record<string, number>) {
-  try {
-    localStorage.setItem(TIMESTAMPS_KEY, JSON.stringify(ts));
-  } catch {}
-}
-
-function loadPreviousActiveAlerts(): Set<string> {
-  try {
-    const stored = localStorage.getItem(ACTIVE_ALERTS_KEY);
-    if (stored) return new Set(JSON.parse(stored));
-  } catch {}
-  return new Set();
-}
-
-function saveActiveAlerts(ids: string[]) {
-  try {
-    localStorage.setItem(ACTIVE_ALERTS_KEY, JSON.stringify(ids));
-  } catch {}
-}
-
 function generateAlertsFromData(
   containers: any[],
   systemMetrics: any,
   timestamps: Record<string, number>,
-  previousActiveAlerts: Set<string>,
-  acknowledged: Record<string, number>
-): { alerts: Alert[]; updatedTimestamps: Record<string, number>; updatedAcknowledged: Record<string, number> } {
+  previousActiveAlerts: Set<string>
+): { alerts: Alert[]; updatedTimestamps: Record<string, number>; currentAlertIds: string[] } {
   const alerts: Alert[] = [];
   const updatedTimestamps = { ...timestamps };
-  let updatedAcknowledged = { ...acknowledged };
   const now = Date.now();
   const currentAlertIds: string[] = [];
 
-  // Container health alerts
   if (containers) {
     const unhealthyContainers = containers.filter(
       (c: any) => c.State !== 'running' || (c.Status && c.Status.includes('unhealthy'))
@@ -118,11 +73,8 @@ function generateAlertsFromData(
       const alertId = `container-${container.Id}`;
       currentAlertIds.push(alertId);
       
-      // If this is a new alert or was previously resolved, set new timestamp
       if (!previousActiveAlerts.has(alertId)) {
         updatedTimestamps[alertId] = now;
-        // Clear any previous acknowledgement since this is a new occurrence
-        delete updatedAcknowledged[alertId];
       }
       
       alerts.push({
@@ -138,14 +90,12 @@ function generateAlertsFromData(
     });
   }
 
-  // System resource alerts
   if (systemMetrics) {
     if (systemMetrics.cpu?.usage > 80) {
       const alertId = 'cpu-high';
       currentAlertIds.push(alertId);
       if (!previousActiveAlerts.has(alertId)) {
         updatedTimestamps[alertId] = now;
-        delete updatedAcknowledged[alertId];
       }
       alerts.push({
         id: alertId,
@@ -163,7 +113,6 @@ function generateAlertsFromData(
       currentAlertIds.push(alertId);
       if (!previousActiveAlerts.has(alertId)) {
         updatedTimestamps[alertId] = now;
-        delete updatedAcknowledged[alertId];
       }
       alerts.push({
         id: alertId,
@@ -181,7 +130,6 @@ function generateAlertsFromData(
       currentAlertIds.push(alertId);
       if (!previousActiveAlerts.has(alertId)) {
         updatedTimestamps[alertId] = now;
-        delete updatedAcknowledged[alertId];
       }
       alerts.push({
         id: alertId,
@@ -196,36 +144,26 @@ function generateAlertsFromData(
     }
   }
 
-  // Clean up timestamps and acknowledgements for resolved alerts
   const currentAlertSet = new Set(currentAlertIds);
   Object.keys(updatedTimestamps).forEach(id => {
     if (!currentAlertSet.has(id)) {
       delete updatedTimestamps[id];
     }
   });
-  Object.keys(updatedAcknowledged).forEach(id => {
-    if (!currentAlertSet.has(id)) {
-      delete updatedAcknowledged[id];
-    }
-  });
 
-  // Save current alerts for next comparison
-  saveActiveAlerts(currentAlertIds);
-
-  // Sort by timestamp descending
   return {
     alerts: alerts.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()),
     updatedTimestamps,
-    updatedAcknowledged,
+    currentAlertIds,
   };
 }
 
 export function Alerts() {
   const [filter, setFilter] = useState<'all' | 'critical' | 'warning' | 'info'>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
-  const [acknowledged, setAcknowledged] = useState<Record<string, number>>(loadAcknowledged);
-  const [timestamps, setTimestamps] = useState<Record<string, number>>(loadTimestamps);
-  const previousActiveAlertsRef = useRef<Set<string>>(loadPreviousActiveAlerts());
+  const [timestamps, setTimestamps] = useState<Record<string, number>>({});
+  const previousActiveAlertsRef = useRef<Set<string>>(new Set());
+  const queryClient = useQueryClient();
 
   const { data: containersData, isLoading: containersLoading, refetch: refetchContainers } = useQuery({
     queryKey: ['/api/admin/containers'],
@@ -239,30 +177,43 @@ export function Alerts() {
     refetchInterval: 30000,
   });
 
-  const isLoading = containersLoading || metricsLoading;
+  const { data: acknowledgementsData, isLoading: acknowledgementsLoading } = useQuery({
+    queryKey: ['/api/admin/database/alerts/acknowledgements'],
+    queryFn: getAlertAcknowledgements,
+    refetchInterval: 30000,
+  });
 
-  // Generate alerts and update state
-  const { alerts, updatedTimestamps, updatedAcknowledged } = generateAlertsFromData(
+  const acknowledgeMutation = useMutation({
+    mutationFn: (alertId: string) => acknowledgeAlert(alertId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/database/alerts/acknowledgements'] });
+    },
+  });
+
+  const acknowledgeAllMutation = useMutation({
+    mutationFn: (alertIds: string[]) => acknowledgeAllAlerts(alertIds),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/database/alerts/acknowledgements'] });
+    },
+  });
+
+  const isLoading = containersLoading || metricsLoading || acknowledgementsLoading;
+
+  const acknowledged: Record<string, AcknowledgementData> = acknowledgementsData?.acknowledgements || {};
+
+  const { alerts, updatedTimestamps } = generateAlertsFromData(
     containersData?.containers || [],
     metricsData || null,
     timestamps,
-    previousActiveAlertsRef.current,
-    acknowledged
+    previousActiveAlertsRef.current
   );
 
-  // Update previous alerts ref and persist changes
   useEffect(() => {
     const currentIds = new Set(alerts.map(a => a.id));
     previousActiveAlertsRef.current = currentIds;
     
-    // Persist timestamps and acknowledgements if changed
     if (JSON.stringify(updatedTimestamps) !== JSON.stringify(timestamps)) {
       setTimestamps(updatedTimestamps);
-      saveTimestamps(updatedTimestamps);
-    }
-    if (JSON.stringify(updatedAcknowledged) !== JSON.stringify(acknowledged)) {
-      setAcknowledged(updatedAcknowledged);
-      saveAcknowledged(updatedAcknowledged);
     }
   }, [containersData, metricsData]);
 
@@ -277,22 +228,19 @@ export function Alerts() {
   const acknowledgedCount = alerts.filter((a) => acknowledged[a.id]).length;
 
   const handleAcknowledge = (id: string) => {
-    const newAcknowledged = { ...acknowledged, [id]: Date.now() };
-    setAcknowledged(newAcknowledged);
-    saveAcknowledged(newAcknowledged);
+    acknowledgeMutation.mutate(id);
   };
 
   const handleAcknowledgeAll = () => {
-    const newAcknowledged: Record<string, number> = {};
-    const now = Date.now();
-    alerts.forEach((a) => { newAcknowledged[a.id] = now; });
-    setAcknowledged(newAcknowledged);
-    saveAcknowledged(newAcknowledged);
+    if (activeAlerts.length > 0) {
+      acknowledgeAllMutation.mutate(activeAlerts.map(a => a.id));
+    }
   };
 
   const handleRefresh = () => {
     refetchContainers();
     refetchMetrics();
+    queryClient.invalidateQueries({ queryKey: ['/api/admin/database/alerts/acknowledgements'] });
   };
 
   const formatTime = (date: Date) => {
@@ -316,12 +264,12 @@ export function Alerts() {
         <div className="flex items-center gap-3">
           <button
             onClick={handleAcknowledgeAll}
-            disabled={activeAlerts.length === 0}
+            disabled={activeAlerts.length === 0 || acknowledgeAllMutation.isPending}
             className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-50"
             data-testid="btn-acknowledge-all"
           >
             <CheckCircle2 size={16} />
-            Acknowledge All
+            {acknowledgeAllMutation.isPending ? 'Acknowledging...' : 'Acknowledge All'}
           </button>
           <button
             onClick={handleRefresh}
@@ -335,7 +283,6 @@ export function Alerts() {
         </div>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex items-center gap-4">
           <div className="p-3 bg-slate-500/10 rounded-lg">
@@ -375,7 +322,6 @@ export function Alerts() {
         </div>
       </div>
 
-      {/* Filters */}
       <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4">
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">
@@ -423,7 +369,6 @@ export function Alerts() {
         </div>
       </div>
 
-      {/* Alerts List */}
       <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
         {isLoading ? (
           <div className="p-8 text-center">
@@ -483,7 +428,8 @@ export function Alerts() {
                   {!alert.acknowledged && (
                     <button
                       onClick={() => handleAcknowledge(alert.id)}
-                      className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-green-500"
+                      disabled={acknowledgeMutation.isPending}
+                      className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-green-500 disabled:opacity-50"
                       title="Acknowledge"
                       data-testid={`btn-acknowledge-${alert.id}`}
                     >
