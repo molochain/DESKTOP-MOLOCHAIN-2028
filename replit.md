@@ -3,7 +3,7 @@
 ## Overview
 Rest Express is a comprehensive Node.js/TypeScript full-stack application within Molochain's ecosystem, designed for business management.
 
-## Admin System (Grade A+ Upgrade - Phase 3 Complete)
+## Admin System (Grade A++ Upgrade - Phase 5 Complete)
 **URL:** https://admin.molochain.com (port 7001)
 
 ### Phase 1 Features (Complete):
@@ -37,6 +37,48 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 4. **Confirmation Dialogs** - High-risk actions require explicit user confirmation with warning messages
 5. **Execution Feedback** - Real-time success/failure status with timestamps for all runbook executions
 6. **Audit Integration** - All runbook executions logged to audit trail for accountability
+
+### Phase 4 Features (Complete):
+1. **Database Persistence for Settings** - All admin settings stored in PostgreSQL via admin_settings table
+2. **Alert Acknowledgements** - Persistent alert acknowledgement tracking with admin_alert_acknowledgements table
+3. **Unified Services Page** - Category filtering for all microservices with health status display
+4. **Nginx Dual-Path Routing** - /api/database/* and /api/admin/database/* for frontend compatibility
+
+### Phase 5 Features (NEW - Complete):
+1. **Intelligent Incident Orchestration** - Automated alert rules engine with:
+   - Condition types: cpu_threshold, memory_threshold, disk_threshold, container_down
+   - Action types: restart_container, send_notification, run_runbook
+   - Approval gates for high-risk actions with approve/reject workflow
+   - Cooldown periods to prevent alert storms
+   - Execution history tracking
+2. **Resource Trend Analytics** - Historical metrics visualization:
+   - Hourly metrics collection (CPU, Memory, Disk, Containers)
+   - 30-day retention with automatic cleanup
+   - Trend charts with recharts for 24h/7d/30d periods
+   - Anomaly detection highlighting values above 90%
+   - Min/max/average statistics per metric type
+3. **Deployment Timeline** - CI/CD integration and release tracking:
+   - Webhook endpoint for CI/CD pipelines (POST /api/admin/database/deployments)
+   - Service name, version, commit hash, environment tracking
+   - Status workflow: pending → in_progress → completed/failed/rolled_back
+   - Timeline visualization with filtering by service/status
+   - Quick status updates for failed deployments
+
+### Phase 5 Database Tables:
+- `admin_alert_rules` - Automated alert rule definitions with conditions and actions
+- `admin_metrics_history` - Historical CPU/Memory/Disk snapshots (hourly)
+- `admin_deployments` - Deployment tracking with CI/CD metadata
+- `admin_incident_executions` - Runbook execution history with approval workflow
+
+### Phase 5 API Endpoints:
+- Alert Rules: GET/POST/PUT/DELETE /api/admin/database/alert-rules
+- Metrics: GET /api/admin/database/metrics/history, GET /api/admin/database/metrics/trends
+- Deployments: GET/POST/PUT /api/admin/database/deployments
+- Incidents: GET/POST /api/admin/database/incidents, PUT /incidents/:id/approve, PUT /incidents/:id/reject
+
+### Monitoring Schedules (Updated):
+- **Metrics Collection**: Hourly (via database-admin cron)
+- **Metrics Retention Cleanup**: Hourly (30-day retention)
 
 ### Architecture:
 - **Frontend:** React 18 + Vite + Tailwind + shadcn/ui (molochain-admin-frontend container)
