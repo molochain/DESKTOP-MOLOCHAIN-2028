@@ -1,0 +1,186 @@
+[Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Regular.otf
+express-utils.js:18 [Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Bold.otf
+login:1 [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) <input type=​"password" class=​"w-full pl-10 pr-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:​outline-none focus:​border-primary-500 transition-colors" placeholder=​"••••••••" required data-testid=​"input-password" value=​"admin123">​
+index-BLgbeJvx.js:464 XHR finished loading: POST "https://admin.molochain.com/api/auth/login".
+(anonymous) @ index-BLgbeJvx.js:464
+xhr @ index-BLgbeJvx.js:464
+M1 @ index-BLgbeJvx.js:466
+_request @ index-BLgbeJvx.js:467
+request @ index-BLgbeJvx.js:466
+(anonymous) @ index-BLgbeJvx.js:467
+(anonymous) @ index-BLgbeJvx.js:462
+tI @ index-BLgbeJvx.js:467
+(anonymous) @ index-BLgbeJvx.js:621
+d @ index-BLgbeJvx.js:462
+OE @ index-BLgbeJvx.js:37
+AE @ index-BLgbeJvx.js:37
+CE @ index-BLgbeJvx.js:37
+pb @ index-BLgbeJvx.js:37
+J2 @ index-BLgbeJvx.js:37
+(anonymous) @ index-BLgbeJvx.js:37
+ev @ index-BLgbeJvx.js:40
+j2 @ index-BLgbeJvx.js:37
+_p @ index-BLgbeJvx.js:37
+Ay @ index-BLgbeJvx.js:37
+WE @ index-BLgbeJvx.js:37
+index-BLgbeJvx.js:464 XHR finished loading: GET "https://admin.molochain.com/api/admin/microservices/containers".
+(anonymous) @ index-BLgbeJvx.js:464
+xhr @ index-BLgbeJvx.js:464
+M1 @ index-BLgbeJvx.js:466
+_request @ index-BLgbeJvx.js:467
+request @ index-BLgbeJvx.js:466
+Si.<computed> @ index-BLgbeJvx.js:467
+(anonymous) @ index-BLgbeJvx.js:462
+Ro @ index-BLgbeJvx.js:467
+i @ index-BLgbeJvx.js:40
+m @ index-BLgbeJvx.js:40
+start @ index-BLgbeJvx.js:40
+fetch @ index-BLgbeJvx.js:40
+jl @ index-BLgbeJvx.js:40
+onSubscribe @ index-BLgbeJvx.js:40
+subscribe @ index-BLgbeJvx.js:40
+(anonymous) @ index-BLgbeJvx.js:40
+pN @ index-BLgbeJvx.js:38
+oh @ index-BLgbeJvx.js:40
+ks @ index-BLgbeJvx.js:40
+(anonymous) @ index-BLgbeJvx.js:40
+w @ index-BLgbeJvx.js:25
+C @ index-BLgbeJvx.js:25
+index-BLgbeJvx.js:464 XHR finished loading: GET "https://admin.molochain.com/api/admin/microservices/system-metrics".
+(anonymous) @ index-BLgbeJvx.js:464
+xhr @ index-BLgbeJvx.js:464
+M1 @ index-BLgbeJvx.js:466
+_request @ index-BLgbeJvx.js:467
+request @ index-BLgbeJvx.js:466
+Si.<computed> @ index-BLgbeJvx.js:467
+(anonymous) @ index-BLgbeJvx.js:462
+Ov @ index-BLgbeJvx.js:467
+i @ index-BLgbeJvx.js:40
+m @ index-BLgbeJvx.js:40
+start @ index-BLgbeJvx.js:40
+fetch @ index-BLgbeJvx.js:40
+jl @ index-BLgbeJvx.js:40
+onSubscribe @ index-BLgbeJvx.js:40
+subscribe @ index-BLgbeJvx.js:40
+(anonymous) @ index-BLgbeJvx.js:40
+pN @ index-BLgbeJvx.js:38
+oh @ index-BLgbeJvx.js:40
+ks @ index-BLgbeJvx.js:40
+(anonymous) @ index-BLgbeJvx.js:40
+w @ index-BLgbeJvx.js:25
+C @ index-BLgbeJvx.js:25
+index-BLgbeJvx.js:464 XHR finished loading: GET "https://admin.molochain.com/api/admin/database/metrics/history?startDate=2025-12-31T15%3A51%3A13.050Z&endDate=2026-01-01T15%3A51%3A13.050Z&limit=500".
+(anonymous) @ index-BLgbeJvx.js:464
+xhr @ index-BLgbeJvx.js:464
+M1 @ index-BLgbeJvx.js:466
+_request @ index-BLgbeJvx.js:467
+request @ index-BLgbeJvx.js:466
+Si.<computed> @ index-BLgbeJvx.js:467
+(anonymous) @ index-BLgbeJvx.js:462
+yI @ index-BLgbeJvx.js:467
+queryFn @ index-BLgbeJvx.js:621
+i @ index-BLgbeJvx.js:40
+m @ index-BLgbeJvx.js:40
+start @ index-BLgbeJvx.js:40
+fetch @ index-BLgbeJvx.js:40
+jl @ index-BLgbeJvx.js:40
+onSubscribe @ index-BLgbeJvx.js:40
+subscribe @ index-BLgbeJvx.js:40
+(anonymous) @ index-BLgbeJvx.js:40
+pN @ index-BLgbeJvx.js:38
+oh @ index-BLgbeJvx.js:40
+ks @ index-BLgbeJvx.js:40
+o$ @ index-BLgbeJvx.js:40
+Ja @ index-BLgbeJvx.js:40
+Hb @ index-BLgbeJvx.js:40
+Ra @ index-BLgbeJvx.js:38
+(anonymous) @ index-BLgbeJvx.js:40
+index-BLgbeJvx.js:40 TypeError: g.filter is not a function
+    at index-BLgbeJvx.js:621:56387
+    at Array.forEach (<anonymous>)
+    at index-BLgbeJvx.js:621:56365
+    at Object.SN [as useMemo] (index-BLgbeJvx.js:38:21375)
+    at he.useMemo (index-BLgbeJvx.js:9:6223)
+    at Ase (index-BLgbeJvx.js:621:56105)
+    at Ky (index-BLgbeJvx.js:38:16998)
+    at t0 (index-BLgbeJvx.js:40:3139)
+    at JN (index-BLgbeJvx.js:40:44737)
+    at QN (index-BLgbeJvx.js:40:39727)
+e0 @ index-BLgbeJvx.js:40
+r.callback @ index-BLgbeJvx.js:40
+Nb @ index-BLgbeJvx.js:38
+Bb @ index-BLgbeJvx.js:40
+WN @ index-BLgbeJvx.js:40
+r$ @ index-BLgbeJvx.js:40
+o$ @ index-BLgbeJvx.js:40
+Ja @ index-BLgbeJvx.js:40
+Hb @ index-BLgbeJvx.js:40
+Ra @ index-BLgbeJvx.js:38
+(anonymous) @ index-BLgbeJvx.js:40
+setTimeout
+j$ @ index-BLgbeJvx.js:40
+s @ index-BLgbeJvx.js:40
+batch @ index-BLgbeJvx.js:40
+yn @ index-BLgbeJvx.js:40
+setData @ index-BLgbeJvx.js:40
+fetch @ index-BLgbeJvx.js:40
+await in fetch
+jl @ index-BLgbeJvx.js:40
+onSubscribe @ index-BLgbeJvx.js:40
+subscribe @ index-BLgbeJvx.js:40
+(anonymous) @ index-BLgbeJvx.js:40
+pN @ index-BLgbeJvx.js:38
+oh @ index-BLgbeJvx.js:40
+ks @ index-BLgbeJvx.js:40
+o$ @ index-BLgbeJvx.js:40
+Ja @ index-BLgbeJvx.js:40
+Hb @ index-BLgbeJvx.js:40
+Ra @ index-BLgbeJvx.js:38
+(anonymous) @ index-BLgbeJvx.js:40
+index-BLgbeJvx.js:621 Uncaught TypeError: g.filter is not a function
+    at index-BLgbeJvx.js:621:56387
+    at Array.forEach (<anonymous>)
+    at index-BLgbeJvx.js:621:56365
+    at Object.SN [as useMemo] (index-BLgbeJvx.js:38:21375)
+    at he.useMemo (index-BLgbeJvx.js:9:6223)
+    at Ase (index-BLgbeJvx.js:621:56105)
+    at Ky (index-BLgbeJvx.js:38:16998)
+    at t0 (index-BLgbeJvx.js:40:3139)
+    at JN (index-BLgbeJvx.js:40:44737)
+    at QN (index-BLgbeJvx.js:40:39727)
+(anonymous) @ index-BLgbeJvx.js:621
+(anonymous) @ index-BLgbeJvx.js:621
+SN @ index-BLgbeJvx.js:38
+he.useMemo @ index-BLgbeJvx.js:9
+Ase @ index-BLgbeJvx.js:621
+Ky @ index-BLgbeJvx.js:38
+t0 @ index-BLgbeJvx.js:40
+JN @ index-BLgbeJvx.js:40
+QN @ index-BLgbeJvx.js:40
+i$ @ index-BLgbeJvx.js:40
+Dd @ index-BLgbeJvx.js:40
+f0 @ index-BLgbeJvx.js:40
+Hb @ index-BLgbeJvx.js:40
+Ra @ index-BLgbeJvx.js:38
+(anonymous) @ index-BLgbeJvx.js:40
+setTimeout
+j$ @ index-BLgbeJvx.js:40
+s @ index-BLgbeJvx.js:40
+batch @ index-BLgbeJvx.js:40
+yn @ index-BLgbeJvx.js:40
+setData @ index-BLgbeJvx.js:40
+fetch @ index-BLgbeJvx.js:40
+await in fetch
+jl @ index-BLgbeJvx.js:40
+onSubscribe @ index-BLgbeJvx.js:40
+subscribe @ index-BLgbeJvx.js:40
+(anonymous) @ index-BLgbeJvx.js:40
+pN @ index-BLgbeJvx.js:38
+oh @ index-BLgbeJvx.js:40
+ks @ index-BLgbeJvx.js:40
+o$ @ index-BLgbeJvx.js:40
+Ja @ index-BLgbeJvx.js:40
+Hb @ index-BLgbeJvx.js:40
+Ra @ index-BLgbeJvx.js:38
+(anonymous) @ index-BLgbeJvx.js:40
+index-BLgbeJvx.js:464 XHR finished loading: GET "https://admin.molochain.com/api/admin/database/metrics/trends?period=hourly&days=1".
