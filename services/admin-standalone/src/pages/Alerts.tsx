@@ -166,7 +166,7 @@ export function Alerts() {
   const queryClient = useQueryClient();
 
   const { data: containersData, isLoading: containersLoading, refetch: refetchContainers } = useQuery({
-    queryKey: ['/api/admin/containers'],
+    queryKey: ['/api/admin/microservices/containers'],
     queryFn: getContainers,
     refetchInterval: 30000,
   });
