@@ -16,7 +16,14 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 ### UI/UX Decisions
 - **Frontend:** React 18 with Vite, TypeScript, Tailwind CSS, and shadcn/ui for a responsive and modern user interface.
 - **Branding:** Consistent design adhering to Molochain branding guidelines, with a `Portal Layout` for authenticated users.
-- **Design System:** Monorepo using Turborepo and pnpm, publishing `@molochain/tokens` (design tokens), `@molochain/ui` (React components with CVA/Tailwind), `@molochain/i18n` (internationalization with EN/AR and RTL support), and `@molochain/tsconfig` (shared TS config).
+- **Design System:** Monorepo using Turborepo and pnpm, publishing `@molochain/tokens` (design tokens), `@molochain/ui` (React components with CVA/Tailwind), `@molochain/i18n` (internationalization), and `@molochain/tsconfig` (shared TS config).
+- **Internationalization (i18n):** Comprehensive multilingual support with HTTP-loaded translations:
+  - **Languages:** English (EN), Arabic (AR), Persian/Farsi (FA), Turkish (TR)
+  - **Namespaces:** 15 namespaces (nav, hero, features, services, tools, about, contact, footer, stats, cta, common, language, home, auth, whyUs)
+  - **Translation Files:** `client/public/locales/{lang}/translation.json`
+  - **Production Path:** `httpdocs/locales/{lang}/translation.json` on molochain.com
+  - **RTL Support:** Automatic `dir` and `lang` attribute updates for Arabic and Persian
+  - **Components:** Hero, Footer, Navigation, Home all use t() for translations
 - **Admin Frontend:** Isolated React 18 + Vite + TypeScript + Tailwind CSS application for admin functionalities, including dynamic dashboards, container management, and system metrics.
 
 ### Technical Implementations
