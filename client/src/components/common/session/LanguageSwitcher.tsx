@@ -35,8 +35,9 @@ const LanguageSwitcher = () => {
     try {
       setIsChanging(true);
       await i18n.changeLanguage(lng);
-      // Update document direction for RTL languages
+      // Update document direction and lang for RTL languages and accessibility
       document.documentElement.dir = ['ar', 'fa'].includes(lng) ? 'rtl' : 'ltr';
+      document.documentElement.lang = lng;
       // Save language preference
       localStorage.setItem('preferredLanguage', lng);
     } finally {
