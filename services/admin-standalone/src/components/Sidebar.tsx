@@ -18,6 +18,7 @@ import {
   Server,
   Zap,
   TrendingUp,
+  Rocket,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -41,6 +42,7 @@ const menuItems = [
   { path: '/audit-logs', icon: ClipboardList, label: 'Audit Logs' },
   { path: '/runbooks', icon: BookOpen, label: 'Runbooks' },
   { path: '/incidents', icon: Zap, label: 'Incidents' },
+  { path: '/deployments', icon: Rocket, label: 'Deployments' },
   { path: '/api-docs', icon: FileCode, label: 'API Docs' },
   { path: '/settings', icon: Settings, label: 'Settings' },
 ];

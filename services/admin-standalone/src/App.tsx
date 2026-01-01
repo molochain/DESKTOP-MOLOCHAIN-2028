@@ -16,6 +16,7 @@ import AuditLogs from '@/pages/AuditLogs';
 import Runbooks from '@/pages/Runbooks';
 import { Incidents } from '@/pages/Incidents';
 import { Analytics } from '@/pages/Analytics';
+import { Deployments } from '@/pages/Deployments';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function App() {
@@ -49,6 +50,7 @@ export default function App() {
           <Route path="/audit-logs" element={<AuditLogs />} />
           <Route path="/runbooks" element={<Runbooks />} />
           <Route path="/incidents" element={<Incidents />} />
+          <Route path="/deployments" element={<Deployments />} />
           <Route path="/api-docs" element={<ApiDocs />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
