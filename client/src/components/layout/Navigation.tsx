@@ -400,8 +400,21 @@ const Navigation = () => {
 
     const navElements: React.ReactNode[] = [];
 
+    const cmsLabelToTranslationKey: Record<string, string> = {
+      'home': 'nav.home',
+      'services': 'nav.services',
+      'ecosystem': 'nav.ecosystem',
+      'contact': 'nav.contact',
+      'solutions': 'nav.solutions',
+      'company': 'nav.company',
+      'resources': 'nav.resources',
+      'dashboard': 'nav.dashboard',
+    };
+
     cmsMenu.forEach((menuItem) => {
       const menuLabel = menuItem.label.toLowerCase();
+      const translationKey = cmsLabelToTranslationKey[menuLabel] || `nav.${menuLabel}`;
+      const translatedLabel = t(translationKey, menuItem.label);
 
       if (menuLabel === 'home') {
         navElements.push(
@@ -415,7 +428,7 @@ const Navigation = () => {
               location !== "/" && "text-foreground/80 hover:text-foreground"
             )}
           >
-            {menuItem.label}
+            {translatedLabel}
           </button>
         );
       }
@@ -423,7 +436,7 @@ const Navigation = () => {
         navElements.push(
           <NavDropdown
             key="services"
-            trigger={menuItem.label}
+            trigger={t('nav.services', 'Services')}
             items={navigationGroups.services.items}
             isActive={isDropdownActive(navigationGroups.services.items)}
           />
@@ -433,7 +446,7 @@ const Navigation = () => {
         navElements.push(
           <NavDropdown
             key="solutions"
-            trigger={menuItem.label}
+            trigger={t('nav.ecosystem', 'Ecosystem')}
             items={navigationGroups.solutions.items}
             isActive={isDropdownActive(navigationGroups.solutions.items)}
           />
@@ -451,7 +464,7 @@ const Navigation = () => {
               location !== "/contact" && "text-foreground/80 hover:text-foreground"
             )}
           >
-            {menuItem.label}
+            {t('nav.contact', 'Contact')}
           </button>
         );
       }

@@ -119,14 +119,19 @@
     "marketSize": "$9.1T Market"
   },
   "hero": {
-    "title": "Revolutionizing Global Logistics",
-    "subtitle": "ENTERPRISE LOGISTICS POWER",
-    "description": "Streamline your supply chain with our comprehensive logistics solutions. Whether you're a business or individual, we've got you covered.",
+    "title": "Global Logistics Solutions",
+    "subtitle": "Connecting Continents, Delivering Excellence",
+    "description": "Molochain provides end-to-end supply chain solutions with cutting-edge technology and a global network spanning 150+ countries.",
     "getQuote": "Get a Quote",
     "learnMore": "Learn More",
     "badge": "Enterprise Logistics Ecosystem",
     "isoCertified": "ISO 9001 Certified",
-    "support247": "24/7 Support"
+    "support247": "24/7 Support",
+    "mololink": "MOLOLINK",
+    "molops": "MOLOPS",
+    "onTime": "On-Time 99.9%",
+    "countries": "Countries +150",
+    "imageAlt": "Modern logistics operations"
   },
   "services": {
     "title": "Our Services",

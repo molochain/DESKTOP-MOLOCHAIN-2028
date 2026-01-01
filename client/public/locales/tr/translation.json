@@ -119,14 +119,19 @@
     "marketSize": "9.1 Trilyon Dolarlık Pazar"
   },
   "hero": {
-    "title": "Küresel Lojistikte Devrim",
-    "subtitle": "KURUMSAL LOJİSTİK GÜCÜ",
-    "description": "Kapsamlı lojistik çözümlerimizle tedarik zincirinizi optimize edin. İster işletme ister bireysel olun, yanınızdayız.",
+    "title": "Küresel Lojistik Çözümleri",
+    "subtitle": "Kıtaları Birleştiriyoruz, Mükemmellik Sunuyoruz",
+    "description": "Molochain, en son teknolojiyle ve 150'den fazla ülkeyi kapsayan küresel ağıyla uçtan uca tedarik zinciri çözümleri sunar.",
     "getQuote": "Teklif Al",
     "learnMore": "Daha Fazla Bilgi",
     "badge": "Kurumsal Lojistik Ekosistemi",
     "isoCertified": "ISO 9001 Sertifikalı",
-    "support247": "7/24 Destek"
+    "support247": "7/24 Destek",
+    "mololink": "MOLOLINK",
+    "molops": "MOLOPS",
+    "onTime": "Zamanında Teslimat %99.9",
+    "countries": "150+ Ülke",
+    "imageAlt": "Modern lojistik operasyonları"
   },
   "services": {
     "title": "Hizmetlerimiz",
