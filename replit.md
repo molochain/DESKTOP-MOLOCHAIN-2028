@@ -95,7 +95,7 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Notification Preferences Table**: `admin_notification_preferences` with per-user alert settings
 - **Backup Location**: `/var/backups/postgres` (Docker volume: postgres_backups)
 
-## Design System (NEW)
+## Design System (Phase 2 Pilot Complete)
 **URL:** https://design.molochain.com (port 7006) - Awaiting DNS A record
 **Location:** `/var/www/vhosts/molochain.com/molochain-design-system/`
 
@@ -104,30 +104,53 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Package Manager:** pnpm v9.0.0
 - **Build Tool:** tsup for dual ESM/CJS exports
 
-### Packages:
-1. **@molochain/tokens** - Design tokens (colors, typography, spacing)
+### Published Packages (v1.0.x):
+1. **@molochain/tokens@1.0.0** - Design tokens (colors, typography, spacing)
    - Brand colors: Primary HSL(222,47%,11%), Accent HSL(142,76%,36%)
    - shadcn-style CSS variables
-2. **@molochain/ui** - React component library (Button, Card, Input)
+2. **@molochain/ui@1.0.1** - React component library (Button, Card, Input)
    - CVA (class-variance-authority) + Tailwind CSS
    - Peer dependencies: React 18
-3. **@molochain/i18n** - Internationalization
+3. **@molochain/i18n@1.0.0** - Internationalization
    - react-i18next with EN/AR locales
    - RTL support for Arabic
 4. **@molochain/tsconfig** - Shared TypeScript configuration
+
+### Integration Status:
+| Frontend | Status | Components Used |
+|----------|--------|-----------------|
+| admin-frontend | ✅ Integrated | Card, CardContent, Button |
+| main website | ⏳ Pending | - |
+| Mololink | ⏳ Pending | - |
+| Auth | ⏳ Pending | - |
+| OTMS | ⏳ Pending | - |
+| Rayanava | ⏳ Pending | - |
 
 ### Apps:
 - **Storybook** - Component documentation (port 7006 via Docker)
 
 ### Private NPM Registry:
-- **Verdaccio** - Port 4873 (localhost only, secured)
-- **Authentication:** htpasswd, no self-registration (max_users: -1)
-- **Scope:** `@molochain/*` packages require authentication
+- **Verdaccio** - Port 4873 (localhost only, open access for publishing)
+- **Scope:** `@molochain/*` packages
 
-### Frontend Integration:
+### Frontend Integration Pattern:
+1. Create `.npmrc` in project root:
+```
+@molochain:registry=http://localhost:4873/
+```
+2. Install packages:
 ```bash
-npm config set @molochain:registry http://localhost:4873
-npm install @molochain/ui @molochain/tokens @molochain/i18n
+npm install @molochain/ui @molochain/tokens
+```
+3. Import components:
+```tsx
+import { Button } from '@molochain/ui/button';
+import { Card, CardContent } from '@molochain/ui/card';
+```
+
+### Docker Build Configuration:
+```bash
+DOCKER_BUILDKIT=1 docker build --network=host -t your-image .
 ```
 
 ### Docker Containers:
