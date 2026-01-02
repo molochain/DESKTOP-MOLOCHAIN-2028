@@ -1,4 +1,70 @@
 {
+  "departments": {
+    "title": "Departmanlar",
+    "subtitle": "Tüm departman panellerine ve yönetim sistemlerine erişin",
+    "notFound": "Departman Bulunamadı",
+    "notFoundDesc": "\"{{slug}}\" departmanı mevcut değil.",
+    "backToDepartments": "Departmanlara Dön",
+    "allDepartments": "Tüm Departmanlar",
+    "items": {
+      "accounting": {
+        "name": "Muhasebe ve Finans",
+        "description": "Mali kontrol, bütçeler ve muhasebe operasyonları"
+      },
+      "human-resources": {
+        "name": "İnsan Kaynakları",
+        "description": "Çalışan yönetimi, işe alım ve İK operasyonları"
+      },
+      "operations": {
+        "name": "Operasyonlar",
+        "description": "Günlük iş operasyonları ve süreç yönetimi"
+      },
+      "supply-chain": {
+        "name": "Tedarik Zinciri",
+        "description": "Lojistik, tedarik ve tedarik zinciri yönetimi"
+      },
+      "technology-engineering": {
+        "name": "Teknoloji ve Mühendislik",
+        "description": "Yazılım geliştirme, altyapı ve teknoloji çözümleri"
+      },
+      "marketing-branding": {
+        "name": "Pazarlama ve Marka",
+        "description": "Marka stratejisi, pazarlama kampanyaları ve iletişim"
+      },
+      "legal-risk": {
+        "name": "Hukuk ve Risk",
+        "description": "Hukuki uyum, sözleşmeler ve risk yönetimi"
+      },
+      "management": {
+        "name": "Yönetim",
+        "description": "Yönetici liderliği ve stratejik yönetim"
+      },
+      "strategy-development": {
+        "name": "Strateji ve Gelişim",
+        "description": "İş stratejisi, planlama ve gelişim"
+      },
+      "network-partners": {
+        "name": "Ağ ve Ortaklar",
+        "description": "Ortak ilişkileri ve ağ yönetimi"
+      },
+      "learning-knowledge": {
+        "name": "Öğrenme ve Bilgi",
+        "description": "Eğitim, öğretim ve bilgi yönetimi"
+      },
+      "documents-library": {
+        "name": "Belgeler ve Kütüphane",
+        "description": "Belge yönetimi ve kaynak kütüphanesi"
+      },
+      "god-layer": {
+        "name": "Üst Yönetim",
+        "description": "Sistem yönetimi ve temel altyapı"
+      },
+      "rayanavabrain": {
+        "name": "Rayanavabrain",
+        "description": "Yapay zeka ve makine öğrenimi sistemleri"
+      }
+    }
+  },
   "home": {
     "services": {
       "container": {

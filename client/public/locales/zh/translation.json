@@ -1,4 +1,70 @@
 {
+  "departments": {
+    "title": "部门",
+    "subtitle": "访问所有部门控制面板和管理系统",
+    "notFound": "未找到部门",
+    "notFoundDesc": "部门\"{{slug}}\"不存在。",
+    "backToDepartments": "返回部门",
+    "allDepartments": "所有部门",
+    "items": {
+      "accounting": {
+        "name": "会计与财务",
+        "description": "财务控制、预算和会计运营"
+      },
+      "human-resources": {
+        "name": "人力资源",
+        "description": "员工管理、招聘和人力资源运营"
+      },
+      "operations": {
+        "name": "运营",
+        "description": "日常业务运营和流程管理"
+      },
+      "supply-chain": {
+        "name": "供应链",
+        "description": "物流、采购和供应链管理"
+      },
+      "technology-engineering": {
+        "name": "技术与工程",
+        "description": "软件开发、基础设施和技术解决方案"
+      },
+      "marketing-branding": {
+        "name": "市场与品牌",
+        "description": "品牌战略、营销活动和传播"
+      },
+      "legal-risk": {
+        "name": "法务与风险",
+        "description": "法律合规、合同和风险管理"
+      },
+      "management": {
+        "name": "管理层",
+        "description": "执行领导和战略管理"
+      },
+      "strategy-development": {
+        "name": "战略与发展",
+        "description": "商业战略、规划和发展"
+      },
+      "network-partners": {
+        "name": "网络与合作伙伴",
+        "description": "合作伙伴关系和网络管理"
+      },
+      "learning-knowledge": {
+        "name": "学习与知识",
+        "description": "培训、教育和知识管理"
+      },
+      "documents-library": {
+        "name": "文档与资料库",
+        "description": "文档管理和资源库"
+      },
+      "god-layer": {
+        "name": "顶层管理",
+        "description": "系统管理和核心基础设施"
+      },
+      "rayanavabrain": {
+        "name": "Rayanavabrain",
+        "description": "人工智能和机器学习系统"
+      }
+    }
+  },
   "nav": {
     "home": "首页",
     "services": "服务",

@@ -1,4 +1,70 @@
 {
+  "departments": {
+    "title": "بخش‌ها",
+    "subtitle": "دسترسی به تمام داشبوردهای بخش و سیستم‌های مدیریت",
+    "notFound": "بخش پیدا نشد",
+    "notFoundDesc": "بخش \"{{slug}}\" وجود ندارد.",
+    "backToDepartments": "بازگشت به بخش‌ها",
+    "allDepartments": "همه بخش‌ها",
+    "items": {
+      "accounting": {
+        "name": "حسابداری و مالی",
+        "description": "کنترل مالی، بودجه‌ها و عملیات حسابداری"
+      },
+      "human-resources": {
+        "name": "منابع انسانی",
+        "description": "مدیریت کارکنان، استخدام و عملیات منابع انسانی"
+      },
+      "operations": {
+        "name": "عملیات",
+        "description": "عملیات روزانه کسب‌وکار و مدیریت فرآیند"
+      },
+      "supply-chain": {
+        "name": "زنجیره تأمین",
+        "description": "لجستیک، تدارکات و مدیریت زنجیره تأمین"
+      },
+      "technology-engineering": {
+        "name": "فناوری و مهندسی",
+        "description": "توسعه نرم‌افزار، زیرساخت و راه‌حل‌های فناوری"
+      },
+      "marketing-branding": {
+        "name": "بازاریابی و برندینگ",
+        "description": "استراتژی برند، کمپین‌های بازاریابی و ارتباطات"
+      },
+      "legal-risk": {
+        "name": "حقوقی و ریسک",
+        "description": "انطباق قانونی، قراردادها و مدیریت ریسک"
+      },
+      "management": {
+        "name": "مدیریت",
+        "description": "رهبری اجرایی و مدیریت استراتژیک"
+      },
+      "strategy-development": {
+        "name": "استراتژی و توسعه",
+        "description": "استراتژی کسب‌وکار، برنامه‌ریزی و توسعه"
+      },
+      "network-partners": {
+        "name": "شبکه و شرکا",
+        "description": "روابط شرکا و مدیریت شبکه"
+      },
+      "learning-knowledge": {
+        "name": "یادگیری و دانش",
+        "description": "آموزش، تحصیلات و مدیریت دانش"
+      },
+      "documents-library": {
+        "name": "اسناد و کتابخانه",
+        "description": "مدیریت اسناد و کتابخانه منابع"
+      },
+      "god-layer": {
+        "name": "لایه مدیریت",
+        "description": "مدیریت سیستم و زیرساخت اصلی"
+      },
+      "rayanavabrain": {
+        "name": "رایانوابرین",
+        "description": "هوش مصنوعی و سیستم‌های یادگیری ماشین"
+      }
+    }
+  },
   "home": {
     "services": {
       "container": {

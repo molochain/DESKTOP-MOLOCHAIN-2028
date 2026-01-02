@@ -1,4 +1,70 @@
 {
+  "departments": {
+    "title": "Departamentos",
+    "subtitle": "Acceda a todos los paneles de departamentos y sistemas de gestión",
+    "notFound": "Departamento No Encontrado",
+    "notFoundDesc": "El departamento \"{{slug}}\" no existe.",
+    "backToDepartments": "Volver a Departamentos",
+    "allDepartments": "Todos los Departamentos",
+    "items": {
+      "accounting": {
+        "name": "Contabilidad y Finanzas",
+        "description": "Control financiero, presupuestos y operaciones contables"
+      },
+      "human-resources": {
+        "name": "Recursos Humanos",
+        "description": "Gestión de empleados, reclutamiento y operaciones de RRHH"
+      },
+      "operations": {
+        "name": "Operaciones",
+        "description": "Operaciones comerciales diarias y gestión de procesos"
+      },
+      "supply-chain": {
+        "name": "Cadena de Suministro",
+        "description": "Logística, adquisiciones y gestión de la cadena de suministro"
+      },
+      "technology-engineering": {
+        "name": "Tecnología e Ingeniería",
+        "description": "Desarrollo de software, infraestructura y soluciones tecnológicas"
+      },
+      "marketing-branding": {
+        "name": "Marketing y Marca",
+        "description": "Estrategia de marca, campañas de marketing y comunicaciones"
+      },
+      "legal-risk": {
+        "name": "Legal y Riesgos",
+        "description": "Cumplimiento legal, contratos y gestión de riesgos"
+      },
+      "management": {
+        "name": "Gestión",
+        "description": "Liderazgo ejecutivo y gestión estratégica"
+      },
+      "strategy-development": {
+        "name": "Estrategia y Desarrollo",
+        "description": "Estrategia empresarial, planificación y desarrollo"
+      },
+      "network-partners": {
+        "name": "Red y Socios",
+        "description": "Relaciones con socios y gestión de redes"
+      },
+      "learning-knowledge": {
+        "name": "Aprendizaje y Conocimiento",
+        "description": "Capacitación, educación y gestión del conocimiento"
+      },
+      "documents-library": {
+        "name": "Documentos y Biblioteca",
+        "description": "Gestión de documentos y biblioteca de recursos"
+      },
+      "god-layer": {
+        "name": "Capa Superior",
+        "description": "Administración del sistema e infraestructura central"
+      },
+      "rayanavabrain": {
+        "name": "Rayanavabrain",
+        "description": "Inteligencia artificial y sistemas de aprendizaje automático"
+      }
+    }
+  },
   "nav": {
     "home": "Inicio",
     "services": "Servicios",

@@ -1,4 +1,70 @@
 {
+  "departments": {
+    "title": "Departments",
+    "subtitle": "Access all department dashboards and management systems",
+    "notFound": "Department Not Found",
+    "notFoundDesc": "The department \"{{slug}}\" does not exist.",
+    "backToDepartments": "Back to Departments",
+    "allDepartments": "All Departments",
+    "items": {
+      "accounting": {
+        "name": "Accounting & Finance",
+        "description": "Financial control, budgets, and accounting operations"
+      },
+      "human-resources": {
+        "name": "Human Resources",
+        "description": "Employee management, recruitment, and HR operations"
+      },
+      "operations": {
+        "name": "Operations",
+        "description": "Day-to-day business operations and process management"
+      },
+      "supply-chain": {
+        "name": "Supply Chain",
+        "description": "Logistics, procurement, and supply chain management"
+      },
+      "technology-engineering": {
+        "name": "Technology & Engineering",
+        "description": "Software development, infrastructure, and tech solutions"
+      },
+      "marketing-branding": {
+        "name": "Marketing & Branding",
+        "description": "Brand strategy, marketing campaigns, and communications"
+      },
+      "legal-risk": {
+        "name": "Legal & Risk",
+        "description": "Legal compliance, contracts, and risk management"
+      },
+      "management": {
+        "name": "Management",
+        "description": "Executive leadership and strategic management"
+      },
+      "strategy-development": {
+        "name": "Strategy & Development",
+        "description": "Business strategy, planning, and development"
+      },
+      "network-partners": {
+        "name": "Network & Partners",
+        "description": "Partner relationships and network management"
+      },
+      "learning-knowledge": {
+        "name": "Learning & Knowledge",
+        "description": "Training, education, and knowledge management"
+      },
+      "documents-library": {
+        "name": "Documents & Library",
+        "description": "Document management and resource library"
+      },
+      "god-layer": {
+        "name": "God Layer",
+        "description": "System administration and core infrastructure"
+      },
+      "rayanavabrain": {
+        "name": "Rayanavabrain",
+        "description": "AI intelligence and machine learning systems"
+      }
+    }
+  },
   "home": {
     "services": {
       "container": {
