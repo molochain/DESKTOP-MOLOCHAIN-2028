@@ -773,5 +773,702 @@
   "terms": {
     "title": "شروط الخدمة",
     "lastUpdated": "آخر تحديث: 19 يناير 2025"
+  },
+  "ecosystem": {
+    "title": "لوحة تحكم النظام البيئي",
+    "globalControl": "التحكم العالمي",
+    "subtitle": "إدارة وتنسيق على مستوى المؤسسات عبر أكثر من 180 دولة",
+    "overview": "نظرة عامة على النظام البيئي",
+    "overviewDescription": "مقاييس في الوقت الفعلي عبر منصة مولوتشين العالمية",
+    "stats": {
+      "countries": "الدول",
+      "departments": "الأقسام",
+      "divisions": "الشُعب",
+      "systemHealth": "صحة النظام",
+      "activeServices": "الخدمات النشطة",
+      "activeAlerts": "التنبيهات النشطة",
+      "live": "مباشر",
+      "realtimeStatus": "الحالة في الوقت الفعلي"
+    },
+    "sections": {
+      "organizationalStructure": "الهيكل التنظيمي",
+      "organizationalStructureDesc": "الأقسام والشُعب والوحدات التشغيلية",
+      "systemPerformance": "أداء النظام",
+      "globalCompliance": "حالة الامتثال العالمي",
+      "liveActivityFeed": "تغذية النشاط المباشر",
+      "godLayerActions": "إجراءات الطبقة العليا",
+      "departmentDashboards": "لوحات تحكم الأقسام"
+    },
+    "departments": {
+      "accounting": "المحاسبة",
+      "management": "الإدارة",
+      "technology": "التكنولوجيا",
+      "operations": "العمليات",
+      "supplyChain": "سلسلة التوريد",
+      "humanResources": "الموارد البشرية",
+      "legalRisk": "الشؤون القانونية والمخاطر",
+      "marketing": "التسويق"
+    }
+  },
+  "careers": {
+    "badge": "الوظائف",
+    "title": "انضم إلى",
+    "titleHighlight": "فريقنا العالمي",
+    "subtitle": "ابنِ مسيرتك المهنية مع شركة تُحدث ثورة في اللوجستيات العالمية. نحن نبحث دائماً عن أفراد موهوبين للانضمام إلى مهمتنا.",
+    "viewOpenPositions": "عرض الوظائف المتاحة",
+    "whyWorkWithUs": "لماذا تعمل معنا",
+    "whyWorkWithUsDescription": "نحن نقدم أكثر من مجرد وظيفة. انضم إلى فريق يقدر الابتكار والنمو والتوازن بين العمل والحياة.",
+    "openPositions": "الوظائف المتاحة",
+    "openPositionsDescription": "استكشف فرصنا الحالية واعثر على الدور المثالي لمهاراتك وطموحاتك.",
+    "searchPlaceholder": "البحث في الوظائف...",
+    "allDepartments": "جميع الأقسام",
+    "applyNow": "قدم الآن",
+    "noPositionsFound": "لم يتم العثور على وظائف",
+    "noPositionsFoundDescription": "حاول تعديل البحث أو معايير التصفية.",
+    "benefits": {
+      "globalOpportunities": {
+        "title": "فرص عالمية",
+        "description": "اعمل مع فرق في أكثر من 150 دولة"
+      },
+      "careerGrowth": {
+        "title": "النمو المهني",
+        "description": "مسارات واضحة للتقدم والتطور"
+      },
+      "healthWellness": {
+        "title": "الصحة والعافية",
+        "description": "برامج رعاية صحية وعافية شاملة"
+      },
+      "learningDevelopment": {
+        "title": "التعلم والتطوير",
+        "description": "تدريب مستمر وتطوير المهارات"
+      },
+      "teamCulture": {
+        "title": "ثقافة الفريق",
+        "description": "بيئة عمل تعاونية وشاملة"
+      },
+      "recognition": {
+        "title": "التقدير",
+        "description": "مكافآت وتقدير قائم على الأداء"
+      }
+    },
+    "departments": {
+      "operations": "العمليات",
+      "technology": "التكنولوجيا",
+      "sales": "المبيعات",
+      "analytics": "التحليلات",
+      "customerService": "خدمة العملاء",
+      "compliance": "الامتثال"
+    },
+    "jobTypes": {
+      "fullTime": "دوام كامل",
+      "partTime": "دوام جزئي",
+      "contract": "عقد",
+      "remote": "عن بُعد"
+    },
+    "positions": {
+      "seniorLogisticsCoordinator": {
+        "title": "منسق لوجستيات أول",
+        "location": "إسطنبول، تركيا",
+        "description": "قيادة العمليات اللوجستية وتنسيق الشحنات العالمية للعملاء الرئيسيين."
+      },
+      "fullStackDeveloper": {
+        "title": "مطور فول ستاك",
+        "location": "عن بُعد",
+        "description": "بناء وصيانة منصتنا اللوجستية المتطورة وواجهات API."
+      },
+      "businessDevelopmentManager": {
+        "title": "مدير تطوير الأعمال",
+        "location": "دبي، الإمارات",
+        "description": "توسيع قاعدة عملائنا وتطوير شراكات استراتيجية."
+      },
+      "supplyChainAnalyst": {
+        "title": "محلل سلسلة التوريد",
+        "location": "لندن، المملكة المتحدة",
+        "description": "تحليل بيانات سلسلة التوريد وتحسين العمليات اللوجستية."
+      },
+      "customerSuccessManager": {
+        "title": "مدير نجاح العملاء",
+        "location": "روتردام، هولندا",
+        "description": "ضمان رضا العملاء وإدارة الحسابات الرئيسية."
+      },
+      "customsSpecialist": {
+        "title": "أخصائي جمارك",
+        "location": "شنغهاي، الصين",
+        "description": "التعامل مع وثائق الجمارك وضمان الامتثال التنظيمي."
+      }
+    },
+    "cta": {
+      "title": "لم تجد الدور المناسب؟",
+      "description": "نحن نبحث دائماً عن مواهب استثنائية. أرسل لنا سيرتك الذاتية وسنضعك في الاعتبار للفرص المستقبلية.",
+      "contactUs": "تواصل معنا"
+    }
+  },
+  "success": {
+    "title": "شكراً لك!",
+    "subtitle": "تم إرسال رسالتك بنجاح",
+    "whatHappensNext": "ماذا يحدث بعد ذلك؟",
+    "whatHappensNextDescription": "سيراجع فريقنا رسالتك ويتواصل معك في أقرب وقت ممكن. توقع أن تسمع منا خلال 1-2 يوم عمل.",
+    "goToHomepage": "الذهاب للصفحة الرئيسية",
+    "sendAnotherMessage": "إرسال رسالة أخرى"
+  },
+  "notFound": {
+    "title": "404 الصفحة غير موجودة",
+    "description": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    "goHome": "العودة للرئيسية"
+  },
+  "settings": {
+    "title": "إعدادات النظام",
+    "description": "إدارة مفاتيح API والميزات وتكوين النظام",
+    "tabs": {
+      "apiKeys": "مفاتيح API",
+      "features": "الميزات",
+      "performance": "الأداء"
+    },
+    "apiKeyManagement": {
+      "title": "إدارة مفاتيح API",
+      "description": "تكوين مفاتيح API للخدمات الخارجية. احتفظ بهذه المفاتيح آمنة ولا تشاركها علناً.",
+      "apiKeyLabel": "مفتاح API",
+      "placeholder": "أدخل مفتاح API الخاص بك",
+      "notConfiguredPlaceholder": "غير مكوّن",
+      "lastUsed": "آخر استخدام"
+    },
+    "apiKeys": {
+      "openai": {
+        "name": "مفتاح OpenAI API",
+        "description": "مطلوب لميزات الذكاء الاصطناعي بما في ذلك مساعدي الدردشة وإنشاء المحتوى والتحليلات"
+      },
+      "stripe": {
+        "name": "مفتاح Stripe السري",
+        "description": "مطلوب لمعالجة المدفوعات والاشتراكات وإدارة الفواتير"
+      },
+      "instagram": {
+        "name": "رمز وصول Instagram",
+        "description": "مطلوب لميزات تسويق Instagram وتكامل وسائل التواصل الاجتماعي"
+      },
+      "googleMaps": {
+        "name": "مفتاح Google Maps API",
+        "description": "مطلوب لخدمات الموقع وتحسين المسارات وميزات الخرائط"
+      }
+    },
+    "badges": {
+      "required": "مطلوب",
+      "active": "نشط",
+      "notConfigured": "غير مكوّن"
+    },
+    "buttons": {
+      "edit": "تعديل",
+      "cancel": "إلغاء",
+      "save": "حفظ"
+    },
+    "featureConfiguration": {
+      "title": "تكوين الميزات",
+      "description": "تمكين أو تعطيل ميزات المنصة بناءً على احتياجاتك"
+    },
+    "features": {
+      "openAI": {
+        "name": "OpenAI",
+        "description": "ميزات مدعومة بالذكاء الاصطناعي بما في ذلك الدردشة وإنشاء المحتوى"
+      },
+      "stripe": {
+        "name": "Stripe",
+        "description": "معالجة المدفوعات وإدارة الاشتراكات"
+      },
+      "instagram": {
+        "name": "Instagram",
+        "description": "تسويق Instagram وتكامل وسائل التواصل الاجتماعي"
+      },
+      "googleMaps": {
+        "name": "خرائط Google",
+        "description": "خدمات الموقع وميزات الخرائط"
+      }
+    },
+    "performance": {
+      "title": "إعدادات الأداء",
+      "description": "مراقبة وتحسين أداء النظام",
+      "cachePerformance": "أداء ذاكرة التخزين المؤقت",
+      "hitRate": "معدل الإصابة",
+      "cacheEnabled": "ذاكرة التخزين المؤقت مفعّلة",
+      "optimizationLevel": "مستوى التحسين",
+      "levels": {
+        "standard": "قياسي",
+        "balanced": "متوازن",
+        "performance": "أداء عالي"
+      }
+    },
+    "alerts": {
+      "securityNotice": {
+        "title": "إشعار أمني",
+        "description": "مفاتيح API مشفرة ومخزنة بشكل آمن. لا تشارك مفاتيح API الخاصة بك في المستودعات العامة أو الكود من جانب العميل."
+      },
+      "performanceTip": {
+        "title": "نصيحة للأداء",
+        "description": "فعّل التخزين المؤقت لتحسين أوقات الاستجابة. معدل إصابة ذاكرة التخزين المؤقت الحالي هو {{hitRate}}%. الهدف هو 85% للأداء الأمثل."
+      }
+    },
+    "toast": {
+      "success": "نجاح",
+      "error": "خطأ",
+      "apiKeyUpdated": "تم تحديث مفتاح API بنجاح",
+      "apiKeyUpdateFailed": "فشل تحديث مفتاح API",
+      "apiKeyEmpty": "لا يمكن أن يكون مفتاح API فارغاً",
+      "featureUpdated": "تم تحديث الميزة بنجاح"
+    }
+  },
+  "profile": {
+    "title": "ملفي الشخصي",
+    "memberSince": "عضو منذ",
+    "lastLogin": "آخر تسجيل دخول",
+    "accountDetails": {
+      "title": "تفاصيل الحساب",
+      "description": "إدارة معلومات حسابك وتفضيلاتك"
+    },
+    "tabs": {
+      "profile": "الملف الشخصي",
+      "security": "الأمان",
+      "preferences": "التفضيلات",
+      "documents": "المستندات"
+    },
+    "labels": {
+      "username": "اسم المستخدم",
+      "email": "عنوان البريد الإلكتروني",
+      "role": "الدور",
+      "accountStatus": "حالة الحساب",
+      "active": "نشط"
+    },
+    "buttons": {
+      "editProfile": "تعديل الملف الشخصي",
+      "changePassword": "تغيير كلمة المرور",
+      "viewHistory": "عرض السجل",
+      "configure": "تكوين",
+      "change": "تغيير",
+      "uploadDocument": "رفع مستند"
+    },
+    "security": {
+      "password": "كلمة المرور",
+      "passwordLastChanged": "تم تغييرها آخر مرة منذ 3 أشهر",
+      "twoFactorAuth": "المصادقة الثنائية",
+      "loginHistory": "سجل تسجيل الدخول",
+      "loginHistoryDescription": "عرض محاولات تسجيل الدخول الأخيرة"
+    },
+    "preferences": {
+      "notifications": "الإشعارات",
+      "enabled": "مفعّل",
+      "disabled": "معطّل",
+      "language": "اللغة",
+      "theme": "السمة"
+    },
+    "documents": {
+      "noDocuments": "لا توجد مستندات متاحة",
+      "noDocumentsDescription": "لم تقم برفع أي مستندات بعد"
+    }
+  },
+  "dashboard": {
+    "title": "مرحباً بك في مولوتشين",
+    "subtitle": "مركز قيادة اللوجستيات العالمية",
+    "loading": "جاري تحميل لوحة التحكم...",
+    "header": {
+      "globalReach": "الوصول العالمي",
+      "countriesValue": "أكثر من 180 دولة",
+      "activeServices": "الخدمات النشطة",
+      "modulesValue": "42 وحدة",
+      "systemUptime": "وقت تشغيل النظام",
+      "performance": "الأداء",
+      "performanceValue": "أمثل"
+    },
+    "metrics": {
+      "countries": "الدول",
+      "departments": "الأقسام",
+      "divisions": "الشُعب",
+      "guides": "الأدلة",
+      "systemUptime": "وقت تشغيل النظام",
+      "activeModules": "الوحدات النشطة"
+    },
+    "sections": {
+      "platformAnalytics": "تحليلات المنصة",
+      "platformAnalyticsDesc": "مقاييس في الوقت الفعلي عبر جميع الشُعب",
+      "organizationalStructure": "الهيكل التنظيمي",
+      "organizationalStructureDesc": "الأقسام والشُعب والوحدات التشغيلية",
+      "systemPerformance": "أداء النظام",
+      "globalCompliance": "حالة الامتثال العالمي",
+      "liveActivityFeed": "تغذية النشاط المباشر",
+      "godLayerActions": "إجراءات الطبقة العليا"
+    },
+    "toast": {
+      "unauthorized": "غير مصرح",
+      "unauthorizedDescription": "تم تسجيل خروجك. جاري تسجيل الدخول مرة أخرى..."
+    }
+  },
+  "performance": {
+    "title": "لوحة تحكم الأداء",
+    "subtitle": "مراقبة النظام والمقاييس في الوقت الفعلي",
+    "timeRange": {
+      "5m": "آخر 5 دقائق",
+      "15m": "آخر 15 دقيقة",
+      "1h": "آخر ساعة",
+      "6h": "آخر 6 ساعات",
+      "24h": "آخر 24 ساعة"
+    },
+    "cards": {
+      "cpuUsage": "استخدام المعالج",
+      "memoryUsage": "استخدام الذاكرة",
+      "apiPerformance": "أداء API",
+      "database": "قاعدة البيانات",
+      "load": "الحمل",
+      "rpm": "طلب/دقيقة",
+      "connections": "اتصالات",
+      "errors": "أخطاء",
+      "activeConnections": "اتصالات نشطة",
+      "cacheHitRate": "معدل إصابة ذاكرة التخزين المؤقت"
+    },
+    "tabs": {
+      "system": "النظام",
+      "api": "API",
+      "database": "قاعدة البيانات",
+      "realtime": "الوقت الفعلي"
+    },
+    "charts": {
+      "cpuUsageOverTime": "استخدام المعالج بمرور الوقت",
+      "memoryUsageTrend": "اتجاه استخدام الذاكرة",
+      "requestRateResponseTime": "معدل الطلبات ووقت الاستجابة",
+      "errorRate": "معدل الأخطاء",
+      "databasePerformance": "أداء قاعدة البيانات"
+    },
+    "websocket": {
+      "title": "اتصالات WebSocket",
+      "activeConnections": "الاتصالات النشطة",
+      "messagesPerSecond": "رسائل/ثانية"
+    },
+    "cache": {
+      "title": "أداء ذاكرة التخزين المؤقت",
+      "hitRate": "معدل الإصابة",
+      "keys": "مفاتيح"
+    },
+    "alerts": {
+      "highCpu": "اكتشاف استخدام عالي للمعالج:",
+      "highMemory": "استخدام عالي للذاكرة:",
+      "highErrorRate": "معدل أخطاء API مرتفع:"
+    },
+    "toast": {
+      "connectionIssue": "مشكلة في الاتصال",
+      "connectionIssueDescription": "قد تتأخر التحديثات في الوقت الفعلي"
+    }
+  },
+  "reports": {
+    "title": "التقارير والتحليلات",
+    "subtitle": "تقارير شاملة وإدارة البيانات",
+    "buttons": {
+      "importData": "استيراد البيانات",
+      "exportAllData": "تصدير جميع البيانات",
+      "exporting": "جاري التصدير...",
+      "importing": "جاري الاستيراد...",
+      "import": "استيراد",
+      "cancel": "إلغاء"
+    },
+    "tabs": {
+      "organization": "تقرير المؤسسة",
+      "department": "تقرير القسم",
+      "division": "تقرير الشُعبة"
+    },
+    "sections": {
+      "departmentStatistics": "إحصائيات الأقسام",
+      "divisionModuleCounts": "عدد الشُعب والوحدات حسب القسم",
+      "systemHealthOverview": "نظرة عامة على صحة النظام",
+      "moduleHealthDistribution": "توزيع صحة الوحدات",
+      "complianceStatus": "حالة الامتثال",
+      "complianceDescription": "الامتثال للمعايير عبر المؤسسة",
+      "healthStatistics": "إحصائيات الصحة",
+      "moduleHealthDist": "توزيع صحة الوحدات"
+    },
+    "labels": {
+      "selectDepartment": "اختر القسم",
+      "selectDepartmentDescription": "اختر قسماً لعرض التقرير التفصيلي",
+      "selectDivision": "اختر الشُعبة",
+      "selectDivisionDescription": "اختر شُعبة لعرض التقرير التفصيلي",
+      "dataType": "نوع البيانات",
+      "jsonFile": "ملف JSON",
+      "totalModules": "إجمالي الوحدات",
+      "healthy": "سليم",
+      "warning": "تحذير",
+      "critical": "حرج",
+      "totalDivisions": "إجمالي الشُعب",
+      "status": "الحالة",
+      "divisions": "الشُعب",
+      "modules": "الوحدات",
+      "subDivisions": "الأقسام الفرعية",
+      "domains": "النطاقات"
+    },
+    "import": {
+      "title": "استيراد البيانات",
+      "description": "رفع ملف JSON لاستيراد البيانات بالجملة",
+      "selectPlaceholder": "اختر نوع البيانات",
+      "departments": "الأقسام",
+      "divisions": "الشُعب",
+      "subDivisions": "الأقسام الفرعية",
+      "domains": "النطاقات"
+    },
+    "toast": {
+      "exportSuccess": "نجاح",
+      "exportSuccessDescription": "تم تصدير البيانات بنجاح",
+      "exportError": "خطأ",
+      "exportErrorDescription": "فشل تصدير البيانات",
+      "importSuccess": "نجاح",
+      "importSuccessDescription": "تم استيراد البيانات بنجاح",
+      "importError": "خطأ",
+      "importErrorDescription": "فشل استيراد البيانات",
+      "invalidFileFormat": "تنسيق ملف غير صالح. يرجى رفع ملف JSON صالح."
+    }
+  },
+  "developer": {
+    "apiPolicies": {
+      "title": "سياسات API",
+      "subtitle": "معلومات مهمة حول تحديد المعدل وإصدارات API",
+      "tabs": {
+        "rateLimiting": "تحديد المعدل",
+        "versioning": "إصدارات API"
+      },
+      "alerts": {
+        "rateLimitsApply": "تطبق حدود المعدل",
+        "rateLimitsDescription": "جميع نقاط نهاية API تخضع لتحديد المعدل لضمان استقرار المنصة والاستخدام العادل.",
+        "apiVersioningStrategy": "استراتيجية إصدارات API",
+        "apiVersioningDescription": "يستخدم API الخاص بنا الإصدار القائم على التاريخ لضمان التوافق مع الإصدارات السابقة مع تمكين الميزات الجديدة.",
+        "needHigherLimits": "تحتاج حدوداً أعلى؟",
+        "needHigherLimitsDescription": "إذا كنت بحاجة إلى حدود معدل أعلى، يرجى الاتصال بفريق المبيعات لدينا لمناقشة خيارات المؤسسة."
+      },
+      "rateLimiting": {
+        "title": "سياسة تحديد المعدل",
+        "description": "تطبق مولوتشين تحديد المعدل لحماية بنيتنا التحتية وضمان الاستخدام العادل لموارد API. يتم تطبيق حدود المعدل على أساس كل نقطة نهاية وكل مصادقة.",
+        "tiersTitle": "مستويات حدود المعدل",
+        "tiersDescription": "تختلف حدود المعدل بناءً على مستوى حسابك:",
+        "headersTitle": "رؤوس حدود المعدل",
+        "headersDescription": "تتضمن جميع استجابات API رؤوساً توفر معلومات حول حالة حد المعدل الحالي:",
+        "handlingTitle": "التعامل مع حدود المعدل",
+        "handlingDescription": "عند تجاوز حد المعدل، سيستجيب API برمز حالة 429 طلبات كثيرة جداً. يجب على العملاء تنفيذ معالجة الأخطاء المناسبة واستراتيجيات التراجع.",
+        "bestPractices": "أفضل الممارسات لتحديد المعدل"
+      },
+      "table": {
+        "tier": "المستوى",
+        "rateLimit": "حد المعدل",
+        "burstLimit": "حد الاندفاع",
+        "notes": "ملاحظات",
+        "header": "الرأس",
+        "description": "الوصف",
+        "example": "مثال",
+        "version": "الإصدار",
+        "releaseDate": "تاريخ الإصدار",
+        "status": "الحالة",
+        "endOfLife": "تاريخ نهاية العمر"
+      },
+      "tiers": {
+        "developer": "مطور",
+        "developerRate": "60 طلب/دقيقة",
+        "developerBurst": "100 طلب/دقيقة",
+        "developerNotes": "مستوى مجاني للتطوير والاختبار",
+        "basic": "أساسي",
+        "basicRate": "300 طلب/دقيقة",
+        "basicBurst": "500 طلب/دقيقة",
+        "basicNotes": "للشركات الصغيرة والمتوسطة",
+        "professional": "احترافي",
+        "professionalRate": "1,000 طلب/دقيقة",
+        "professionalBurst": "1,500 طلب/دقيقة",
+        "professionalNotes": "للشركات المتوسطة والكبيرة",
+        "enterprise": "مؤسسة",
+        "enterpriseRate": "5,000+ طلب/دقيقة",
+        "enterpriseBurst": "7,500+ طلب/دقيقة",
+        "enterpriseNotes": "حدود مخصصة متاحة"
+      },
+      "bestPractices": {
+        "do": "افعل",
+        "dont": "لا تفعل",
+        "doList": {
+          "monitor": "راقب استخدام حد المعدل عبر رؤوس الاستجابة",
+          "backoff": "نفّذ التراجع الأسي لإعادة المحاولات",
+          "cache": "خزّن الاستجابات مؤقتاً عند الاقتضاء",
+          "batch": "اجمع الطلبات عند الإمكان",
+          "optimize": "حسّن أنماط استخدام API"
+        },
+        "dontList": {
+          "retry": "إعادة محاولة الطلبات بشكل متكرر بدون تراجع",
+          "ignore": "تجاهل رؤوس حد المعدل",
+          "duplicate": "إجراء طلبات مكررة غير ضرورية",
+          "share": "مشاركة بيانات اعتماد API عبر تطبيقات متعددة",
+          "scrape": "جمع البيانات بشكل غير ضروري"
+        }
+      },
+      "codeExamples": {
+        "title": "أمثلة الكود",
+        "handlingHeaders": "التعامل مع رؤوس حد المعدل",
+        "handlingHeadersDesc": "كيفية تتبع معلومات حد المعدل والاستجابة لها",
+        "exponentialBackoff": "تنفيذ التراجع الأسي",
+        "exponentialBackoffDesc": "استراتيجية إعادة محاولة متقدمة للطلبات المحدودة المعدل",
+        "specifyVersion": "تحديد إصدار API",
+        "specifyVersionDesc": "طرق مختلفة لتحديد إصدار API المراد استخدامه",
+        "copyCode": "نسخ الكود"
+      },
+      "versioning": {
+        "title": "إصدارات API",
+        "description": "تستخدم مولوتشين استراتيجية إصدار لضمان أن التغييرات في API لا تكسر التكاملات الحالية. نوفر إصدارات API مستقرة مع جداول زمنية واضحة للإيقاف.",
+        "dateBasedTitle": "الإصدار القائم على التاريخ",
+        "dateBasedDescription": "نستخدم الإصدار القائم على التاريخ بتنسيق YYYY-MM-DD. يسمح لنا هذا النهج بـ:",
+        "dateBasedBenefits": {
+          "release": "إصدار ميزات جديدة دون كسر التكاملات الحالية",
+          "timeline": "توفير جدول زمني واضح لتغييرات API",
+          "select": "السماح للعملاء باختيار سلوك API محدد",
+          "support": "دعم إصدارات API متعددة في وقت واحد"
+        },
+        "specifyingVersion": "تحديد إصدار API",
+        "specifyDescription": "يمكنك تحديد إصدار API المراد استخدامه من خلال إحدى الطرق التالية:",
+        "headerRecommended": "رأس HTTP (موصى به)",
+        "urlPath": "مسار URL",
+        "acceptHeader": "رأس Accept",
+        "defaultVersion": "الإصدار الافتراضي",
+        "defaultVersionDescription": "إذا لم يتم تحديد إصدار، سيستخدم API أقدم إصدار غير موقوف. ومع ذلك، نوصي بشدة بتحديد الإصدار بشكل صريح دائماً.",
+        "timelineTitle": "الجدول الزمني لإصدارات API",
+        "statusDefinitions": "تعريفات حالة الإصدار",
+        "accordion": {
+          "headerInstruction": "قم بتضمين رأس X-API-Version في طلبك:",
+          "urlInstruction": "قم بتضمين رقم الإصدار الرئيسي في مسار URL:",
+          "urlNote": "ملاحظة: يدعم إصدار URL أرقام الإصدار الرئيسية فقط (v1، v2، إلخ)، وليس تواريخ محددة.",
+          "acceptInstruction": "قم بتضمين الإصدار في رأس Accept:"
+        },
+        "statuses": {
+          "current": "الحالي",
+          "currentDesc": "أحدث إصدار مستقر مع جميع الميزات الجديدة"
+        }
+      }
+    }
+  },
+  "admin": {
+    "title": "لوحة الإدارة",
+    "subtitle": "إدارة النظام ومراقبته",
+    "tabs": {
+      "overview": "نظرة عامة",
+      "users": "المستخدمون",
+      "settings": "الإعدادات",
+      "logs": "السجلات"
+    },
+    "stats": {
+      "totalUsers": "إجمالي المستخدمين",
+      "activeUsers": "المستخدمون النشطون",
+      "newUsersToday": "مستخدمون جدد اليوم",
+      "systemHealth": "صحة النظام"
+    },
+    "sections": {
+      "recentActivity": "النشاط الأخير",
+      "systemStatus": "حالة النظام",
+      "quickActions": "إجراءات سريعة"
+    },
+    "actions": {
+      "addUser": "إضافة مستخدم",
+      "exportData": "تصدير البيانات",
+      "systemBackup": "نسخ احتياطي للنظام",
+      "viewLogs": "عرض السجلات"
+    }
+  },
+  "caseStudies": {
+    "title": "دراسات الحالة",
+    "subtitle": "اكتشف كيف ساعدنا عملاءنا على تحقيق النجاح",
+    "viewAll": "عرض جميع دراسات الحالة",
+    "filters": {
+      "all": "الكل",
+      "logistics": "اللوجستيات",
+      "ecommerce": "التجارة الإلكترونية",
+      "manufacturing": "التصنيع",
+      "retail": "التجزئة"
+    },
+    "card": {
+      "client": "العميل",
+      "challenge": "التحدي",
+      "solution": "الحل",
+      "results": "النتائج",
+      "readMore": "اقرأ المزيد",
+      "industry": "الصناعة",
+      "location": "الموقع",
+      "duration": "المدة"
+    },
+    "metrics": {
+      "costReduction": "تخفيض التكاليف",
+      "timeSaved": "الوقت الموفر",
+      "efficiencyGain": "مكاسب الكفاءة",
+      "satisfactionRate": "معدل الرضا"
+    }
+  },
+  "projects": {
+    "title": "المشاريع",
+    "subtitle": "استكشف مشاريعنا اللوجستية الأخيرة",
+    "viewAll": "عرض جميع المشاريع",
+    "filters": {
+      "all": "الكل",
+      "active": "نشط",
+      "completed": "مكتمل",
+      "pending": "قيد الانتظار"
+    },
+    "card": {
+      "status": "الحالة",
+      "startDate": "تاريخ البدء",
+      "endDate": "تاريخ الانتهاء",
+      "budget": "الميزانية",
+      "progress": "التقدم",
+      "team": "الفريق",
+      "viewDetails": "عرض التفاصيل"
+    },
+    "status": {
+      "active": "نشط",
+      "completed": "مكتمل",
+      "pending": "قيد الانتظار",
+      "onHold": "معلق",
+      "cancelled": "ملغى"
+    },
+    "details": {
+      "overview": "نظرة عامة",
+      "timeline": "الجدول الزمني",
+      "team": "الفريق",
+      "documents": "المستندات",
+      "milestones": "المراحل الرئيسية"
+    }
+  },
+  "brandbook": {
+    "title": "دليل العلامة التجارية",
+    "subtitle": "إرشادات ومعايير العلامة التجارية لمولوتشين",
+    "sections": {
+      "logo": "الشعار",
+      "colors": "الألوان",
+      "typography": "الخطوط",
+      "icons": "الأيقونات",
+      "imagery": "الصور",
+      "voice": "نبرة الصوت"
+    },
+    "logo": {
+      "title": "استخدام الشعار",
+      "description": "إرشادات لاستخدام شعار مولوتشين بشكل صحيح",
+      "primary": "الشعار الرئيسي",
+      "secondary": "الشعار الثانوي",
+      "icon": "الأيقونة",
+      "clearSpace": "المساحة الخالية",
+      "minimumSize": "الحجم الأدنى",
+      "doNot": "لا تفعل"
+    },
+    "colors": {
+      "title": "لوحة الألوان",
+      "description": "ألوان العلامة التجارية الرسمية لمولوتشين",
+      "primary": "الألوان الرئيسية",
+      "secondary": "الألوان الثانوية",
+      "accent": "ألوان التمييز",
+      "neutral": "الألوان المحايدة"
+    },
+    "typography": {
+      "title": "الخطوط",
+      "description": "عائلات الخطوط وأنماط النص المستخدمة",
+      "headings": "العناوين",
+      "body": "النص الأساسي",
+      "display": "نص العرض"
+    },
+    "download": {
+      "title": "تحميل الأصول",
+      "description": "تحميل أصول العلامة التجارية بتنسيقات مختلفة",
+      "logoPackage": "حزمة الشعار",
+      "colorPalette": "لوحة الألوان",
+      "fonts": "الخطوط",
+      "guidelines": "الإرشادات الكاملة"
+    }
   }
 }

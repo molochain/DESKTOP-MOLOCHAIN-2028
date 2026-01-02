@@ -750,5 +750,759 @@
   "terms": {
     "title": "شرایط خدمات",
     "lastUpdated": "آخرین به‌روزرسانی: ۱۹ ژانویه ۲۰۲۵"
+  },
+  "ecosystem": {
+    "title": "پنل کنترل اکوسیستم",
+    "globalControl": "کنترل جهانی",
+    "subtitle": "مدیریت و هماهنگی سازمانی در بیش از ۱۸۰ کشور",
+    "overview": "نمای کلی اکوسیستم",
+    "overviewDescription": "معیارهای لحظه‌ای در سراسر پلتفرم مولوچین",
+    "stats": {
+      "countries": "کشورها",
+      "departments": "دپارتمان‌ها",
+      "divisions": "بخش‌ها",
+      "systemHealth": "سلامت سیستم",
+      "activeServices": "خدمات فعال",
+      "activeAlerts": "هشدارهای فعال",
+      "live": "زنده",
+      "realtimeStatus": "وضعیت لحظه‌ای"
+    },
+    "sections": {
+      "organizationalStructure": "ساختار سازمانی",
+      "organizationalStructureDesc": "دپارتمان‌ها، بخش‌ها و واحدهای عملیاتی",
+      "systemPerformance": "عملکرد سیستم",
+      "globalCompliance": "وضعیت انطباق جهانی",
+      "liveActivityFeed": "فید فعالیت زنده",
+      "godLayerActions": "اقدامات لایه خدا",
+      "departmentDashboards": "داشبوردهای دپارتمان"
+    },
+    "departments": {
+      "accounting": "حسابداری",
+      "management": "مدیریت",
+      "technology": "فناوری",
+      "operations": "عملیات",
+      "supplyChain": "زنجیره تأمین",
+      "humanResources": "منابع انسانی",
+      "legalRisk": "حقوقی و ریسک",
+      "marketing": "بازاریابی"
+    }
+  },
+  "careers": {
+    "badge": "فرصت‌های شغلی",
+    "title": "به تیم",
+    "titleHighlight": "جهانی ما بپیوندید",
+    "subtitle": "کریر خود را با شرکتی بسازید که لجستیک جهانی را متحول می‌کند. ما همیشه به دنبال افراد با استعداد برای پیوستن به ماموریتمان هستیم.",
+    "viewOpenPositions": "مشاهده موقعیت‌های شغلی",
+    "whyWorkWithUs": "چرا با ما کار کنید",
+    "whyWorkWithUsDescription": "ما بیش از یک شغل ارائه می‌دهیم. به تیمی بپیوندید که نوآوری، رشد و تعادل کار و زندگی را ارزش می‌گذارد.",
+    "openPositions": "موقعیت‌های شغلی",
+    "openPositionsDescription": "فرصت‌های شغلی فعلی را کاوش کنید و نقش مناسب مهارت‌ها و آرزوهای خود را پیدا کنید.",
+    "searchPlaceholder": "جستجوی موقعیت‌ها...",
+    "allDepartments": "همه دپارتمان‌ها",
+    "applyNow": "ارسال درخواست",
+    "noPositionsFound": "موقعیتی یافت نشد",
+    "noPositionsFoundDescription": "جستجو یا فیلتر خود را تغییر دهید.",
+    "benefits": {
+      "globalOpportunities": {
+        "title": "فرصت‌های جهانی",
+        "description": "کار با تیم‌ها در بیش از ۱۵۰ کشور"
+      },
+      "careerGrowth": {
+        "title": "رشد شغلی",
+        "description": "مسیرهای روشن برای پیشرفت و توسعه"
+      },
+      "healthWellness": {
+        "title": "سلامت و رفاه",
+        "description": "برنامه‌های جامع بهداشتی و رفاهی"
+      },
+      "learningDevelopment": {
+        "title": "آموزش و توسعه",
+        "description": "آموزش مستمر و توسعه مهارت‌ها"
+      },
+      "teamCulture": {
+        "title": "فرهنگ تیمی",
+        "description": "محیط کاری مشارکتی و فراگیر"
+      },
+      "recognition": {
+        "title": "قدردانی",
+        "description": "پاداش و قدردانی بر اساس عملکرد"
+      }
+    },
+    "departments": {
+      "operations": "عملیات",
+      "technology": "فناوری",
+      "sales": "فروش",
+      "analytics": "تحلیل داده",
+      "customerService": "خدمات مشتری",
+      "compliance": "انطباق"
+    },
+    "jobTypes": {
+      "fullTime": "تمام وقت",
+      "partTime": "پاره وقت",
+      "contract": "قراردادی",
+      "remote": "دورکاری"
+    },
+    "positions": {
+      "seniorLogisticsCoordinator": {
+        "title": "هماهنگ‌کننده ارشد لجستیک",
+        "location": "استانبول، ترکیه",
+        "description": "رهبری عملیات لجستیکی و هماهنگی محموله‌های جهانی برای مشتریان بزرگ."
+      },
+      "fullStackDeveloper": {
+        "title": "توسعه‌دهنده فول‌استک",
+        "location": "دورکاری",
+        "description": "ساخت و نگهداری پلتفرم لجستیک پیشرفته و APIها."
+      },
+      "businessDevelopmentManager": {
+        "title": "مدیر توسعه کسب‌وکار",
+        "location": "دبی، امارات",
+        "description": "گسترش پایگاه مشتری و توسعه شراکت‌های استراتژیک."
+      },
+      "supplyChainAnalyst": {
+        "title": "تحلیلگر زنجیره تأمین",
+        "location": "لندن، انگلستان",
+        "description": "تحلیل داده‌های زنجیره تأمین و بهینه‌سازی عملیات لجستیکی."
+      },
+      "customerSuccessManager": {
+        "title": "مدیر موفقیت مشتری",
+        "location": "روتردام، هلند",
+        "description": "اطمینان از رضایت مشتری و مدیریت حساب‌های کلیدی."
+      },
+      "customsSpecialist": {
+        "title": "متخصص گمرک",
+        "location": "شانگهای، چین",
+        "description": "رسیدگی به اسناد گمرکی و اطمینان از انطباق با مقررات."
+      }
+    },
+    "cta": {
+      "title": "نقش مناسب را نمی‌بینید؟",
+      "description": "ما همیشه به دنبال استعدادهای استثنایی هستیم. رزومه خود را ارسال کنید تا برای فرصت‌های آینده در نظر گرفته شوید.",
+      "contactUs": "تماس با ما"
+    }
+  },
+  "success": {
+    "title": "با تشکر!",
+    "subtitle": "پیام شما با موفقیت ارسال شد",
+    "whatHappensNext": "مراحل بعدی چیست؟",
+    "whatHappensNextDescription": "تیم ما پیام شما را بررسی کرده و در اسرع وقت با شما تماس خواهد گرفت. انتظار پاسخ در ۱-۲ روز کاری را داشته باشید.",
+    "goToHomepage": "بازگشت به صفحه اصلی",
+    "sendAnotherMessage": "ارسال پیام دیگر"
+  },
+  "notFound": {
+    "title": "۴۰۴ - صفحه یافت نشد",
+    "description": "صفحه‌ای که به دنبال آن هستید وجود ندارد یا منتقل شده است.",
+    "goHome": "بازگشت به خانه"
+  },
+  "settings": {
+    "title": "تنظیمات سیستم",
+    "description": "مدیریت کلیدهای API، ویژگی‌ها و پیکربندی سیستم",
+    "tabs": {
+      "apiKeys": "کلیدهای API",
+      "features": "ویژگی‌ها",
+      "performance": "عملکرد"
+    },
+    "apiKeyManagement": {
+      "title": "مدیریت کلیدهای API",
+      "description": "پیکربندی کلیدهای API برای سرویس‌های شخص ثالث. این کلیدها را امن نگه دارید و هرگز عمومی به اشتراک نگذارید.",
+      "apiKeyLabel": "کلید API",
+      "placeholder": "کلید API خود را وارد کنید",
+      "notConfiguredPlaceholder": "پیکربندی نشده",
+      "lastUsed": "آخرین استفاده"
+    },
+    "apiKeys": {
+      "openai": {
+        "name": "کلید API OpenAI",
+        "description": "برای ویژگی‌های مبتنی بر هوش مصنوعی شامل دستیاران چت، تولید محتوا و تحلیل‌ها مورد نیاز است"
+      },
+      "stripe": {
+        "name": "کلید مخفی Stripe",
+        "description": "برای پردازش پرداخت، اشتراک‌ها و مدیریت صورتحساب مورد نیاز است"
+      },
+      "instagram": {
+        "name": "توکن دسترسی اینستاگرام",
+        "description": "برای ویژگی‌های بازاریابی اینستاگرام و یکپارچه‌سازی شبکه‌های اجتماعی مورد نیاز است"
+      },
+      "googleMaps": {
+        "name": "کلید API Google Maps",
+        "description": "برای خدمات موقعیت‌یابی، بهینه‌سازی مسیر و ویژگی‌های نقشه مورد نیاز است"
+      }
+    },
+    "badges": {
+      "required": "الزامی",
+      "active": "فعال",
+      "notConfigured": "پیکربندی نشده"
+    },
+    "buttons": {
+      "edit": "ویرایش",
+      "cancel": "انصراف",
+      "save": "ذخیره"
+    },
+    "featureConfiguration": {
+      "title": "پیکربندی ویژگی‌ها",
+      "description": "فعال یا غیرفعال کردن ویژگی‌های پلتفرم بر اساس نیازهای شما"
+    },
+    "features": {
+      "openAI": {
+        "name": "OpenAI",
+        "description": "ویژگی‌های مبتنی بر هوش مصنوعی شامل چت و تولید محتوا"
+      },
+      "stripe": {
+        "name": "Stripe",
+        "description": "پردازش پرداخت و مدیریت اشتراک"
+      },
+      "instagram": {
+        "name": "اینستاگرام",
+        "description": "بازاریابی اینستاگرام و یکپارچه‌سازی شبکه‌های اجتماعی"
+      },
+      "googleMaps": {
+        "name": "Google Maps",
+        "description": "خدمات موقعیت‌یابی و ویژگی‌های نقشه"
+      }
+    },
+    "performance": {
+      "title": "تنظیمات عملکرد",
+      "description": "نظارت و بهینه‌سازی عملکرد سیستم",
+      "cachePerformance": "عملکرد کش",
+      "hitRate": "نرخ موفقیت",
+      "cacheEnabled": "کش فعال",
+      "optimizationLevel": "سطح بهینه‌سازی",
+      "levels": {
+        "standard": "استاندارد",
+        "balanced": "متعادل",
+        "performance": "عملکرد بالا"
+      }
+    },
+    "alerts": {
+      "securityNotice": {
+        "title": "اطلاعیه امنیتی",
+        "description": "کلیدهای API رمزگذاری و به صورت امن ذخیره می‌شوند. هرگز کلیدهای API خود را در مخازن عمومی یا کد سمت کلاینت به اشتراک نگذارید."
+      },
+      "performanceTip": {
+        "title": "نکته عملکرد",
+        "description": "کش را برای بهبود زمان پاسخ فعال کنید. نرخ موفقیت کش فعلی {{hitRate}}% است. هدف ۸۵% برای عملکرد بهینه است."
+      }
+    },
+    "toast": {
+      "success": "موفقیت",
+      "error": "خطا",
+      "apiKeyUpdated": "کلید API با موفقیت به‌روزرسانی شد",
+      "apiKeyUpdateFailed": "خطا در به‌روزرسانی کلید API",
+      "apiKeyEmpty": "کلید API نمی‌تواند خالی باشد",
+      "featureUpdated": "ویژگی با موفقیت به‌روزرسانی شد"
+    }
+  },
+  "profile": {
+    "title": "پروفایل من",
+    "memberSince": "عضویت از",
+    "lastLogin": "آخرین ورود",
+    "accountDetails": {
+      "title": "جزئیات حساب",
+      "description": "مدیریت اطلاعات و ترجیحات حساب کاربری"
+    },
+    "tabs": {
+      "profile": "پروفایل",
+      "security": "امنیت",
+      "preferences": "ترجیحات",
+      "documents": "اسناد"
+    },
+    "labels": {
+      "username": "نام کاربری",
+      "email": "آدرس ایمیل",
+      "role": "نقش",
+      "accountStatus": "وضعیت حساب",
+      "active": "فعال"
+    },
+    "buttons": {
+      "editProfile": "ویرایش پروفایل",
+      "changePassword": "تغییر رمز عبور",
+      "viewHistory": "مشاهده تاریخچه",
+      "configure": "پیکربندی",
+      "change": "تغییر",
+      "uploadDocument": "بارگذاری سند"
+    },
+    "security": {
+      "password": "رمز عبور",
+      "passwordLastChanged": "آخرین تغییر ۳ ماه پیش",
+      "twoFactorAuth": "احراز هویت دو مرحله‌ای",
+      "loginHistory": "تاریخچه ورود",
+      "loginHistoryDescription": "مشاهده تلاش‌های اخیر ورود"
+    },
+    "preferences": {
+      "notifications": "اعلان‌ها",
+      "enabled": "فعال",
+      "disabled": "غیرفعال",
+      "language": "زبان",
+      "theme": "تم"
+    },
+    "documents": {
+      "noDocuments": "سندی موجود نیست",
+      "noDocumentsDescription": "هنوز هیچ سندی بارگذاری نکرده‌اید"
+    }
+  },
+  "dashboard": {
+    "title": "به مولوچین خوش آمدید",
+    "subtitle": "مرکز فرماندهی لجستیک جهانی",
+    "loading": "در حال بارگذاری داشبورد...",
+    "header": {
+      "globalReach": "دسترسی جهانی",
+      "countriesValue": "بیش از ۱۸۰ کشور",
+      "activeServices": "خدمات فعال",
+      "modulesValue": "۴۲ ماژول",
+      "systemUptime": "زمان فعالیت سیستم",
+      "performance": "عملکرد",
+      "performanceValue": "بهینه"
+    },
+    "metrics": {
+      "countries": "کشورها",
+      "departments": "دپارتمان‌ها",
+      "divisions": "بخش‌ها",
+      "guides": "راهنماها",
+      "systemUptime": "زمان فعالیت سیستم",
+      "activeModules": "ماژول‌های فعال"
+    },
+    "sections": {
+      "platformAnalytics": "تحلیل‌های پلتفرم",
+      "platformAnalyticsDesc": "معیارهای لحظه‌ای در تمام بخش‌ها",
+      "organizationalStructure": "ساختار سازمانی",
+      "organizationalStructureDesc": "دپارتمان‌ها، بخش‌ها و واحدهای عملیاتی",
+      "systemPerformance": "عملکرد سیستم",
+      "globalCompliance": "وضعیت انطباق جهانی",
+      "liveActivityFeed": "فید فعالیت زنده",
+      "godLayerActions": "اقدامات لایه خدا"
+    },
+    "toast": {
+      "unauthorized": "غیرمجاز",
+      "unauthorizedDescription": "شما خارج شده‌اید. در حال ورود مجدد..."
+    }
+  },
+  "performance": {
+    "title": "داشبورد عملکرد",
+    "subtitle": "نظارت لحظه‌ای سیستم و معیارها",
+    "timeRange": {
+      "5m": "۵ دقیقه اخیر",
+      "15m": "۱۵ دقیقه اخیر",
+      "1h": "۱ ساعت اخیر",
+      "6h": "۶ ساعت اخیر",
+      "24h": "۲۴ ساعت اخیر"
+    },
+    "cards": {
+      "cpuUsage": "مصرف CPU",
+      "memoryUsage": "مصرف حافظه",
+      "apiPerformance": "عملکرد API",
+      "database": "پایگاه داده",
+      "load": "بار",
+      "rpm": "درخواست در دقیقه",
+      "connections": "اتصالات",
+      "errors": "خطاها",
+      "activeConnections": "اتصالات فعال",
+      "cacheHitRate": "نرخ موفقیت کش"
+    },
+    "tabs": {
+      "system": "سیستم",
+      "api": "API",
+      "database": "پایگاه داده",
+      "realtime": "لحظه‌ای"
+    },
+    "charts": {
+      "cpuUsageOverTime": "مصرف CPU در طول زمان",
+      "memoryUsageTrend": "روند مصرف حافظه",
+      "requestRateResponseTime": "نرخ درخواست و زمان پاسخ",
+      "errorRate": "نرخ خطا",
+      "databasePerformance": "عملکرد پایگاه داده"
+    },
+    "websocket": {
+      "title": "اتصالات WebSocket",
+      "activeConnections": "اتصالات فعال",
+      "messagesPerSecond": "پیام در ثانیه"
+    },
+    "cache": {
+      "title": "عملکرد کش",
+      "hitRate": "نرخ موفقیت",
+      "keys": "کلیدها"
+    },
+    "alerts": {
+      "highCpu": "مصرف بالای CPU شناسایی شد:",
+      "highMemory": "مصرف بالای حافظه:",
+      "highErrorRate": "نرخ خطای API بالا:"
+    },
+    "toast": {
+      "connectionIssue": "مشکل اتصال",
+      "connectionIssueDescription": "به‌روزرسانی‌های لحظه‌ای ممکن است تأخیر داشته باشند"
+    }
+  },
+  "reports": {
+    "title": "گزارش‌ها و تحلیل‌ها",
+    "subtitle": "گزارش‌دهی جامع و مدیریت داده‌ها",
+    "buttons": {
+      "importData": "وارد کردن داده",
+      "exportAllData": "خروجی تمام داده‌ها",
+      "exporting": "در حال خروجی...",
+      "importing": "در حال ورود...",
+      "import": "ورود",
+      "cancel": "انصراف"
+    },
+    "tabs": {
+      "organization": "گزارش سازمان",
+      "department": "گزارش دپارتمان",
+      "division": "گزارش بخش"
+    },
+    "sections": {
+      "departmentStatistics": "آمار دپارتمان‌ها",
+      "divisionModuleCounts": "تعداد بخش‌ها و ماژول‌ها به تفکیک دپارتمان",
+      "systemHealthOverview": "نمای کلی سلامت سیستم",
+      "moduleHealthDistribution": "توزیع سلامت ماژول‌ها",
+      "complianceStatus": "وضعیت انطباق",
+      "complianceDescription": "انطباق با استانداردها در سراسر سازمان",
+      "healthStatistics": "آمار سلامت",
+      "moduleHealthDist": "توزیع سلامت ماژول"
+    },
+    "labels": {
+      "selectDepartment": "انتخاب دپارتمان",
+      "selectDepartmentDescription": "یک دپارتمان برای مشاهده گزارش دقیق انتخاب کنید",
+      "selectDivision": "انتخاب بخش",
+      "selectDivisionDescription": "یک بخش برای مشاهده گزارش دقیق انتخاب کنید",
+      "dataType": "نوع داده",
+      "jsonFile": "فایل JSON",
+      "totalModules": "کل ماژول‌ها",
+      "healthy": "سالم",
+      "warning": "هشدار",
+      "critical": "بحرانی",
+      "totalDivisions": "کل بخش‌ها",
+      "status": "وضعیت",
+      "divisions": "بخش‌ها",
+      "modules": "ماژول‌ها",
+      "subDivisions": "زیربخش‌ها",
+      "domains": "دامنه‌ها"
+    },
+    "import": {
+      "title": "وارد کردن داده",
+      "description": "یک فایل JSON برای ورود انبوه داده بارگذاری کنید",
+      "selectPlaceholder": "نوع داده را انتخاب کنید",
+      "departments": "دپارتمان‌ها",
+      "divisions": "بخش‌ها",
+      "subDivisions": "زیربخش‌ها",
+      "domains": "دامنه‌ها"
+    },
+    "toast": {
+      "exportSuccess": "موفقیت",
+      "exportSuccessDescription": "داده‌ها با موفقیت خروجی گرفته شد",
+      "exportError": "خطا",
+      "exportErrorDescription": "خطا در خروجی گرفتن داده‌ها",
+      "importSuccess": "موفقیت",
+      "importSuccessDescription": "داده‌ها با موفقیت وارد شد",
+      "importError": "خطا",
+      "importErrorDescription": "خطا در وارد کردن داده‌ها",
+      "invalidFileFormat": "فرمت فایل نامعتبر. لطفاً یک فایل JSON معتبر بارگذاری کنید."
+    }
+  },
+  "developer": {
+    "apiPolicies": {
+      "title": "سیاست‌های API",
+      "subtitle": "اطلاعات مهم درباره محدودیت نرخ و نسخه‌بندی API",
+      "tabs": {
+        "rateLimiting": "محدودیت نرخ",
+        "versioning": "نسخه‌بندی API"
+      },
+      "alerts": {
+        "rateLimitsApply": "محدودیت نرخ اعمال می‌شود",
+        "rateLimitsDescription": "تمام نقاط پایانی API مشمول محدودیت نرخ هستند تا ثبات پلتفرم و استفاده منصفانه تضمین شود.",
+        "apiVersioningStrategy": "استراتژی نسخه‌بندی API",
+        "apiVersioningDescription": "API ما از نسخه‌بندی بر اساس تاریخ استفاده می‌کند تا سازگاری به عقب را تضمین کند و در عین حال ویژگی‌های جدید را فعال کند.",
+        "needHigherLimits": "به محدودیت‌های بالاتر نیاز دارید؟",
+        "needHigherLimitsDescription": "اگر به محدودیت نرخ بالاتر نیاز دارید، لطفاً با تیم فروش ما برای بحث درباره گزینه‌های سازمانی تماس بگیرید."
+      },
+      "rateLimiting": {
+        "title": "سیاست محدودیت نرخ",
+        "description": "مولوچین محدودیت نرخ را برای محافظت از زیرساخت و تضمین استفاده منصفانه از منابع API اجرا می‌کند.",
+        "tiersTitle": "سطوح محدودیت نرخ",
+        "tiersDescription": "محدودیت نرخ بر اساس سطح حساب شما متفاوت است:",
+        "headersTitle": "هدرهای محدودیت نرخ",
+        "headersDescription": "تمام پاسخ‌های API شامل هدرهایی هستند که اطلاعاتی درباره وضعیت فعلی محدودیت نرخ شما ارائه می‌دهند:",
+        "handlingTitle": "مدیریت محدودیت نرخ",
+        "handlingDescription": "هنگامی که محدودیت نرخ تجاوز شود، API با کد وضعیت 429 Too Many Requests پاسخ می‌دهد.",
+        "bestPractices": "بهترین روش‌ها برای محدودیت نرخ"
+      },
+      "table": {
+        "tier": "سطح",
+        "rateLimit": "محدودیت نرخ",
+        "burstLimit": "محدودیت انفجاری",
+        "notes": "یادداشت‌ها",
+        "header": "هدر",
+        "description": "توضیحات",
+        "example": "مثال",
+        "version": "نسخه",
+        "releaseDate": "تاریخ انتشار",
+        "status": "وضعیت",
+        "endOfLife": "تاریخ پایان پشتیبانی"
+      },
+      "tiers": {
+        "developer": "توسعه‌دهنده",
+        "developerRate": "۶۰ درخواست/دقیقه",
+        "developerBurst": "۱۰۰ درخواست/دقیقه",
+        "developerNotes": "سطح رایگان برای توسعه و تست",
+        "basic": "پایه",
+        "basicRate": "۳۰۰ درخواست/دقیقه",
+        "basicBurst": "۵۰۰ درخواست/دقیقه",
+        "basicNotes": "برای کسب‌وکارهای کوچک تا متوسط",
+        "professional": "حرفه‌ای",
+        "professionalRate": "۱۰۰۰ درخواست/دقیقه",
+        "professionalBurst": "۱۵۰۰ درخواست/دقیقه",
+        "professionalNotes": "برای کسب‌وکارهای متوسط تا بزرگ",
+        "enterprise": "سازمانی",
+        "enterpriseRate": "+۵۰۰۰ درخواست/دقیقه",
+        "enterpriseBurst": "سفارشی",
+        "enterpriseNotes": "محدودیت‌های سفارشی و پشتیبانی اختصاصی"
+      }
+    }
+  },
+  "admin": {
+    "operations": {
+      "activity": {
+        "title": "نظارت بر فعالیت"
+      },
+      "communications": {
+        "title": "مرکز ارتباطات",
+        "subtitle": "مدیریت فرم‌های ارسالی و تنظیمات ایمیل",
+        "tabs": {
+          "dashboard": "داشبورد",
+          "submissions": "فرم‌های ارسالی",
+          "statistics": "آمار",
+          "templates": "قالب‌ها",
+          "settings": "تنظیمات",
+          "apiKeys": "کلیدهای API",
+          "templatesRecipients": "قالب‌ها و گیرندگان",
+          "emailSettings": "تنظیمات ایمیل"
+        },
+        "stats": {
+          "total": "کل",
+          "pending": "در انتظار",
+          "inReview": "در حال بررسی",
+          "responded": "پاسخ داده شده",
+          "closed": "بسته شده"
+        }
+      }
+    },
+    "landing": {
+      "badge": "مدیریت امن",
+      "title": "مولوچین",
+      "titleHighlight": "پورتال مدیریت",
+      "description": "مدیریت متمرکز سیستم برای پلتفرم مولوچین. نظارت، پیکربندی و کنترل تمام جنبه‌های اکوسیستم لجستیکی شما.",
+      "buttons": {
+        "signInSSO": "ورود با SSO",
+        "exploreFeatures": "کاوش ویژگی‌ها",
+        "accessPortal": "دسترسی به پورتال مدیریت"
+      },
+      "features": {
+        "sectionTitle": "ابزارهای قدرتمند مدیریت",
+        "sectionSubtitle": "همه چیزی که برای مدیریت و نظارت بر پلتفرم مولوچین نیاز دارید",
+        "systemMonitoring": {
+          "title": "نظارت بر سیستم",
+          "description": "نظارت لحظه‌ای بر تمام اجزای سیستم، معیارهای عملکرد و وضعیت سلامت در سراسر پلتفرم."
+        },
+        "userManagement": {
+          "title": "مدیریت کاربران",
+          "description": "مدیریت جامع کاربران با کنترل دسترسی مبتنی بر نقش، مدیریت مجوزها و ردیابی فعالیت."
+        },
+        "securityControls": {
+          "title": "کنترل‌های امنیتی",
+          "description": "ویژگی‌های امنیتی پیشرفته شامل سیاست‌های احراز هویت، لاگ‌های حسابرسی و سیستم‌های تشخیص تهدید."
+        },
+        "analyticsDashboard": {
+          "title": "داشبورد تحلیل‌ها",
+          "description": "ابزارهای قدرتمند تحلیل و گزارش‌دهی برای کسب بینش در استفاده از پلتفرم، روندها و معیارهای کسب‌وکار."
+        }
+      }
+    },
+    "settings": {
+      "title": "تنظیمات مدیریت",
+      "tabs": {
+        "storage": "ذخیره‌سازی",
+        "security": "امنیت",
+        "database": "پایگاه داده",
+        "users": "کاربران",
+        "system": "سیستم"
+      }
+    },
+    "security": {
+      "activity": {
+        "title": "داشبورد فعالیت مدیریت",
+        "description": "نظارت و تحلیل اقدامات مدیران و رویدادهای سیستم"
+      },
+      "identity": {
+        "title": "مدیریت هویت و امنیت",
+        "description": "کنترل متمرکز برای احراز هویت، مجوزدهی و سیاست‌های امنیتی",
+        "tabs": {
+          "dashboard": "داشبورد",
+          "users": "کاربران",
+          "roles": "نقش‌ها",
+          "policies": "سیاست‌ها",
+          "audit": "حسابرسی",
+          "analytics": "تحلیل‌ها"
+        }
+      },
+      "settings": {
+        "title": "تنظیمات امنیتی"
+      }
+    },
+    "management": {
+      "pageModule": {
+        "title": "مدیریت صفحات و ماژول‌ها",
+        "subtitle": "مدیریت صفحات، ماژول‌ها و ویژگی‌های برنامه"
+      },
+      "users": {
+        "title": "مدیریت کاربران",
+        "stats": {
+          "totalUsers": "کل کاربران",
+          "activeUsers": "کاربران فعال",
+          "adminUsers": "کاربران مدیر",
+          "recentLogins": "ورودهای اخیر"
+        }
+      }
+    },
+    "content": {
+      "branding": {
+        "title": "مدیریت برند",
+        "description": "تنظیمات برند و تم پلتفرم را سفارشی کنید"
+      }
+    }
+  },
+  "caseStudies": {
+    "badge": "نتایج واقعی، تأثیر واقعی",
+    "title": "داستان‌های موفقیت مشتریان",
+    "description": "کشف کنید چگونه مولوچین عملیات لجستیکی را برای کسب‌وکارها در سراسر جهان متحول کرده است. از بهینه‌سازی حمل و نقل جهانی تا تکمیل سفارشات تجارت الکترونیک، تأثیر قابل اندازه‌گیری را که برای مشتریانمان ایجاد کرده‌ایم ببینید.",
+    "features": {
+      "verified": "نتایج تأیید شده",
+      "roi": "بازگشت سرمایه قابل اندازه‌گیری",
+      "global": "تأثیر جهانی"
+    },
+    "stats": {
+      "successStories": "داستان‌های موفقیت",
+      "industriesServed": "صنایع سرویس‌دهی شده",
+      "clientSatisfaction": "رضایت مشتری",
+      "countriesCovered": "کشورهای تحت پوشش"
+    },
+    "filter": {
+      "label": "فیلتر:",
+      "byIndustry": "فیلتر بر اساس صنعت",
+      "allIndustries": "همه صنایع",
+      "selectIndustry": "انتخاب صنعت"
+    },
+    "sections": {
+      "allCaseStudies": "تمام موردپژوهی‌ها",
+      "browseCaseStudies": "مجموعه داستان‌های موفقیت ما را در صنایع مختلف مرور کنید",
+      "featuredCaseStudy": "موردپژوهی ویژه"
+    },
+    "cta": {
+      "title": "آماده نوشتن داستان موفقیت خود هستید؟",
+      "description": "به صدها کسب‌وکار بپیوندید که عملیات لجستیکی خود را با مولوچین متحول کرده‌اند. بیایید درباره چگونگی کمک به شما برای دستیابی به نتایج مشابه صحبت کنیم.",
+      "contactSales": "تماس با فروش",
+      "requestDemo": "درخواست دمو"
+    },
+    "buttons": {
+      "viewCaseStudy": "مشاهده موردپژوهی",
+      "loadMore": "بارگذاری بیشتر"
+    },
+    "count": {
+      "story": "داستان",
+      "stories": "داستان"
+    }
+  },
+  "projects": {
+    "notFound": {
+      "title": "پروژه یافت نشد",
+      "description": "پروژه‌ای که به دنبال آن هستید وجود ندارد.",
+      "backToProjects": "بازگشت به پروژه‌ها"
+    },
+    "sections": {
+      "challenge": "چالش",
+      "solution": "راه‌حل",
+      "results": "نتایج",
+      "technologiesUsed": "فناوری‌های استفاده شده",
+      "testimonials": "نظرات مشتریان"
+    },
+    "metrics": {
+      "deliveryTime": "زمان تحویل",
+      "efficiency": "کارایی",
+      "coverage": "پوشش",
+      "carbonReduction": "کاهش کربن",
+      "temperatureAccuracy": "دقت دما",
+      "networkCoverage": "پوشش شبکه",
+      "throughput": "توان عملیاتی",
+      "waitTime": "زمان انتظار",
+      "staffEfficiency": "کارایی کارکنان",
+      "aiAccuracy": "دقت هوش مصنوعی",
+      "processAutomation": "اتوماسیون فرآیند",
+      "efficiencyGain": "افزایش کارایی",
+      "connectivity": "اتصال",
+      "performance": "عملکرد",
+      "capacity": "ظرفیت",
+      "automation": "اتوماسیون",
+      "sustainability": "پایداری",
+      "innovation": "نوآوری",
+      "impact": "تأثیر",
+      "adoption": "پذیرش"
+    },
+    "details": {
+      "client": "مشتری",
+      "location": "موقعیت",
+      "startDate": "تاریخ شروع",
+      "completionDate": "تاریخ اتمام"
+    },
+    "rating": {
+      "stars": "{{count}} ستاره"
+    }
+  },
+  "brandbook": {
+    "title": "کتاب برند",
+    "description": "راهنمای کامل برند و دارایی‌ها",
+    "version": "نسخه {{version}}",
+    "updated": "به‌روزرسانی {{date}}",
+    "sections": {
+      "colors": {
+        "title": "رنگ‌ها",
+        "description": "پالت رنگی برند با رنگ‌های اصلی، ثانویه و معنایی"
+      },
+      "typography": {
+        "title": "تایپوگرافی",
+        "description": "خانواده فونت‌ها، وزن‌ها و مشخصات مقیاس تایپ"
+      },
+      "logos": {
+        "title": "لوگوها",
+        "description": "انواع لوگو، راهنمای استفاده و دارایی‌های قابل دانلود"
+      },
+      "components": {
+        "title": "کامپوننت‌ها",
+        "description": "کتابخانه کامپوننت‌های UI با نمونه‌های زنده و قطعات کد",
+        "count": "بیش از ۲۰ کامپوننت"
+      },
+      "tokens": {
+        "title": "توکن‌های طراحی",
+        "description": "فاصله‌ها، شعاع گوشه، سایه‌ها و مقادیر انیمیشن"
+      },
+      "guidelines": {
+        "title": "راهنماها",
+        "description": "قوانین استفاده، بایدها و نبایدها و بهترین روش‌ها"
+      }
+    },
+    "buttons": {
+      "downloadBrandKit": "دانلود کیت برند",
+      "viewGuidelines": "مشاهده راهنماها"
+    },
+    "quickReference": {
+      "title": "مرجع سریع رنگ",
+      "description": "پالت رنگی اصلی مولوچین در یک نگاه"
+    },
+    "cards": {
+      "brandName": "نام برند",
+      "primaryColor": "رنگ اصلی",
+      "primaryFont": "فونت اصلی"
+    },
+    "counts": {
+      "colors": "{{count}} رنگ",
+      "typefaces": "{{count}} تایپ‌فیس",
+      "logoSets": "{{count}} مجموعه لوگو",
+      "tokens": "{{count}} توکن",
+      "guides": "{{count}} راهنما"
+    }
   }
 }

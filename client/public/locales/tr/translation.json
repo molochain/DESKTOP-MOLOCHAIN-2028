@@ -767,5 +767,1068 @@
   "terms": {
     "title": "Hizmet Şartları",
     "lastUpdated": "Son güncelleme: 19 Ocak 2025"
+  },
+  "ecosystem": {
+    "title": "Ekosistem Kontrol Paneli",
+    "globalControl": "Küresel Kontrol",
+    "subtitle": "180+ ülkede kurumsal düzeyde yönetim ve orkestrasyon",
+    "overview": "Ekosistem Genel Bakışı",
+    "overviewDescription": "Küresel MoloChain platformunda gerçek zamanlı metrikler",
+    "stats": {
+      "countries": "Ülkeler",
+      "departments": "Departmanlar",
+      "divisions": "Bölümler",
+      "systemHealth": "Sistem Sağlığı",
+      "activeServices": "Aktif Hizmetler",
+      "activeAlerts": "Aktif Uyarılar",
+      "live": "Canlı",
+      "realtimeStatus": "Gerçek Zamanlı Durum"
+    },
+    "sections": {
+      "organizationalStructure": "Organizasyon Yapısı",
+      "organizationalStructureDesc": "Departmanlar, bölümler ve operasyonel birimler",
+      "systemPerformance": "Sistem Performansı",
+      "globalCompliance": "Küresel Uyumluluk Durumu",
+      "liveActivityFeed": "Canlı Aktivite Akışı",
+      "godLayerActions": "GOD Katmanı İşlemleri",
+      "departmentDashboards": "Departman Panelleri"
+    },
+    "departments": {
+      "accounting": "Muhasebe",
+      "management": "Yönetim",
+      "technology": "Teknoloji",
+      "operations": "Operasyonlar",
+      "supplyChain": "Tedarik Zinciri",
+      "humanResources": "İnsan Kaynakları",
+      "legalRisk": "Hukuk ve Risk",
+      "marketing": "Pazarlama"
+    }
+  },
+  "careers": {
+    "badge": "Kariyer",
+    "title": "Küresel Ekibimize",
+    "titleHighlight": "Katılın",
+    "subtitle": "Küresel lojistiği devrimleştiren bir şirkette kariyerinizi inşa edin. Misyonumuza katılacak yetenekli bireyleri her zaman arıyoruz.",
+    "viewOpenPositions": "Açık Pozisyonları Görüntüle",
+    "whyWorkWithUs": "Neden Bizimle Çalışmalısınız",
+    "whyWorkWithUsDescription": "Sadece bir iş sunmuyoruz. İnovasyon, büyüme ve iş-yaşam dengesine değer veren bir ekibe katılın.",
+    "openPositions": "Açık Pozisyonlar",
+    "openPositionsDescription": "Mevcut ilanlarımızı keşfedin ve becerilerinize uygun rolü bulun.",
+    "searchPlaceholder": "Pozisyon ara...",
+    "allDepartments": "Tüm Departmanlar",
+    "applyNow": "Şimdi Başvur",
+    "noPositionsFound": "Pozisyon bulunamadı",
+    "noPositionsFoundDescription": "Arama veya filtre kriterlerinizi ayarlamayı deneyin.",
+    "benefits": {
+      "globalOpportunities": {
+        "title": "Küresel Fırsatlar",
+        "description": "150+ ülkedeki ekiplerle çalışın"
+      },
+      "careerGrowth": {
+        "title": "Kariyer Gelişimi",
+        "description": "Net ilerleme ve gelişim yolları"
+      },
+      "healthWellness": {
+        "title": "Sağlık ve Refah",
+        "description": "Kapsamlı sağlık ve refah programları"
+      },
+      "learningDevelopment": {
+        "title": "Öğrenme ve Gelişim",
+        "description": "Sürekli eğitim ve beceri geliştirme"
+      },
+      "teamCulture": {
+        "title": "Takım Kültürü",
+        "description": "İşbirlikçi ve kapsayıcı çalışma ortamı"
+      },
+      "recognition": {
+        "title": "Tanınma",
+        "description": "Performansa dayalı ödüller ve takdir"
+      }
+    },
+    "departments": {
+      "operations": "Operasyonlar",
+      "technology": "Teknoloji",
+      "sales": "Satış",
+      "analytics": "Analitik",
+      "customerService": "Müşteri Hizmetleri",
+      "compliance": "Uyumluluk"
+    },
+    "jobTypes": {
+      "fullTime": "Tam Zamanlı",
+      "partTime": "Yarı Zamanlı",
+      "contract": "Sözleşmeli",
+      "remote": "Uzaktan"
+    },
+    "positions": {
+      "seniorLogisticsCoordinator": {
+        "title": "Kıdemli Lojistik Koordinatörü",
+        "location": "İstanbul, Türkiye",
+        "description": "Lojistik operasyonlarını yönetin ve büyük müşteriler için küresel sevkiyatları koordine edin."
+      },
+      "fullStackDeveloper": {
+        "title": "Full Stack Geliştirici",
+        "location": "Uzaktan",
+        "description": "En son lojistik platformumuzu ve API'lerimizi oluşturun ve bakımını yapın."
+      },
+      "businessDevelopmentManager": {
+        "title": "İş Geliştirme Müdürü",
+        "location": "Dubai, BAE",
+        "description": "Müşteri tabanımızı genişletin ve stratejik ortaklıklar geliştirin."
+      },
+      "supplyChainAnalyst": {
+        "title": "Tedarik Zinciri Analisti",
+        "location": "Londra, İngiltere",
+        "description": "Tedarik zinciri verilerini analiz edin ve lojistik operasyonlarını optimize edin."
+      },
+      "customerSuccessManager": {
+        "title": "Müşteri Başarı Yöneticisi",
+        "location": "Rotterdam, Hollanda",
+        "description": "Müşteri memnuniyetini sağlayın ve kilit hesapları yönetin."
+      },
+      "customsSpecialist": {
+        "title": "Gümrük Uzmanı",
+        "location": "Şanghay, Çin",
+        "description": "Gümrük belgelerini yönetin ve mevzuat uyumluluğunu sağlayın."
+      }
+    },
+    "cta": {
+      "title": "Doğru Rolü Göremiyormusunuz?",
+      "description": "Her zaman olağanüstü yetenekleri arıyoruz. Özgeçmişinizi gönderin, gelecek fırsatlar için sizi akılda tutacağız.",
+      "contactUs": "Bize Ulaşın"
+    }
+  },
+  "success": {
+    "title": "Teşekkürler!",
+    "subtitle": "Mesajınız başarıyla gönderildi",
+    "whatHappensNext": "Bundan sonra ne olacak?",
+    "whatHappensNextDescription": "Ekibimiz mesajınızı inceleyecek ve en kısa sürede size geri dönecektir. 1-2 iş günü içinde sizden haber beklemelisiniz.",
+    "goToHomepage": "Ana Sayfaya Git",
+    "sendAnotherMessage": "Başka Mesaj Gönder"
+  },
+  "notFound": {
+    "title": "404 Sayfa Bulunamadı",
+    "description": "Aradığınız sayfa mevcut değil veya taşınmış.",
+    "goHome": "Ana Sayfaya Dön"
+  },
+  "settings": {
+    "title": "Sistem Ayarları",
+    "description": "API anahtarlarını, özellikleri ve sistem yapılandırmasını yönetin",
+    "tabs": {
+      "apiKeys": "API Anahtarları",
+      "features": "Özellikler",
+      "performance": "Performans"
+    },
+    "apiKeyManagement": {
+      "title": "API Anahtarı Yönetimi",
+      "description": "Üçüncü taraf hizmetler için API anahtarlarını yapılandırın. Bu anahtarları güvenli tutun ve asla herkese açık paylaşmayın.",
+      "apiKeyLabel": "API Anahtarı",
+      "placeholder": "API anahtarınızı girin",
+      "notConfiguredPlaceholder": "Yapılandırılmadı",
+      "lastUsed": "Son kullanım"
+    },
+    "apiKeys": {
+      "openai": {
+        "name": "OpenAI API Anahtarı",
+        "description": "Sohbet asistanları, içerik üretimi ve analitik dahil yapay zeka destekli özellikler için gerekli"
+      },
+      "stripe": {
+        "name": "Stripe Gizli Anahtarı",
+        "description": "Ödeme işleme, abonelikler ve fatura yönetimi için gerekli"
+      },
+      "instagram": {
+        "name": "Instagram Erişim Tokeni",
+        "description": "Instagram pazarlama özellikleri ve sosyal medya entegrasyonu için gerekli"
+      },
+      "googleMaps": {
+        "name": "Google Maps API Anahtarı",
+        "description": "Konum hizmetleri, rota optimizasyonu ve harita özellikleri için gerekli"
+      }
+    },
+    "badges": {
+      "required": "Gerekli",
+      "active": "Aktif",
+      "notConfigured": "Yapılandırılmadı"
+    },
+    "buttons": {
+      "edit": "Düzenle",
+      "cancel": "İptal",
+      "save": "Kaydet"
+    },
+    "featureConfiguration": {
+      "title": "Özellik Yapılandırması",
+      "description": "İhtiyaçlarınıza göre platform özelliklerini etkinleştirin veya devre dışı bırakın"
+    },
+    "features": {
+      "openAI": {
+        "name": "OpenAI",
+        "description": "Sohbet ve içerik üretimi dahil yapay zeka destekli özellikler"
+      },
+      "stripe": {
+        "name": "Stripe",
+        "description": "Ödeme işleme ve abonelik yönetimi"
+      },
+      "instagram": {
+        "name": "Instagram",
+        "description": "Instagram pazarlama ve sosyal medya entegrasyonu"
+      },
+      "googleMaps": {
+        "name": "Google Maps",
+        "description": "Konum hizmetleri ve harita özellikleri"
+      }
+    },
+    "performance": {
+      "title": "Performans Ayarları",
+      "description": "Sistem performansını izleyin ve optimize edin",
+      "cachePerformance": "Önbellek Performansı",
+      "hitRate": "İsabet Oranı",
+      "cacheEnabled": "Önbellek Etkin",
+      "optimizationLevel": "Optimizasyon Seviyesi",
+      "levels": {
+        "standard": "Standart",
+        "balanced": "Dengeli",
+        "performance": "Performans"
+      }
+    },
+    "alerts": {
+      "securityNotice": {
+        "title": "Güvenlik Uyarısı",
+        "description": "API anahtarları şifrelenerek güvenli bir şekilde saklanır. API anahtarlarınızı asla herkese açık depolarda veya istemci tarafı kodunda paylaşmayın."
+      },
+      "performanceTip": {
+        "title": "Performans İpucu",
+        "description": "Yanıt sürelerini iyileştirmek için önbelleği etkinleştirin. Mevcut önbellek isabet oranı {{hitRate}}%. Optimal performans için hedef %85'tir."
+      }
+    },
+    "toast": {
+      "success": "Başarılı",
+      "error": "Hata",
+      "apiKeyUpdated": "API anahtarı başarıyla güncellendi",
+      "apiKeyUpdateFailed": "API anahtarı güncellenemedi",
+      "apiKeyEmpty": "API anahtarı boş olamaz",
+      "featureUpdated": "Özellik başarıyla güncellendi"
+    }
+  },
+  "profile": {
+    "title": "Profilim",
+    "memberSince": "Üyelik tarihi",
+    "lastLogin": "Son giriş",
+    "accountDetails": {
+      "title": "Hesap Detayları",
+      "description": "Hesap bilgilerinizi ve tercihlerinizi yönetin"
+    },
+    "tabs": {
+      "profile": "Profil",
+      "security": "Güvenlik",
+      "preferences": "Tercihler",
+      "documents": "Belgeler"
+    },
+    "labels": {
+      "username": "Kullanıcı Adı",
+      "email": "E-posta Adresi",
+      "role": "Rol",
+      "accountStatus": "Hesap Durumu",
+      "active": "Aktif"
+    },
+    "buttons": {
+      "editProfile": "Profili Düzenle",
+      "changePassword": "Şifreyi Değiştir",
+      "viewHistory": "Geçmişi Görüntüle",
+      "configure": "Yapılandır",
+      "change": "Değiştir",
+      "uploadDocument": "Belge Yükle"
+    },
+    "security": {
+      "password": "Şifre",
+      "passwordLastChanged": "3 ay önce değiştirildi",
+      "twoFactorAuth": "İki Faktörlü Kimlik Doğrulama",
+      "loginHistory": "Giriş Geçmişi",
+      "loginHistoryDescription": "Son giriş denemelerini görüntüleyin"
+    },
+    "preferences": {
+      "notifications": "Bildirimler",
+      "enabled": "Etkin",
+      "disabled": "Devre Dışı",
+      "language": "Dil",
+      "theme": "Tema"
+    },
+    "documents": {
+      "noDocuments": "Belge Bulunmuyor",
+      "noDocumentsDescription": "Henüz herhangi bir belge yüklemediniz"
+    }
+  },
+  "dashboard": {
+    "title": "MoloChain'e Hoş Geldiniz",
+    "subtitle": "Küresel Lojistik Komuta Merkezi",
+    "loading": "Kontrol paneli yükleniyor...",
+    "header": {
+      "globalReach": "Küresel Erişim",
+      "countriesValue": "180+ Ülke",
+      "activeServices": "Aktif Hizmetler",
+      "modulesValue": "42 Modül",
+      "systemUptime": "Sistem Çalışma Süresi",
+      "performance": "Performans",
+      "performanceValue": "Optimal"
+    },
+    "metrics": {
+      "countries": "Ülkeler",
+      "departments": "Departmanlar",
+      "divisions": "Bölümler",
+      "guides": "REHBERLER",
+      "systemUptime": "Sistem Çalışma Süresi",
+      "activeModules": "Aktif Modüller"
+    },
+    "sections": {
+      "platformAnalytics": "Platform Analitiği",
+      "platformAnalyticsDesc": "Tüm bölümlerde gerçek zamanlı metrikler",
+      "organizationalStructure": "Organizasyon Yapısı",
+      "organizationalStructureDesc": "Departmanlar, bölümler ve operasyonel birimler",
+      "systemPerformance": "Sistem Performansı",
+      "globalCompliance": "Küresel Uyumluluk Durumu",
+      "liveActivityFeed": "Canlı Aktivite Akışı",
+      "godLayerActions": "GOD Katmanı İşlemleri"
+    },
+    "toast": {
+      "unauthorized": "Yetkisiz",
+      "unauthorizedDescription": "Oturumunuz kapatıldı. Tekrar giriş yapılıyor..."
+    }
+  },
+  "performance": {
+    "title": "Performans Paneli",
+    "subtitle": "Gerçek zamanlı sistem izleme ve metrikler",
+    "timeRange": {
+      "5m": "Son 5 dk",
+      "15m": "Son 15 dk",
+      "1h": "Son 1 saat",
+      "6h": "Son 6 saat",
+      "24h": "Son 24 saat"
+    },
+    "cards": {
+      "cpuUsage": "CPU Kullanımı",
+      "memoryUsage": "Bellek Kullanımı",
+      "apiPerformance": "API Performansı",
+      "database": "Veritabanı",
+      "load": "Yük",
+      "rpm": "istek/dk",
+      "connections": "bağlantı",
+      "errors": "hata",
+      "activeConnections": "aktif bağlantı",
+      "cacheHitRate": "Önbellek isabet oranı"
+    },
+    "tabs": {
+      "system": "Sistem",
+      "api": "API",
+      "database": "Veritabanı",
+      "realtime": "Gerçek Zamanlı"
+    },
+    "charts": {
+      "cpuUsageOverTime": "Zamana Göre CPU Kullanımı",
+      "memoryUsageTrend": "Bellek Kullanım Trendi",
+      "requestRateResponseTime": "İstek Oranı ve Yanıt Süresi",
+      "errorRate": "Hata Oranı",
+      "databasePerformance": "Veritabanı Performansı"
+    },
+    "websocket": {
+      "title": "WebSocket Bağlantıları",
+      "activeConnections": "Aktif Bağlantılar",
+      "messagesPerSecond": "Mesaj/Saniye"
+    },
+    "cache": {
+      "title": "Önbellek Performansı",
+      "hitRate": "İsabet Oranı",
+      "keys": "anahtar"
+    },
+    "alerts": {
+      "highCpu": "Yüksek CPU kullanımı tespit edildi:",
+      "highMemory": "Yüksek bellek kullanımı:",
+      "highErrorRate": "Yüksek API hata oranı:"
+    },
+    "toast": {
+      "connectionIssue": "Bağlantı Sorunu",
+      "connectionIssueDescription": "Gerçek zamanlı güncellemeler gecikebilir"
+    }
+  },
+  "reports": {
+    "title": "Raporlar ve Analitik",
+    "subtitle": "Kapsamlı raporlama ve veri yönetimi",
+    "buttons": {
+      "importData": "Veri İçe Aktar",
+      "exportAllData": "Tüm Verileri Dışa Aktar",
+      "exporting": "Dışa aktarılıyor...",
+      "importing": "İçe aktarılıyor...",
+      "import": "İçe Aktar",
+      "cancel": "İptal"
+    },
+    "tabs": {
+      "organization": "Organizasyon Raporu",
+      "department": "Departman Raporu",
+      "division": "Bölüm Raporu"
+    },
+    "sections": {
+      "departmentStatistics": "Departman İstatistikleri",
+      "divisionModuleCounts": "Departmana göre bölüm ve modül sayıları",
+      "systemHealthOverview": "Sistem Sağlığı Genel Bakışı",
+      "moduleHealthDistribution": "Modül sağlık dağılımı",
+      "complianceStatus": "Uyumluluk Durumu",
+      "complianceDescription": "Organizasyon genelinde standart uyumluluğu",
+      "healthStatistics": "Sağlık İstatistikleri",
+      "moduleHealthDist": "Modül Sağlık Dağılımı"
+    },
+    "labels": {
+      "selectDepartment": "Departman Seç",
+      "selectDepartmentDescription": "Ayrıntılı rapor görüntülemek için bir departman seçin",
+      "selectDivision": "Bölüm Seç",
+      "selectDivisionDescription": "Ayrıntılı rapor görüntülemek için bir bölüm seçin",
+      "dataType": "Veri Türü",
+      "jsonFile": "JSON Dosyası",
+      "totalModules": "Toplam Modül",
+      "healthy": "Sağlıklı",
+      "warning": "Uyarı",
+      "critical": "Kritik",
+      "totalDivisions": "Toplam Bölüm",
+      "status": "Durum",
+      "divisions": "Bölümler",
+      "modules": "Modüller",
+      "subDivisions": "Alt Bölümler",
+      "domains": "Alanlar"
+    },
+    "import": {
+      "title": "Veri İçe Aktar",
+      "description": "Toplu veri içe aktarmak için JSON dosyası yükleyin",
+      "selectPlaceholder": "Veri türü seçin",
+      "departments": "Departmanlar",
+      "divisions": "Bölümler",
+      "subDivisions": "Alt Bölümler",
+      "domains": "Alanlar"
+    },
+    "toast": {
+      "exportSuccess": "Başarılı",
+      "exportSuccessDescription": "Veriler başarıyla dışa aktarıldı",
+      "exportError": "Hata",
+      "exportErrorDescription": "Veriler dışa aktarılamadı",
+      "importSuccess": "Başarılı",
+      "importSuccessDescription": "Veriler başarıyla içe aktarıldı",
+      "importError": "Hata",
+      "importErrorDescription": "Veriler içe aktarılamadı",
+      "invalidFileFormat": "Geçersiz dosya formatı. Lütfen geçerli bir JSON dosyası yükleyin."
+    }
+  },
+  "developer": {
+    "apiPolicies": {
+      "title": "API Politikaları",
+      "subtitle": "Hız sınırlama ve API sürümleme hakkında önemli bilgiler",
+      "tabs": {
+        "rateLimiting": "Hız Sınırlama",
+        "versioning": "API Sürümleme"
+      },
+      "alerts": {
+        "rateLimitsApply": "Hız Sınırları Uygulanır",
+        "rateLimitsDescription": "Platform kararlılığını ve adil kullanımı sağlamak için tüm API uç noktaları hız sınırlamasına tabidir.",
+        "apiVersioningStrategy": "API Sürümleme Stratejisi",
+        "apiVersioningDescription": "API'miz, yeni özellikler sağlarken geriye dönük uyumluluğu garanti etmek için tarih tabanlı sürümleme kullanır.",
+        "needHigherLimits": "Daha Yüksek Limitler Mi Gerekiyor?",
+        "needHigherLimitsDescription": "Daha yüksek hız limitlerine ihtiyacınız varsa, Enterprise seçeneklerini görüşmek için satış ekibimizle iletişime geçin."
+      },
+      "rateLimiting": {
+        "title": "Hız Sınırlama Politikası",
+        "description": "MOLOCHAIN, altyapımızı korumak ve API kaynaklarımızın adil kullanımını sağlamak için hız sınırlama uygular. Hız sınırları uç nokta ve kimlik doğrulama bazında uygulanır.",
+        "tiersTitle": "Hız Sınırı Seviyeleri",
+        "tiersDescription": "Hız sınırları hesap seviyenize göre değişir:",
+        "headersTitle": "Hız Sınırı Başlıkları",
+        "headersDescription": "Tüm API yanıtları, mevcut hız sınırı durumunuz hakkında bilgi sağlayan başlıklar içerir:",
+        "handlingTitle": "Hız Sınırlarını Yönetme",
+        "handlingDescription": "Bir hız sınırı aşıldığında, API 429 Too Many Requests durum kodu ile yanıt verir. İstemciler uygun hata işleme ve geri çekilme stratejileri uygulamalıdır.",
+        "bestPractices": "Hız Sınırlama İçin En İyi Uygulamalar"
+      },
+      "table": {
+        "tier": "Seviye",
+        "rateLimit": "Hız Sınırı",
+        "burstLimit": "Ani Yük Sınırı",
+        "notes": "Notlar",
+        "header": "Başlık",
+        "description": "Açıklama",
+        "example": "Örnek",
+        "version": "Sürüm",
+        "releaseDate": "Yayın Tarihi",
+        "status": "Durum",
+        "endOfLife": "Kullanım Sonu Tarihi"
+      },
+      "tiers": {
+        "developer": "Geliştirici",
+        "developerRate": "60 istek/dakika",
+        "developerBurst": "100 istek/dakika",
+        "developerNotes": "Geliştirme ve test için ücretsiz seviye",
+        "basic": "Temel",
+        "basicRate": "300 istek/dakika",
+        "basicBurst": "500 istek/dakika",
+        "basicNotes": "Küçük-orta işletmeler için",
+        "professional": "Profesyonel",
+        "professionalRate": "1.000 istek/dakika",
+        "professionalBurst": "1.500 istek/dakika",
+        "professionalNotes": "Orta-büyük işletmeler için",
+        "enterprise": "Kurumsal",
+        "enterpriseRate": "5.000+ istek/dakika",
+        "enterpriseBurst": "7.500+ istek/dakika",
+        "enterpriseNotes": "Özel limitler mevcuttur"
+      },
+      "bestPractices": {
+        "do": "Yapın",
+        "dont": "Yapmayın",
+        "doList": {
+          "monitor": "Yanıt başlıkları aracılığıyla hız sınırı kullanımınızı izleyin",
+          "backoff": "Yeniden denemeler için üstel geri çekilme uygulayın",
+          "cache": "Uygun olduğunda yanıtları önbelleğe alın",
+          "batch": "Mümkün olduğunda istekleri gruplandırın",
+          "optimize": "API kullanım kalıplarınızı optimize edin"
+        },
+        "dontList": {
+          "retry": "Geri çekilme olmadan istekleri tekrar tekrar yeniden deneyin",
+          "ignore": "Hız sınırı başlıklarını görmezden gelin",
+          "duplicate": "Gereksiz yinelenen istekler yapın",
+          "share": "API kimlik bilgilerini birden fazla uygulama arasında paylaşın",
+          "scrape": "Gereksiz yere veri taraması yapmayın"
+        }
+      },
+      "codeExamples": {
+        "title": "Kod Örnekleri",
+        "handlingHeaders": "Hız Sınırı Başlıklarını Yönetme",
+        "handlingHeadersDesc": "Hız sınırı bilgilerini nasıl takip edeceğiniz ve yanıt vereceğiniz",
+        "exponentialBackoff": "Üstel Geri Çekilme Uygulama",
+        "exponentialBackoffDesc": "Hız sınırlı istekler için gelişmiş yeniden deneme stratejisi",
+        "specifyVersion": "API Sürümünü Belirleme",
+        "specifyVersionDesc": "Hangi API sürümünü kullanacağınızı belirtmenin farklı yöntemleri",
+        "copyCode": "Kodu kopyala"
+      },
+      "versioning": {
+        "title": "API Sürümleme",
+        "description": "MOLOCHAIN, API'mizdeki değişikliklerin mevcut entegrasyonları bozmamasını sağlamak için bir sürümleme stratejisi kullanır. Net kullanım dışı bırakma zaman çizelgeleri ile kararlı API sürümleri sağlıyoruz.",
+        "dateBasedTitle": "Tarih Tabanlı Sürümleme",
+        "dateBasedDescription": "YYYY-AA-GG formatında tarih tabanlı sürümleme kullanıyoruz. Bu yaklaşım şunları sağlar:",
+        "dateBasedBenefits": {
+          "release": "Mevcut entegrasyonları bozmadan yeni özellikler yayınlama",
+          "timeline": "API değişiklikleri için net bir zaman çizelgesi sağlama",
+          "select": "İstemcilerin belirli API davranışını seçmesine izin verme",
+          "support": "Birden fazla API sürümünü eşzamanlı destekleme"
+        },
+        "specifyingVersion": "API Sürümünü Belirleme",
+        "specifyDescription": "Aşağıdaki yöntemlerden biri ile hangi API sürümünü kullanacağınızı belirleyebilirsiniz:",
+        "headerRecommended": "HTTP Başlığı (Önerilir)",
+        "urlPath": "URL Yolu",
+        "acceptHeader": "Accept Başlığı",
+        "defaultVersion": "Varsayılan Sürüm",
+        "defaultVersionDescription": "Sürüm belirtilmezse, API en eski kullanımdan kaldırılmamış sürümü kullanacaktır. Ancak, her zaman açıkça bir sürüm belirtmenizi şiddetle tavsiye ederiz.",
+        "timelineTitle": "API Sürüm Zaman Çizelgesi",
+        "statusDefinitions": "Sürüm Durum Tanımları",
+        "statuses": {
+          "current": "Güncel",
+          "currentDesc": "Tüm yeni özelliklerle en son kararlı sürüm",
+          "maintained": "Bakımda",
+          "maintainedDesc": "Güvenlik güncellemeleriyle tam desteklenir ancak yeni özellik yok",
+          "deprecated": "Kullanım Dışı",
+          "deprecatedDesc": "Hala kullanılabilir ancak kaldırılması planlanıyor, geçiş önerilir",
+          "endOfLife": "Kullanım Sonu",
+          "endOfLifeDesc": "Artık mevcut değil"
+        }
+      }
+    },
+    "authGuide": {
+      "title": "API Kimlik Doğrulama Rehberi",
+      "subtitle": "MOLOCHAIN'in kimlik doğrulama sistemi ile API etkileşimlerinizi güvence altına alın",
+      "tabs": {
+        "overview": "Genel Bakış",
+        "authentication": "Kimlik Doğrulama",
+        "authorization": "Yetkilendirme",
+        "examples": "Kod Örnekleri",
+        "codeExamples": "Kod Örnekleri"
+      },
+      "overview": {
+        "title": "Kimlik Doğrulama Genel Bakışı",
+        "description": "MOLOCHAIN platformu, kullanıcı verilerini korumak ve yalnızca yetkili kullanıcıların hassas bilgilere erişmesini sağlamak için güvenli, çok katmanlı bir kimlik doğrulama sistemi kullanır.",
+        "methodsTitle": "Kimlik Doğrulama Yöntemleri",
+        "methodsDescription": "API'miz birden fazla kimlik doğrulama yöntemini destekler:",
+        "methods": {
+          "session": "Oturum Tabanlı Kimlik Doğrulama",
+          "sessionDesc": "Web uygulamaları için HTTP çerezleri kullanarak",
+          "jwt": "JWT Token Kimlik Doğrulama",
+          "jwtDesc": "Mobil uygulamalar ve harici entegrasyonlar için",
+          "twoFactor": "İki Faktörlü Kimlik Doğrulama (2FA)",
+          "twoFactorDesc": "İsteğe bağlı ek güvenlik katmanı",
+          "apiKey": "API Anahtarı Kimlik Doğrulama",
+          "apiKeyDesc": "Sunucudan sunucuya entegrasyonlar için"
+        }
+      },
+      "flow": {
+        "title": "Kimlik Doğrulama Akışı",
+        "description": "Korumalı kaynaklara erişmek için standart kimlik doğrulama süreci",
+        "step1": "Kullanıcı Kayıt veya Giriş",
+        "step1Desc": "Hesap oluşturun veya mevcut kimlik bilgileri ile kimlik doğrulayın",
+        "step2": "Kimlik Doğrulama Tokeni Al",
+        "step2Desc": "Başarılı kimlik doğrulama sonrası sunucu token veya oturum çerezi verir",
+        "step3": "İsteklere Token Ekle",
+        "step3Desc": "Sonraki API isteklerine token ekleyin",
+        "step4": "Token Doğrulama",
+        "step4Desc": "Sunucu her korumalı istek için tokeni doğrular",
+        "step5": "Token Yenileme (gerektiğinde)",
+        "step5Desc": "Oturumu sürdürmek için süresi dolan tokenleri yenileyin"
+      },
+      "security": {
+        "title": "Güvenlik Önerileri",
+        "description": "Güvenli kimlik doğrulama uygulamak için en iyi uygulamalar",
+        "https": "Tüm API istekleri için her zaman HTTPS kullanın",
+        "storeTokens": "Tokenleri güvenli bir şekilde saklayın (web uygulamaları için HttpOnly çerezleri)",
+        "refresh": "Süresi dolmadan önce token yenileme mekanizmaları uygulayın",
+        "twoFactor": "Hassas işlemler için 2FA'yı etkinleştirin",
+        "validate": "Tüm kullanıcı girişlerini sunucu tarafında doğrulayın",
+        "errorHandling": "Hassas bilgileri açığa çıkarmadan uygun hata işleme uygulayın"
+      },
+      "backToPortal": "Geliştirici Portalına Dön"
+    },
+    "websocket": {
+      "title": "WebSocket API Rehberi",
+      "subtitle": "Canlı güncellemeler ve bildirimler için gerçek zamanlı WebSocket API'lerimizle nasıl entegre olacağınızı öğrenin",
+      "tabs": {
+        "overview": "Genel Bakış",
+        "endpoints": "Uç Noktalar",
+        "authentication": "Kimlik Doğrulama",
+        "codeExamples": "Kod Örnekleri"
+      },
+      "sections": {
+        "introduction": "WebSocket'lere Giriş",
+        "introductionDescription": "WebSocket'ler, istemci ve sunucu arasında kalıcı bir bağlantı sağlayarak iki yönlü, gerçek zamanlı veri aktarımına olanak tanır.",
+        "keyBenefits": "Temel Avantajlar",
+        "whenToUse": "WebSocket'ler Ne Zaman Kullanılır",
+        "whenToUseDescription": "WebSocket'ler, gerçek zamanlı işlevsellik gerektiren uygulamalar için idealdir:"
+      },
+      "benefits": {
+        "realTimeUpdates": "Gerçek zamanlı güncellemeler",
+        "realTimeUpdatesDesc": "Yoklama olmadan anında bildirimler ve veri güncellemeleri alın",
+        "reducedLatency": "Azaltılmış gecikme",
+        "reducedLatencyDesc": "Kalıcı bağlantılarla iletişim yükünü en aza indirin",
+        "bidirectional": "Çift yönlü iletişim",
+        "bidirectionalDesc": "Etkileşimli özellikler ve gerçek zamanlı işbirliği sağlayın"
+      },
+      "useCases": {
+        "liveTracking": "Gönderi ve lojistik operasyonlarının canlı takibi",
+        "realTimeNotifications": "Gerçek zamanlı bildirimler ve uyarılar",
+        "collaborativeEditing": "İşbirlikçi düzenleme ve planlama",
+        "liveDashboards": "Canlı paneller ve izleme",
+        "chatMessaging": "Sohbet ve mesajlaşma özellikleri"
+      }
+    }
+  },
+  "admin": {
+    "operations": {
+      "activity": {
+        "title": "Aktivite İzleme"
+      },
+      "communications": {
+        "title": "İletişim Merkezi",
+        "subtitle": "Form gönderimlerini ve e-posta ayarlarını yönetin",
+        "tabs": {
+          "dashboard": "Kontrol Paneli",
+          "submissions": "Gönderimler",
+          "statistics": "İstatistikler",
+          "templates": "Şablonlar",
+          "settings": "Ayarlar",
+          "apiKeys": "API Anahtarları",
+          "templatesRecipients": "Şablonlar ve Alıcılar",
+          "emailSettings": "E-posta Ayarları"
+        },
+        "stats": {
+          "total": "Toplam",
+          "pending": "Beklemede",
+          "inReview": "İncelemede",
+          "responded": "Yanıtlandı",
+          "closed": "Kapatıldı"
+        },
+        "buttons": {
+          "saveSettings": "Ayarları Kaydet",
+          "testConnection": "Bağlantıyı Test Et",
+          "refresh": "Yenile",
+          "addTemplate": "Şablon Ekle",
+          "edit": "Düzenle",
+          "delete": "Sil",
+          "view": "Görüntüle",
+          "send": "Gönder"
+        }
+      },
+      "microservices": {
+        "title": "Mikroservis Kontrol Paneli",
+        "subtitle": "Docker mikroservisleri ve sistem sağlığının gerçek zamanlı izlemesi",
+        "stats": {
+          "total": "Toplam Servis",
+          "totalDesc": "İzlenen Docker konteynerleri",
+          "healthy": "Sağlıklı",
+          "unhealthy": "Sağlıksız",
+          "unhealthyDesc": "Dikkat gerektiriyor",
+          "healthPercentage": "Sağlık Yüzdesi",
+          "systemUptime": "Sistem Çalışma Süresi",
+          "healthScore": "%{{percentage}} sağlık puanı"
+        }
+      }
+    },
+    "content": {
+      "branding": {
+        "title": "Marka Yönetimi",
+        "description": "Platform markalaşma ve görsel kimliği yönetin",
+        "sections": {
+          "logoAndAssets": "Logo ve Varlıklar",
+          "logoAndAssetsDescription": "Birincil logo ve marka varlıklarınızı yükleyin ve yönetin",
+          "colorScheme": "Renk Şeması",
+          "colorSchemeDescription": "Platformunuzun renk şemasını ve görünümünü özelleştirin",
+          "typographySettings": "Tipografi Ayarları"
+        },
+        "labels": {
+          "primaryLogo": "Birincil Logo",
+          "primaryColor": "Birincil Marka Rengi",
+          "appearance": "Varsayılan Renk Modu",
+          "borderRadius": "Öğe Köşe Yarıçapı",
+          "uiVariant": "UI Varyantı",
+          "noLogo": "Logo yüklenmedi",
+          "noFavicon": "Favicon yok"
+        },
+        "options": {
+          "light": "Açık",
+          "dark": "Koyu",
+          "system": "Sistem",
+          "professional": "Profesyonel",
+          "tint": "Tonlu",
+          "vibrant": "Canlı"
+        },
+        "buttons": {
+          "uploadLogo": "Logo Yükle",
+          "uploadFavicon": "Favicon Yükle",
+          "applyTheme": "Temayı Uygula",
+          "resetToDefault": "Varsayılana Sıfırla"
+        }
+      }
+    },
+    "security": {
+      "activity": {
+        "title": "Yönetici Aktivite Paneli",
+        "description": "Yönetici eylemlerini ve sistem olaylarını izleyin ve analiz edin",
+        "cards": {
+          "totalActionsToday": "Bugünkü Toplam Eylem",
+          "activeAdmins": "Aktif Yöneticiler",
+          "actionTypes": "Eylem Türleri",
+          "errorRate": "Hata Oranı",
+          "actionsByType": "Türe Göre Eylemler",
+          "mostActiveAdmins": "En Aktif Yöneticiler",
+          "recentErrorActions": "Son Hata Eylemleri",
+          "recentActivityFeed": "Son Aktivite Akışı",
+          "auditLogs": "Denetim Günlükleri"
+        },
+        "status": {
+          "success": "Başarılı",
+          "error": "Hata",
+          "unknown": "Bilinmiyor",
+          "pending": "Beklemede",
+          "failure": "Başarısız"
+        },
+        "filters": {
+          "search": "Ara",
+          "searchPlaceholder": "Günlüklerde ara...",
+          "action": "Eylem",
+          "allActions": "Tüm eylemler",
+          "entityType": "Varlık Türü",
+          "allTypes": "Tüm türler",
+          "status": "Durum",
+          "all": "Tümü"
+        },
+        "buttons": {
+          "refresh": "Yenile",
+          "filter": "Filtrele",
+          "clearFilters": "Temizle",
+          "export": "Dışa Aktar"
+        }
+      },
+      "identity": {
+        "title": "Kimlik ve Güvenlik Yönetimi",
+        "description": "Kimlik doğrulama, yetkilendirme ve güvenlik politikaları için merkezi kontrol",
+        "tabs": {
+          "dashboard": "Kontrol Paneli",
+          "users": "Kullanıcılar",
+          "roles": "Roller",
+          "policies": "Politikalar",
+          "audit": "Denetim",
+          "analytics": "Analitik"
+        },
+        "sections": {
+          "userManagement": "Kullanıcı Yönetimi",
+          "roleManagement": "Rol Yönetimi",
+          "securityPolicies": "Güvenlik Politikaları",
+          "auditLogs": "Denetim Günlükleri",
+          "securityScore": "Güvenlik Puanı",
+          "activeThreats": "Aktif Tehditler"
+        },
+        "buttons": {
+          "refresh": "Yenile",
+          "generateReport": "Rapor Oluştur",
+          "addUser": "Kullanıcı Ekle",
+          "addRole": "Rol Ekle"
+        }
+      },
+      "settings": {
+        "title": "Güvenlik Ayarları",
+        "tabs": {
+          "settings": "Ayarlar",
+          "accessControl": "Erişim Kontrolü",
+          "auditLogs": "Denetim Günlükleri"
+        },
+        "sections": {
+          "authenticationSettings": "Kimlik Doğrulama Ayarları",
+          "authenticationSettingsDesc": "Kimlik doğrulama ve oturum güvenliğini yapılandırın",
+          "securityFeatures": "Güvenlik Özellikleri",
+          "securityFeaturesDesc": "Ek güvenlik ve izleme özellikleri"
+        },
+        "form": {
+          "requireTwoFactor": "İki Faktörlü Kimlik Doğrulamayı Zorunlu Kıl",
+          "requireTwoFactorDesc": "Tüm kullanıcıları 2FA etkinleştirmeye zorla",
+          "sessionTimeout": "Oturum Zaman Aşımı (dakika)",
+          "maxLoginAttempts": "Maksimum Giriş Denemesi",
+          "passwordMinLength": "Minimum Şifre Uzunluğu"
+        },
+        "buttons": {
+          "runSecurityScan": "Güvenlik Taraması Çalıştır",
+          "saveChanges": "Değişiklikleri Kaydet"
+        }
+      }
+    },
+    "management": {
+      "pageModule": {
+        "title": "Sayfa ve Modül Yönetimi",
+        "subtitle": "Uygulamanızın sayfalarını, modüllerini ve özelliklerini yönetin",
+        "stats": {
+          "totalModules": "Toplam Modül",
+          "acrossAllCategories": "Tüm kategorilerde",
+          "active": "Aktif",
+          "currentlyEnabled": "Şu anda etkin",
+          "protected": "Korumalı",
+          "requireAuth": "Kimlik doğrulama gerektirir",
+          "adminOnly": "Yalnızca Yönetici",
+          "adminModules": "Yönetici modülleri"
+        },
+        "table": {
+          "name": "Ad",
+          "type": "Tür",
+          "category": "Kategori",
+          "path": "Yol",
+          "status": "Durum",
+          "actions": "Eylemler"
+        },
+        "buttons": {
+          "addModule": "Modül Ekle",
+          "addPage": "Sayfa Ekle",
+          "edit": "Düzenle",
+          "delete": "Sil",
+          "save": "Kaydet",
+          "cancel": "İptal"
+        }
+      },
+      "users": {
+        "title": "Kullanıcı Yönetimi",
+        "stats": {
+          "totalUsers": "Toplam Kullanıcı",
+          "activeUsers": "Aktif Kullanıcılar",
+          "adminUsers": "Yönetici Kullanıcılar",
+          "recentLogins": "Son Girişler"
+        },
+        "tabs": {
+          "users": "Kullanıcılar",
+          "roles": "Roller",
+          "permissions": "İzinler",
+          "activity": "Aktivite"
+        },
+        "table": {
+          "user": "Kullanıcı",
+          "username": "Kullanıcı Adı",
+          "email": "E-posta",
+          "role": "Rol",
+          "permissions": "İzinler",
+          "status": "Durum",
+          "lastLogin": "Son Giriş",
+          "actions": "Eylemler"
+        },
+        "roles": {
+          "admin": "Yönetici",
+          "user": "Kullanıcı",
+          "moderator": "Moderatör",
+          "manager": "Müdür",
+          "analyst": "Analist"
+        },
+        "buttons": {
+          "addUser": "Kullanıcı Ekle",
+          "edit": "Düzenle",
+          "delete": "Sil",
+          "createUser": "Kullanıcı Oluştur",
+          "updateUser": "Kullanıcıyı Güncelle",
+          "cancel": "İptal"
+        },
+        "dialog": {
+          "createTitle": "Yeni Kullanıcı Oluştur",
+          "createDescription": "Belirtilen rol ve izinlerle sisteme yeni bir kullanıcı ekleyin.",
+          "editTitle": "Kullanıcıyı Düzenle",
+          "editDescription": "Kullanıcı bilgilerini, rolünü ve izinlerini güncelleyin."
+        }
+      }
+    },
+    "landing": {
+      "badge": "Güvenli Yönetim",
+      "title": "Molochain",
+      "titleHighlight": "Yönetim Portalı",
+      "description": "Molochain platformu için merkezi sistem yönetimi ve denetimi. Lojistik ekosisteminizin tüm yönlerini izleyin, yapılandırın ve kontrol edin.",
+      "buttons": {
+        "signInSSO": "SSO ile Giriş Yap",
+        "exploreFeatures": "Özellikleri Keşfedin",
+        "accessPortal": "Yönetim Portalına Eriş"
+      },
+      "features": {
+        "sectionTitle": "Güçlü Yönetim Araçları",
+        "sectionSubtitle": "Molochain platformunuzu yönetmek ve izlemek için ihtiyacınız olan her şey",
+        "systemMonitoring": {
+          "title": "Sistem İzleme",
+          "description": "Tüm sistem bileşenlerinin, performans metriklerinin ve tüm platformdaki sağlık durumunun gerçek zamanlı izlemesi."
+        },
+        "userManagement": {
+          "title": "Kullanıcı Yönetimi",
+          "description": "Rol tabanlı erişim kontrolü, izin yönetimi ve aktivite takibi ile kapsamlı kullanıcı yönetimi."
+        },
+        "securityControls": {
+          "title": "Güvenlik Kontrolleri",
+          "description": "Kimlik doğrulama politikaları, denetim günlükleri ve tehdit algılama sistemleri dahil gelişmiş güvenlik özellikleri."
+        },
+        "analyticsDashboard": {
+          "title": "Analitik Paneli",
+          "description": "Platform kullanımı, trendler ve iş metrikleri hakkında içgörüler kazanmak için güçlü analitik ve raporlama araçları."
+        }
+      },
+      "metrics": {
+        "uptime": "Çalışma Süresi SLA",
+        "responseTime": "Yanıt Süresi",
+        "securityMonitoring": "Güvenlik İzleme",
+        "configOptions": "Yapılandırma Seçenekleri"
+      },
+      "cta": {
+        "title": "Başlamaya Hazır Mısınız?",
+        "description": "Yönetim portalına erişmek için kurumsal kimlik bilgilerinizle giriş yapın."
+      }
+    },
+    "settings": {
+      "title": "Yönetim Ayarları",
+      "tabs": {
+        "storage": "Depolama",
+        "security": "Güvenlik",
+        "database": "Veritabanı",
+        "users": "Kullanıcılar",
+        "system": "Sistem"
+      },
+      "security": {
+        "title": "Güvenlik Ayarları",
+        "twoFactor": {
+          "title": "İki Faktörlü Kimlik Doğrulama",
+          "description": "Tüm yönetici hesapları için 2FA'yı zorunlu kıl"
+        }
+      }
+    }
+  },
+  "caseStudies": {
+    "title": "Başarı Hikayeleri",
+    "subtitle": "Dünyanın önde gelen şirketlerinin tedarik zincirlerini nasıl dönüştürdüklerini keşfedin",
+    "viewAll": "Tümünü Görüntüle",
+    "readMore": "Devamını Oku",
+    "challenge": "Zorluk",
+    "solution": "Çözüm",
+    "results": "Sonuçlar",
+    "industry": "Sektör",
+    "region": "Bölge",
+    "featured": "Öne Çıkan",
+    "categories": {
+      "all": "Tümü",
+      "ecommerce": "E-ticaret",
+      "manufacturing": "Üretim",
+      "retail": "Perakende",
+      "healthcare": "Sağlık",
+      "automotive": "Otomotiv",
+      "technology": "Teknoloji"
+    },
+    "metrics": {
+      "costReduction": "Maliyet Düşürme",
+      "timesSaved": "Zaman Tasarrufu",
+      "efficiency": "Verimlilik Artışı",
+      "satisfaction": "Müşteri Memnuniyeti"
+    }
+  },
+  "projects": {
+    "title": "Projeler",
+    "subtitle": "Küresel lojistik projelerimizi keşfedin",
+    "viewDetails": "Detayları Görüntüle",
+    "status": {
+      "active": "Aktif",
+      "completed": "Tamamlandı",
+      "planning": "Planlama",
+      "onHold": "Beklemede"
+    },
+    "categories": {
+      "infrastructure": "Altyapı",
+      "technology": "Teknoloji",
+      "sustainability": "Sürdürülebilirlik",
+      "expansion": "Genişleme"
+    },
+    "details": {
+      "overview": "Genel Bakış",
+      "timeline": "Zaman Çizelgesi",
+      "team": "Ekip",
+      "milestones": "Kilometre Taşları",
+      "updates": "Güncellemeler"
+    },
+    "filters": {
+      "all": "Tüm Projeler",
+      "byStatus": "Duruma Göre",
+      "byCategory": "Kategoriye Göre",
+      "byRegion": "Bölgeye Göre"
+    }
+  },
+  "brandbook": {
+    "title": "Marka Kılavuzu",
+    "subtitle": "MoloChain marka standartları ve kullanım kuralları",
+    "sections": {
+      "logo": "Logo Kullanımı",
+      "colors": "Renk Paleti",
+      "typography": "Tipografi",
+      "imagery": "Görsel Kullanımı",
+      "voice": "Marka Sesi",
+      "applications": "Uygulamalar"
+    },
+    "logo": {
+      "title": "Logo Kullanım Kuralları",
+      "description": "MoloChain logosunun doğru kullanımı için yönergeler",
+      "primary": "Birincil Logo",
+      "secondary": "İkincil Logo",
+      "icon": "Simge",
+      "clearSpace": "Boşluk Alanı",
+      "minimumSize": "Minimum Boyut",
+      "doNot": "Yapılmaması Gerekenler"
+    },
+    "colors": {
+      "title": "Renk Paleti",
+      "description": "Marka renk sistemimiz",
+      "primary": "Birincil Renkler",
+      "secondary": "İkincil Renkler",
+      "accent": "Vurgu Renkleri",
+      "neutral": "Nötr Renkler"
+    },
+    "typography": {
+      "title": "Tipografi",
+      "description": "Yazı tipi sistemi ve kullanım kuralları",
+      "headings": "Başlıklar",
+      "body": "Gövde Metni",
+      "captions": "Alt Yazılar"
+    },
+    "downloads": {
+      "title": "İndirmeler",
+      "logoPackage": "Logo Paketi",
+      "brandGuidelines": "Marka Kılavuzu PDF",
+      "colorSwatches": "Renk Örnekleri",
+      "templates": "Şablonlar"
+    }
   }
 }
