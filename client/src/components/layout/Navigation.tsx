@@ -270,10 +270,10 @@ const Navigation = () => {
           description: t('nav.mololinkDesc', 'Professional logistics network')
         },
         { 
-          href: "/ecosystem", 
-          label: t('nav.ecosystem', 'Ecosystem'),
+          href: "/departments", 
+          label: t('nav.departments', 'Departments'),
           icon: <Globe className="h-4 w-4" />,
-          description: t('nav.ecosystemDesc', 'Integrated platform ecosystem')
+          description: t('nav.departmentsDesc', 'Access department dashboards')
         },
         { 
           href: "/partners", 

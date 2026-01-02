@@ -49,7 +49,7 @@ const Footer = () => {
       title: t('footer.solutions.title'),
       links: [
         { href: "https://mololink.molochain.com", label: t('footer.solutions.mololink') },
-        { href: "/ecosystem", label: t('footer.solutions.ecosystem') },
+        { href: "/departments", label: t('footer.solutions.departments', 'Departments') },
         { href: "/partners", label: t('footer.solutions.partners') },
         { href: "/services", label: t('footer.solutions.allServices') }
       ]
