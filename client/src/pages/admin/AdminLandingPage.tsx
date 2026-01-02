@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
+import { useTranslation } from 'react-i18next';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -16,47 +17,49 @@ import {
   CheckCircle
 } from "lucide-react";
 
-const features = [
-  {
-    title: "System Monitoring",
-    description: "Real-time monitoring of all system components, performance metrics, and health status across the entire platform.",
-    icon: Activity,
-    color: "text-blue-500 dark:text-blue-400",
-    bgColor: "bg-blue-50 dark:bg-blue-900/20"
-  },
-  {
-    title: "User Management",
-    description: "Comprehensive user administration with role-based access control, permissions management, and activity tracking.",
-    icon: Users,
-    color: "text-green-500 dark:text-green-400",
-    bgColor: "bg-green-50 dark:bg-green-900/20"
-  },
-  {
-    title: "Security Controls",
-    description: "Advanced security features including authentication policies, audit logs, and threat detection systems.",
-    icon: Shield,
-    color: "text-red-500 dark:text-red-400",
-    bgColor: "bg-red-50 dark:bg-red-900/20"
-  },
-  {
-    title: "Analytics Dashboard",
-    description: "Powerful analytics and reporting tools to gain insights into platform usage, trends, and business metrics.",
-    icon: BarChart3,
-    color: "text-purple-500 dark:text-purple-400",
-    bgColor: "bg-purple-50 dark:bg-purple-900/20"
-  }
-];
-
-const capabilities = [
-  "Real-time system health monitoring",
-  "Role-based access control (RBAC)",
-  "Comprehensive audit logging",
-  "Performance analytics",
-  "Configuration management",
-  "Integration controls"
-];
-
 export default function AdminLandingPage() {
+  const { t } = useTranslation();
+  
+  const features = [
+    {
+      titleKey: "admin.landing.features.systemMonitoring.title",
+      descriptionKey: "admin.landing.features.systemMonitoring.description",
+      icon: Activity,
+      color: "text-blue-500 dark:text-blue-400",
+      bgColor: "bg-blue-50 dark:bg-blue-900/20"
+    },
+    {
+      titleKey: "admin.landing.features.userManagement.title",
+      descriptionKey: "admin.landing.features.userManagement.description",
+      icon: Users,
+      color: "text-green-500 dark:text-green-400",
+      bgColor: "bg-green-50 dark:bg-green-900/20"
+    },
+    {
+      titleKey: "admin.landing.features.securityControls.title",
+      descriptionKey: "admin.landing.features.securityControls.description",
+      icon: Shield,
+      color: "text-red-500 dark:text-red-400",
+      bgColor: "bg-red-50 dark:bg-red-900/20"
+    },
+    {
+      titleKey: "admin.landing.features.analyticsDashboard.title",
+      descriptionKey: "admin.landing.features.analyticsDashboard.description",
+      icon: BarChart3,
+      color: "text-purple-500 dark:text-purple-400",
+      bgColor: "bg-purple-50 dark:bg-purple-900/20"
+    }
+  ];
+
+  const capabilities = [
+    "admin.landing.capabilities.healthMonitoring",
+    "admin.landing.capabilities.rbac",
+    "admin.landing.capabilities.auditLogging",
+    "admin.landing.capabilities.performanceAnalytics",
+    "admin.landing.capabilities.configManagement",
+    "admin.landing.capabilities.integrationControls"
+  ];
+
   const handleLogin = () => {
     window.location.href = "/login";
   };
@@ -79,17 +82,16 @@ export default function AdminLandingPage() {
               data-testid="badge-admin-portal"
             >
               <Lock className="w-3 h-3 mr-2" />
-              Secure Administration
+              {t('admin.landing.badge')}
             </Badge>
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-              Molochain{" "}
-              <span className="text-primary">Admin Portal</span>
+              {t('admin.landing.title')}{" "}
+              <span className="text-primary">{t('admin.landing.titleHighlight')}</span>
             </h1>
             
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-              Centralized system administration and management for the Molochain platform. 
-              Monitor, configure, and control all aspects of your logistics ecosystem.
+              {t('admin.landing.description')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -100,7 +102,7 @@ export default function AdminLandingPage() {
                 data-testid="button-login-sso"
               >
                 <Lock className="w-5 h-5 mr-2" />
-                Sign In with SSO
+                {t('admin.landing.buttons.signInSSO')}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </div>
@@ -118,36 +120,36 @@ export default function AdminLandingPage() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Powerful Administration Tools
+              {t('admin.landing.features.sectionTitle')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Everything you need to manage and monitor your Molochain platform
+              {t('admin.landing.features.sectionSubtitle')}
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
               <motion.div
-                key={feature.title}
+                key={feature.titleKey}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 * index }}
               >
                 <Card 
                   className="h-full bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow"
-                  data-testid={`card-feature-${feature.title.toLowerCase().replace(/\s+/g, '-')}`}
+                  data-testid={`card-feature-${t(feature.titleKey).toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   <CardHeader>
                     <div className={`w-12 h-12 rounded-lg ${feature.bgColor} flex items-center justify-center mb-4`}>
                       <feature.icon className={`w-6 h-6 ${feature.color}`} />
                     </div>
                     <CardTitle className="text-xl text-gray-900 dark:text-white">
-                      {feature.title}
+                      {t(feature.titleKey)}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-gray-600 dark:text-gray-400">
-                      {feature.description}
+                      {t(feature.descriptionKey)}
                     </CardDescription>
                   </CardContent>
                 </Card>
@@ -167,18 +169,17 @@ export default function AdminLandingPage() {
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Complete Control at Your Fingertips
+                {t('admin.landing.capabilities.sectionTitle')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-                The Molochain Admin Portal provides administrators with comprehensive 
-                tools to manage every aspect of the platform efficiently and securely.
+                {t('admin.landing.capabilities.sectionDescription')}
               </p>
               
               <ul className="space-y-4">
-                {capabilities.map((capability, index) => (
+                {capabilities.map((capabilityKey, index) => (
                   <li key={index} className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-green-500 dark:text-green-400 flex-shrink-0" />
-                    <span className="text-gray-700 dark:text-gray-300">{capability}</span>
+                    <span className="text-gray-700 dark:text-gray-300">{t(capabilityKey)}</span>
                   </li>
                 ))}
               </ul>
@@ -194,7 +195,7 @@ export default function AdminLandingPage() {
                 <CardContent className="p-6 text-center">
                   <Server className="w-10 h-10 mx-auto mb-3 opacity-90" />
                   <div className="text-3xl font-bold mb-1">99.9%</div>
-                  <div className="text-sm opacity-90">Uptime SLA</div>
+                  <div className="text-sm opacity-90">{t('admin.landing.metrics.uptime')}</div>
                 </CardContent>
               </Card>
               
@@ -202,7 +203,7 @@ export default function AdminLandingPage() {
                 <CardContent className="p-6 text-center">
                   <Zap className="w-10 h-10 mx-auto mb-3 opacity-90" />
                   <div className="text-3xl font-bold mb-1">&lt;50ms</div>
-                  <div className="text-sm opacity-90">Response Time</div>
+                  <div className="text-sm opacity-90">{t('admin.landing.metrics.responseTime')}</div>
                 </CardContent>
               </Card>
               
@@ -210,7 +211,7 @@ export default function AdminLandingPage() {
                 <CardContent className="p-6 text-center">
                   <Shield className="w-10 h-10 mx-auto mb-3 opacity-90" />
                   <div className="text-3xl font-bold mb-1">24/7</div>
-                  <div className="text-sm opacity-90">Security Monitoring</div>
+                  <div className="text-sm opacity-90">{t('admin.landing.metrics.securityMonitoring')}</div>
                 </CardContent>
               </Card>
               
@@ -218,7 +219,7 @@ export default function AdminLandingPage() {
                 <CardContent className="p-6 text-center">
                   <Settings className="w-10 h-10 mx-auto mb-3 opacity-90" />
                   <div className="text-3xl font-bold mb-1">100+</div>
-                  <div className="text-sm opacity-90">Config Options</div>
+                  <div className="text-sm opacity-90">{t('admin.landing.metrics.configOptions')}</div>
                 </CardContent>
               </Card>
             </motion.div>
@@ -235,10 +236,10 @@ export default function AdminLandingPage() {
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Ready to Get Started?
+              {t('admin.landing.cta.title')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-              Sign in with your organizational credentials to access the admin portal.
+              {t('admin.landing.cta.description')}
             </p>
             <Button 
               size="lg" 
@@ -247,7 +248,7 @@ export default function AdminLandingPage() {
               data-testid="button-login-cta"
             >
               <Lock className="w-5 h-5 mr-2" />
-              Access Admin Portal
+              {t('admin.landing.buttons.accessPortal')}
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </motion.div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { Link } from "wouter";
 import { Clock, AlertTriangle, Info, Shield, Copy, Check, RefreshCw, Calendar } from "lucide-react";
 import {
@@ -24,6 +25,7 @@ import {
 import { getDocumentationApiUrl } from '@/lib/apiConfig';
 
 export default function APIPolicies() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("rate-limiting");
   const [copied, setCopied] = useState<string | null>(null);
 
@@ -152,122 +154,120 @@ fetch('/api/v2/shipments', {
     <div className="container py-12 px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold tracking-tight mb-4">API Policies</h1>
+          <h1 className="text-4xl font-bold tracking-tight mb-4">{t('developer.apiPolicies.title')}</h1>
           <p className="text-xl text-muted-foreground">
-            Important information about rate limiting and API versioning
+            {t('developer.apiPolicies.subtitle')}
           </p>
         </div>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-10">
           <TabsList className="grid grid-cols-2 w-[400px] mb-6">
-            <TabsTrigger value="rate-limiting">Rate Limiting</TabsTrigger>
-            <TabsTrigger value="versioning">API Versioning</TabsTrigger>
+            <TabsTrigger value="rate-limiting">{t('developer.apiPolicies.tabs.rateLimiting')}</TabsTrigger>
+            <TabsTrigger value="versioning">{t('developer.apiPolicies.tabs.versioning')}</TabsTrigger>
           </TabsList>
           
           <TabsContent value="rate-limiting">
             <div className="space-y-8">
               <Alert>
                 <AlertTriangle className="h-4 w-4" />
-                <AlertTitle>Rate Limits Apply</AlertTitle>
+                <AlertTitle>{t('developer.apiPolicies.alerts.rateLimitsApply')}</AlertTitle>
                 <AlertDescription>
-                  All API endpoints are subject to rate limiting to ensure platform stability and fair usage.
+                  {t('developer.apiPolicies.alerts.rateLimitsDescription')}
                 </AlertDescription>
               </Alert>
               
               <div className="prose max-w-none dark:prose-invert">
-                <h2>Rate Limiting Policy</h2>
+                <h2>{t('developer.apiPolicies.rateLimiting.title')}</h2>
                 <p>
-                  MOLOCHAIN implements rate limiting to protect our infrastructure and ensure fair usage
-                  of our API resources. Rate limits are applied on a per-endpoint and per-authentication basis.
+                  {t('developer.apiPolicies.rateLimiting.description')}
                 </p>
                 
-                <h3>Rate Limit Tiers</h3>
+                <h3>{t('developer.apiPolicies.rateLimiting.tiersTitle')}</h3>
                 <p>
-                  Rate limits vary based on your account tier:
+                  {t('developer.apiPolicies.rateLimiting.tiersDescription')}
                 </p>
               </div>
               
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Tier</TableHead>
-                    <TableHead>Rate Limit</TableHead>
-                    <TableHead>Burst Limit</TableHead>
-                    <TableHead>Notes</TableHead>
+                    <TableHead>{t('developer.apiPolicies.table.tier')}</TableHead>
+                    <TableHead>{t('developer.apiPolicies.table.rateLimit')}</TableHead>
+                    <TableHead>{t('developer.apiPolicies.table.burstLimit')}</TableHead>
+                    <TableHead>{t('developer.apiPolicies.table.notes')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>Developer</TableCell>
-                    <TableCell>60 requests/minute</TableCell>
-                    <TableCell>100 requests/minute</TableCell>
-                    <TableCell>Free tier for development and testing</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.developer')}</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.developerRate')}</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.developerBurst')}</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.developerNotes')}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Basic</TableCell>
-                    <TableCell>300 requests/minute</TableCell>
-                    <TableCell>500 requests/minute</TableCell>
-                    <TableCell>For small to medium businesses</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.basic')}</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.basicRate')}</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.basicBurst')}</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.basicNotes')}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Professional</TableCell>
-                    <TableCell>1,000 requests/minute</TableCell>
-                    <TableCell>1,500 requests/minute</TableCell>
-                    <TableCell>For medium to large businesses</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.professional')}</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.professionalRate')}</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.professionalBurst')}</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.professionalNotes')}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Enterprise</TableCell>
-                    <TableCell>5,000+ requests/minute</TableCell>
-                    <TableCell>7,500+ requests/minute</TableCell>
-                    <TableCell>Custom limits available</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.enterprise')}</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.enterpriseRate')}</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.enterpriseBurst')}</TableCell>
+                    <TableCell>{t('developer.apiPolicies.tiers.enterpriseNotes')}</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
               
               <div className="prose max-w-none dark:prose-invert">
-                <h3>Rate Limit Headers</h3>
+                <h3>{t('developer.apiPolicies.rateLimiting.headersTitle')}</h3>
                 <p>
-                  All API responses include headers that provide information about your current rate limit status:
+                  {t('developer.apiPolicies.rateLimiting.headersDescription')}
                 </p>
               </div>
               
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Header</TableHead>
-                    <TableHead>Description</TableHead>
-                    <TableHead>Example</TableHead>
+                    <TableHead>{t('developer.apiPolicies.table.header')}</TableHead>
+                    <TableHead>{t('developer.apiPolicies.table.description')}</TableHead>
+                    <TableHead>{t('developer.apiPolicies.table.example')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
                     <TableCell className="font-mono text-xs">X-RateLimit-Limit</TableCell>
-                    <TableCell>The maximum number of requests allowed in the current time window</TableCell>
+                    <TableCell>{t('developer.apiPolicies.headers.rateLimitLimit')}</TableCell>
                     <TableCell className="font-mono text-xs">1000</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-mono text-xs">X-RateLimit-Remaining</TableCell>
-                    <TableCell>The number of requests remaining in the current time window</TableCell>
+                    <TableCell>{t('developer.apiPolicies.headers.rateLimitRemaining')}</TableCell>
                     <TableCell className="font-mono text-xs">985</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-mono text-xs">X-RateLimit-Reset</TableCell>
-                    <TableCell>The Unix timestamp when the rate limit resets</TableCell>
+                    <TableCell>{t('developer.apiPolicies.headers.rateLimitReset')}</TableCell>
                     <TableCell className="font-mono text-xs">1635789654</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-mono text-xs">Retry-After</TableCell>
-                    <TableCell>The number of seconds to wait before retrying (only present when rate limited)</TableCell>
+                    <TableCell>{t('developer.apiPolicies.headers.retryAfter')}</TableCell>
                     <TableCell className="font-mono text-xs">30</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
               
               <div className="prose max-w-none dark:prose-invert">
-                <h3>Handling Rate Limits</h3>
+                <h3>{t('developer.apiPolicies.rateLimiting.handlingTitle')}</h3>
                 <p>
-                  When a rate limit is exceeded, the API will respond with a 429 Too Many Requests status code.
-                  Clients should implement proper error handling and backoff strategies.
+                  {t('developer.apiPolicies.rateLimiting.handlingDescription')}
                 </p>
               </div>
               
@@ -275,29 +275,29 @@ fetch('/api/v2/shipments', {
                 <CardHeader>
                   <div className="flex items-center gap-2">
                     <Clock className="h-5 w-5 text-primary" />
-                    <CardTitle>Best Practices for Rate Limiting</CardTitle>
+                    <CardTitle>{t('developer.apiPolicies.rateLimiting.bestPractices')}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <h4 className="font-medium">Do</h4>
+                      <h4 className="font-medium">{t('developer.apiPolicies.bestPractices.do')}</h4>
                       <ul className="space-y-1 list-disc list-inside text-sm">
-                        <li>Monitor your rate limit usage via response headers</li>
-                        <li>Implement exponential backoff for retries</li>
-                        <li>Cache responses when appropriate</li>
-                        <li>Batch requests when possible</li>
-                        <li>Optimize your API usage patterns</li>
+                        <li>{t('developer.apiPolicies.bestPractices.doList.monitor')}</li>
+                        <li>{t('developer.apiPolicies.bestPractices.doList.backoff')}</li>
+                        <li>{t('developer.apiPolicies.bestPractices.doList.cache')}</li>
+                        <li>{t('developer.apiPolicies.bestPractices.doList.batch')}</li>
+                        <li>{t('developer.apiPolicies.bestPractices.doList.optimize')}</li>
                       </ul>
                     </div>
                     <div className="space-y-2">
-                      <h4 className="font-medium">Don't</h4>
+                      <h4 className="font-medium">{t('developer.apiPolicies.bestPractices.dont')}</h4>
                       <ul className="space-y-1 list-disc list-inside text-sm">
-                        <li>Repeatedly retry requests without backoff</li>
-                        <li>Ignore rate limit headers</li>
-                        <li>Make unnecessary duplicate requests</li>
-                        <li>Share API credentials across multiple applications</li>
-                        <li>Scrape data unnecessarily</li>
+                        <li>{t('developer.apiPolicies.bestPractices.dontList.retry')}</li>
+                        <li>{t('developer.apiPolicies.bestPractices.dontList.ignore')}</li>
+                        <li>{t('developer.apiPolicies.bestPractices.dontList.duplicate')}</li>
+                        <li>{t('developer.apiPolicies.bestPractices.dontList.share')}</li>
+                        <li>{t('developer.apiPolicies.bestPractices.dontList.scrape')}</li>
                       </ul>
                     </div>
                   </div>
@@ -305,13 +305,13 @@ fetch('/api/v2/shipments', {
               </Card>
               
               <div className="space-y-6">
-                <h3 className="text-xl font-bold">Code Examples</h3>
+                <h3 className="text-xl font-bold">{t('developer.apiPolicies.codeExamples.title')}</h3>
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Handling Rate Limit Headers</CardTitle>
+                    <CardTitle>{t('developer.apiPolicies.codeExamples.handlingHeaders')}</CardTitle>
                     <CardDescription>
-                      How to track and respond to rate limit information
+                      {t('developer.apiPolicies.codeExamples.handlingHeadersDesc')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -330,7 +330,7 @@ fetch('/api/v2/shipments', {
                         ) : (
                           <Copy className="h-4 w-4" />
                         )}
-                        <span className="sr-only">Copy code</span>
+                        <span className="sr-only">{t('developer.apiPolicies.codeExamples.copyCode')}</span>
                       </Button>
                     </div>
                   </CardContent>
@@ -338,9 +338,9 @@ fetch('/api/v2/shipments', {
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Implementing Exponential Backoff</CardTitle>
+                    <CardTitle>{t('developer.apiPolicies.codeExamples.exponentialBackoff')}</CardTitle>
                     <CardDescription>
-                      Advanced retry strategy for rate limited requests
+                      {t('developer.apiPolicies.codeExamples.exponentialBackoffDesc')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -359,7 +359,7 @@ fetch('/api/v2/shipments', {
                         ) : (
                           <Copy className="h-4 w-4" />
                         )}
-                        <span className="sr-only">Copy code</span>
+                        <span className="sr-only">{t('developer.apiPolicies.codeExamples.copyCode')}</span>
                       </Button>
                     </div>
                   </CardContent>
@@ -368,9 +368,9 @@ fetch('/api/v2/shipments', {
               
               <Alert>
                 <Info className="h-4 w-4" />
-                <AlertTitle>Need Higher Limits?</AlertTitle>
+                <AlertTitle>{t('developer.apiPolicies.alerts.needHigherLimits')}</AlertTitle>
                 <AlertDescription>
-                  If you need higher rate limits, please contact our sales team to discuss Enterprise options.
+                  {t('developer.apiPolicies.alerts.needHigherLimitsDescription')}
                 </AlertDescription>
               </Alert>
             </div>
@@ -380,28 +380,27 @@ fetch('/api/v2/shipments', {
             <div className="space-y-8">
               <Alert>
                 <Info className="h-4 w-4" />
-                <AlertTitle>API Versioning Strategy</AlertTitle>
+                <AlertTitle>{t('developer.apiPolicies.alerts.apiVersioningStrategy')}</AlertTitle>
                 <AlertDescription>
-                  Our API uses date-based versioning to ensure backward compatibility while enabling new features.
+                  {t('developer.apiPolicies.alerts.apiVersioningDescription')}
                 </AlertDescription>
               </Alert>
               
               <div className="prose max-w-none dark:prose-invert">
-                <h2>API Versioning</h2>
+                <h2>{t('developer.apiPolicies.versioning.title')}</h2>
                 <p>
-                  MOLOCHAIN uses a versioning strategy to ensure that changes to our API don't break existing
-                  integrations. We provide stable API versions with clear deprecation timelines.
+                  {t('developer.apiPolicies.versioning.description')}
                 </p>
                 
-                <h3>Date-Based Versioning</h3>
+                <h3>{t('developer.apiPolicies.versioning.dateBasedTitle')}</h3>
                 <p>
-                  We use date-based versioning in the format <code>YYYY-MM-DD</code>. This approach allows us to:
+                  {t('developer.apiPolicies.versioning.dateBasedDescription')}
                 </p>
                 <ul>
-                  <li>Release new features without breaking existing integrations</li>
-                  <li>Provide a clear timeline for API changes</li>
-                  <li>Allow clients to select specific API behavior</li>
-                  <li>Support multiple API versions simultaneously</li>
+                  <li>{t('developer.apiPolicies.versioning.dateBasedBenefits.release')}</li>
+                  <li>{t('developer.apiPolicies.versioning.dateBasedBenefits.timeline')}</li>
+                  <li>{t('developer.apiPolicies.versioning.dateBasedBenefits.select')}</li>
+                  <li>{t('developer.apiPolicies.versioning.dateBasedBenefits.support')}</li>
                 </ul>
               </div>
               
@@ -409,20 +408,20 @@ fetch('/api/v2/shipments', {
                 <CardHeader>
                   <div className="flex items-center gap-2">
                     <Calendar className="h-5 w-5 text-primary" />
-                    <CardTitle>Specifying API Version</CardTitle>
+                    <CardTitle>{t('developer.apiPolicies.versioning.specifyingVersion')}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-sm">
-                    You can specify which API version to use through one of the following methods:
+                    {t('developer.apiPolicies.versioning.specifyDescription')}
                   </p>
                   
                   <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="header">
-                      <AccordionTrigger>HTTP Header (Recommended)</AccordionTrigger>
+                      <AccordionTrigger>{t('developer.apiPolicies.versioning.headerRecommended')}</AccordionTrigger>
                       <AccordionContent>
                         <p className="text-sm mb-2">
-                          Include the <code>X-API-Version</code> header in your request:
+                          {t('developer.apiPolicies.versioning.accordion.headerInstruction')}
                         </p>
                         <pre className="rounded-md bg-muted p-4 overflow-x-auto">
                           <code className="text-sm">X-API-Version: 2023-10-15</code>
@@ -431,25 +430,25 @@ fetch('/api/v2/shipments', {
                     </AccordionItem>
                     
                     <AccordionItem value="url">
-                      <AccordionTrigger>URL Path</AccordionTrigger>
+                      <AccordionTrigger>{t('developer.apiPolicies.versioning.urlPath')}</AccordionTrigger>
                       <AccordionContent>
                         <p className="text-sm mb-2">
-                          Include the major version number in the URL path:
+                          {t('developer.apiPolicies.versioning.accordion.urlInstruction')}
                         </p>
                         <pre className="rounded-md bg-muted p-4 overflow-x-auto">
                           <code className="text-sm">{getDocumentationApiUrl()}/v2/shipments</code>
                         </pre>
                         <p className="text-sm mt-2 text-muted-foreground">
-                          Note: URL versioning only supports major version numbers (v1, v2, etc.), not specific dates.
+                          {t('developer.apiPolicies.versioning.accordion.urlNote')}
                         </p>
                       </AccordionContent>
                     </AccordionItem>
                     
                     <AccordionItem value="accept">
-                      <AccordionTrigger>Accept Header</AccordionTrigger>
+                      <AccordionTrigger>{t('developer.apiPolicies.versioning.acceptHeader')}</AccordionTrigger>
                       <AccordionContent>
                         <p className="text-sm mb-2">
-                          Include the version in the Accept header:
+                          {t('developer.apiPolicies.versioning.accordion.acceptInstruction')}
                         </p>
                         <pre className="rounded-md bg-muted p-4 overflow-x-auto">
                           <code className="text-sm">Accept: application/json; version=2023-10-15</code>
@@ -459,25 +458,24 @@ fetch('/api/v2/shipments', {
                   </Accordion>
                   
                   <div className="bg-muted rounded-md p-4 mt-4">
-                    <p className="text-sm font-medium mb-1">Default Version</p>
+                    <p className="text-sm font-medium mb-1">{t('developer.apiPolicies.versioning.defaultVersion')}</p>
                     <p className="text-sm">
-                      If no version is specified, the API will use the oldest non-deprecated version. However, 
-                      we strongly recommend always specifying a version explicitly.
+                      {t('developer.apiPolicies.versioning.defaultVersionDescription')}
                     </p>
                   </div>
                 </CardContent>
               </Card>
               
               <div className="space-y-6">
-                <h3 className="text-xl font-bold">API Version Timeline</h3>
+                <h3 className="text-xl font-bold">{t('developer.apiPolicies.versioning.timelineTitle')}</h3>
                 
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Version</TableHead>
-                      <TableHead>Release Date</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>End-of-Life Date</TableHead>
+                      <TableHead>{t('developer.apiPolicies.table.version')}</TableHead>
+                      <TableHead>{t('developer.apiPolicies.table.releaseDate')}</TableHead>
+                      <TableHead>{t('developer.apiPolicies.table.status')}</TableHead>
+                      <TableHead>{t('developer.apiPolicies.table.endOfLife')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -485,7 +483,7 @@ fetch('/api/v2/shipments', {
                       <TableCell>2023-10-15</TableCell>
                       <TableCell>Oct 15, 2023</TableCell>
                       <TableCell>
-                        <Badge className="bg-green-500">Current</Badge>
+                        <Badge className="bg-green-500">{t('developer.apiPolicies.versioning.statuses.current')}</Badge>
                       </TableCell>
                       <TableCell>Oct 15, 2025</TableCell>
                     </TableRow>
@@ -493,7 +491,7 @@ fetch('/api/v2/shipments', {
                       <TableCell>2023-04-20</TableCell>
                       <TableCell>Apr 20, 2023</TableCell>
                       <TableCell>
-                        <Badge className="bg-yellow-500">Maintained</Badge>
+                        <Badge className="bg-yellow-500">{t('developer.apiPolicies.versioning.statuses.maintained')}</Badge>
                       </TableCell>
                       <TableCell>Apr 20, 2025</TableCell>
                     </TableRow>
@@ -501,7 +499,7 @@ fetch('/api/v2/shipments', {
                       <TableCell>2022-11-30</TableCell>
                       <TableCell>Nov 30, 2022</TableCell>
                       <TableCell>
-                        <Badge className="bg-yellow-500">Maintained</Badge>
+                        <Badge className="bg-yellow-500">{t('developer.apiPolicies.versioning.statuses.maintained')}</Badge>
                       </TableCell>
                       <TableCell>Nov 30, 2024</TableCell>
                     </TableRow>
@@ -509,7 +507,7 @@ fetch('/api/v2/shipments', {
                       <TableCell>2022-05-15</TableCell>
                       <TableCell>May 15, 2022</TableCell>
                       <TableCell>
-                        <Badge className="bg-orange-500">Deprecated</Badge>
+                        <Badge className="bg-orange-500">{t('developer.apiPolicies.versioning.statuses.deprecated')}</Badge>
                       </TableCell>
                       <TableCell>May 15, 2024</TableCell>
                     </TableRow>
@@ -517,7 +515,7 @@ fetch('/api/v2/shipments', {
                       <TableCell>2021-12-01</TableCell>
                       <TableCell>Dec 1, 2021</TableCell>
                       <TableCell>
-                        <Badge className="bg-red-500">End-of-Life</Badge>
+                        <Badge className="bg-red-500">{t('developer.apiPolicies.versioning.statuses.endOfLife')}</Badge>
                       </TableCell>
                       <TableCell>Dec 1, 2023</TableCell>
                     </TableRow>
@@ -525,46 +523,46 @@ fetch('/api/v2/shipments', {
                 </Table>
                 
                 <div className="bg-muted rounded-md p-4">
-                  <h4 className="font-medium mb-2">Version Status Definitions</h4>
+                  <h4 className="font-medium mb-2">{t('developer.apiPolicies.versioning.statusDefinitions')}</h4>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-center gap-2">
-                      <Badge className="bg-green-500">Current</Badge>
-                      <span>Latest stable version with all new features</span>
+                      <Badge className="bg-green-500">{t('developer.apiPolicies.versioning.statuses.current')}</Badge>
+                      <span>{t('developer.apiPolicies.versioning.statuses.currentDesc')}</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <Badge className="bg-yellow-500">Maintained</Badge>
-                      <span>Fully supported with security updates but no new features</span>
+                      <Badge className="bg-yellow-500">{t('developer.apiPolicies.versioning.statuses.maintained')}</Badge>
+                      <span>{t('developer.apiPolicies.versioning.statuses.maintainedDesc')}</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <Badge className="bg-orange-500">Deprecated</Badge>
-                      <span>Still available but planned for removal, migration recommended</span>
+                      <Badge className="bg-orange-500">{t('developer.apiPolicies.versioning.statuses.deprecated')}</Badge>
+                      <span>{t('developer.apiPolicies.versioning.statuses.deprecatedDesc')}</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <Badge className="bg-red-500">End-of-Life</Badge>
-                      <span>No longer supported or available</span>
+                      <Badge className="bg-red-500">{t('developer.apiPolicies.versioning.statuses.endOfLife')}</Badge>
+                      <span>{t('developer.apiPolicies.versioning.statuses.endOfLifeDesc')}</span>
                     </li>
                   </ul>
                 </div>
               </div>
               
               <div className="prose max-w-none dark:prose-invert">
-                <h3>Version Support Policy</h3>
+                <h3>{t('developer.apiPolicies.versioning.supportPolicy')}</h3>
                 <ul>
-                  <li>Each API version is supported for at least 24 months after its release</li>
-                  <li>Deprecated versions will continue to function but will receive only critical security updates</li>
-                  <li>We will provide at least 6 months notice before a version reaches end-of-life</li>
-                  <li>Breaking changes will only be introduced in new API versions</li>
+                  <li>{t('developer.apiPolicies.versioning.supportPolicyList.support24')}</li>
+                  <li>{t('developer.apiPolicies.versioning.supportPolicyList.deprecated')}</li>
+                  <li>{t('developer.apiPolicies.versioning.supportPolicyList.notice')}</li>
+                  <li>{t('developer.apiPolicies.versioning.supportPolicyList.breaking')}</li>
                 </ul>
               </div>
               
               <div className="space-y-6">
-                <h3 className="text-xl font-bold">Code Examples</h3>
+                <h3 className="text-xl font-bold">{t('developer.apiPolicies.codeExamples.title')}</h3>
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Specifying API Version in Code</CardTitle>
+                    <CardTitle>{t('developer.apiPolicies.codeExamples.specifyVersion')}</CardTitle>
                     <CardDescription>
-                      How to include version information in your API requests
+                      {t('developer.apiPolicies.codeExamples.specifyVersionDesc')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -583,7 +581,7 @@ fetch('/api/v2/shipments', {
                         ) : (
                           <Copy className="h-4 w-4" />
                         )}
-                        <span className="sr-only">Copy code</span>
+                        <span className="sr-only">{t('developer.apiPolicies.codeExamples.copyCode')}</span>
                       </Button>
                     </div>
                   </CardContent>
@@ -592,10 +590,9 @@ fetch('/api/v2/shipments', {
               
               <Alert variant="destructive">
                 <AlertTriangle className="h-4 w-4" />
-                <AlertTitle>Breaking Changes</AlertTitle>
+                <AlertTitle>{t('developer.apiPolicies.alerts.breakingChanges')}</AlertTitle>
                 <AlertDescription>
-                  Breaking changes will never be made to an existing API version after its release.
-                  When we need to make breaking changes, we will release a new API version and provide clear migration guides.
+                  {t('developer.apiPolicies.alerts.breakingChangesDescription')}
                 </AlertDescription>
               </Alert>
             </div>
@@ -605,43 +602,43 @@ fetch('/api/v2/shipments', {
         <Separator className="my-8" />
         
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold">Additional Resources</h2>
+          <h2 className="text-2xl font-bold">{t('developer.apiPolicies.resources.title')}</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Shield className="h-5 w-5 text-primary" />
-                  <CardTitle>Security Recommendations</CardTitle>
+                  <CardTitle>{t('developer.apiPolicies.resources.securityTitle')}</CardTitle>
                 </div>
                 <CardDescription>
-                  Best practices for secure API integration
+                  {t('developer.apiPolicies.resources.securityDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start">
                     <span className="mr-2 font-bold">•</span>
-                    <span>Always use HTTPS for all API requests</span>
+                    <span>{t('developer.apiPolicies.resources.securityList.https')}</span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 font-bold">•</span>
-                    <span>Store API keys and tokens securely, never in client-side code</span>
+                    <span>{t('developer.apiPolicies.resources.securityList.store')}</span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 font-bold">•</span>
-                    <span>Implement proper error handling for security-related errors</span>
+                    <span>{t('developer.apiPolicies.resources.securityList.errorHandling')}</span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 font-bold">•</span>
-                    <span>Rotate API keys regularly and when team members change</span>
+                    <span>{t('developer.apiPolicies.resources.securityList.rotate')}</span>
                   </li>
                 </ul>
               </CardContent>
               <CardFooter>
                 <Button variant="outline" asChild>
                   <Link href="/developer/security">
-                    View Security Guide
+                    {t('developer.apiPolicies.resources.viewSecurityGuide')}
                   </Link>
                 </Button>
               </CardFooter>
@@ -651,26 +648,25 @@ fetch('/api/v2/shipments', {
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <RefreshCw className="h-5 w-5 text-primary" />
-                  <CardTitle>Status & Uptime</CardTitle>
+                  <CardTitle>{t('developer.apiPolicies.resources.statusTitle')}</CardTitle>
                 </div>
                 <CardDescription>
-                  Current API status and historical uptime
+                  {t('developer.apiPolicies.resources.statusDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  <span className="font-medium">All Systems Operational</span>
+                  <span className="font-medium">{t('developer.apiPolicies.resources.allSystemsOperational')}</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Check our status page for real-time and historical system performance
-                  information, including planned maintenance windows.
+                  {t('developer.apiPolicies.resources.statusPageDesc')}
                 </p>
               </CardContent>
               <CardFooter>
                 <Button variant="outline" asChild>
                   <a href="https://status.molochain.com" target="_blank" rel="noopener noreferrer">
-                    View Status Page
+                    {t('developer.apiPolicies.resources.viewStatusPage')}
                   </a>
                 </Button>
               </CardFooter>
@@ -681,7 +677,7 @@ fetch('/api/v2/shipments', {
         <div className="mt-8 text-center">
           <Button asChild>
             <Link href="/developer">
-              Back to Developer Portal
+              {t('developer.apiPolicies.backToPortal')}
             </Link>
           </Button>
         </div>

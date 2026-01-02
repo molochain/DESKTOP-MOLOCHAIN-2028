@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from 'react-i18next';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -15,6 +16,7 @@ import { CaseStudiesGrid, FeaturedCaseStudy } from "@/components/services/CaseSt
 import { caseStudies, industries, getFeaturedCaseStudy } from "@/data/caseStudies";
 
 const CaseStudiesPage = () => {
+  const { t } = useTranslation();
   const [selectedIndustry, setSelectedIndustry] = useState<string>("All Industries");
   
   const featuredCaseStudy = getFeaturedCaseStudy();
@@ -29,10 +31,10 @@ const CaseStudiesPage = () => {
   }, [selectedIndustry]);
 
   const stats = [
-    { label: "Success Stories", value: "500+", icon: <Award className="w-5 h-5" /> },
-    { label: "Industries Served", value: "25+", icon: <Target className="w-5 h-5" /> },
-    { label: "Client Satisfaction", value: "98%", icon: <Users className="w-5 h-5" /> },
-    { label: "Countries Covered", value: "180+", icon: <Globe className="w-5 h-5" /> }
+    { label: t('caseStudies.stats.successStories'), value: "500+", icon: <Award className="w-5 h-5" /> },
+    { label: t('caseStudies.stats.industriesServed'), value: "25+", icon: <Target className="w-5 h-5" /> },
+    { label: t('caseStudies.stats.clientSatisfaction'), value: "98%", icon: <Users className="w-5 h-5" /> },
+    { label: t('caseStudies.stats.countriesCovered'), value: "180+", icon: <Globe className="w-5 h-5" /> }
   ];
 
   return (
@@ -50,34 +52,32 @@ const CaseStudiesPage = () => {
             </div>
             
             <Badge className="bg-amber-500 text-white border-0 mb-4">
-              Real Results, Real Impact
+              {t('caseStudies.badge')}
             </Badge>
             
             <h1 
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200"
               data-testid="heading-case-studies"
             >
-              Customer Success Stories
+              {t('caseStudies.title')}
             </h1>
             
             <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-8" data-testid="text-description">
-              Discover how MoloChain has transformed logistics operations for businesses worldwide. 
-              From global shipping optimization to e-commerce fulfillment, see the measurable 
-              impact we've delivered for our clients.
+              {t('caseStudies.description')}
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <div className="flex items-center gap-2 text-blue-200">
                 <CheckCircle2 className="w-5 h-5 text-green-400" />
-                <span>Verified Results</span>
+                <span>{t('caseStudies.features.verified')}</span>
               </div>
               <div className="flex items-center gap-2 text-blue-200">
                 <TrendingUp className="w-5 h-5 text-green-400" />
-                <span>Measurable ROI</span>
+                <span>{t('caseStudies.features.roi')}</span>
               </div>
               <div className="flex items-center gap-2 text-blue-200">
                 <Globe className="w-5 h-5 text-green-400" />
-                <span>Global Impact</span>
+                <span>{t('caseStudies.features.global')}</span>
               </div>
             </div>
           </div>
@@ -108,17 +108,17 @@ const CaseStudiesPage = () => {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              All Case Studies
+              {t('caseStudies.sections.allCaseStudies')}
             </h2>
             <p className="text-muted-foreground">
-              Browse our collection of success stories across industries
+              {t('caseStudies.sections.browseCaseStudies')}
             </p>
           </div>
           
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Filter className="w-5 h-5 text-gray-500" />
-              <span className="text-sm font-medium">Filter:</span>
+              <span className="text-sm font-medium">{t('caseStudies.filter.label')}</span>
             </div>
             <Select 
               value={selectedIndustry} 
@@ -128,7 +128,7 @@ const CaseStudiesPage = () => {
                 className="w-[220px]" 
                 data-testid="select-industry-filter"
               >
-                <SelectValue placeholder="Select industry" />
+                <SelectValue placeholder={t('caseStudies.filter.selectIndustry')} />
               </SelectTrigger>
               <SelectContent>
                 {industries.map((industry) => (
@@ -137,13 +137,13 @@ const CaseStudiesPage = () => {
                     value={industry}
                     data-testid={`option-industry-${industry.toLowerCase().replace(/\s+/g, '-')}`}
                   >
-                    {industry}
+                    {industry === "All Industries" ? t('caseStudies.filter.allIndustries') : industry}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
             <Badge variant="secondary" data-testid="badge-count">
-              {filteredCaseStudies.length} {filteredCaseStudies.length === 1 ? 'story' : 'stories'}
+              {filteredCaseStudies.length} {filteredCaseStudies.length === 1 ? t('caseStudies.count.story') : t('caseStudies.count.stories')}
             </Badge>
           </div>
         </div>
@@ -153,11 +153,10 @@ const CaseStudiesPage = () => {
         <div className="mt-16 py-12 border-t">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
-              Ready to Write Your Success Story?
+              {t('caseStudies.cta.title')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mb-8">
-              Join hundreds of businesses that have transformed their logistics operations 
-              with MoloChain. Let's discuss how we can help you achieve similar results.
+              {t('caseStudies.cta.description')}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button 
@@ -165,14 +164,14 @@ const CaseStudiesPage = () => {
                 className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
                 data-testid="button-contact-sales"
               >
-                Contact Sales
+                {t('caseStudies.cta.contactSales')}
               </Button>
               <Button 
                 size="lg" 
                 variant="outline"
                 data-testid="button-request-demo"
               >
-                Request Demo
+                {t('caseStudies.cta.requestDemo')}
               </Button>
             </div>
           </div>

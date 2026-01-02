@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocation } from "wouter";
 import { useMutation } from "@tanstack/react-query";
 import { fetchWithCsrf } from "@/lib/csrf";
+import { useTranslation } from "react-i18next";
 
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -28,28 +29,30 @@ import {
 import { Link } from "wouter";
 import { Loader2, ArrowLeft, KeyRound, ShieldCheck } from "lucide-react";
 
-// Password reset form schema
-const formSchema = z
-  .object({
-    password: z
-      .string()
-      .min(8, "Password must be at least 8 characters long")
-      .max(100, "Password cannot exceed 100 characters"),
-    confirmPassword: z.string().min(1, "Please confirm your password"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-  });
-
-type FormValues = z.infer<typeof formSchema>;
+type FormValues = {
+  password: string;
+  confirmPassword: string;
+};
 
 export default function ResetPassword() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const [token, setToken] = React.useState<string>("");
+  const { t } = useTranslation();
 
-  // Extract token from URL on component mount
+  const formSchema = z
+    .object({
+      password: z
+        .string()
+        .min(8, t("auth.resetPassword.validation.passwordMin"))
+        .max(100, t("auth.resetPassword.validation.passwordMax")),
+      confirmPassword: z.string().min(1, t("auth.resetPassword.validation.confirmRequired")),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t("auth.resetPassword.validation.passwordsMismatch"),
+      path: ["confirmPassword"],
+    });
+
   React.useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const tokenFromUrl = params.get("token");
@@ -57,14 +60,13 @@ export default function ResetPassword() {
       setToken(tokenFromUrl);
     } else {
       toast({
-        title: "Invalid reset link",
-        description: "The password reset link is invalid or expired.",
+        title: t("auth.resetPassword.toast.invalidLinkTitle"),
+        description: t("auth.resetPassword.toast.invalidLinkDescription"),
         variant: "destructive",
       });
     }
-  }, [toast]);
+  }, [toast, t]);
 
-  // Form definition
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -73,11 +75,10 @@ export default function ResetPassword() {
     },
   });
 
-  // Mutation for password reset
   const resetPasswordMutation = useMutation({
     mutationFn: async (values: FormValues) => {
       if (!token) {
-        throw new Error("Reset token is missing");
+        throw new Error(t("auth.resetPassword.toast.tokenMissing"));
       }
 
       const response = await fetchWithCsrf("/api/auth/reset-password", {
@@ -92,7 +93,7 @@ export default function ResetPassword() {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          errorData.message || "Failed to reset password"
+          errorData.message || t("auth.resetPassword.toast.resetFailed")
         );
       }
 
@@ -100,8 +101,8 @@ export default function ResetPassword() {
     },
     onSuccess: () => {
       toast({
-        title: "Password reset successful",
-        description: "Your password has been reset. You can now log in with your new password.",
+        title: t("auth.resetPassword.toast.successTitle"),
+        description: t("auth.resetPassword.toast.successDescription"),
       });
       setTimeout(() => {
         setLocation("/login");
@@ -109,14 +110,13 @@ export default function ResetPassword() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Failed to reset password",
+        title: t("auth.resetPassword.toast.failedTitle"),
         description: error.message,
         variant: "destructive",
       });
     },
   });
 
-  // Form submission handler
   const onSubmit = async (values: FormValues) => {
     try {
       await resetPasswordMutation.mutateAsync(values);
@@ -141,10 +141,10 @@ export default function ResetPassword() {
         <Card className="shadow-lg border-t-4 border-t-primary">
           <CardHeader className="space-y-2">
             <CardTitle className="text-2xl font-bold text-center">
-              Set New Password
+              {t("auth.resetPassword.title")}
             </CardTitle>
             <CardDescription className="text-center">
-              Create a new secure password for your account
+              {t("auth.resetPassword.description")}
             </CardDescription>
           </CardHeader>
           
@@ -158,11 +158,11 @@ export default function ResetPassword() {
                     <FormItem>
                       <FormLabel className="flex items-center gap-2">
                         <KeyRound className="h-4 w-4 text-muted-foreground" />
-                        New Password
+                        {t("auth.resetPassword.newPasswordLabel")}
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Enter your new password"
+                          placeholder={t("auth.resetPassword.newPasswordPlaceholder")}
                           type="password"
                           autoComplete="new-password"
                           disabled={resetPasswordMutation.isPending || !token}
@@ -182,11 +182,11 @@ export default function ResetPassword() {
                     <FormItem>
                       <FormLabel className="flex items-center gap-2">
                         <ShieldCheck className="h-4 w-4 text-muted-foreground" />
-                        Confirm Password
+                        {t("auth.resetPassword.confirmPasswordLabel")}
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Confirm your new password"
+                          placeholder={t("auth.resetPassword.confirmPasswordPlaceholder")}
                           type="password"
                           autoComplete="new-password"
                           disabled={resetPasswordMutation.isPending || !token}
@@ -208,12 +208,12 @@ export default function ResetPassword() {
                     {resetPasswordMutation.isPending ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        Setting New Password...
+                        {t("auth.resetPassword.settingButton")}
                       </>
                     ) : (
                       <>
                         <KeyRound className="h-4 w-4" />
-                        Set New Password
+                        {t("auth.resetPassword.submitButton")}
                       </>
                     )}
                   </Button>
@@ -226,14 +226,14 @@ export default function ResetPassword() {
             <div className="text-sm text-center">
               <Link href="/login" className="text-primary font-medium hover:underline transition-colors inline-flex items-center">
                 <ArrowLeft className="h-3.5 w-3.5 mr-1" />
-                Back to Login
+                {t("auth.resetPassword.backToLogin")}
               </Link>
             </div>
           </CardFooter>
         </Card>
         
         <div className="text-center text-sm text-muted-foreground">
-          <p>Protected by industry-leading security practices</p>
+          <p>{t("auth.resetPassword.securityNotice")}</p>
         </div>
       </div>
     </div>

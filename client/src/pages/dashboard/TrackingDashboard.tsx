@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -31,6 +32,7 @@ interface ShipmentData {
 }
 
 export default function TrackingDashboard() {
+  const { t } = useTranslation();
   const [trackingNumber, setTrackingNumber] = useState<string>('');
   const [activeTracking, setActiveTracking] = useState<string | null>(null);
   const { toast } = useToast();
@@ -52,8 +54,8 @@ export default function TrackingDashboard() {
     
     if (!trackingNumber || trackingNumber.trim().length < 3) {
       toast({
-        title: 'Invalid tracking number',
-        description: 'Please enter a valid tracking number',
+        title: t('tracking.toast.invalidNumber'),
+        description: t('tracking.toast.invalidNumberDescription'),
         variant: 'destructive',
       });
       return;
@@ -62,8 +64,8 @@ export default function TrackingDashboard() {
     setActiveTracking(trackingNumber.trim());
     
     toast({
-      title: 'Tracking activated',
-      description: `Looking up shipment ${trackingNumber}`,
+      title: t('tracking.toast.activated'),
+      description: t('tracking.toast.activatedDescription', { number: trackingNumber }),
       variant: 'default',
     });
   };
@@ -80,8 +82,8 @@ export default function TrackingDashboard() {
     setActiveTracking(example);
     
     toast({
-      title: 'Tracking activated',
-      description: `Looking up shipment ${example}`,
+      title: t('tracking.toast.activated'),
+      description: t('tracking.toast.activatedDescription', { number: example }),
       variant: 'default',
     });
   };
@@ -103,13 +105,13 @@ export default function TrackingDashboard() {
             className="text-center"
           >
             <Badge className="mb-4 px-4 py-1.5 bg-white/20 backdrop-blur-sm text-white border-white/30">
-              <MapPin className="w-4 h-4 mr-1" /> Real-Time Tracking
+              <MapPin className="w-4 h-4 mr-1" /> {t('tracking.badge')}
             </Badge>
             <h1 className="text-5xl md:text-6xl font-extrabold mb-4">
-              Shipment Tracking
+              {t('tracking.title')}
             </h1>
             <p className="text-xl opacity-90 max-w-3xl mx-auto">
-              Track your shipments in real-time with live updates and detailed timelines
+              {t('tracking.subtitle')}
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 max-w-2xl mx-auto">
@@ -120,8 +122,8 @@ export default function TrackingDashboard() {
                 className="bg-white/10 backdrop-blur-sm rounded-lg p-4"
               >
                 <Package className="w-6 h-6 mx-auto mb-2" />
-                <p className="text-2xl font-bold">10M+</p>
-                <p className="text-sm opacity-75">Packages Tracked</p>
+                <p className="text-2xl font-bold">{t('tracking.stats.packagesValue')}</p>
+                <p className="text-sm opacity-75">{t('tracking.stats.packagesTracked')}</p>
               </motion.div>
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -130,8 +132,8 @@ export default function TrackingDashboard() {
                 className="bg-white/10 backdrop-blur-sm rounded-lg p-4"
               >
                 <Clock className="w-6 h-6 mx-auto mb-2" />
-                <p className="text-2xl font-bold">&lt; 1s</p>
-                <p className="text-sm opacity-75">Update Time</p>
+                <p className="text-2xl font-bold">{t('tracking.stats.updateTimeValue')}</p>
+                <p className="text-sm opacity-75">{t('tracking.stats.updateTime')}</p>
               </motion.div>
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -140,8 +142,8 @@ export default function TrackingDashboard() {
                 className="bg-white/10 backdrop-blur-sm rounded-lg p-4"
               >
                 <Truck className="w-6 h-6 mx-auto mb-2" />
-                <p className="text-2xl font-bold">180+</p>
-                <p className="text-sm opacity-75">Countries</p>
+                <p className="text-2xl font-bold">{t('tracking.stats.countriesValue')}</p>
+                <p className="text-sm opacity-75">{t('tracking.stats.countries')}</p>
               </motion.div>
             </div>
           </motion.div>
@@ -160,10 +162,10 @@ export default function TrackingDashboard() {
               <CardHeader className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-700">
                 <CardTitle className="flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-yellow-500" />
-                  Enter Tracking Number
+                  {t('tracking.form.title')}
                 </CardTitle>
                 <CardDescription>
-                  Enter your MOLOCHAIN tracking number to get real-time updates on your shipment
+                  {t('tracking.form.description')}
                 </CardDescription>
               </CardHeader>
             <CardContent>
@@ -172,19 +174,19 @@ export default function TrackingDashboard() {
                   <Input
                     value={trackingNumber}
                     onChange={(e) => setTrackingNumber(e.target.value)}
-                    placeholder="e.g. MOLO-2024120901"
+                    placeholder={t('tracking.form.placeholder')}
                     className="w-full"
                     data-testid="input-tracking-number"
                   />
                 </div>
                 <Button type="submit" disabled={isLoading} data-testid="button-track">
                   <Search className="mr-2 h-4 w-4" />
-                  {isLoading ? 'Tracking...' : 'Track'}
+                  {isLoading ? t('tracking.form.tracking') : t('tracking.form.track')}
                 </Button>
               </form>
               
               <div className="mt-4">
-                <p className="text-sm text-muted-foreground mb-2">Try a real tracking number:</p>
+                <p className="text-sm text-muted-foreground mb-2">{t('tracking.form.tryExamples')}</p>
                 <div className="flex flex-wrap gap-2">
                   {exampleTrackingNumbers.map((example) => (
                     <Button
@@ -214,10 +216,9 @@ export default function TrackingDashboard() {
             <Reveal animation="fadeUp">
               <Alert variant="destructive" className="mb-6" data-testid="alert-tracking-error">
                 <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Tracking Not Found</AlertTitle>
+                <AlertTitle>{t('tracking.error.notFound')}</AlertTitle>
                 <AlertDescription>
-                  The tracking number "{activeTracking}" was not found in our system. 
-                  Please check the tracking number and try again.
+                  {t('tracking.error.notFoundDescription', { number: activeTracking })}
                 </AlertDescription>
               </Alert>
             </Reveal>
@@ -237,15 +238,15 @@ export default function TrackingDashboard() {
               </div>
 
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Detailed Tracking</h2>
+                <h2 className="text-xl font-semibold">{t('tracking.sections.detailedTracking')}</h2>
                 <TrackingStatusIndicator trackingNumber={activeTracking!} />
               </div>
               
               <Tabs defaultValue="timeline" className="w-full">
                 <TabsList className="grid grid-cols-3 w-full">
-                  <TabsTrigger value="timeline" data-testid="tab-timeline">Timeline</TabsTrigger>
-                  <TabsTrigger value="visual" data-testid="tab-visual">Visual Tracking</TabsTrigger>
-                  <TabsTrigger value="details" data-testid="tab-details">Details</TabsTrigger>
+                  <TabsTrigger value="timeline" data-testid="tab-timeline">{t('tracking.tabs.timeline')}</TabsTrigger>
+                  <TabsTrigger value="visual" data-testid="tab-visual">{t('tracking.tabs.visualTracking')}</TabsTrigger>
+                  <TabsTrigger value="details" data-testid="tab-details">{t('tracking.tabs.details')}</TabsTrigger>
                 </TabsList>
                 
                 <TabsContent value="timeline" className="mt-6">
@@ -267,9 +268,9 @@ export default function TrackingDashboard() {
                 <TabsContent value="details" className="mt-6">
                   <Card>
                     <CardHeader>
-                      <CardTitle>Shipment Details</CardTitle>
+                      <CardTitle>{t('tracking.sections.shipmentDetails')}</CardTitle>
                       <CardDescription>
-                        Comprehensive information about your shipment
+                        {t('tracking.sections.shipmentDetailsDescription')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -279,7 +280,7 @@ export default function TrackingDashboard() {
                         </div>
                         <div className="md:col-span-2">
                           <div className="border rounded-lg p-4">
-                            <h3 className="font-medium mb-4">Share Tracking</h3>
+                            <h3 className="font-medium mb-4">{t('tracking.sections.shareTracking')}</h3>
                             <TrackingQRCode trackingNumber={activeTracking!} />
                           </div>
                         </div>

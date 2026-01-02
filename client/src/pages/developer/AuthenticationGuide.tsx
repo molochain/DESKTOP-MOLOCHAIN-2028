@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { Link } from "wouter";
 import { Copy, Check, Key, User, LockKeyhole, RefreshCw, Shield, AlertCircle } from "lucide-react";
 import {
@@ -23,6 +24,7 @@ import {
 } from "@/components/ui/table";
 
 export default function AuthenticationGuide() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
   const [copied, setCopied] = useState<string | null>(null);
   
@@ -251,44 +253,43 @@ async function refreshToken() {
     <div className="container py-12 px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold tracking-tight mb-4">API Authentication Guide</h1>
+          <h1 className="text-4xl font-bold tracking-tight mb-4">{t('developer.authGuide.title')}</h1>
           <p className="text-xl text-muted-foreground">
-            Secure your API interactions with MOLOCHAIN's authentication system
+            {t('developer.authGuide.subtitle')}
           </p>
         </div>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
           <TabsList className="grid grid-cols-4 mb-8">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="authentication">Authentication</TabsTrigger>
-            <TabsTrigger value="authorization">Authorization</TabsTrigger>
-            <TabsTrigger value="examples">Code Examples</TabsTrigger>
+            <TabsTrigger value="overview">{t('developer.authGuide.tabs.overview')}</TabsTrigger>
+            <TabsTrigger value="authentication">{t('developer.authGuide.tabs.authentication')}</TabsTrigger>
+            <TabsTrigger value="authorization">{t('developer.authGuide.tabs.authorization')}</TabsTrigger>
+            <TabsTrigger value="examples">{t('developer.authGuide.tabs.codeExamples')}</TabsTrigger>
           </TabsList>
           
           <TabsContent value="overview">
             <div className="space-y-6">
               <Alert>
                 <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Authentication vs. Authorization</AlertTitle>
+                <AlertTitle>{t('developer.authGuide.alerts.authVsAuthz')}</AlertTitle>
                 <AlertDescription>
-                  Authentication verifies who you are, while authorization determines what you can access.
+                  {t('developer.authGuide.alerts.authVsAuthzDesc')}
                 </AlertDescription>
               </Alert>
               
               <div className="prose max-w-none dark:prose-invert">
-                <h2>Authentication Overview</h2>
+                <h2>{t('developer.authGuide.overview.title')}</h2>
                 <p>
-                  The MOLOCHAIN platform uses a secure, multi-layered authentication system to protect 
-                  user data and ensure that only authorized users can access sensitive information.
+                  {t('developer.authGuide.overview.description')}
                 </p>
                 
-                <h3>Authentication Methods</h3>
-                <p>Our API supports multiple authentication methods:</p>
+                <h3>{t('developer.authGuide.overview.methodsTitle')}</h3>
+                <p>{t('developer.authGuide.overview.methodsDescription')}</p>
                 <ul>
-                  <li><strong>Session-based Authentication:</strong> Using HTTP cookies for web applications</li>
-                  <li><strong>JWT Token Authentication:</strong> For mobile apps and external integrations</li>
-                  <li><strong>Two-Factor Authentication (2FA):</strong> Optional additional security layer</li>
-                  <li><strong>API Key Authentication:</strong> For server-to-server integrations</li>
+                  <li><strong>{t('developer.authGuide.overview.methods.session')}:</strong> {t('developer.authGuide.overview.methods.sessionDesc')}</li>
+                  <li><strong>{t('developer.authGuide.overview.methods.jwt')}:</strong> {t('developer.authGuide.overview.methods.jwtDesc')}</li>
+                  <li><strong>{t('developer.authGuide.overview.methods.twoFactor')}:</strong> {t('developer.authGuide.overview.methods.twoFactorDesc')}</li>
+                  <li><strong>{t('developer.authGuide.overview.methods.apiKey')}:</strong> {t('developer.authGuide.overview.methods.apiKeyDesc')}</li>
                 </ul>
               </div>
               
@@ -297,33 +298,33 @@ async function refreshToken() {
                   <CardHeader>
                     <div className="flex items-center gap-2">
                       <Key className="h-5 w-5 text-primary" />
-                      <CardTitle>Authentication Flow</CardTitle>
+                      <CardTitle>{t('developer.authGuide.flow.title')}</CardTitle>
                     </div>
                     <CardDescription>
-                      Standard authentication process for accessing protected resources
+                      {t('developer.authGuide.flow.description')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <ol className="space-y-2 list-decimal list-inside">
                       <li className="text-sm">
-                        <span className="font-medium">User Registration or Login</span>
-                        <p className="pl-5 text-muted-foreground">Create an account or authenticate with existing credentials</p>
+                        <span className="font-medium">{t('developer.authGuide.flow.step1')}</span>
+                        <p className="pl-5 text-muted-foreground">{t('developer.authGuide.flow.step1Desc')}</p>
                       </li>
                       <li className="text-sm">
-                        <span className="font-medium">Receive Authentication Token</span>
-                        <p className="pl-5 text-muted-foreground">Server issues a token or session cookie upon successful authentication</p>
+                        <span className="font-medium">{t('developer.authGuide.flow.step2')}</span>
+                        <p className="pl-5 text-muted-foreground">{t('developer.authGuide.flow.step2Desc')}</p>
                       </li>
                       <li className="text-sm">
-                        <span className="font-medium">Include Token in Requests</span>
-                        <p className="pl-5 text-muted-foreground">Attach token to subsequent API requests</p>
+                        <span className="font-medium">{t('developer.authGuide.flow.step3')}</span>
+                        <p className="pl-5 text-muted-foreground">{t('developer.authGuide.flow.step3Desc')}</p>
                       </li>
                       <li className="text-sm">
-                        <span className="font-medium">Token Validation</span>
-                        <p className="pl-5 text-muted-foreground">Server validates token for each protected request</p>
+                        <span className="font-medium">{t('developer.authGuide.flow.step4')}</span>
+                        <p className="pl-5 text-muted-foreground">{t('developer.authGuide.flow.step4Desc')}</p>
                       </li>
                       <li className="text-sm">
-                        <span className="font-medium">Token Refresh (when needed)</span>
-                        <p className="pl-5 text-muted-foreground">Refresh expired tokens to maintain session</p>
+                        <span className="font-medium">{t('developer.authGuide.flow.step5')}</span>
+                        <p className="pl-5 text-muted-foreground">{t('developer.authGuide.flow.step5Desc')}</p>
                       </li>
                     </ol>
                   </CardContent>
@@ -333,37 +334,37 @@ async function refreshToken() {
                   <CardHeader>
                     <div className="flex items-center gap-2">
                       <Shield className="h-5 w-5 text-primary" />
-                      <CardTitle>Security Recommendations</CardTitle>
+                      <CardTitle>{t('developer.authGuide.security.title')}</CardTitle>
                     </div>
                     <CardDescription>
-                      Best practices for implementing secure authentication
+                      {t('developer.authGuide.security.description')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <ul className="space-y-2">
                       <li className="text-sm flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Always use HTTPS for all API requests</span>
+                        <span>{t('developer.authGuide.security.https')}</span>
                       </li>
                       <li className="text-sm flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Store tokens securely (HttpOnly cookies for web apps)</span>
+                        <span>{t('developer.authGuide.security.storeTokens')}</span>
                       </li>
                       <li className="text-sm flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Implement token refresh mechanisms before expiration</span>
+                        <span>{t('developer.authGuide.security.refresh')}</span>
                       </li>
                       <li className="text-sm flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Enable 2FA for sensitive operations</span>
+                        <span>{t('developer.authGuide.security.twoFactor')}</span>
                       </li>
                       <li className="text-sm flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Validate all user inputs server-side</span>
+                        <span>{t('developer.authGuide.security.validate')}</span>
                       </li>
                       <li className="text-sm flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Implement proper error handling without exposing sensitive info</span>
+                        <span>{t('developer.authGuide.security.errorHandling')}</span>
                       </li>
                     </ul>
                   </CardContent>
@@ -375,10 +376,9 @@ async function refreshToken() {
           <TabsContent value="authentication">
             <div className="space-y-8">
               <div className="prose max-w-none dark:prose-invert">
-                <h2>Authentication Endpoints</h2>
+                <h2>{t('developer.authGuide.endpoints.title')}</h2>
                 <p>
-                  The following endpoints are used for user authentication in the MOLOCHAIN platform.
-                  All authentication requests should be sent with Content-Type: application/json.
+                  {t('developer.authGuide.endpoints.description')}
                 </p>
               </div>
               
@@ -386,10 +386,10 @@ async function refreshToken() {
                 <CardHeader>
                   <div className="flex items-center gap-2">
                     <User className="h-5 w-5 text-primary" />
-                    <CardTitle>Login Endpoint</CardTitle>
+                    <CardTitle>{t('developer.authGuide.endpoints.login.title')}</CardTitle>
                   </div>
                   <CardDescription>
-                    Authenticate users with email and password
+                    {t('developer.authGuide.endpoints.login.description')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -478,10 +478,10 @@ async function refreshToken() {
                 <CardHeader>
                   <div className="flex items-center gap-2">
                     <User className="h-5 w-5 text-primary" />
-                    <CardTitle>Registration Endpoint</CardTitle>
+                    <CardTitle>{t('developer.authGuide.endpoints.register.title')}</CardTitle>
                   </div>
                   <CardDescription>
-                    Create a new user account
+                    {t('developer.authGuide.endpoints.register.description')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -576,10 +576,10 @@ async function refreshToken() {
                 <CardHeader>
                   <div className="flex items-center gap-2">
                     <RefreshCw className="h-5 w-5 text-primary" />
-                    <CardTitle>Token Refresh Endpoint</CardTitle>
+                    <CardTitle>{t('developer.authGuide.endpoints.refresh.title')}</CardTitle>
                   </div>
                   <CardDescription>
-                    Refresh an expired JWT token
+                    {t('developer.authGuide.endpoints.refresh.description')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -640,10 +640,10 @@ async function refreshToken() {
                 <CardHeader>
                   <div className="flex items-center gap-2">
                     <LockKeyhole className="h-5 w-5 text-primary" />
-                    <CardTitle>Logout Endpoint</CardTitle>
+                    <CardTitle>{t('developer.authGuide.endpoints.logout.title')}</CardTitle>
                   </div>
                   <CardDescription>
-                    Invalidate the current session or token
+                    {t('developer.authGuide.endpoints.logout.description')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -685,24 +685,24 @@ async function refreshToken() {
           <TabsContent value="authorization">
             <div className="space-y-6">
               <div className="prose max-w-none dark:prose-invert">
-                <h2>Authorization</h2>
+                <h2>{t('developer.authGuide.authorization.title')}</h2>
                 <p>
-                  Once authenticated, users must be authorized to access specific resources. Authorization determines what actions a user can perform.
+                  {t('developer.authGuide.authorization.description')}
                 </p>
                 
-                <h3>Authorization Methods</h3>
-                <p>The MOLOCHAIN platform implements the following authorization methods:</p>
+                <h3>{t('developer.authGuide.authorization.methodsTitle')}</h3>
+                <p>{t('developer.authGuide.authorization.methodsDescription')}</p>
                 <ul>
-                  <li><strong>Role-Based Access Control (RBAC):</strong> Permissions based on user roles</li>
-                  <li><strong>Resource-Based Access Control:</strong> Permissions based on ownership or relationship to resources</li>
-                  <li><strong>Scoped API Tokens:</strong> Tokens with limited permissions for specific operations</li>
+                  <li><strong>{t('developer.authGuide.authorization.methods.rbac')}:</strong> {t('developer.authGuide.authorization.methods.rbacDesc')}</li>
+                  <li><strong>{t('developer.authGuide.authorization.methods.resource')}:</strong> {t('developer.authGuide.authorization.methods.resourceDesc')}</li>
+                  <li><strong>{t('developer.authGuide.authorization.methods.scoped')}:</strong> {t('developer.authGuide.authorization.methods.scopedDesc')}</li>
                 </ul>
               </div>
               
               <div className="space-y-4">
-                <h3 className="text-xl font-bold">User Roles</h3>
+                <h3 className="text-xl font-bold">{t('developer.authGuide.authorization.rolesTitle')}</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  The platform defines several roles with different permission levels:
+                  {t('developer.authGuide.authorization.rolesDescription')}
                 </p>
                 
                 <Table>
@@ -744,9 +744,9 @@ async function refreshToken() {
               </div>
               
               <div className="space-y-4">
-                <h3 className="text-xl font-bold">API Token Scopes</h3>
+                <h3 className="text-xl font-bold">{t('developer.authGuide.authorization.scopesTitle')}</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  When creating API tokens, you can specify scopes to limit their permissions:
+                  {t('developer.authGuide.authorization.scopesDescription')}
                 </p>
                 
                 <Table>
@@ -795,9 +795,9 @@ async function refreshToken() {
               
               <Card>
                 <CardHeader>
-                  <CardTitle>Making Authorized Requests</CardTitle>
+                  <CardTitle>{t('developer.authGuide.authorization.makingRequests')}</CardTitle>
                   <CardDescription>
-                    How to include authorization information in your API requests
+                    {t('developer.authGuide.authorization.makingRequestsDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -857,9 +857,9 @@ async function refreshToken() {
               
               <Card>
                 <CardHeader>
-                  <CardTitle>Handling Authorization Errors</CardTitle>
+                  <CardTitle>{t('developer.authGuide.authorization.handlingErrors')}</CardTitle>
                   <CardDescription>
-                    Common authorization error responses and how to handle them
+                    {t('developer.authGuide.authorization.handlingErrorsDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -897,17 +897,17 @@ async function refreshToken() {
           <TabsContent value="examples">
             <div className="space-y-6">
               <div className="prose max-w-none dark:prose-invert mb-6">
-                <h2>Code Examples</h2>
+                <h2>{t('developer.authGuide.examples.title')}</h2>
                 <p>
-                  The following examples demonstrate how to implement authentication and authorization in different programming languages and environments.
+                  {t('developer.authGuide.examples.description')}
                 </p>
               </div>
               
               <Card>
                 <CardHeader>
-                  <CardTitle>User Login Example</CardTitle>
+                  <CardTitle>{t('developer.authGuide.examples.login')}</CardTitle>
                   <CardDescription>
-                    How to authenticate users with the login API
+                    {t('developer.authGuide.examples.loginDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -934,9 +934,9 @@ async function refreshToken() {
               
               <Card>
                 <CardHeader>
-                  <CardTitle>Making Authorized Requests</CardTitle>
+                  <CardTitle>{t('developer.authGuide.examples.authorizedRequests')}</CardTitle>
                   <CardDescription>
-                    How to include authorization in API requests
+                    {t('developer.authGuide.examples.authorizedRequestsDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -963,9 +963,9 @@ async function refreshToken() {
               
               <Card>
                 <CardHeader>
-                  <CardTitle>Token Refresh Implementation</CardTitle>
+                  <CardTitle>{t('developer.authGuide.examples.tokenRefresh')}</CardTitle>
                   <CardDescription>
-                    How to implement automatic token refresh
+                    {t('developer.authGuide.examples.tokenRefreshDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -992,9 +992,9 @@ async function refreshToken() {
               
               <Card>
                 <CardHeader>
-                  <CardTitle>Two-Factor Authentication</CardTitle>
+                  <CardTitle>{t('developer.authGuide.examples.twoFactor')}</CardTitle>
                   <CardDescription>
-                    How to implement two-factor authentication verification
+                    {t('developer.authGuide.examples.twoFactorDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -1021,9 +1021,9 @@ async function refreshToken() {
               
               <Card>
                 <CardHeader>
-                  <CardTitle>Node.js Authentication Example</CardTitle>
+                  <CardTitle>{t('developer.authGuide.examples.nodejs')}</CardTitle>
                   <CardDescription>
-                    Server-side authentication implementation using Node.js
+                    {t('developer.authGuide.examples.nodejsDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -1051,7 +1051,7 @@ async function refreshToken() {
               <div className="flex justify-center mt-6">
                 <Button asChild>
                   <Link href="/developer">
-                    Back to Developer Portal
+                    {t('developer.authGuide.backToPortal')}
                   </Link>
                 </Button>
               </div>

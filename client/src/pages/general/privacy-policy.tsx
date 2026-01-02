@@ -1,119 +1,122 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
 
 export default function PrivacyPolicy() {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto py-12 px-4">
         <Card>
           <CardContent className="prose dark:prose-invert max-w-none p-6">
-            <h1>Privacy Policy</h1>
-            <p>Last updated: January 19, 2025</p>
+            <h1>{t("privacy.title")}</h1>
+            <p>{t("privacy.lastUpdated")}</p>
 
-            <h2>1. Information We Collect</h2>
-            <p>We collect various types of information to provide and improve our logistics services:</p>
-            <h3>1.1 Personal Information</h3>
+            <h2>{t("privacy.sections.informationWeCollect.title")}</h2>
+            <p>{t("privacy.sections.informationWeCollect.description")}</p>
+            <h3>{t("privacy.sections.informationWeCollect.personalInfo.title")}</h3>
             <ul>
-              <li>Name and contact details (email, phone number, address)</li>
-              <li>Company information for business accounts</li>
-              <li>Shipping and delivery information</li>
-              <li>Payment and billing information</li>
-              <li>Account credentials and preferences</li>
+              <li>{t("privacy.sections.informationWeCollect.personalInfo.items.nameContact")}</li>
+              <li>{t("privacy.sections.informationWeCollect.personalInfo.items.companyInfo")}</li>
+              <li>{t("privacy.sections.informationWeCollect.personalInfo.items.shippingInfo")}</li>
+              <li>{t("privacy.sections.informationWeCollect.personalInfo.items.paymentInfo")}</li>
+              <li>{t("privacy.sections.informationWeCollect.personalInfo.items.accountCredentials")}</li>
             </ul>
 
-            <h3>1.2 Automatically Collected Information</h3>
+            <h3>{t("privacy.sections.informationWeCollect.automaticInfo.title")}</h3>
             <ul>
-              <li>Device and browser information</li>
-              <li>IP address and location data</li>
-              <li>Usage patterns and preferences</li>
-              <li>Cookies and similar tracking technologies</li>
+              <li>{t("privacy.sections.informationWeCollect.automaticInfo.items.deviceBrowser")}</li>
+              <li>{t("privacy.sections.informationWeCollect.automaticInfo.items.ipLocation")}</li>
+              <li>{t("privacy.sections.informationWeCollect.automaticInfo.items.usagePatterns")}</li>
+              <li>{t("privacy.sections.informationWeCollect.automaticInfo.items.cookies")}</li>
             </ul>
 
-            <h2>2. How We Use Your Information</h2>
-            <p>We use the collected information for the following purposes:</p>
+            <h2>{t("privacy.sections.howWeUse.title")}</h2>
+            <p>{t("privacy.sections.howWeUse.description")}</p>
             <ul>
-              <li>Providing and managing logistics and transportation services</li>
-              <li>Processing transactions and payments</li>
-              <li>Sending service updates and notifications</li>
-              <li>Improving our services and user experience</li>
-              <li>Analyzing usage patterns and trends</li>
-              <li>Complying with legal obligations</li>
-              <li>Preventing fraud and ensuring security</li>
+              <li>{t("privacy.sections.howWeUse.items.providingServices")}</li>
+              <li>{t("privacy.sections.howWeUse.items.processingTransactions")}</li>
+              <li>{t("privacy.sections.howWeUse.items.sendingUpdates")}</li>
+              <li>{t("privacy.sections.howWeUse.items.improvingServices")}</li>
+              <li>{t("privacy.sections.howWeUse.items.analyzingUsage")}</li>
+              <li>{t("privacy.sections.howWeUse.items.legalCompliance")}</li>
+              <li>{t("privacy.sections.howWeUse.items.preventingFraud")}</li>
             </ul>
 
-            <h2>3. Data Security</h2>
-            <p>We implement comprehensive security measures to protect your information:</p>
+            <h2>{t("privacy.sections.dataSecurity.title")}</h2>
+            <p>{t("privacy.sections.dataSecurity.description")}</p>
             <ul>
-              <li>End-to-end encryption for sensitive data</li>
-              <li>Regular security audits and updates</li>
-              <li>Secure data storage and transmission</li>
-              <li>Access controls and authentication</li>
-              <li>Employee training on data protection</li>
+              <li>{t("privacy.sections.dataSecurity.items.encryption")}</li>
+              <li>{t("privacy.sections.dataSecurity.items.securityAudits")}</li>
+              <li>{t("privacy.sections.dataSecurity.items.secureStorage")}</li>
+              <li>{t("privacy.sections.dataSecurity.items.accessControls")}</li>
+              <li>{t("privacy.sections.dataSecurity.items.employeeTraining")}</li>
             </ul>
 
-            <h2>4. User Rights</h2>
-            <p>You have the following rights regarding your personal data:</p>
+            <h2>{t("privacy.sections.userRights.title")}</h2>
+            <p>{t("privacy.sections.userRights.description")}</p>
             <ul>
-              <li>Access to your personal information</li>
-              <li>Correction of inaccurate data</li>
-              <li>Deletion of personal data (right to be forgotten)</li>
-              <li>Data portability</li>
-              <li>Withdrawal of consent</li>
-              <li>Objection to processing</li>
+              <li>{t("privacy.sections.userRights.items.access")}</li>
+              <li>{t("privacy.sections.userRights.items.correction")}</li>
+              <li>{t("privacy.sections.userRights.items.deletion")}</li>
+              <li>{t("privacy.sections.userRights.items.portability")}</li>
+              <li>{t("privacy.sections.userRights.items.withdrawConsent")}</li>
+              <li>{t("privacy.sections.userRights.items.objection")}</li>
             </ul>
 
-            <h2>5. Cookie Policy</h2>
-            <p>We use cookies and similar technologies to enhance your experience:</p>
+            <h2>{t("privacy.sections.cookiePolicy.title")}</h2>
+            <p>{t("privacy.sections.cookiePolicy.description")}</p>
             <ul>
-              <li>Essential cookies for website functionality</li>
-              <li>Analytics cookies to improve our services</li>
-              <li>Preference cookies to remember your settings</li>
-              <li>Third-party cookies for additional features</li>
+              <li>{t("privacy.sections.cookiePolicy.items.essential")}</li>
+              <li>{t("privacy.sections.cookiePolicy.items.analytics")}</li>
+              <li>{t("privacy.sections.cookiePolicy.items.preference")}</li>
+              <li>{t("privacy.sections.cookiePolicy.items.thirdParty")}</li>
             </ul>
 
-            <h2>6. Third-party Services</h2>
-            <p>We may share information with trusted third parties:</p>
+            <h2>{t("privacy.sections.thirdPartyServices.title")}</h2>
+            <p>{t("privacy.sections.thirdPartyServices.description")}</p>
             <ul>
-              <li>Payment processors for secure transactions</li>
-              <li>Shipping partners for delivery services</li>
-              <li>Analytics providers for service improvement</li>
-              <li>Cloud service providers for data storage</li>
+              <li>{t("privacy.sections.thirdPartyServices.items.paymentProcessors")}</li>
+              <li>{t("privacy.sections.thirdPartyServices.items.shippingPartners")}</li>
+              <li>{t("privacy.sections.thirdPartyServices.items.analyticsProviders")}</li>
+              <li>{t("privacy.sections.thirdPartyServices.items.cloudProviders")}</li>
             </ul>
 
-            <h2>7. Changes to Privacy Policy</h2>
-            <p>We may update this Privacy Policy periodically. Major changes will be notified via:</p>
+            <h2>{t("privacy.sections.changes.title")}</h2>
+            <p>{t("privacy.sections.changes.description")}</p>
             <ul>
-              <li>Email notifications to registered users</li>
-              <li>Website announcements</li>
-              <li>Application notifications</li>
+              <li>{t("privacy.sections.changes.items.emailNotifications")}</li>
+              <li>{t("privacy.sections.changes.items.websiteAnnouncements")}</li>
+              <li>{t("privacy.sections.changes.items.appNotifications")}</li>
             </ul>
 
-            <h2>8. Data Retention</h2>
-            <p>We retain your information for as long as necessary to:</p>
+            <h2>{t("privacy.sections.dataRetention.title")}</h2>
+            <p>{t("privacy.sections.dataRetention.description")}</p>
             <ul>
-              <li>Provide our services</li>
-              <li>Comply with legal obligations</li>
-              <li>Resolve disputes</li>
-              <li>Enforce agreements</li>
+              <li>{t("privacy.sections.dataRetention.items.provideServices")}</li>
+              <li>{t("privacy.sections.dataRetention.items.legalObligations")}</li>
+              <li>{t("privacy.sections.dataRetention.items.resolveDisputes")}</li>
+              <li>{t("privacy.sections.dataRetention.items.enforceAgreements")}</li>
             </ul>
 
-            <h2>9. International Data Transfers</h2>
-            <p>For international operations, data may be processed in different countries with:</p>
+            <h2>{t("privacy.sections.internationalTransfers.title")}</h2>
+            <p>{t("privacy.sections.internationalTransfers.description")}</p>
             <ul>
-              <li>Appropriate data protection safeguards</li>
-              <li>Compliance with international regulations</li>
-              <li>Standard contractual clauses</li>
+              <li>{t("privacy.sections.internationalTransfers.items.safeguards")}</li>
+              <li>{t("privacy.sections.internationalTransfers.items.compliance")}</li>
+              <li>{t("privacy.sections.internationalTransfers.items.contractualClauses")}</li>
             </ul>
 
-            <h2>10. Contact Us</h2>
-            <p>For any privacy-related questions or concerns:</p>
+            <h2>{t("privacy.sections.contactUs.title")}</h2>
+            <p>{t("privacy.sections.contactUs.description")}</p>
             <ul>
-              <li>Email: privacy@molochain.com</li>
-              <li>Phone: Contact via email</li>
-              <li>Address: Maslak Mah. Eski Büyükdere Cad. Ayazağa Yolu, Giz2000 Plaza No:7 Şişli / İstanbul TÜRKİYE</li>
+              <li>{t("privacy.sections.contactUs.items.email")}</li>
+              <li>{t("privacy.sections.contactUs.items.phone")}</li>
+              <li>{t("privacy.sections.contactUs.items.address")}</li>
             </ul>
 
             <p className="mt-8 text-sm text-gray-600">
-              This privacy policy is designed to help you understand how we collect, use, and protect your personal information while using our logistics services.
+              {t("privacy.footer")}
             </p>
           </CardContent>
         </Card>

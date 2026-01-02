@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -56,6 +57,7 @@ interface OptimizationSetting {
 }
 
 export default function PerformanceMonitor() {
+  const { t } = useTranslation();
   const [metrics, setMetrics] = useState<PerformanceMetrics | null>(null);
   const [optimizing, setOptimizing] = useState(false);
   const [autoOptimize, setAutoOptimize] = useState(true);
@@ -207,8 +209,8 @@ export default function PerformanceMonitor() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Performance Monitor</h1>
-          <p className="text-muted-foreground">Monitor and optimize system performance</p>
+          <h1 className="text-3xl font-bold">{t('admin.dashboards.performance.title')}</h1>
+          <p className="text-muted-foreground">{t('admin.dashboards.performance.subtitle')}</p>
         </div>
         <div className="flex items-center space-x-2">
           <div className="flex items-center space-x-2">
@@ -217,7 +219,7 @@ export default function PerformanceMonitor() {
               checked={autoOptimize}
               onCheckedChange={setAutoOptimize}
             />
-            <Label htmlFor="auto-optimize">Auto-Optimize</Label>
+            <Label htmlFor="auto-optimize">{t('admin.dashboards.performance.switches.autoOptimize')}</Label>
           </div>
           <Button
             variant="outline"
@@ -225,7 +227,7 @@ export default function PerformanceMonitor() {
             onClick={fetchPerformanceMetrics}
           >
             <RefreshCw className="h-4 w-4 mr-2" />
-            Refresh
+            {t('admin.dashboards.performance.buttons.refresh')}
           </Button>
         </div>
       </div>
@@ -235,7 +237,7 @@ export default function PerformanceMonitor() {
         <Card>
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium">Memory Usage</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.dashboards.performance.sections.memoryStatus')}</CardTitle>
               <Cpu className="h-4 w-4 text-muted-foreground" />
             </div>
           </CardHeader>
@@ -243,13 +245,13 @@ export default function PerformanceMonitor() {
             <div className="flex items-baseline space-x-2">
               <span className="text-2xl font-bold">{metrics?.memory?.percentage || 0}%</span>
               <span className={cn("text-sm", getStatusColor(metrics?.memory?.status || 'healthy'))}>
-                {metrics?.memory?.status || 'healthy'}
+                {t(`admin.dashboards.performance.status.${metrics?.memory?.status || 'healthy'}`)}
               </span>
             </div>
             <Progress value={metrics?.memory?.percentage || 0} className="mt-2" />
             <div className="flex justify-between text-xs text-muted-foreground mt-2">
-              <span>{metrics?.memory?.heapUsed || 0}MB used</span>
-              <span>{metrics?.memory?.heapTotal || 0}MB total</span>
+              <span>{metrics?.memory?.heapUsed || 0}MB {t('admin.dashboards.performance.labels.used')}</span>
+              <span>{metrics?.memory?.heapTotal || 0}MB {t('admin.dashboards.performance.labels.total')}</span>
             </div>
           </CardContent>
         </Card>
@@ -257,7 +259,7 @@ export default function PerformanceMonitor() {
         <Card>
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium">Cache Hit Rate</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.dashboards.performance.labels.hitRate')}</CardTitle>
               <Zap className="h-4 w-4 text-muted-foreground" />
             </div>
           </CardHeader>
@@ -265,12 +267,12 @@ export default function PerformanceMonitor() {
             <div className="flex items-baseline space-x-2">
               <span className="text-2xl font-bold">{metrics?.cache?.hitRate || 0}%</span>
               <span className={cn("text-sm", getStatusColor(metrics?.cache?.status || 'healthy'))}>
-                {metrics?.cache?.status || 'healthy'}
+                {t(`admin.dashboards.performance.status.${metrics?.cache?.status || 'healthy'}`)}
               </span>
             </div>
             <Progress value={metrics?.cache?.hitRate || 0} className="mt-2" />
             <p className="text-xs text-muted-foreground mt-2">
-              Cache size: {metrics?.cache?.size || 0}MB
+              {t('admin.dashboards.performance.labels.cacheSize')}: {metrics?.cache?.size || 0}MB
             </p>
           </CardContent>
         </Card>
@@ -278,7 +280,7 @@ export default function PerformanceMonitor() {
         <Card>
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium">Database Latency</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.dashboards.performance.sections.databasePerformance')}</CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </div>
           </CardHeader>
@@ -286,12 +288,12 @@ export default function PerformanceMonitor() {
             <div className="flex items-baseline space-x-2">
               <span className="text-2xl font-bold">{metrics?.database?.latency || 0}ms</span>
               <span className={cn("text-sm", getStatusColor(metrics?.database?.status || 'connected'))}>
-                {metrics?.database?.status || 'connected'}
+                {t(`admin.dashboards.performance.status.${metrics?.database?.status || 'connected'}`)}
               </span>
             </div>
             <div className="mt-2">
               <Badge variant={metrics?.database?.latency && metrics.database.latency < 50 ? 'default' : 'secondary'}>
-                {metrics?.database?.latency && metrics.database.latency < 50 ? 'Optimal' : 'Needs Attention'}
+                {metrics?.database?.latency && metrics.database.latency < 50 ? t('admin.dashboards.performance.status.optimal') : t('admin.dashboards.performance.status.needsAttention')}
               </Badge>
             </div>
           </CardContent>
@@ -300,7 +302,7 @@ export default function PerformanceMonitor() {
         <Card>
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium">CPU Usage</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.dashboards.performance.labels.cpuUsage')}</CardTitle>
               <Gauge className="h-4 w-4 text-muted-foreground" />
             </div>
           </CardHeader>
@@ -308,12 +310,12 @@ export default function PerformanceMonitor() {
             <div className="flex items-baseline space-x-2">
               <span className="text-2xl font-bold">{metrics?.system?.cpu || 0}%</span>
               <span className={cn("text-sm", getStatusColor(metrics?.system?.status || 'healthy'))}>
-                {metrics?.system?.status || 'healthy'}
+                {t(`admin.dashboards.performance.status.${metrics?.system?.status || 'healthy'}`)}
               </span>
             </div>
             <Progress value={metrics?.system?.cpu || 0} className="mt-2" />
             <p className="text-xs text-muted-foreground mt-2">
-              Uptime: {metrics?.system?.uptime || 0}s
+              {t('admin.dashboards.performance.labels.uptime')}: {metrics?.system?.uptime || 0}s
             </p>
           </CardContent>
         </Card>
@@ -322,17 +324,17 @@ export default function PerformanceMonitor() {
       {/* Tabs */}
       <Tabs defaultValue="realtime" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="realtime">Real-Time</TabsTrigger>
-          <TabsTrigger value="optimization">Optimization</TabsTrigger>
-          <TabsTrigger value="cache">Cache Analytics</TabsTrigger>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
+          <TabsTrigger value="realtime">{t('admin.dashboards.performance.tabs.realtime')}</TabsTrigger>
+          <TabsTrigger value="optimization">{t('admin.dashboards.performance.tabs.optimization')}</TabsTrigger>
+          <TabsTrigger value="cache">{t('admin.dashboards.performance.tabs.cache')}</TabsTrigger>
+          <TabsTrigger value="settings">{t('admin.dashboards.performance.tabs.settings')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="realtime" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Performance Trends</CardTitle>
-              <CardDescription>Real-time performance metrics over the last 5 minutes</CardDescription>
+              <CardTitle>{t('admin.dashboards.performance.sections.performanceTrends')}</CardTitle>
+              <CardDescription>{t('admin.dashboards.performance.sections.performanceTrendsDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -355,8 +357,8 @@ export default function PerformanceMonitor() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
-                <CardDescription>Optimize system performance instantly</CardDescription>
+                <CardTitle>{t('admin.dashboards.performance.sections.quickActions')}</CardTitle>
+                <CardDescription>{t('admin.dashboards.performance.sections.quickActionsDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <Button 
@@ -367,12 +369,12 @@ export default function PerformanceMonitor() {
                   {optimizing ? (
                     <>
                       <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                      Optimizing...
+                      {t('admin.dashboards.performance.buttons.optimizing')}
                     </>
                   ) : (
                     <>
                       <Zap className="h-4 w-4 mr-2" />
-                      Optimize Memory
+                      {t('admin.dashboards.performance.buttons.optimizeMemory')}
                     </>
                   )}
                 </Button>
@@ -383,20 +385,20 @@ export default function PerformanceMonitor() {
                   className="w-full"
                 >
                   <Trash2 className="h-4 w-4 mr-2" />
-                  Clear Cache
+                  {t('admin.dashboards.performance.buttons.clearCache')}
                 </Button>
 
                 <Button variant="outline" className="w-full">
                   <Settings className="h-4 w-4 mr-2" />
-                  Run Diagnostics
+                  {t('admin.dashboards.performance.buttons.runDiagnostics')}
                 </Button>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Optimization Settings</CardTitle>
-                <CardDescription>Configure automatic optimizations</CardDescription>
+                <CardTitle>{t('admin.dashboards.performance.sections.optimizationSettings')}</CardTitle>
+                <CardDescription>{t('admin.dashboards.performance.sections.optimizationSettingsDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {optimizationSettings.map((setting) => (
@@ -404,14 +406,14 @@ export default function PerformanceMonitor() {
                     <div className="flex-1">
                       <div className="flex items-center space-x-2">
                         <Label htmlFor={setting.id} className="text-sm font-medium">
-                          {setting.name}
+                          {t(`admin.dashboards.performance.settings.${setting.id.replace('-', '')}`)}
                         </Label>
                         <Badge className={cn("text-xs", getImpactBadge(setting.impact))}>
-                          {setting.impact} impact
+                          {t(`admin.dashboards.performance.impact.${setting.impact}`)} {t('admin.dashboards.performance.labels.impact')}
                         </Badge>
                       </div>
                       <p className="text-xs text-muted-foreground mt-1">
-                        {setting.description}
+                        {t(`admin.dashboards.performance.settingsDesc.${setting.id.replace('-', '')}`)}
                       </p>
                     </div>
                     <Switch
@@ -429,7 +431,7 @@ export default function PerformanceMonitor() {
             <Alert>
               <CheckCircle className="h-4 w-4" />
               <AlertDescription>
-                Auto-optimization is enabled. The system will automatically optimize performance when needed.
+                {t('admin.dashboards.performance.alerts.autoOptimizeEnabled')}
               </AlertDescription>
             </Alert>
           )}
@@ -439,8 +441,8 @@ export default function PerformanceMonitor() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle>Cache Hit/Miss Ratio</CardTitle>
-                <CardDescription>Current cache performance</CardDescription>
+                <CardTitle>{t('admin.dashboards.performance.sections.cachePerformance')}</CardTitle>
+                <CardDescription>{t('admin.dashboards.performance.sections.cachePerformanceDesc')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={200}>
@@ -467,24 +469,24 @@ export default function PerformanceMonitor() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Cache Statistics</CardTitle>
-                <CardDescription>Detailed cache metrics</CardDescription>
+                <CardTitle>{t('admin.dashboards.performance.sections.cacheStatistics')}</CardTitle>
+                <CardDescription>{t('admin.dashboards.performance.sections.cacheStatisticsDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-sm">Total Size</span>
+                  <span className="text-sm">{t('admin.dashboards.performance.labels.totalSize')}</span>
                   <span className="text-sm font-medium">{metrics?.cache?.size || 0}MB</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm">Hit Rate</span>
+                  <span className="text-sm">{t('admin.dashboards.performance.labels.hitRate')}</span>
                   <span className="text-sm font-medium">{metrics?.cache?.hitRate || 0}%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm">Keys Stored</span>
+                  <span className="text-sm">{t('admin.dashboards.performance.labels.keysStored')}</span>
                   <span className="text-sm font-medium">1,234</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm">Evictions</span>
+                  <span className="text-sm">{t('admin.dashboards.performance.labels.evictions')}</span>
                   <span className="text-sm font-medium">45</span>
                 </div>
               </CardContent>
@@ -495,12 +497,12 @@ export default function PerformanceMonitor() {
         <TabsContent value="settings" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Performance Thresholds</CardTitle>
-              <CardDescription>Configure alert thresholds for performance metrics</CardDescription>
+              <CardTitle>{t('admin.dashboards.performance.sections.performanceThresholds')}</CardTitle>
+              <CardDescription>{t('admin.dashboards.performance.sections.performanceThresholdsDesc')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <Label>Memory Usage Alert Threshold</Label>
+                <Label>{t('admin.dashboards.performance.thresholds.memoryUsage')}</Label>
                 <div className="flex items-center space-x-4">
                   <Slider defaultValue={[80]} max={100} step={5} className="flex-1" />
                   <span className="text-sm font-medium w-12">80%</span>
@@ -508,7 +510,7 @@ export default function PerformanceMonitor() {
               </div>
               
               <div className="space-y-2">
-                <Label>CPU Usage Alert Threshold</Label>
+                <Label>{t('admin.dashboards.performance.thresholds.cpuUsage')}</Label>
                 <div className="flex items-center space-x-4">
                   <Slider defaultValue={[75]} max={100} step={5} className="flex-1" />
                   <span className="text-sm font-medium w-12">75%</span>
@@ -516,7 +518,7 @@ export default function PerformanceMonitor() {
               </div>
               
               <div className="space-y-2">
-                <Label>Cache Hit Rate Minimum</Label>
+                <Label>{t('admin.dashboards.performance.thresholds.cacheHitRate')}</Label>
                 <div className="flex items-center space-x-4">
                   <Slider defaultValue={[60]} max={100} step={5} className="flex-1" />
                   <span className="text-sm font-medium w-12">60%</span>
@@ -524,7 +526,7 @@ export default function PerformanceMonitor() {
               </div>
               
               <div className="space-y-2">
-                <Label>Database Latency Maximum</Label>
+                <Label>{t('admin.dashboards.performance.thresholds.databaseLatency')}</Label>
                 <div className="flex items-center space-x-4">
                   <Slider defaultValue={[100]} max={500} step={10} className="flex-1" />
                   <span className="text-sm font-medium w-12">100ms</span>

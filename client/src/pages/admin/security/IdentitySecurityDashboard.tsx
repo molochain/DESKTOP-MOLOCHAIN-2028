@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -344,6 +345,7 @@ const defaultWidgetConfigs: WidgetConfig[] = [
 ];
 
 export default function IdentitySecurityDashboard() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { isConnected, subscribe, sendMessage } = useWebSocket();
   const [selectedTab, setSelectedTab] = useState('dashboard');
@@ -665,10 +667,10 @@ export default function IdentitySecurityDashboard() {
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-2">
             <Shield className="w-8 h-8 text-primary" />
-            Identity & Security Management
+            {t('admin.security.identity.title')}
           </h1>
           <p className="text-muted-foreground mt-1">
-            Centralized control for authentication, authorization, and security policies
+            {t('admin.security.identity.description')}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -686,24 +688,24 @@ export default function IdentitySecurityDashboard() {
             {isEditingLayout ? (
               <>
                 <Check className="w-4 h-4 mr-2" />
-                Save Layout
+                {t('admin.security.identity.buttons.saveLayout')}
               </>
             ) : (
               <>
                 <Layout className="w-4 h-4 mr-2" />
-                Edit Layout
+                {t('admin.security.identity.buttons.editLayout')}
               </>
             )}
           </Button>
           
           <Button variant="outline" onClick={() => refetchIdentityStats()}>
             <RefreshCw className="w-4 h-4 mr-2" />
-            Refresh
+            {t('admin.security.identity.buttons.refresh')}
           </Button>
           
           <Button onClick={() => setShowComplianceDialog(true)}>
             <FileCheck className="w-4 h-4 mr-2" />
-            Generate Report
+            {t('admin.security.identity.buttons.generateReport')}
           </Button>
         </div>
       </div>
@@ -715,9 +717,9 @@ export default function IdentitySecurityDashboard() {
       {isEmergencyMode && (
         <Alert className="border-red-500 bg-red-50 dark:bg-red-950">
           <Siren className="h-4 w-4" />
-          <AlertTitle>Emergency Mode Active</AlertTitle>
+          <AlertTitle>{t('admin.security.identity.alerts.emergencyModeActive')}</AlertTitle>
           <AlertDescription>
-            Security lockdown is in effect. Only administrators can access the system.
+            {t('admin.security.identity.alerts.emergencyModeDesc')}
           </AlertDescription>
         </Alert>
       )}
@@ -727,27 +729,27 @@ export default function IdentitySecurityDashboard() {
         <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="dashboard" className="flex items-center gap-2">
             <Grid3x3 className="w-4 h-4" />
-            Dashboard
+            {t('admin.security.identity.tabs.dashboard')}
           </TabsTrigger>
           <TabsTrigger value="users" className="flex items-center gap-2">
             <Users className="w-4 h-4" />
-            Users
+            {t('admin.security.identity.tabs.users')}
           </TabsTrigger>
           <TabsTrigger value="roles" className="flex items-center gap-2">
             <UserCog className="w-4 h-4" />
-            Roles
+            {t('admin.security.identity.tabs.roles')}
           </TabsTrigger>
           <TabsTrigger value="policies" className="flex items-center gap-2">
             <Shield className="w-4 h-4" />
-            Policies
+            {t('admin.security.identity.tabs.policies')}
           </TabsTrigger>
           <TabsTrigger value="audit" className="flex items-center gap-2">
             <FileCheck className="w-4 h-4" />
-            Audit
+            {t('admin.security.identity.tabs.audit')}
           </TabsTrigger>
           <TabsTrigger value="analytics" className="flex items-center gap-2">
             <BarChart3 className="w-4 h-4" />
-            Analytics
+            {t('admin.security.identity.tabs.analytics')}
           </TabsTrigger>
         </TabsList>
 
@@ -757,18 +759,18 @@ export default function IdentitySecurityDashboard() {
             <Card className="p-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-2">
-                  <h3 className="text-lg font-semibold">Widget Layout Editor</h3>
+                  <h3 className="text-lg font-semibold">{t('admin.security.identity.widgetEditor.title')}</h3>
                   <p className="text-sm text-muted-foreground">
-                    Drag widgets to rearrange, toggle visibility, or reset to default layout
+                    {t('admin.security.identity.widgetEditor.description')}
                   </p>
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" onClick={resetWidgetLayout}>
-                    Reset to Default
+                    {t('admin.security.identity.buttons.resetToDefault')}
                   </Button>
                   <Button onClick={saveWidgetLayout}>
                     <Save className="w-4 h-4 mr-2" />
-                    Save Layout
+                    {t('admin.security.identity.buttons.saveLayout')}
                   </Button>
                 </div>
               </div>
@@ -802,10 +804,10 @@ export default function IdentitySecurityDashboard() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>User Management</CardTitle>
+                <CardTitle>{t('admin.security.identity.sections.userManagement')}</CardTitle>
                 <Button onClick={() => setShowUserDialog(true)}>
                   <UserPlus className="w-4 h-4 mr-2" />
-                  Add User
+                  {t('admin.security.identity.buttons.addUser')}
                 </Button>
               </div>
             </CardHeader>
@@ -813,13 +815,13 @@ export default function IdentitySecurityDashboard() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Username</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Role</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>2FA</TableHead>
-                    <TableHead>Last Login</TableHead>
-                    <TableHead>Actions</TableHead>
+                    <TableHead>{t('admin.security.identity.table.username')}</TableHead>
+                    <TableHead>{t('admin.security.identity.table.email')}</TableHead>
+                    <TableHead>{t('admin.security.identity.table.role')}</TableHead>
+                    <TableHead>{t('admin.security.identity.table.status')}</TableHead>
+                    <TableHead>{t('admin.security.identity.table.twoFactor')}</TableHead>
+                    <TableHead>{t('admin.security.identity.table.lastLogin')}</TableHead>
+                    <TableHead>{t('admin.security.identity.table.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -834,7 +836,7 @@ export default function IdentitySecurityDashboard() {
                       </TableCell>
                       <TableCell>
                         <Badge variant={user.isActive ? 'success' : 'secondary'}>
-                          {user.isActive ? 'Active' : 'Inactive'}
+                          {user.isActive ? t('admin.security.identity.status.active') : t('admin.security.identity.status.inactive')}
                         </Badge>
                       </TableCell>
                       <TableCell>
@@ -845,7 +847,7 @@ export default function IdentitySecurityDashboard() {
                         )}
                       </TableCell>
                       <TableCell>
-                        {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString() : 'Never'}
+                        {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString() : t('admin.security.identity.status.never')}
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
@@ -880,10 +882,10 @@ export default function IdentitySecurityDashboard() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Role Management</CardTitle>
+                <CardTitle>{t('admin.security.identity.sections.roleManagement')}</CardTitle>
                 <Button onClick={() => setShowRoleDialog(true)}>
                   <Plus className="w-4 h-4 mr-2" />
-                  Add Role
+                  {t('admin.security.identity.buttons.addRole')}
                 </Button>
               </div>
             </CardHeader>
@@ -899,7 +901,7 @@ export default function IdentitySecurityDashboard() {
                         </div>
                         <div className="flex items-center gap-2">
                           <Badge variant={role.isSystem ? 'secondary' : 'outline'}>
-                            {role.isSystem ? 'System' : 'Custom'}
+                            {role.isSystem ? t('admin.security.identity.roleTypes.system') : t('admin.security.identity.roleTypes.custom')}
                           </Badge>
                           <Button
                             variant="ghost"
@@ -913,7 +915,7 @@ export default function IdentitySecurityDashboard() {
                     </CardHeader>
                     <CardContent>
                       <div className="text-sm text-muted-foreground">
-                        {role.permissions.length} permissions configured
+                        {t('admin.security.identity.permissionsConfigured', { count: role.permissions.length })}
                       </div>
                     </CardContent>
                   </Card>
@@ -926,18 +928,18 @@ export default function IdentitySecurityDashboard() {
         <TabsContent value="policies" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Security Policies</CardTitle>
+              <CardTitle>{t('admin.security.identity.sections.securityPolicies')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Policy Name</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Resource</TableHead>
-                    <TableHead>Priority</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Actions</TableHead>
+                    <TableHead>{t('admin.security.identity.table.policyName')}</TableHead>
+                    <TableHead>{t('admin.security.identity.table.type')}</TableHead>
+                    <TableHead>{t('admin.security.identity.table.resource')}</TableHead>
+                    <TableHead>{t('admin.security.identity.table.priority')}</TableHead>
+                    <TableHead>{t('admin.security.identity.table.status')}</TableHead>
+                    <TableHead>{t('admin.security.identity.table.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -975,21 +977,21 @@ export default function IdentitySecurityDashboard() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Audit Logs</CardTitle>
+                <CardTitle>{t('admin.security.identity.sections.auditLogs')}</CardTitle>
                 <div className="flex gap-2">
                   <Select value={eventFilter} onValueChange={(value: any) => setEventFilter(value)}>
                     <SelectTrigger className="w-32">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All</SelectItem>
-                      <SelectItem value="info">Info</SelectItem>
-                      <SelectItem value="warning">Warning</SelectItem>
-                      <SelectItem value="critical">Critical</SelectItem>
+                      <SelectItem value="all">{t('admin.security.identity.filters.all')}</SelectItem>
+                      <SelectItem value="info">{t('admin.security.identity.filters.info')}</SelectItem>
+                      <SelectItem value="warning">{t('admin.security.identity.filters.warning')}</SelectItem>
+                      <SelectItem value="critical">{t('admin.security.identity.filters.critical')}</SelectItem>
                     </SelectContent>
                   </Select>
                   <Input
-                    placeholder="Search logs..."
+                    placeholder={t('admin.security.identity.filters.searchPlaceholder')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-64"
@@ -1002,12 +1004,12 @@ export default function IdentitySecurityDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Timestamp</TableHead>
-                      <TableHead>User</TableHead>
-                      <TableHead>Action</TableHead>
-                      <TableHead>Resource</TableHead>
-                      <TableHead>IP Address</TableHead>
-                      <TableHead>Severity</TableHead>
+                      <TableHead>{t('admin.security.identity.table.timestamp')}</TableHead>
+                      <TableHead>{t('admin.security.identity.table.user')}</TableHead>
+                      <TableHead>{t('admin.security.identity.table.action')}</TableHead>
+                      <TableHead>{t('admin.security.identity.table.resource')}</TableHead>
+                      <TableHead>{t('admin.security.identity.table.ipAddress')}</TableHead>
+                      <TableHead>{t('admin.security.identity.table.severity')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -1036,7 +1038,7 @@ export default function IdentitySecurityDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle>Authentication Trends</CardTitle>
+                <CardTitle>{t('admin.security.identity.sections.authenticationTrends')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -1055,7 +1057,7 @@ export default function IdentitySecurityDashboard() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Security Events by Type</CardTitle>
+                <CardTitle>{t('admin.security.identity.sections.securityEventsByType')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -1097,17 +1099,17 @@ export default function IdentitySecurityDashboard() {
       <Dialog open={showComplianceDialog} onOpenChange={setShowComplianceDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Generate Compliance Report</DialogTitle>
+            <DialogTitle>{t('admin.security.identity.dialogs.generateComplianceReport')}</DialogTitle>
             <DialogDescription>
-              Select the compliance framework and reporting period
+              {t('admin.security.identity.dialogs.complianceReportDesc')}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label>Framework</Label>
+              <Label>{t('admin.security.identity.form.framework')}</Label>
               <Select>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select framework" />
+                  <SelectValue placeholder={t('admin.security.identity.form.selectFramework')} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="soc2">SOC 2</SelectItem>
@@ -1119,25 +1121,25 @@ export default function IdentitySecurityDashboard() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label>Report Period</Label>
+              <Label>{t('admin.security.identity.form.reportPeriod')}</Label>
               <Select>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select period" />
+                  <SelectValue placeholder={t('admin.security.identity.form.selectPeriod')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="monthly">Monthly</SelectItem>
-                  <SelectItem value="quarterly">Quarterly</SelectItem>
-                  <SelectItem value="annual">Annual</SelectItem>
+                  <SelectItem value="monthly">{t('admin.security.identity.periods.monthly')}</SelectItem>
+                  <SelectItem value="quarterly">{t('admin.security.identity.periods.quarterly')}</SelectItem>
+                  <SelectItem value="annual">{t('admin.security.identity.periods.annual')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowComplianceDialog(false)}>
-              Cancel
+              {t('admin.security.identity.buttons.cancel')}
             </Button>
             <Button onClick={() => generateComplianceReportMutation.mutate({})}>
-              Generate Report
+              {t('admin.security.identity.buttons.generateReport')}
             </Button>
           </DialogFooter>
         </DialogContent>

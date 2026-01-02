@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { queryClient } from '@/lib/queryClient';
 import { apiRequest } from '@/lib/queryClient';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -126,19 +127,20 @@ const moduleFormSchema = z.object({
 
 type ModuleFormValues = z.infer<typeof moduleFormSchema>;
 
-// Module tree item component
 const ModuleTreeItem = ({ 
   module, 
   level = 0, 
   onToggle, 
   onEdit, 
-  onDelete 
+  onDelete,
+  t 
 }: { 
   module: PageModule, 
   level?: number, 
   onToggle: (id: number, currentIsActive: boolean) => void,
   onEdit: (module: PageModule) => void,
-  onDelete: (id: number) => void 
+  onDelete: (id: number) => void,
+  t: (key: string) => string
 }) => {
   const [isOpen, setIsOpen] = useState(true);
   const hasChildren = module.children && module.children.length > 0;
@@ -188,9 +190,9 @@ const ModuleTreeItem = ({
         <div className="flex-1 flex items-center gap-2">
           <span className="font-medium">{module.displayName}</span>
           <Badge variant={getCategoryColor(module.category)} className="text-xs">
-            {module.category}
+            {t(`admin.management.pageModule.categories.${module.category}`)}
           </Badge>
-          {!module.isActive && <Badge variant="outline">Disabled</Badge>}
+          {!module.isActive && <Badge variant="outline">{t('admin.management.pageModule.status.disabled')}</Badge>}
           {!module.isVisible && <EyeOff className="h-3 w-3 text-muted-foreground" />}
           {module.requiresAuth && <Lock className="h-3 w-3 text-muted-foreground" />}
         </div>
@@ -233,6 +235,7 @@ const ModuleTreeItem = ({
               onToggle={onToggle}
               onEdit={onEdit}
               onDelete={onDelete}
+              t={t}
             />
           ))}
         </div>
@@ -242,6 +245,7 @@ const ModuleTreeItem = ({
 };
 
 export default function PageModuleManager() {
+  const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState<string>('all');
@@ -250,7 +254,6 @@ export default function PageModuleManager() {
   const [editingModule, setEditingModule] = useState<PageModule | null>(null);
   const { toast } = useToast();
 
-  // Fetch modules
   const { data: modules, isLoading } = useQuery({
     queryKey: ['/api/admin/page-modules/tree'],
     queryFn: async () => {
@@ -260,7 +263,6 @@ export default function PageModuleManager() {
     },
   });
 
-  // Fetch flat list for table view
   const { data: flatModulesResponse } = useQuery({
     queryKey: ['/api/admin/page-modules', { type: filterType, category: filterCategory }],
     queryFn: async () => {
@@ -276,7 +278,6 @@ export default function PageModuleManager() {
 
   const flatModules = flatModulesResponse?.data;
 
-  // Toggle module activation
   const toggleModuleMutation = useMutation({
     mutationFn: async ({ moduleId, isActive }: { moduleId: number; isActive: boolean }) => {
       const response = await apiRequest('PATCH', `/api/admin/page-modules/${moduleId}/toggle`, { isActive });
@@ -286,13 +287,12 @@ export default function PageModuleManager() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-modules'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-modules/tree'] });
       toast({
-        title: 'Module Updated',
-        description: 'Module activation status has been changed.',
+        title: t('admin.management.pageModule.toast.moduleUpdated'),
+        description: t('admin.management.pageModule.toast.moduleUpdatedDesc'),
       });
     },
   });
 
-  // Create/Update module
   const saveModuleMutation = useMutation({
     mutationFn: async (data: { module: ModuleFormValues, isEdit: boolean, id?: number }) => {
       const url = data.isEdit 
@@ -309,13 +309,12 @@ export default function PageModuleManager() {
       setShowCreateDialog(false);
       setEditingModule(null);
       toast({
-        title: 'Success',
-        description: editingModule ? 'Module updated successfully' : 'Module created successfully',
+        title: t('admin.management.pageModule.toast.success'),
+        description: editingModule ? t('admin.management.pageModule.toast.moduleUpdatedSuccess') : t('admin.management.pageModule.toast.moduleCreated'),
       });
     },
   });
 
-  // Delete module
   const deleteModuleMutation = useMutation({
     mutationFn: async (moduleId: number) => {
       const response = await apiRequest('DELETE', `/api/admin/page-modules/${moduleId}`);
@@ -325,14 +324,14 @@ export default function PageModuleManager() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-modules'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-modules/tree'] });
       toast({
-        title: 'Module Deleted',
-        description: 'Module has been removed from the system.',
+        title: t('admin.management.pageModule.toast.moduleDeleted'),
+        description: t('admin.management.pageModule.toast.moduleDeletedDesc'),
       });
     },
     onError: (error: any) => {
       toast({
-        title: 'Delete Failed',
-        description: error.message || 'Cannot delete module with dependencies',
+        title: t('admin.management.pageModule.toast.deleteFailed'),
+        description: error.message || t('admin.management.pageModule.toast.deleteFailedDesc'),
         variant: 'destructive',
       });
     },
@@ -358,7 +357,6 @@ export default function PageModuleManager() {
     },
   });
 
-  // Filter modules based on search
   const filteredModules = useMemo(() => {
     if (!flatModules) return [];
     return flatModules.filter((module) => {
@@ -404,21 +402,21 @@ export default function PageModuleManager() {
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Page & Module Management</h1>
-          <p className="text-muted-foreground">Manage your application's pages, modules, and features</p>
+          <h1 className="text-3xl font-bold">{t('admin.management.pageModule.title')}</h1>
+          <p className="text-muted-foreground">{t('admin.management.pageModule.subtitle')}</p>
         </div>
         <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
           <DialogTrigger asChild>
             <Button onClick={() => { setEditingModule(null); form.reset(); }} data-testid="button-add-module">
               <Plus className="h-4 w-4 mr-2" />
-              Add Module
+              {t('admin.management.pageModule.buttons.addModule')}
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>{editingModule ? 'Edit Module' : 'Create New Module'}</DialogTitle>
+              <DialogTitle>{editingModule ? t('admin.management.pageModule.dialog.editTitle') : t('admin.management.pageModule.dialog.createTitle')}</DialogTitle>
               <DialogDescription>
-                {editingModule ? 'Update module configuration' : 'Add a new page or module to your application'}
+                {editingModule ? t('admin.management.pageModule.dialog.editDescription') : t('admin.management.pageModule.dialog.createDescription')}
               </DialogDescription>
             </DialogHeader>
             <Form {...form}>
@@ -429,9 +427,9 @@ export default function PageModuleManager() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Internal Name</FormLabel>
+                        <FormLabel>{t('admin.management.pageModule.form.name')}</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., userDashboard" {...field} data-testid="input-name" />
+                          <Input placeholder={t('admin.management.pageModule.form.namePlaceholder')} {...field} data-testid="input-name" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -442,9 +440,9 @@ export default function PageModuleManager() {
                     name="displayName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Display Name</FormLabel>
+                        <FormLabel>{t('admin.management.pageModule.form.displayName')}</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., User Dashboard" {...field} data-testid="input-display-name" />
+                          <Input placeholder={t('admin.management.pageModule.form.displayNamePlaceholder')} {...field} data-testid="input-display-name" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -458,18 +456,18 @@ export default function PageModuleManager() {
                     name="type"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Type</FormLabel>
+                        <FormLabel>{t('admin.management.pageModule.form.type')}</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger data-testid="select-type">
-                              <SelectValue placeholder="Select type" />
+                              <SelectValue placeholder={t('admin.management.pageModule.form.selectType')} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="page">Page</SelectItem>
-                            <SelectItem value="module">Module</SelectItem>
-                            <SelectItem value="service">Service</SelectItem>
-                            <SelectItem value="department">Department</SelectItem>
+                            <SelectItem value="page">{t('admin.management.pageModule.types.page')}</SelectItem>
+                            <SelectItem value="module">{t('admin.management.pageModule.types.module')}</SelectItem>
+                            <SelectItem value="service">{t('admin.management.pageModule.types.service')}</SelectItem>
+                            <SelectItem value="department">{t('admin.management.pageModule.types.department')}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -481,19 +479,19 @@ export default function PageModuleManager() {
                     name="category"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Category</FormLabel>
+                        <FormLabel>{t('admin.management.pageModule.form.category')}</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger data-testid="select-category">
-                              <SelectValue placeholder="Select category" />
+                              <SelectValue placeholder={t('admin.management.pageModule.form.selectCategory')} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="public">Public</SelectItem>
-                            <SelectItem value="protected">Protected</SelectItem>
-                            <SelectItem value="admin">Admin</SelectItem>
-                            <SelectItem value="developer">Developer</SelectItem>
-                            <SelectItem value="department">Department</SelectItem>
+                            <SelectItem value="public">{t('admin.management.pageModule.categories.public')}</SelectItem>
+                            <SelectItem value="protected">{t('admin.management.pageModule.categories.protected')}</SelectItem>
+                            <SelectItem value="admin">{t('admin.management.pageModule.categories.admin')}</SelectItem>
+                            <SelectItem value="developer">{t('admin.management.pageModule.categories.developer')}</SelectItem>
+                            <SelectItem value="department">{t('admin.management.pageModule.categories.department')}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -508,9 +506,9 @@ export default function PageModuleManager() {
                     name="path"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Route Path</FormLabel>
+                        <FormLabel>{t('admin.management.pageModule.form.path')}</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., /dashboard" {...field} data-testid="input-path" />
+                          <Input placeholder={t('admin.management.pageModule.form.pathPlaceholder')} {...field} data-testid="input-path" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -521,9 +519,9 @@ export default function PageModuleManager() {
                     name="componentPath"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Component Path</FormLabel>
+                        <FormLabel>{t('admin.management.pageModule.form.componentPath')}</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., @/pages/Dashboard" {...field} data-testid="input-component-path" />
+                          <Input placeholder={t('admin.management.pageModule.form.componentPathPlaceholder')} {...field} data-testid="input-component-path" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -536,9 +534,9 @@ export default function PageModuleManager() {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Description</FormLabel>
+                      <FormLabel>{t('admin.management.pageModule.form.description')}</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Module description..." {...field} data-testid="textarea-description" />
+                        <Textarea placeholder={t('admin.management.pageModule.form.descriptionPlaceholder')} {...field} data-testid="textarea-description" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -551,9 +549,9 @@ export default function PageModuleManager() {
                     name="icon"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Icon</FormLabel>
+                        <FormLabel>{t('admin.management.pageModule.form.icon')}</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., Home" {...field} data-testid="input-icon" />
+                          <Input placeholder={t('admin.management.pageModule.form.iconPlaceholder')} {...field} data-testid="input-icon" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -564,7 +562,7 @@ export default function PageModuleManager() {
                     name="order"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Order</FormLabel>
+                        <FormLabel>{t('admin.management.pageModule.form.order')}</FormLabel>
                         <FormControl>
                           <Input type="number" {...field} onChange={(e) => field.onChange(parseInt(e.target.value))} data-testid="input-order" />
                         </FormControl>
@@ -577,9 +575,9 @@ export default function PageModuleManager() {
                     name="requiredRole"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Required Role</FormLabel>
+                        <FormLabel>{t('admin.management.pageModule.form.requiredRole')}</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., admin" {...field} data-testid="input-required-role" />
+                          <Input placeholder={t('admin.management.pageModule.form.requiredRolePlaceholder')} {...field} data-testid="input-required-role" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -596,7 +594,7 @@ export default function PageModuleManager() {
                         <FormControl>
                           <Switch checked={field.value} onCheckedChange={field.onChange} data-testid="switch-active" />
                         </FormControl>
-                        <FormLabel className="!mt-0">Active</FormLabel>
+                        <FormLabel className="!mt-0">{t('admin.management.pageModule.form.isActive')}</FormLabel>
                       </FormItem>
                     )}
                   />
@@ -608,7 +606,7 @@ export default function PageModuleManager() {
                         <FormControl>
                           <Switch checked={field.value} onCheckedChange={field.onChange} data-testid="switch-visible" />
                         </FormControl>
-                        <FormLabel className="!mt-0">Visible</FormLabel>
+                        <FormLabel className="!mt-0">{t('admin.management.pageModule.form.isVisible')}</FormLabel>
                       </FormItem>
                     )}
                   />
@@ -620,7 +618,7 @@ export default function PageModuleManager() {
                         <FormControl>
                           <Switch checked={field.value} onCheckedChange={field.onChange} data-testid="switch-auth" />
                         </FormControl>
-                        <FormLabel className="!mt-0">Requires Auth</FormLabel>
+                        <FormLabel className="!mt-0">{t('admin.management.pageModule.form.requiresAuth')}</FormLabel>
                       </FormItem>
                     )}
                   />
@@ -628,10 +626,10 @@ export default function PageModuleManager() {
 
                 <div className="flex justify-end gap-2">
                   <Button type="button" variant="outline" onClick={() => setShowCreateDialog(false)} data-testid="button-cancel">
-                    Cancel
+                    {t('admin.management.pageModule.buttons.cancel')}
                   </Button>
                   <Button type="submit" disabled={saveModuleMutation.isPending} data-testid="button-save">
-                    {saveModuleMutation.isPending ? 'Saving...' : (editingModule ? 'Update' : 'Create')}
+                    {saveModuleMutation.isPending ? t('admin.management.pageModule.buttons.saving') : (editingModule ? t('admin.management.pageModule.buttons.update') : t('admin.management.pageModule.buttons.create'))}
                   </Button>
                 </div>
               </form>
@@ -644,48 +642,48 @@ export default function PageModuleManager() {
       <div className="grid grid-cols-4 gap-4 mb-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Modules</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.management.pageModule.stats.totalModules')}</CardTitle>
             <Package className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{flatModules?.length || 0}</div>
-            <p className="text-xs text-muted-foreground">Across all categories</p>
+            <p className="text-xs text-muted-foreground">{t('admin.management.pageModule.stats.acrossAllCategories')}</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.management.pageModule.stats.active')}</CardTitle>
             <Power className="h-4 w-4 text-green-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
               {flatModules?.filter(m => m.isActive).length || 0}
             </div>
-            <p className="text-xs text-muted-foreground">Currently enabled</p>
+            <p className="text-xs text-muted-foreground">{t('admin.management.pageModule.stats.currentlyEnabled')}</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Protected</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.management.pageModule.stats.protected')}</CardTitle>
             <Lock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
               {flatModules?.filter(m => m.requiresAuth).length || 0}
             </div>
-            <p className="text-xs text-muted-foreground">Require authentication</p>
+            <p className="text-xs text-muted-foreground">{t('admin.management.pageModule.stats.requireAuth')}</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Admin Only</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.management.pageModule.stats.adminOnly')}</CardTitle>
             <Shield className="h-4 w-4 text-destructive" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
               {flatModules?.filter(m => m.category === 'admin').length || 0}
             </div>
-            <p className="text-xs text-muted-foreground">Admin modules</p>
+            <p className="text-xs text-muted-foreground">{t('admin.management.pageModule.stats.adminModules')}</p>
           </CardContent>
         </Card>
       </div>
@@ -696,7 +694,7 @@ export default function PageModuleManager() {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
-              placeholder="Search modules..."
+              placeholder={t('admin.management.pageModule.filter.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -706,27 +704,27 @@ export default function PageModuleManager() {
         </div>
         <Select value={filterType} onValueChange={setFilterType}>
           <SelectTrigger className="w-[150px]" data-testid="select-filter-type">
-            <SelectValue placeholder="Filter by type" />
+            <SelectValue placeholder={t('admin.management.pageModule.filter.filterByType')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Types</SelectItem>
-            <SelectItem value="page">Pages</SelectItem>
-            <SelectItem value="module">Modules</SelectItem>
-            <SelectItem value="service">Services</SelectItem>
-            <SelectItem value="department">Departments</SelectItem>
+            <SelectItem value="all">{t('admin.management.pageModule.filter.allTypes')}</SelectItem>
+            <SelectItem value="page">{t('admin.management.pageModule.types.page')}</SelectItem>
+            <SelectItem value="module">{t('admin.management.pageModule.types.module')}</SelectItem>
+            <SelectItem value="service">{t('admin.management.pageModule.types.service')}</SelectItem>
+            <SelectItem value="department">{t('admin.management.pageModule.types.department')}</SelectItem>
           </SelectContent>
         </Select>
         <Select value={filterCategory} onValueChange={setFilterCategory}>
           <SelectTrigger className="w-[150px]" data-testid="select-filter-category">
-            <SelectValue placeholder="Filter by category" />
+            <SelectValue placeholder={t('admin.management.pageModule.filter.filterByCategory')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Categories</SelectItem>
-            <SelectItem value="public">Public</SelectItem>
-            <SelectItem value="protected">Protected</SelectItem>
-            <SelectItem value="admin">Admin</SelectItem>
-            <SelectItem value="developer">Developer</SelectItem>
-            <SelectItem value="department">Department</SelectItem>
+            <SelectItem value="all">{t('admin.management.pageModule.filter.allCategories')}</SelectItem>
+            <SelectItem value="public">{t('admin.management.pageModule.categories.public')}</SelectItem>
+            <SelectItem value="protected">{t('admin.management.pageModule.categories.protected')}</SelectItem>
+            <SelectItem value="admin">{t('admin.management.pageModule.categories.admin')}</SelectItem>
+            <SelectItem value="developer">{t('admin.management.pageModule.categories.developer')}</SelectItem>
+            <SelectItem value="department">{t('admin.management.pageModule.categories.department')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -734,22 +732,22 @@ export default function PageModuleManager() {
       {/* Views */}
       <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-4">
         <TabsList>
-          <TabsTrigger value="all">All Modules</TabsTrigger>
-          <TabsTrigger value="tree">Tree View</TabsTrigger>
-          <TabsTrigger value="table">Table View</TabsTrigger>
+          <TabsTrigger value="all">{t('admin.management.pageModule.tabs.all')}</TabsTrigger>
+          <TabsTrigger value="tree">{t('admin.management.pageModule.tabs.tree')}</TabsTrigger>
+          <TabsTrigger value="table">{t('admin.management.pageModule.tabs.table')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>All Modules</CardTitle>
-              <CardDescription>Quick overview of all pages and modules</CardDescription>
+              <CardTitle>{t('admin.management.pageModule.views.allModulesTitle')}</CardTitle>
+              <CardDescription>{t('admin.management.pageModule.views.allModulesDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[600px]">
                 <div className="space-y-2">
                   {isLoading ? (
-                    <p>Loading modules...</p>
+                    <p>{t('admin.management.pageModule.loading')}</p>
                   ) : filteredModules.map((module) => (
                     <div
                       key={module.id}
@@ -761,9 +759,9 @@ export default function PageModuleManager() {
                           <div className="flex items-center gap-2">
                             <span className="font-medium">{module.displayName}</span>
                             <Badge variant={module.isActive ? 'default' : 'outline'}>
-                              {module.isActive ? 'Active' : 'Inactive'}
+                              {module.isActive ? t('admin.management.pageModule.status.active') : t('admin.management.pageModule.status.inactive')}
                             </Badge>
-                            <Badge>{module.type}</Badge>
+                            <Badge>{t(`admin.management.pageModule.types.${module.type}`)}</Badge>
                           </div>
                           <span className="text-sm text-muted-foreground">{module.path}</span>
                         </div>
@@ -805,13 +803,13 @@ export default function PageModuleManager() {
         <TabsContent value="tree" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Module Tree</CardTitle>
-              <CardDescription>Hierarchical view of modules and their relationships</CardDescription>
+              <CardTitle>{t('admin.management.pageModule.views.treeTitle')}</CardTitle>
+              <CardDescription>{t('admin.management.pageModule.views.treeDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[600px]">
                 {isLoading ? (
-                  <p>Loading modules...</p>
+                  <p>{t('admin.management.pageModule.loading')}</p>
                 ) : modules?.map((module) => (
                   <ModuleTreeItem
                     key={module.id}
@@ -819,6 +817,7 @@ export default function PageModuleManager() {
                     onToggle={(id, currentIsActive) => toggleModuleMutation.mutate({ moduleId: id, isActive: !currentIsActive })}
                     onEdit={handleEdit}
                     onDelete={(id) => deleteModuleMutation.mutate(id)}
+                    t={t}
                   />
                 ))}
               </ScrollArea>
@@ -829,21 +828,21 @@ export default function PageModuleManager() {
         <TabsContent value="table" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Module Table</CardTitle>
-              <CardDescription>Detailed table view with all module information</CardDescription>
+              <CardTitle>{t('admin.management.pageModule.views.tableTitle')}</CardTitle>
+              <CardDescription>{t('admin.management.pageModule.views.tableDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[600px]">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Type</TableHead>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Path</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Auth</TableHead>
-                      <TableHead>Actions</TableHead>
+                      <TableHead>{t('admin.management.pageModule.table.name')}</TableHead>
+                      <TableHead>{t('admin.management.pageModule.table.type')}</TableHead>
+                      <TableHead>{t('admin.management.pageModule.table.category')}</TableHead>
+                      <TableHead>{t('admin.management.pageModule.table.path')}</TableHead>
+                      <TableHead>{t('admin.management.pageModule.table.status')}</TableHead>
+                      <TableHead>{t('admin.management.pageModule.table.auth')}</TableHead>
+                      <TableHead>{t('admin.management.pageModule.table.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -851,15 +850,15 @@ export default function PageModuleManager() {
                       <TableRow key={module.id} data-testid={`table-row-${module.id}`}>
                         <TableCell className="font-medium">{module.displayName}</TableCell>
                         <TableCell>
-                          <Badge variant="outline">{module.type}</Badge>
+                          <Badge variant="outline">{t(`admin.management.pageModule.types.${module.type}`)}</Badge>
                         </TableCell>
                         <TableCell>
-                          <Badge>{module.category}</Badge>
+                          <Badge>{t(`admin.management.pageModule.categories.${module.category}`)}</Badge>
                         </TableCell>
                         <TableCell className="text-sm font-mono">{module.path}</TableCell>
                         <TableCell>
                           <Badge variant={module.isActive ? 'default' : 'secondary'}>
-                            {module.isActive ? 'Active' : 'Inactive'}
+                            {module.isActive ? t('admin.management.pageModule.status.active') : t('admin.management.pageModule.status.inactive')}
                           </Badge>
                         </TableCell>
                         <TableCell>

@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ContentAssets, Asset } from "@/types/content";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
+import { useTranslation } from 'react-i18next';
 
 interface Theme {
   variant: 'professional' | 'tint' | 'vibrant';
@@ -24,6 +25,7 @@ interface BrandingEditorProps {
 }
 
 export default function BrandingEditor({ assets }: BrandingEditorProps) {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const logoInputRef = useRef<HTMLInputElement>(null);
@@ -62,13 +64,13 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/branding/assets'] });
       toast({
-        title: 'Asset uploaded successfully',
-        description: 'The brand asset has been uploaded and applied.',
+        title: t('admin.content.branding.toast.uploadSuccessTitle'),
+        description: t('admin.content.branding.toast.uploadSuccessDescription'),
       });
     },
     onError: (error: Error) => {
       toast({
-        title: 'Upload failed',
+        title: t('admin.content.branding.toast.uploadErrorTitle'),
         description: error.message,
         variant: 'destructive',
       });
@@ -95,13 +97,13 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/branding/theme'] });
       toast({
-        title: 'Theme updated successfully',
-        description: 'The brand theme has been updated and applied.',
+        title: t('admin.content.branding.toast.themeSuccessTitle'),
+        description: t('admin.content.branding.toast.themeSuccessDescription'),
       });
     },
     onError: (error: Error) => {
       toast({
-        title: 'Theme update failed',
+        title: t('admin.content.branding.toast.themeErrorTitle'),
         description: error.message,
         variant: 'destructive',
       });
@@ -174,37 +176,37 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
       <TabsList>
         <TabsTrigger value="logos" className="flex items-center">
           <Image className="w-4 h-4 mr-2" />
-          Brand Assets
+          {t('admin.content.branding.tabs.logoFavicon')}
         </TabsTrigger>
         <TabsTrigger value="colors" className="flex items-center">
           <Paintbrush className="w-4 h-4 mr-2" />
-          Colors & Theme
+          {t('admin.content.branding.tabs.themeColors')}
         </TabsTrigger>
       </TabsList>
 
       <TabsContent value="logos" className="space-y-4">
         <Card>
           <CardHeader>
-            <CardTitle>Logo Management</CardTitle>
+            <CardTitle>{t('admin.content.branding.sections.companyLogo')}</CardTitle>
             <CardDescription>
-              Upload and manage your company logo and favicon
+              {t('admin.content.branding.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
-              <Label htmlFor="logo-upload">Primary Logo</Label>
+              <Label htmlFor="logo-upload">{t('admin.content.branding.labels.primaryLogo')}</Label>
               <div className="flex items-start space-x-4">
                 <div className="border rounded-md p-4 bg-gray-50 w-40 h-40 flex items-center justify-center">
                   {(previewLogo || assets?.logo?.url) ? (
                     <img 
                       src={previewLogo || assets?.logo?.url} 
-                      alt="Logo Preview" 
+                      alt={t('admin.content.branding.preview.logo')} 
                       className="max-w-full max-h-full object-contain" 
                     />
                   ) : (
                     <div className="text-center text-gray-400">
                       <Image className="w-10 h-10 mx-auto mb-2" />
-                      <p className="text-xs">No logo uploaded</p>
+                      <p className="text-xs">{t('admin.content.branding.labels.noLogo')}</p>
                     </div>
                   )}
                 </div>
@@ -217,7 +219,7 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
                     onChange={handleLogoChange}
                   />
                   <p className="text-sm text-gray-500">
-                    Recommended size: 300x100px. Use PNG for best quality.
+                    {t('admin.content.branding.hints.logoSize')}
                   </p>
                   <Button 
                     type="button" 
@@ -229,7 +231,7 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
                     ) : (
                       <Upload className="w-4 h-4 mr-2" />
                     )}
-                    Upload Logo
+                    {t('admin.content.branding.buttons.uploadLogo')}
                   </Button>
                 </div>
               </div>
@@ -238,19 +240,19 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
             <Separator />
 
             <div className="space-y-4">
-              <Label htmlFor="favicon-upload">Favicon</Label>
+              <Label htmlFor="favicon-upload">{t('admin.content.branding.sections.favicon')}</Label>
               <div className="flex items-start space-x-4">
                 <div className="border rounded-md p-4 bg-gray-50 w-24 h-24 flex items-center justify-center">
                   {(previewFavicon || assets?.banner?.url) ? (
                     <img 
                       src={previewFavicon || assets?.banner?.url} 
-                      alt="Favicon Preview" 
+                      alt={t('admin.content.branding.preview.favicon')} 
                       className="max-w-full max-h-full object-contain" 
                     />
                   ) : (
                     <div className="text-center text-gray-400">
                       <Image className="w-8 h-8 mx-auto mb-1" />
-                      <p className="text-xs">No favicon</p>
+                      <p className="text-xs">{t('admin.content.branding.labels.noFavicon')}</p>
                     </div>
                   )}
                 </div>
@@ -263,7 +265,7 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
                     onChange={handleFaviconChange}
                   />
                   <p className="text-sm text-gray-500">
-                    Recommended size: 32x32px or 64x64px. PNG format preferred.
+                    {t('admin.content.branding.hints.faviconSize')}
                   </p>
                   <Button 
                     type="button" 
@@ -275,7 +277,7 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
                     ) : (
                       <Upload className="w-4 h-4 mr-2" />
                     )}
-                    Upload Favicon
+                    {t('admin.content.branding.buttons.uploadFavicon')}
                   </Button>
                 </div>
               </div>
@@ -287,15 +289,15 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
       <TabsContent value="colors" className="space-y-4">
         <Card>
           <CardHeader>
-            <CardTitle>Theme Colors</CardTitle>
+            <CardTitle>{t('admin.content.branding.sections.themeConfiguration')}</CardTitle>
             <CardDescription>
-              Customize the color scheme and appearance of your platform
+              {t('admin.content.branding.sections.colorSchemeDescription')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
-                <Label htmlFor="primary-color">Primary Brand Color</Label>
+                <Label htmlFor="primary-color">{t('admin.content.branding.labels.primaryColor')}</Label>
                 <div className="flex space-x-2">
                   <div 
                     className="w-10 h-10 rounded-md border" 
@@ -318,12 +320,12 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
                   className="w-full h-8"
                 />
                 <p className="text-sm text-gray-500">
-                  This color will be used as the primary color throughout the application
+                  {t('admin.content.branding.hints.primaryColorHint')}
                 </p>
               </div>
 
               <div className="space-y-4">
-                <Label htmlFor="border-radius">Element Border Radius</Label>
+                <Label htmlFor="border-radius">{t('admin.content.branding.labels.borderRadius')}</Label>
                 <div className="flex items-center space-x-4">
                   <Input
                     id="border-radius"
@@ -352,42 +354,42 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
-                <Label htmlFor="ui-variant">UI Variant</Label>
+                <Label htmlFor="ui-variant">{t('admin.content.branding.labels.uiVariant')}</Label>
                 <Select 
                   value={theme.variant} 
                   onValueChange={(value: any) => handleVariantChange(value)}
                 >
                   <SelectTrigger id="ui-variant">
-                    <SelectValue placeholder="Select UI variant" />
+                    <SelectValue placeholder={t('admin.content.branding.placeholders.selectVariant')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="professional">Professional</SelectItem>
-                    <SelectItem value="tint">Tint</SelectItem>
-                    <SelectItem value="vibrant">Vibrant</SelectItem>
+                    <SelectItem value="professional">{t('admin.content.branding.options.professional')}</SelectItem>
+                    <SelectItem value="tint">{t('admin.content.branding.options.tint')}</SelectItem>
+                    <SelectItem value="vibrant">{t('admin.content.branding.options.vibrant')}</SelectItem>
                   </SelectContent>
                 </Select>
                 <p className="text-sm text-gray-500">
-                  Professional is subtle, Tint is softer, Vibrant is more colorful
+                  {t('admin.content.branding.hints.variantHint')}
                 </p>
               </div>
 
               <div className="space-y-4">
-                <Label htmlFor="color-mode">Default Color Mode</Label>
+                <Label htmlFor="color-mode">{t('admin.content.branding.labels.appearance')}</Label>
                 <Select 
                   value={theme.appearance} 
                   onValueChange={(value: any) => handleAppearanceChange(value)}
                 >
                   <SelectTrigger id="color-mode">
-                    <SelectValue placeholder="Select color mode" />
+                    <SelectValue placeholder={t('admin.content.branding.placeholders.selectAppearance')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">Light</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="system">System</SelectItem>
+                    <SelectItem value="light">{t('admin.content.branding.options.light')}</SelectItem>
+                    <SelectItem value="dark">{t('admin.content.branding.options.dark')}</SelectItem>
+                    <SelectItem value="system">{t('admin.content.branding.options.system')}</SelectItem>
                   </SelectContent>
                 </Select>
                 <p className="text-sm text-gray-500">
-                  System will follow the user's device preferences
+                  {t('admin.content.branding.hints.appearanceHint')}
                 </p>
               </div>
             </div>
@@ -403,7 +405,7 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
               })}
             >
               <RefreshCw className="w-4 h-4 mr-2" />
-              Reset to Default
+              {t('admin.content.branding.buttons.resetToDefault')}
             </Button>
             <Button 
               onClick={handleUpdateTheme}
@@ -414,7 +416,7 @@ export default function BrandingEditor({ assets }: BrandingEditorProps) {
               ) : (
                 <Paintbrush className="w-4 h-4 mr-2" />
               )}
-              Save Theme
+              {t('admin.content.branding.buttons.applyTheme')}
             </Button>
           </CardFooter>
         </Card>

@@ -7,12 +7,14 @@ import { useToast } from "@/hooks/use-toast";
 import { AboutSection } from "@/types/content";
 import { Loader2, Plus, Save, Trash } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
+import { useTranslation } from 'react-i18next';
 
 interface AboutEditorProps {
   content?: AboutSection[];
 }
 
 export default function AboutEditor({ content = [] }: AboutEditorProps) {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [sections, setSections] = useState(content || []);
@@ -34,13 +36,13 @@ export default function AboutEditor({ content = [] }: AboutEditorProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/content/about"] });
       toast({
-        title: "Success",
-        description: "About page content has been updated",
+        title: t('admin.content.about.toast.successTitle'),
+        description: t('admin.content.about.toast.successDescription'),
       });
     },
     onError: (error) => {
       toast({
-        title: "Error",
+        title: t('admin.content.about.toast.errorTitle'),
         description: error.message,
         variant: "destructive",
       });
@@ -52,7 +54,7 @@ export default function AboutEditor({ content = [] }: AboutEditorProps) {
       ...sections,
       {
         id: Date.now(), // Temporary ID for new sections
-        title: "New Section",
+        title: t('admin.content.about.newSectionTitle'),
         content: "",
         order: sections.length,
         active: true,
@@ -85,7 +87,7 @@ export default function AboutEditor({ content = [] }: AboutEditorProps) {
       <div className="flex justify-end space-x-4">
         <Button onClick={handleAddSection} variant="outline">
           <Plus className="h-4 w-4 mr-2" />
-          Add Section
+          {t('admin.content.about.buttons.addSection')}
         </Button>
         <Button onClick={handleSave} disabled={updateMutation.isPending}>
           {updateMutation.isPending ? (
@@ -93,7 +95,7 @@ export default function AboutEditor({ content = [] }: AboutEditorProps) {
           ) : (
             <Save className="h-4 w-4 mr-2" />
           )}
-          Save Changes
+          {t('admin.content.about.buttons.saveChanges')}
         </Button>
       </div>
 
@@ -101,7 +103,7 @@ export default function AboutEditor({ content = [] }: AboutEditorProps) {
         {sections.map((section, index) => (
           <div key={section.id} className="space-y-4 p-4 border rounded-lg">
             <div className="flex justify-between items-center">
-              <h3 className="text-lg font-medium">Section {index + 1}</h3>
+              <h3 className="text-lg font-medium">{t('admin.content.about.labels.section')} {index + 1}</h3>
               <Button
                 variant="ghost"
                 size="sm"
@@ -113,7 +115,7 @@ export default function AboutEditor({ content = [] }: AboutEditorProps) {
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <label htmlFor={`title-${index}`}>Title</label>
+                <label htmlFor={`title-${index}`}>{t('admin.content.about.labels.title')}</label>
                 <Input
                   id={`title-${index}`}
                   value={section.title}
@@ -124,7 +126,7 @@ export default function AboutEditor({ content = [] }: AboutEditorProps) {
               </div>
 
               <div className="grid gap-2">
-                <label htmlFor={`content-${index}`}>Content</label>
+                <label htmlFor={`content-${index}`}>{t('admin.content.about.labels.content')}</label>
                 <Textarea
                   id={`content-${index}`}
                   value={section.content}
@@ -136,7 +138,7 @@ export default function AboutEditor({ content = [] }: AboutEditorProps) {
               </div>
 
               <div className="flex items-center justify-between">
-                <label htmlFor={`active-${index}`}>Active</label>
+                <label htmlFor={`active-${index}`}>{t('admin.content.about.labels.active')}</label>
                 <Switch
                   id={`active-${index}`}
                   checked={section.active}

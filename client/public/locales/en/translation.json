@@ -533,6 +533,214 @@
         "passwordSpecial": "Password must contain at least one special character",
         "fullNameMin": "Full name must be at least 2 characters"
       }
+    },
+    "passwordReset": {
+      "title": "Reset Password",
+      "description": "Enter your email address and we'll send you a link to reset your password",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email address",
+      "submitButton": "Send Reset Link",
+      "sendingButton": "Sending Reset Link...",
+      "backToLogin": "Back to Login",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "securityNotice": "Protected by industry-leading security practices",
+      "validation": {
+        "emailInvalid": "Please enter a valid email address"
+      },
+      "toast": {
+        "successTitle": "Password reset email sent",
+        "successDescription": "If your email is registered, you will receive a password reset link.",
+        "failedTitle": "Failed to request password reset",
+        "requestFailed": "Request failed"
+      }
+    },
+    "resetPassword": {
+      "title": "Set New Password",
+      "description": "Create a new secure password for your account",
+      "newPasswordLabel": "New Password",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "submitButton": "Set New Password",
+      "settingButton": "Setting New Password...",
+      "backToLogin": "Back to Login",
+      "securityNotice": "Protected by industry-leading security practices",
+      "validation": {
+        "passwordMin": "Password must be at least 8 characters long",
+        "passwordMax": "Password cannot exceed 100 characters",
+        "confirmRequired": "Please confirm your password",
+        "passwordsMismatch": "Passwords don't match"
+      },
+      "toast": {
+        "successTitle": "Password reset successful",
+        "successDescription": "Your password has been reset. You can now log in with your new password.",
+        "failedTitle": "Failed to reset password",
+        "resetFailed": "Failed to reset password",
+        "invalidLinkTitle": "Invalid reset link",
+        "invalidLinkDescription": "The password reset link is invalid or expired.",
+        "tokenMissing": "Reset token is missing"
+      }
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: January 19, 2025",
+    "footer": "This privacy policy is designed to help you understand how we collect, use, and protect your personal information while using our logistics services.",
+    "sections": {
+      "informationWeCollect": {
+        "title": "1. Information We Collect",
+        "description": "We collect various types of information to provide and improve our logistics services:",
+        "personalInfo": {
+          "title": "1.1 Personal Information",
+          "items": {
+            "nameContact": "Name and contact details (email, phone number, address)",
+            "companyInfo": "Company information for business accounts",
+            "shippingInfo": "Shipping and delivery information",
+            "paymentInfo": "Payment and billing information",
+            "accountCredentials": "Account credentials and preferences"
+          }
+        },
+        "automaticInfo": {
+          "title": "1.2 Automatically Collected Information",
+          "items": {
+            "deviceBrowser": "Device and browser information",
+            "ipLocation": "IP address and location data",
+            "usagePatterns": "Usage patterns and preferences",
+            "cookies": "Cookies and similar tracking technologies"
+          }
+        }
+      },
+      "howWeUse": {
+        "title": "2. How We Use Your Information",
+        "description": "We use the collected information for the following purposes:",
+        "items": {
+          "providingServices": "Providing and managing logistics and transportation services",
+          "processingTransactions": "Processing transactions and payments",
+          "sendingUpdates": "Sending service updates and notifications",
+          "improvingServices": "Improving our services and user experience",
+          "analyzingUsage": "Analyzing usage patterns and trends",
+          "legalCompliance": "Complying with legal obligations",
+          "preventingFraud": "Preventing fraud and ensuring security"
+        }
+      },
+      "dataSecurity": {
+        "title": "3. Data Security",
+        "description": "We implement comprehensive security measures to protect your information:",
+        "items": {
+          "encryption": "End-to-end encryption for sensitive data",
+          "securityAudits": "Regular security audits and updates",
+          "secureStorage": "Secure data storage and transmission",
+          "accessControls": "Access controls and authentication",
+          "employeeTraining": "Employee training on data protection"
+        }
+      },
+      "userRights": {
+        "title": "4. User Rights",
+        "description": "You have the following rights regarding your personal data:",
+        "items": {
+          "access": "Access to your personal information",
+          "correction": "Correction of inaccurate data",
+          "deletion": "Deletion of personal data (right to be forgotten)",
+          "portability": "Data portability",
+          "withdrawConsent": "Withdrawal of consent",
+          "objection": "Objection to processing"
+        }
+      },
+      "cookiePolicy": {
+        "title": "5. Cookie Policy",
+        "description": "We use cookies and similar technologies to enhance your experience:",
+        "items": {
+          "essential": "Essential cookies for website functionality",
+          "analytics": "Analytics cookies to improve our services",
+          "preference": "Preference cookies to remember your settings",
+          "thirdParty": "Third-party cookies for additional features"
+        }
+      },
+      "thirdPartyServices": {
+        "title": "6. Third-party Services",
+        "description": "We may share information with trusted third parties:",
+        "items": {
+          "paymentProcessors": "Payment processors for secure transactions",
+          "shippingPartners": "Shipping partners for delivery services",
+          "analyticsProviders": "Analytics providers for service improvement",
+          "cloudProviders": "Cloud service providers for data storage"
+        }
+      },
+      "changes": {
+        "title": "7. Changes to Privacy Policy",
+        "description": "We may update this Privacy Policy periodically. Major changes will be notified via:",
+        "items": {
+          "emailNotifications": "Email notifications to registered users",
+          "websiteAnnouncements": "Website announcements",
+          "appNotifications": "Application notifications"
+        }
+      },
+      "dataRetention": {
+        "title": "8. Data Retention",
+        "description": "We retain your information for as long as necessary to:",
+        "items": {
+          "provideServices": "Provide our services",
+          "legalObligations": "Comply with legal obligations",
+          "resolveDisputes": "Resolve disputes",
+          "enforceAgreements": "Enforce agreements"
+        }
+      },
+      "internationalTransfers": {
+        "title": "9. International Data Transfers",
+        "description": "For international operations, data may be processed in different countries with:",
+        "items": {
+          "safeguards": "Appropriate data protection safeguards",
+          "compliance": "Compliance with international regulations",
+          "contractualClauses": "Standard contractual clauses"
+        }
+      },
+      "contactUs": {
+        "title": "10. Contact Us",
+        "description": "For any privacy-related questions or concerns:",
+        "items": {
+          "email": "Email: privacy@molochain.com",
+          "phone": "Phone: Contact via email",
+          "address": "Address: Maslak Mah. Eski Büyükdere Cad. Ayazağa Yolu, Giz2000 Plaza No:7 Şişli / İstanbul TÜRKİYE"
+        }
+      }
+    }
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: January 19, 2025",
+    "sections": {
+      "acceptanceOfTerms": {
+        "title": "1. Acceptance of Terms",
+        "description": "By accessing or using MoLogistics services, you agree to be bound by these Terms of Service."
+      },
+      "serviceDescription": {
+        "title": "2. Service Description",
+        "description": "MoLogistics provides logistics and transportation services, including but not limited to:",
+        "items": {
+          "freightShipping": "Freight Shipping",
+          "warehousing": "Warehousing",
+          "distribution": "Distribution"
+        }
+      },
+      "userResponsibilities": {
+        "title": "3. User Responsibilities",
+        "description": "Users of our services agree to:",
+        "items": {
+          "accurateInfo": "Provide accurate shipping information",
+          "lawsCompliance": "Comply with applicable laws and regulations",
+          "accountSecurity": "Maintain account security",
+          "payForServices": "Pay for services as agreed"
+        }
+      },
+      "limitationOfLiability": {
+        "title": "4. Limitation of Liability",
+        "description": "MoLogistics shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of our services."
+      },
+      "contactInfo": {
+        "title": "5. Contact Information",
+        "description": "For questions about these Terms of Service, please contact legal@molochain.com"
+      }
     }
   },
   "about": {
@@ -971,10 +1179,15 @@
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",
+    "unexpectedError": "An unexpected error occurred",
+    "connectionError": "Connection error",
+    "fetchError": "Failed to fetch data",
+    "updateError": "Failed to update",
     "cancel": "Cancel",
     "save": "Save",
     "delete": "Delete",
     "edit": "Edit",
+    "add": "Add",
     "back": "Back",
     "next": "Next",
     "submit": "Submit",
@@ -983,7 +1196,8 @@
     "no": "No",
     "confirm": "Confirm",
     "welcome": "Welcome",
-    "logout": "Logout"
+    "logout": "Logout",
+    "copied": "Copied to clipboard"
   },
   "language": {
     "select": "Select Language",
@@ -991,5 +1205,2446 @@
     "arabic": "العربية",
     "persian": "فارسی",
     "turkish": "Türkçe"
+  },
+  "ecosystem": {
+    "title": "Ecosystem Control Panel",
+    "globalControl": "Global Control",
+    "subtitle": "Enterprise-grade management and orchestration across 180+ countries",
+    "overview": "Ecosystem Overview",
+    "overviewDescription": "Real-time metrics across the global MoloChain platform",
+    "stats": {
+      "countries": "Countries",
+      "departments": "Departments",
+      "divisions": "Divisions",
+      "systemHealth": "System Health",
+      "activeServices": "Active Services",
+      "activeAlerts": "Active Alerts",
+      "live": "Live",
+      "realtimeStatus": "Real-time Status"
+    },
+    "sections": {
+      "organizationalStructure": "Organizational Structure",
+      "organizationalStructureDesc": "Departments, divisions, and operational units",
+      "systemPerformance": "System Performance",
+      "globalCompliance": "Global Compliance Status",
+      "liveActivityFeed": "Live Activity Feed",
+      "godLayerActions": "GOD Layer Actions",
+      "departmentDashboards": "Department Dashboards"
+    },
+    "departments": {
+      "accounting": "Accounting",
+      "management": "Management",
+      "technology": "Technology",
+      "operations": "Operations",
+      "supplyChain": "Supply Chain",
+      "humanResources": "Human Resources",
+      "legalRisk": "Legal & Risk",
+      "marketing": "Marketing"
+    }
+  },
+  "careers": {
+    "badge": "Careers",
+    "title": "Join Our",
+    "titleHighlight": "Global Team",
+    "subtitle": "Build your career with a company that's revolutionizing global logistics. We're always looking for talented individuals to join our mission.",
+    "viewOpenPositions": "View Open Positions",
+    "whyWorkWithUs": "Why Work With Us",
+    "whyWorkWithUsDescription": "We offer more than just a job. Join a team that values innovation, growth, and work-life balance.",
+    "openPositions": "Open Positions",
+    "openPositionsDescription": "Explore our current openings and find the perfect role for your skills and aspirations.",
+    "searchPlaceholder": "Search positions...",
+    "allDepartments": "All Departments",
+    "applyNow": "Apply Now",
+    "noPositionsFound": "No positions found",
+    "noPositionsFoundDescription": "Try adjusting your search or filter criteria.",
+    "benefits": {
+      "globalOpportunities": {
+        "title": "Global Opportunities",
+        "description": "Work with teams across 150+ countries"
+      },
+      "careerGrowth": {
+        "title": "Career Growth",
+        "description": "Clear paths for advancement and development"
+      },
+      "healthWellness": {
+        "title": "Health & Wellness",
+        "description": "Comprehensive healthcare and wellness programs"
+      },
+      "learningDevelopment": {
+        "title": "Learning & Development",
+        "description": "Continuous training and skill development"
+      },
+      "teamCulture": {
+        "title": "Team Culture",
+        "description": "Collaborative and inclusive work environment"
+      },
+      "recognition": {
+        "title": "Recognition",
+        "description": "Performance-based rewards and recognition"
+      }
+    },
+    "departments": {
+      "operations": "Operations",
+      "technology": "Technology",
+      "sales": "Sales",
+      "analytics": "Analytics",
+      "customerService": "Customer Service",
+      "compliance": "Compliance"
+    },
+    "jobTypes": {
+      "fullTime": "Full-time",
+      "partTime": "Part-time",
+      "contract": "Contract",
+      "remote": "Remote"
+    },
+    "positions": {
+      "seniorLogisticsCoordinator": {
+        "title": "Senior Logistics Coordinator",
+        "location": "Istanbul, Turkey",
+        "description": "Lead logistics operations and coordinate global shipments for major clients."
+      },
+      "fullStackDeveloper": {
+        "title": "Full Stack Developer",
+        "location": "Remote",
+        "description": "Build and maintain our cutting-edge logistics platform and APIs."
+      },
+      "businessDevelopmentManager": {
+        "title": "Business Development Manager",
+        "location": "Dubai, UAE",
+        "description": "Expand our client base and develop strategic partnerships."
+      },
+      "supplyChainAnalyst": {
+        "title": "Supply Chain Analyst",
+        "location": "London, UK",
+        "description": "Analyze supply chain data and optimize logistics operations."
+      },
+      "customerSuccessManager": {
+        "title": "Customer Success Manager",
+        "location": "Rotterdam, Netherlands",
+        "description": "Ensure client satisfaction and manage key accounts."
+      },
+      "customsSpecialist": {
+        "title": "Customs Specialist",
+        "location": "Shanghai, China",
+        "description": "Handle customs documentation and ensure regulatory compliance."
+      }
+    },
+    "cta": {
+      "title": "Don't See the Right Role?",
+      "description": "We're always looking for exceptional talent. Send us your resume and we'll keep you in mind for future opportunities.",
+      "contactUs": "Contact Us"
+    }
+  },
+  "success": {
+    "title": "Thank You!",
+    "subtitle": "Your message has been successfully submitted",
+    "whatHappensNext": "What happens next?",
+    "whatHappensNextDescription": "Our team will review your message and get back to you as soon as possible. You should expect to hear from us within 1-2 business days.",
+    "goToHomepage": "Go to Homepage",
+    "sendAnotherMessage": "Send Another Message"
+  },
+  "notFound": {
+    "title": "404 Page Not Found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "goHome": "Go Home"
+  },
+  "settings": {
+    "title": "System Settings",
+    "description": "Manage API keys, features, and system configuration",
+    "tabs": {
+      "apiKeys": "API Keys",
+      "features": "Features",
+      "performance": "Performance"
+    },
+    "apiKeyManagement": {
+      "title": "API Key Management",
+      "description": "Configure API keys for third-party services. Keep these keys secure and never share them publicly.",
+      "apiKeyLabel": "API Key",
+      "placeholder": "Enter your API key",
+      "notConfiguredPlaceholder": "Not configured",
+      "lastUsed": "Last used"
+    },
+    "apiKeys": {
+      "openai": {
+        "name": "OpenAI API Key",
+        "description": "Required for AI-powered features including chat assistants, content generation, and analytics"
+      },
+      "stripe": {
+        "name": "Stripe Secret Key",
+        "description": "Required for payment processing, subscriptions, and billing management"
+      },
+      "instagram": {
+        "name": "Instagram Access Token",
+        "description": "Required for Instagram marketing features and social media integration"
+      },
+      "googleMaps": {
+        "name": "Google Maps API Key",
+        "description": "Required for location services, route optimization, and mapping features"
+      }
+    },
+    "badges": {
+      "required": "Required",
+      "active": "Active",
+      "notConfigured": "Not Configured"
+    },
+    "buttons": {
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "featureConfiguration": {
+      "title": "Feature Configuration",
+      "description": "Enable or disable platform features based on your needs"
+    },
+    "features": {
+      "openAI": {
+        "name": "OpenAI",
+        "description": "AI-powered features including chat and content generation"
+      },
+      "stripe": {
+        "name": "Stripe",
+        "description": "Payment processing and subscription management"
+      },
+      "instagram": {
+        "name": "Instagram",
+        "description": "Instagram marketing and social media integration"
+      },
+      "googleMaps": {
+        "name": "Google Maps",
+        "description": "Location services and mapping features"
+      }
+    },
+    "performance": {
+      "title": "Performance Settings",
+      "description": "Monitor and optimize system performance",
+      "cachePerformance": "Cache Performance",
+      "hitRate": "Hit Rate",
+      "cacheEnabled": "Cache Enabled",
+      "optimizationLevel": "Optimization Level",
+      "levels": {
+        "standard": "Standard",
+        "balanced": "Balanced",
+        "performance": "Performance"
+      }
+    },
+    "alerts": {
+      "securityNotice": {
+        "title": "Security Notice",
+        "description": "API keys are encrypted and stored securely. Never share your API keys in public repositories or client-side code."
+      },
+      "performanceTip": {
+        "title": "Performance Tip",
+        "description": "Enable caching to improve response times. Current cache hit rate is {{hitRate}}%. Target is 85% for optimal performance."
+      }
+    },
+    "toast": {
+      "success": "Success",
+      "error": "Error",
+      "apiKeyUpdated": "API key updated successfully",
+      "apiKeyUpdateFailed": "Failed to update API key",
+      "apiKeyEmpty": "API key cannot be empty",
+      "featureUpdated": "Feature updated successfully"
+    }
+  },
+  "profile": {
+    "title": "My Profile",
+    "memberSince": "Member since",
+    "lastLogin": "Last login",
+    "accountDetails": {
+      "title": "Account Details",
+      "description": "Manage your account information and preferences"
+    },
+    "tabs": {
+      "profile": "Profile",
+      "security": "Security",
+      "preferences": "Preferences",
+      "documents": "Documents"
+    },
+    "labels": {
+      "username": "Username",
+      "email": "Email Address",
+      "role": "Role",
+      "accountStatus": "Account Status",
+      "active": "Active"
+    },
+    "buttons": {
+      "editProfile": "Edit Profile",
+      "changePassword": "Change Password",
+      "viewHistory": "View History",
+      "configure": "Configure",
+      "change": "Change",
+      "uploadDocument": "Upload Document"
+    },
+    "security": {
+      "password": "Password",
+      "passwordLastChanged": "Last changed 3 months ago",
+      "twoFactorAuth": "Two-Factor Authentication",
+      "loginHistory": "Login History",
+      "loginHistoryDescription": "View recent login attempts"
+    },
+    "preferences": {
+      "notifications": "Notifications",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "language": "Language",
+      "theme": "Theme"
+    },
+    "documents": {
+      "noDocuments": "No Documents Available",
+      "noDocumentsDescription": "You haven't uploaded any documents yet"
+    }
+  },
+  "dashboard": {
+    "title": "Welcome to MoloChain",
+    "subtitle": "Global Logistics Command Center",
+    "loading": "Loading dashboard...",
+    "header": {
+      "globalReach": "Global Reach",
+      "countriesValue": "180+ Countries",
+      "activeServices": "Active Services",
+      "modulesValue": "42 Modules",
+      "systemUptime": "System Uptime",
+      "performance": "Performance",
+      "performanceValue": "Optimal"
+    },
+    "metrics": {
+      "countries": "Countries",
+      "departments": "Departments",
+      "divisions": "Divisions",
+      "guides": "GUIDES",
+      "systemUptime": "System Uptime",
+      "activeModules": "Active Modules"
+    },
+    "sections": {
+      "platformAnalytics": "Platform Analytics",
+      "platformAnalyticsDesc": "Real-time metrics across all divisions",
+      "organizationalStructure": "Organizational Structure",
+      "organizationalStructureDesc": "Departments, divisions, and operational units",
+      "systemPerformance": "System Performance",
+      "globalCompliance": "Global Compliance Status",
+      "liveActivityFeed": "Live Activity Feed",
+      "godLayerActions": "GOD Layer Actions"
+    },
+    "toast": {
+      "unauthorized": "Unauthorized",
+      "unauthorizedDescription": "You are logged out. Logging in again..."
+    }
+  },
+  "performance": {
+    "title": "Performance Dashboard",
+    "subtitle": "Real-time system monitoring and metrics",
+    "timeRange": {
+      "5m": "Last 5 min",
+      "15m": "Last 15 min",
+      "1h": "Last 1 hour",
+      "6h": "Last 6 hours",
+      "24h": "Last 24 hours"
+    },
+    "cards": {
+      "cpuUsage": "CPU Usage",
+      "memoryUsage": "Memory Usage",
+      "apiPerformance": "API Performance",
+      "database": "Database",
+      "load": "Load",
+      "rpm": "rpm",
+      "connections": "connections",
+      "errors": "errors",
+      "activeConnections": "active connections",
+      "cacheHitRate": "Cache hit rate"
+    },
+    "tabs": {
+      "system": "System",
+      "api": "API",
+      "database": "Database",
+      "realtime": "Real-time"
+    },
+    "charts": {
+      "cpuUsageOverTime": "CPU Usage Over Time",
+      "memoryUsageTrend": "Memory Usage Trend",
+      "requestRateResponseTime": "Request Rate & Response Time",
+      "errorRate": "Error Rate",
+      "databasePerformance": "Database Performance"
+    },
+    "websocket": {
+      "title": "WebSocket Connections",
+      "activeConnections": "Active Connections",
+      "messagesPerSecond": "Messages/Second"
+    },
+    "cache": {
+      "title": "Cache Performance",
+      "hitRate": "Hit Rate",
+      "keys": "keys"
+    },
+    "alerts": {
+      "highCpu": "High CPU usage detected:",
+      "highMemory": "High memory usage:",
+      "highErrorRate": "Elevated API error rate:"
+    },
+    "toast": {
+      "connectionIssue": "Connection Issue",
+      "connectionIssueDescription": "Real-time updates may be delayed"
+    }
+  },
+  "reports": {
+    "title": "Reports & Analytics",
+    "subtitle": "Comprehensive reporting and data management",
+    "buttons": {
+      "importData": "Import Data",
+      "exportAllData": "Export All Data",
+      "exporting": "Exporting...",
+      "importing": "Importing...",
+      "import": "Import",
+      "cancel": "Cancel"
+    },
+    "tabs": {
+      "organization": "Organization Report",
+      "department": "Department Report",
+      "division": "Division Report"
+    },
+    "sections": {
+      "departmentStatistics": "Department Statistics",
+      "divisionModuleCounts": "Division and module counts by department",
+      "systemHealthOverview": "System Health Overview",
+      "moduleHealthDistribution": "Module health distribution",
+      "complianceStatus": "Compliance Status",
+      "complianceDescription": "Standards compliance across the organization",
+      "healthStatistics": "Health Statistics",
+      "moduleHealthDist": "Module Health Distribution"
+    },
+    "labels": {
+      "selectDepartment": "Select Department",
+      "selectDepartmentDescription": "Choose a department to view detailed report",
+      "selectDivision": "Select Division",
+      "selectDivisionDescription": "Choose a division to view detailed report",
+      "dataType": "Data Type",
+      "jsonFile": "JSON File",
+      "totalModules": "Total Modules",
+      "healthy": "Healthy",
+      "warning": "Warning",
+      "critical": "Critical",
+      "totalDivisions": "Total Divisions",
+      "status": "Status",
+      "divisions": "Divisions",
+      "modules": "Modules",
+      "subDivisions": "Sub-Divisions",
+      "domains": "Domains"
+    },
+    "import": {
+      "title": "Import Data",
+      "description": "Upload a JSON file to bulk import data",
+      "selectPlaceholder": "Select data type",
+      "departments": "Departments",
+      "divisions": "Divisions",
+      "subDivisions": "Sub-Divisions",
+      "domains": "Domains"
+    },
+    "toast": {
+      "exportSuccess": "Success",
+      "exportSuccessDescription": "Data exported successfully",
+      "exportError": "Error",
+      "exportErrorDescription": "Failed to export data",
+      "importSuccess": "Success",
+      "importSuccessDescription": "Data imported successfully",
+      "importError": "Error",
+      "importErrorDescription": "Failed to import data",
+      "invalidFileFormat": "Invalid file format. Please upload a valid JSON file."
+    }
+  },
+  "developer": {
+    "apiPolicies": {
+      "title": "API Policies",
+      "subtitle": "Important information about rate limiting and API versioning",
+      "tabs": {
+        "rateLimiting": "Rate Limiting",
+        "versioning": "API Versioning"
+      },
+      "alerts": {
+        "rateLimitsApply": "Rate Limits Apply",
+        "rateLimitsDescription": "All API endpoints are subject to rate limiting to ensure platform stability and fair usage.",
+        "apiVersioningStrategy": "API Versioning Strategy",
+        "apiVersioningDescription": "Our API uses date-based versioning to ensure backward compatibility while enabling new features.",
+        "needHigherLimits": "Need Higher Limits?",
+        "needHigherLimitsDescription": "If you need higher rate limits, please contact our sales team to discuss Enterprise options."
+      },
+      "rateLimiting": {
+        "title": "Rate Limiting Policy",
+        "description": "MOLOCHAIN implements rate limiting to protect our infrastructure and ensure fair usage of our API resources. Rate limits are applied on a per-endpoint and per-authentication basis.",
+        "tiersTitle": "Rate Limit Tiers",
+        "tiersDescription": "Rate limits vary based on your account tier:",
+        "headersTitle": "Rate Limit Headers",
+        "headersDescription": "All API responses include headers that provide information about your current rate limit status:",
+        "handlingTitle": "Handling Rate Limits",
+        "handlingDescription": "When a rate limit is exceeded, the API will respond with a 429 Too Many Requests status code. Clients should implement proper error handling and backoff strategies.",
+        "bestPractices": "Best Practices for Rate Limiting"
+      },
+      "table": {
+        "tier": "Tier",
+        "rateLimit": "Rate Limit",
+        "burstLimit": "Burst Limit",
+        "notes": "Notes",
+        "header": "Header",
+        "description": "Description",
+        "example": "Example",
+        "version": "Version",
+        "releaseDate": "Release Date",
+        "status": "Status",
+        "endOfLife": "End-of-Life Date"
+      },
+      "tiers": {
+        "developer": "Developer",
+        "developerRate": "60 requests/minute",
+        "developerBurst": "100 requests/minute",
+        "developerNotes": "Free tier for development and testing",
+        "basic": "Basic",
+        "basicRate": "300 requests/minute",
+        "basicBurst": "500 requests/minute",
+        "basicNotes": "For small to medium businesses",
+        "professional": "Professional",
+        "professionalRate": "1,000 requests/minute",
+        "professionalBurst": "1,500 requests/minute",
+        "professionalNotes": "For medium to large businesses",
+        "enterprise": "Enterprise",
+        "enterpriseRate": "5,000+ requests/minute",
+        "enterpriseBurst": "7,500+ requests/minute",
+        "enterpriseNotes": "Custom limits available"
+      },
+      "bestPractices": {
+        "do": "Do",
+        "dont": "Don't",
+        "doList": {
+          "monitor": "Monitor your rate limit usage via response headers",
+          "backoff": "Implement exponential backoff for retries",
+          "cache": "Cache responses when appropriate",
+          "batch": "Batch requests when possible",
+          "optimize": "Optimize your API usage patterns"
+        },
+        "dontList": {
+          "retry": "Repeatedly retry requests without backoff",
+          "ignore": "Ignore rate limit headers",
+          "duplicate": "Make unnecessary duplicate requests",
+          "share": "Share API credentials across multiple applications",
+          "scrape": "Scrape data unnecessarily"
+        }
+      },
+      "codeExamples": {
+        "title": "Code Examples",
+        "handlingHeaders": "Handling Rate Limit Headers",
+        "handlingHeadersDesc": "How to track and respond to rate limit information",
+        "exponentialBackoff": "Implementing Exponential Backoff",
+        "exponentialBackoffDesc": "Advanced retry strategy for rate limited requests",
+        "specifyVersion": "Specifying API Version",
+        "specifyVersionDesc": "Different methods to specify which API version to use",
+        "copyCode": "Copy code"
+      },
+      "versioning": {
+        "title": "API Versioning",
+        "description": "MOLOCHAIN uses a versioning strategy to ensure that changes to our API don't break existing integrations. We provide stable API versions with clear deprecation timelines.",
+        "dateBasedTitle": "Date-Based Versioning",
+        "dateBasedDescription": "We use date-based versioning in the format YYYY-MM-DD. This approach allows us to:",
+        "dateBasedBenefits": {
+          "release": "Release new features without breaking existing integrations",
+          "timeline": "Provide a clear timeline for API changes",
+          "select": "Allow clients to select specific API behavior",
+          "support": "Support multiple API versions simultaneously"
+        },
+        "specifyingVersion": "Specifying API Version",
+        "specifyDescription": "You can specify which API version to use through one of the following methods:",
+        "headerRecommended": "HTTP Header (Recommended)",
+        "urlPath": "URL Path",
+        "acceptHeader": "Accept Header",
+        "defaultVersion": "Default Version",
+        "defaultVersionDescription": "If no version is specified, the API will use the oldest non-deprecated version. However, we strongly recommend always specifying a version explicitly.",
+        "timelineTitle": "API Version Timeline",
+        "statusDefinitions": "Version Status Definitions",
+        "accordion": {
+          "headerInstruction": "Include the X-API-Version header in your request:",
+          "urlInstruction": "Include the major version number in the URL path:",
+          "urlNote": "Note: URL versioning only supports major version numbers (v1, v2, etc.), not specific dates.",
+          "acceptInstruction": "Include the version in the Accept header:"
+        },
+        "statuses": {
+          "current": "Current",
+          "currentDesc": "Latest stable version with all new features",
+          "maintained": "Maintained",
+          "maintainedDesc": "Fully supported with security updates but no new features",
+          "deprecated": "Deprecated",
+          "deprecatedDesc": "Still available but planned for removal, migration recommended",
+          "endOfLife": "End-of-Life",
+          "endOfLifeDesc": "No longer available"
+        }
+      },
+      "headers": {
+        "rateLimitLimit": "The maximum number of requests allowed in the current time window",
+        "rateLimitRemaining": "The number of requests remaining in the current time window",
+        "rateLimitReset": "The Unix timestamp when the rate limit resets",
+        "retryAfter": "The number of seconds to wait before retrying (only present when rate limited)"
+      }
+    },
+    "authGuide": {
+      "title": "API Authentication Guide",
+      "subtitle": "Secure your API interactions with MOLOCHAIN's authentication system",
+      "tabs": {
+        "overview": "Overview",
+        "authentication": "Authentication",
+        "authorization": "Authorization",
+        "examples": "Code Examples",
+        "codeExamples": "Code Examples"
+      },
+      "alerts": {
+        "authVsAuthz": "Authentication vs. Authorization",
+        "authVsAuthzDesc": "Authentication verifies who you are, while authorization determines what you can access."
+      },
+      "overview": {
+        "title": "Authentication Overview",
+        "description": "The MOLOCHAIN platform uses a secure, multi-layered authentication system to protect user data and ensure that only authorized users can access sensitive information.",
+        "methodsTitle": "Authentication Methods",
+        "methodsDescription": "Our API supports multiple authentication methods:",
+        "methods": {
+          "session": "Session-based Authentication",
+          "sessionDesc": "Using HTTP cookies for web applications",
+          "jwt": "JWT Token Authentication",
+          "jwtDesc": "For mobile apps and external integrations",
+          "twoFactor": "Two-Factor Authentication (2FA)",
+          "twoFactorDesc": "Optional additional security layer",
+          "apiKey": "API Key Authentication",
+          "apiKeyDesc": "For server-to-server integrations"
+        }
+      },
+      "flow": {
+        "title": "Authentication Flow",
+        "description": "Standard authentication process for accessing protected resources",
+        "step1": "User Registration or Login",
+        "step1Desc": "Create an account or authenticate with existing credentials",
+        "step2": "Receive Authentication Token",
+        "step2Desc": "Server issues a token or session cookie upon successful authentication",
+        "step3": "Include Token in Requests",
+        "step3Desc": "Attach token to subsequent API requests",
+        "step4": "Token Validation",
+        "step4Desc": "Server validates token for each protected request",
+        "step5": "Token Refresh (when needed)",
+        "step5Desc": "Refresh expired tokens to maintain session"
+      },
+      "security": {
+        "title": "Security Recommendations",
+        "description": "Best practices for implementing secure authentication",
+        "https": "Always use HTTPS for all API requests",
+        "storeTokens": "Store tokens securely (HttpOnly cookies for web apps)",
+        "refresh": "Implement token refresh mechanisms before expiration",
+        "twoFactor": "Enable 2FA for sensitive operations",
+        "validate": "Validate all user inputs server-side",
+        "errorHandling": "Implement proper error handling without exposing sensitive info"
+      },
+      "endpoints": {
+        "title": "Authentication Endpoints",
+        "description": "The following endpoints are used for user authentication in the MOLOCHAIN platform. All authentication requests should be sent with Content-Type: application/json.",
+        "login": {
+          "title": "Login Endpoint",
+          "description": "Authenticate users with email and password",
+          "method": "POST /api/auth/login",
+          "methodDesc": "Authenticates a user and returns a session cookie or JWT token"
+        },
+        "register": {
+          "title": "Registration Endpoint",
+          "description": "Create a new user account",
+          "method": "POST /api/auth/register",
+          "methodDesc": "Creates a new user account"
+        },
+        "refresh": {
+          "title": "Token Refresh Endpoint",
+          "description": "Refresh an expired JWT token",
+          "method": "POST /api/auth/refresh",
+          "methodDesc": "Refreshes an expired JWT token using a refresh token or session cookie"
+        },
+        "logout": {
+          "title": "Logout Endpoint",
+          "description": "Invalidate the current session or token",
+          "method": "POST /api/auth/logout",
+          "methodDesc": "Logs out the current user by invalidating their session or token"
+        }
+      },
+      "table": {
+        "parameter": "Parameter",
+        "type": "Type",
+        "description": "Description",
+        "requestBody": "Request Body",
+        "response": "Response",
+        "role": "Role",
+        "permissions": "Permissions",
+        "scope": "Scope",
+        "statusCode": "Status Code",
+        "error": "Error",
+        "handlingStrategy": "Handling Strategy"
+      },
+      "authorization": {
+        "title": "Authorization",
+        "description": "Once authenticated, users must be authorized to access specific resources. Authorization determines what actions a user can perform.",
+        "methodsTitle": "Authorization Methods",
+        "methodsDescription": "The MOLOCHAIN platform implements the following authorization methods:",
+        "methods": {
+          "rbac": "Role-Based Access Control (RBAC)",
+          "rbacDesc": "Permissions based on user roles",
+          "resource": "Resource-Based Access Control",
+          "resourceDesc": "Permissions based on ownership or relationship to resources",
+          "scoped": "Scoped API Tokens",
+          "scopedDesc": "Tokens with limited permissions for specific operations"
+        },
+        "rolesTitle": "User Roles",
+        "rolesDescription": "The platform defines several roles with different permission levels:",
+        "scopesTitle": "API Token Scopes",
+        "scopesDescription": "When creating API tokens, you can specify scopes to limit their permissions:",
+        "makingRequests": "Making Authorized Requests",
+        "makingRequestsDesc": "How to include authorization information in your API requests",
+        "bearerAuth": "Bearer Token Authentication",
+        "bearerAuthDesc": "Include your JWT token or API key in the Authorization header:",
+        "cookieAuth": "Cookie Authentication",
+        "cookieAuthDesc": "When using cookie-based authentication, include the credentials option in your fetch or axios requests:",
+        "handlingErrors": "Handling Authorization Errors",
+        "handlingErrorsDesc": "Common authorization error responses and how to handle them"
+      },
+      "examples": {
+        "title": "Code Examples",
+        "description": "The following examples demonstrate how to implement authentication and authorization in different programming languages and environments.",
+        "login": "User Login Example",
+        "loginDesc": "How to authenticate users with the login API",
+        "authorizedRequests": "Making Authorized Requests",
+        "authorizedRequestsDesc": "How to include authorization in API requests",
+        "tokenRefresh": "Token Refresh Implementation",
+        "tokenRefreshDesc": "How to implement automatic token refresh",
+        "twoFactor": "Two-Factor Authentication",
+        "twoFactorDesc": "How to implement two-factor authentication verification",
+        "nodejs": "Node.js Authentication Example",
+        "nodejsDesc": "Server-side authentication implementation using Node.js"
+      },
+      "backToPortal": "Back to Developer Portal"
+    },
+    "websocket": {
+      "title": "WebSocket API Guide",
+      "subtitle": "Learn how to integrate with our real-time WebSocket APIs for live updates and notifications",
+      "tabs": {
+        "overview": "Overview",
+        "endpoints": "Endpoints",
+        "authentication": "Authentication",
+        "codeExamples": "Code Examples"
+      },
+      "alert": {
+        "title": "Documentation Purpose",
+        "description": "This documentation covers how to interact with the MOLOCHAIN platform's WebSocket APIs for real-time data."
+      },
+      "sections": {
+        "introduction": "Introduction to WebSockets",
+        "introductionDescription": "WebSockets provide a persistent connection between a client and server, allowing for bi-directional, real-time data transfer. Unlike HTTP, which follows a request-response pattern, WebSockets enable the server to push data to clients without the client having to request it.",
+        "keyBenefits": "Key Benefits",
+        "whenToUse": "When to Use WebSockets",
+        "whenToUseDescription": "WebSockets are ideal for applications that require real-time functionality, such as:"
+      },
+      "benefits": {
+        "realTimeUpdates": "Real-time updates",
+        "realTimeUpdatesDesc": "Receive instant notifications and data updates without polling",
+        "reducedLatency": "Reduced latency",
+        "reducedLatencyDesc": "Minimize communication overhead with persistent connections",
+        "bidirectional": "Bi-directional communication",
+        "bidirectionalDesc": "Enable interactive features and real-time collaboration",
+        "efficientBandwidth": "Efficient bandwidth usage",
+        "efficientBandwidthDesc": "Lower data transfer overhead compared to HTTP polling"
+      },
+      "useCases": {
+        "liveTracking": "Live tracking of shipments and logistics operations",
+        "realTimeNotifications": "Real-time notifications and alerts",
+        "collaborativeEditing": "Collaborative editing and planning",
+        "liveDashboards": "Live dashboards and monitoring",
+        "chatMessaging": "Chat and messaging features"
+      },
+      "cards": {
+        "availableServices": {
+          "title": "Available WebSocket Services",
+          "description": "Our platform offers multiple WebSocket endpoints for specific use cases"
+        },
+        "gettingStarted": {
+          "title": "Getting Started",
+          "description": "Follow these steps to start using our WebSocket APIs"
+        }
+      },
+      "services": {
+        "main": {
+          "title": "Main WebSocket",
+          "description": "General-purpose real-time updates and events"
+        },
+        "tracking": {
+          "title": "Tracking WebSocket",
+          "description": "Real-time shipment and container tracking updates"
+        },
+        "notifications": {
+          "title": "Notifications WebSocket",
+          "description": "User notifications and alerts"
+        },
+        "collaboration": {
+          "title": "Collaboration WebSocket",
+          "description": "Real-time collaborative features"
+        }
+      },
+      "gettingStarted": {
+        "step1": {
+          "title": "Register for an API key",
+          "description": "Required for authenticated WebSocket connections"
+        },
+        "step2": {
+          "title": "Choose the appropriate WebSocket endpoint",
+          "description": "Select the endpoint that matches your requirements"
+        },
+        "step3": {
+          "title": "Implement client-side WebSocket handling",
+          "description": "Use our code examples to connect to the WebSocket service"
+        },
+        "step4": {
+          "title": "Handle connection management",
+          "description": "Implement reconnection logic for robust connectivity"
+        }
+      },
+      "buttons": {
+        "viewCodeExamples": "View Code Examples"
+      },
+      "endpoints": {
+        "title": "WebSocket Endpoints",
+        "description": "Our platform provides multiple WebSocket endpoints, each designed for specific types of real-time communication. Connect to the appropriate endpoint based on your integration needs.",
+        "endpointUrl": "Endpoint URL",
+        "messageTypes": "Message Types",
+        "main": {
+          "title": "Main WebSocket",
+          "description": "General-purpose WebSocket for platform-wide events and updates"
+        },
+        "tracking": {
+          "title": "Tracking WebSocket",
+          "description": "Real-time tracking updates for shipments, containers, and vehicles"
+        },
+        "notifications": {
+          "title": "Notifications WebSocket",
+          "description": "User-specific notifications and alerts"
+        },
+        "collaboration": {
+          "title": "Collaboration WebSocket",
+          "description": "Real-time collaboration features for multi-user interactions"
+        }
+      },
+      "table": {
+        "type": "Type",
+        "direction": "Direction",
+        "description": "Description",
+        "clientToServer": "Client → Server",
+        "serverToClient": "Server → Client",
+        "bidirectional": "Bidirectional"
+      },
+      "messages": {
+        "main": {
+          "auth": "Authentication with JWT token",
+          "systemUpdate": "System-wide updates and announcements",
+          "ping": "Keep-alive message to prevent connection timeout",
+          "pong": "Response to ping message"
+        },
+        "tracking": {
+          "subscribe": "Subscribe to tracking updates for specific shipments",
+          "update": "Real-time location and status updates",
+          "event": "Significant events (e.g., arrival, departure, customs clearance)",
+          "unsubscribe": "Unsubscribe from tracking updates"
+        },
+        "notifications": {
+          "notification": "User notifications (alerts, reminders, updates)",
+          "markRead": "Mark notifications as read",
+          "preferencesUpdate": "Update notification preferences"
+        },
+        "collaboration": {
+          "joinRoom": "Join a collaboration room/session",
+          "leaveRoom": "Leave a collaboration room/session",
+          "documentUpdate": "Real-time document changes",
+          "presenceUpdate": "User presence information (who's online)",
+          "cursorPosition": "Cursor position for collaborative editing"
+        }
+      },
+      "authentication": {
+        "title": "WebSocket Authentication",
+        "description": "All WebSocket connections require authentication to access protected endpoints. After establishing a WebSocket connection, you must send an authentication message to verify your identity.",
+        "methods": {
+          "title": "Authentication Methods",
+          "description": "We support multiple methods for authenticating WebSocket connections:"
+        },
+        "tokenAuth": {
+          "title": "Token-Based Authentication",
+          "description": "Send a JWT token after connecting. This is the recommended method for most applications."
+        },
+        "sessionAuth": {
+          "title": "Session-Based Authentication",
+          "description": "If you have an active session (cookie-based), the WebSocket connection will automatically inherit the session."
+        },
+        "example": {
+          "title": "Authentication Example",
+          "description": "How to authenticate after establishing a WebSocket connection"
+        },
+        "securityNote": {
+          "title": "Security Best Practice",
+          "description": "Never expose your authentication tokens in client-side code that can be viewed publicly. Always use secure WebSocket connections (wss://) in production."
+        }
+      },
+      "examples": {
+        "title": "Code Examples",
+        "description": "The following examples demonstrate how to connect to and interact with our WebSocket APIs in different programming environments.",
+        "tabs": {
+          "browser": "Browser",
+          "nodejs": "Node.js",
+          "python": "Python",
+          "reconnection": "Reconnection"
+        },
+        "browser": {
+          "title": "Browser WebSocket Example",
+          "description": "Basic WebSocket connection using the browser's native WebSocket API"
+        },
+        "nodejs": {
+          "title": "Node.js WebSocket Example",
+          "description": "WebSocket connection using the ws package for Node.js applications"
+        },
+        "python": {
+          "title": "Python WebSocket Example",
+          "description": "WebSocket connection using the websockets library for Python applications"
+        },
+        "reconnection": {
+          "title": "Reconnection Logic",
+          "description": "Robust WebSocket connection with automatic reconnection and exponential backoff"
+        }
+      }
+    },
+    "schemaExplorer": {
+      "title": "Database Schema Explorer",
+      "subtitle": "Explore and analyze your database with {{tables}} tables and {{relationships}} relationships",
+      "stats": {
+        "totalTables": "Total Tables",
+        "totalColumns": "Total Columns",
+        "relationships": "Relationships",
+        "categories": "Categories"
+      },
+      "search": {
+        "placeholder": "Search tables..."
+      },
+      "filter": {
+        "placeholder": "Filter by category",
+        "allCategories": "All Categories"
+      },
+      "viewMode": {
+        "grid": "Grid",
+        "list": "List"
+      },
+      "buttons": {
+        "exportJson": "Export JSON",
+        "exportSql": "Export SQL"
+      },
+      "cards": {
+        "databaseTables": {
+          "title": "Database Tables",
+          "description": "Click on a table to view its structure and relationships"
+        },
+        "tableDetails": {
+          "title": "Table Details",
+          "selectTable": "Select a table to view details",
+          "structureOf": "Structure of {{table}}"
+        }
+      },
+      "tabs": {
+        "columns": "Columns",
+        "relations": "Relations",
+        "annotations": "Annotations"
+      },
+      "error": {
+        "title": "Database Connection Error",
+        "description": "Unable to connect to the database. Please check your connection settings."
+      },
+      "loading": {
+        "title": "Loading Database Schema",
+        "description": "Analyzing your database structure..."
+      },
+      "columnDetails": {
+        "nullable": "Nullable",
+        "notNull": "Not Null",
+        "default": "Default",
+        "pk": "PK",
+        "fk": "FK"
+      },
+      "relationships": {
+        "references": "References",
+        "referencedBy": "Referenced by",
+        "noRelationships": "No relationships found"
+      },
+      "relationshipMap": {
+        "title": "Relationship Map",
+        "description": "Visual representation of table connections",
+        "currentTable": "Current Table",
+        "connections": "connection(s)"
+      },
+      "columns": "columns",
+      "rows": "rows",
+      "uncategorized": "Uncategorized",
+      "selectTablePrompt": "Select a table to view its details",
+      "tablesAvailable": "{{count}} tables available"
+    }
+  },
+  "tracking": {
+    "badge": "Real-Time Tracking",
+    "title": "Shipment Tracking",
+    "subtitle": "Track your shipments in real-time with live updates and detailed timelines",
+    "stats": {
+      "packagesValue": "10M+",
+      "packagesTracked": "Packages Tracked",
+      "updateTimeValue": "< 1s",
+      "updateTime": "Update Time",
+      "countriesValue": "180+",
+      "countries": "Countries"
+    },
+    "form": {
+      "title": "Enter Tracking Number",
+      "description": "Enter your MOLOCHAIN tracking number to get real-time updates on your shipment",
+      "placeholder": "e.g. MOLO-2024120901",
+      "track": "Track",
+      "tracking": "Tracking...",
+      "tryExamples": "Try a real tracking number:"
+    },
+    "tabs": {
+      "timeline": "Timeline",
+      "visualTracking": "Visual Tracking",
+      "details": "Details"
+    },
+    "sections": {
+      "detailedTracking": "Detailed Tracking",
+      "shipmentDetails": "Shipment Details",
+      "shipmentDetailsDescription": "Comprehensive information about your shipment",
+      "shareTracking": "Share Tracking"
+    },
+    "error": {
+      "notFound": "Tracking Not Found",
+      "notFoundDescription": "The tracking number \"{{number}}\" was not found in our system. Please check the tracking number and try again."
+    },
+    "toast": {
+      "activated": "Tracking activated",
+      "activatedDescription": "Looking up shipment {{number}}",
+      "invalidNumber": "Invalid tracking number",
+      "invalidNumberDescription": "Please enter a valid tracking number"
+    }
+  },
+  "admin": {
+    "operations": {
+      "activity": {
+        "title": "Activity Monitoring"
+      },
+      "communications": {
+        "title": "Communications Hub",
+        "subtitle": "Manage form submissions and email settings",
+        "tabs": {
+          "dashboard": "Dashboard",
+          "submissions": "Submissions",
+          "statistics": "Statistics",
+          "templates": "Templates",
+          "settings": "Settings",
+          "apiKeys": "API Keys",
+          "templatesRecipients": "Templates & Recipients",
+          "emailSettings": "Email Settings"
+        },
+        "stats": {
+          "total": "Total",
+          "pending": "Pending",
+          "inReview": "In Review",
+          "responded": "Responded",
+          "closed": "Closed"
+        },
+        "status": {
+          "pending": "pending",
+          "in_review": "in review",
+          "responded": "responded",
+          "closed": "closed"
+        },
+        "form": {
+          "smtpHost": "SMTP Host",
+          "smtpPort": "SMTP Port",
+          "username": "Username",
+          "password": "Password",
+          "fromName": "From Name",
+          "fromEmail": "From Email",
+          "replyTo": "Reply To",
+          "useTls": "Use TLS",
+          "formType": "Form Type",
+          "dateRange": "Date Range",
+          "templateName": "Template Name",
+          "subjectLine": "Subject Line",
+          "emailBody": "Email Body",
+          "name": "Name",
+          "email": "Email",
+          "subdomainName": "Subdomain Name",
+          "description": "Description"
+        },
+        "buttons": {
+          "saveSettings": "Save Settings",
+          "testConnection": "Test Connection",
+          "refresh": "Refresh",
+          "addTemplate": "Add Template",
+          "edit": "Edit",
+          "delete": "Delete",
+          "view": "View",
+          "send": "Send",
+          "addRecipient": "Add Recipient",
+          "createApiKey": "Create API Key",
+          "generateKey": "Generate Key",
+          "cancel": "Cancel",
+          "create": "Create",
+          "update": "Update",
+          "done": "Done"
+        },
+        "table": {
+          "id": "ID",
+          "name": "Name",
+          "email": "Email",
+          "subject": "Subject",
+          "status": "Status",
+          "date": "Date",
+          "actions": "Actions",
+          "formType": "Form Type",
+          "keyPreview": "Key Preview",
+          "subdomain": "Subdomain",
+          "lastUsed": "Last Used",
+          "created": "Created",
+          "never": "Never"
+        },
+        "dialogs": {
+          "addTemplate": "Create Template",
+          "editTemplate": "Edit Template",
+          "updateTemplate": "Update the email template",
+          "createTemplate": "Create a new email template",
+          "apiKey": "API Key",
+          "createApiKey": "Create API Key",
+          "createApiKeyDesc": "Create a new API key for programmatic email access",
+          "addRecipient": "Add Recipient",
+          "addRecipientDesc": "Add a new notification recipient",
+          "submissionDetails": "Submission Details",
+          "submissionDetailsDesc": "View and manage this form submission"
+        },
+        "cards": {
+          "filters": "Filters",
+          "formSubmissions": "Form Submissions",
+          "totalSubmissions": "{{count}} total submissions",
+          "emailSettings": "Email Settings",
+          "emailSettingsDesc": "Configure SMTP settings for outgoing emails",
+          "emailTemplates": "Email Templates",
+          "notificationRecipients": "Notification Recipients",
+          "emailApiKeys": "Email API Keys",
+          "emailApiKeysDesc": "Manage API keys for programmatic email access"
+        },
+        "labels": {
+          "allTypes": "All Types",
+          "allStatus": "All Status",
+          "contact": "Contact",
+          "quote": "Quote",
+          "support": "Support",
+          "feedback": "Feedback",
+          "message": "Message",
+          "submitted": "Submitted",
+          "noSubmissionsFound": "No submissions found",
+          "noTemplatesFound": "No templates found",
+          "noRecipientsFound": "No recipients found",
+          "noApiKeysFound": "No API keys found"
+        },
+        "apiKey": {
+          "warning": "Save this API key now!",
+          "warningDesc": "This is the only time you will see the full key. Copy it and store it securely.",
+          "yourApiKey": "Your API Key",
+          "subdomainDesc": "The subdomain this API key will be associated with",
+          "descriptionOptional": "Description (Optional)"
+        },
+        "toast": {
+          "statusUpdated": "Status updated successfully",
+          "statusUpdateFailed": "Failed to update status",
+          "settingsSaved": "Email settings saved successfully",
+          "settingsSaveFailed": "Failed to save email settings",
+          "connectionSuccess": "Connection test successful",
+          "connectionFailed": "Connection test failed",
+          "templateCreated": "Template created",
+          "templateUpdated": "Template updated",
+          "templateSaveFailed": "Failed to save template",
+          "templateDeleted": "Template deleted",
+          "templateDeleteFailed": "Failed to delete template",
+          "recipientAdded": "Recipient added",
+          "recipientAddFailed": "Failed to add recipient",
+          "recipientRemoved": "Recipient removed",
+          "recipientRemoveFailed": "Failed to remove recipient",
+          "recipientUpdateFailed": "Failed to update recipient",
+          "apiKeyCreated": "API key created successfully",
+          "apiKeyCreateFailed": "Failed to create API key",
+          "apiKeyDeleted": "API key deleted",
+          "apiKeyDeleteFailed": "Failed to delete API key",
+          "apiKeyUpdateFailed": "Failed to update API key",
+          "copiedToClipboard": "Copied to clipboard",
+          "copyFailed": "Failed to copy"
+        }
+      },
+      "microservices": {
+        "title": "Microservices Control Panel",
+        "subtitle": "Real-time monitoring of Docker microservices and system health",
+        "stats": {
+          "total": "Total Services",
+          "totalDesc": "Docker containers monitored",
+          "healthy": "Healthy",
+          "unhealthy": "Unhealthy",
+          "unhealthyDesc": "Needing attention",
+          "healthPercentage": "Health Percentage",
+          "systemUptime": "System Uptime",
+          "healthScore": "{{percentage}}% health score"
+        },
+        "status": {
+          "healthy": "Healthy",
+          "unhealthy": "Unhealthy",
+          "notFound": "Not Found",
+          "starting": "Starting"
+        },
+        "table": {
+          "service": "Service",
+          "category": "Category",
+          "status": "Status",
+          "port": "Port",
+          "containerId": "Container ID",
+          "uptime": "Uptime",
+          "responseTime": "Response",
+          "lastCheck": "Last Check",
+          "actions": "Actions",
+          "noServicesFound": "No services found in this category"
+        },
+        "buttons": {
+          "refresh": "Refresh",
+          "restart": "Request Restart",
+          "viewLogs": "View Container Logs",
+          "details": "Details",
+          "prometheus": "Prometheus",
+          "grafana": "Grafana",
+          "retry": "Retry"
+        },
+        "metrics": {
+          "cpuUsage": "CPU Usage",
+          "memory": "Memory",
+          "disk": "Disk",
+          "network": "Network",
+          "uptime": "Uptime",
+          "load": "Load",
+          "cores": "Cores",
+          "connections": "Connections"
+        },
+        "tabs": {
+          "all": "All"
+        },
+        "cards": {
+          "serviceStatus": "Service Status",
+          "serviceStatusDesc": "Detailed status of each microservice (auto-refresh every 30s)"
+        },
+        "dialogs": {
+          "containerLogs": "Container Logs",
+          "containerLogsDesc": "Last 100 log lines from the container",
+          "noLogs": "No logs available"
+        },
+        "error": {
+          "title": "Error Loading Microservices",
+          "description": "Failed to fetch microservices status. This may require authentication."
+        },
+        "toast": {
+          "refreshed": "Refreshed",
+          "refreshedDesc": "Microservices status updated",
+          "restartRequested": "Restart Requested",
+          "restartFailed": "Restart Failed",
+          "restartFailedDesc": "Failed to send restart signal",
+          "logFetchFailed": "Log Fetch Failed",
+          "logFetchFailedDesc": "Failed to fetch logs"
+        },
+        "labels": {
+          "lastUpdated": "Last updated",
+          "other": "Other"
+        }
+      },
+      "tracking": {
+        "title": "Tracking Providers",
+        "cards": {
+          "addProvider": "Add Tracking Provider",
+          "addProviderDesc": "Configure external tracking providers for shipment tracking integration.",
+          "configuredProviders": "Configured Providers",
+          "configuredProvidersDesc": "Manage your configured tracking providers."
+        },
+        "form": {
+          "providerName": "Provider Name",
+          "providerNamePlaceholder": "Enter provider name...",
+          "providerType": "Provider Type",
+          "providerTypePlaceholder": "Select provider type",
+          "apiKey": "API Key",
+          "apiKeyPlaceholder": "Enter API key...",
+          "apiSecret": "API Secret (Optional)",
+          "apiSecretPlaceholder": "Enter API secret...",
+          "accountNumber": "Account Number (Optional)",
+          "accountNumberPlaceholder": "Enter account number...",
+          "meterNumber": "Meter Number (Optional)",
+          "meterNumberPlaceholder": "Enter meter number...",
+          "enabled": "Enable Provider"
+        },
+        "providerTypes": {
+          "FEDEX": "FedEx",
+          "UPS": "UPS",
+          "DHL": "DHL",
+          "USPS": "USPS",
+          "MAERSK": "Maersk"
+        },
+        "buttons": {
+          "addProvider": "Add Provider"
+        },
+        "table": {
+          "name": "Name",
+          "type": "Type",
+          "apiKey": "API Key",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "labels": {
+          "loading": "Loading providers...",
+          "noProviders": "No tracking providers configured yet."
+        },
+        "toast": {
+          "providerAdded": "Provider Added",
+          "providerAddedDesc": "The tracking provider has been added successfully.",
+          "error": "Error",
+          "toggleFailed": "Failed to toggle provider status"
+        }
+      }
+    },
+    "dashboards": {
+      "system": {
+        "title": "System Dashboard",
+        "subtitle": "Real-time system monitoring and metrics",
+        "stats": {
+          "cpuUsage": "CPU Usage",
+          "memory": "Memory",
+          "disk": "Disk Usage",
+          "network": "Network",
+          "uptime": "Uptime"
+        },
+        "services": {
+          "databaseservice": "Database Service",
+          "websocketserver": "WebSocket Server",
+          "apigateway": "API Gateway",
+          "cacheservice": "Cache Service",
+          "authenticationservice": "Authentication Service"
+        },
+        "status": {
+          "active": "Active",
+          "degraded": "Degraded",
+          "error": "Error",
+          "maintenance": "Maintenance"
+        },
+        "buttons": {
+          "refresh": "Refresh",
+          "viewDetails": "View Details",
+          "performance": "Performance"
+        },
+        "labels": {
+          "responseTime": "Response time",
+          "uptime": "uptime",
+          "lastCheck": "Last check",
+          "cached": "cached",
+          "totalProcesses": "Total Processes",
+          "active": "Active",
+          "sleeping": "Sleeping"
+        },
+        "sections": {
+          "systemOverview": "System Overview",
+          "serviceStatus": "Service Status",
+          "serviceStatusDesc": "Monitor the health of critical system services",
+          "performanceTrends": "Performance Trends",
+          "performanceTrendsDesc": "24-hour system performance history",
+          "networkActivity": "Network Activity",
+          "processInfo": "Process Information",
+          "processInfoDesc": "System process statistics and management",
+          "systemAlerts": "System Alerts",
+          "systemAlertsDesc": "Recent system alerts and warnings"
+        },
+        "tabs": {
+          "overview": "Overview",
+          "resources": "Resources",
+          "services": "Services",
+          "history": "History",
+          "performance": "Performance",
+          "processes": "Processes",
+          "alerts": "Alerts"
+        },
+        "alerts": {
+          "serviceStatus": "Service is currently {{status}}. Response time: {{responseTime}}ms",
+          "noAlerts": "No active alerts. All systems operational."
+        }
+      },
+      "performance": {
+        "title": "Performance Monitor",
+        "subtitle": "Monitor and optimize system performance",
+        "sections": {
+          "memoryStatus": "Memory Usage",
+          "cachePerformance": "Cache Hit/Miss Ratio",
+          "cachePerformanceDesc": "Current cache performance",
+          "cacheStatistics": "Cache Statistics",
+          "cacheStatisticsDesc": "Detailed cache metrics",
+          "databasePerformance": "Database Latency",
+          "systemResources": "System Resources",
+          "performanceTrends": "Performance Trends",
+          "performanceTrendsDesc": "Real-time performance metrics over the last 5 minutes",
+          "quickActions": "Quick Actions",
+          "quickActionsDesc": "Optimize system performance instantly",
+          "optimizationSettings": "Optimization Settings",
+          "optimizationSettingsDesc": "Configure automatic optimizations",
+          "performanceThresholds": "Performance Thresholds",
+          "performanceThresholdsDesc": "Configure alert thresholds for performance metrics"
+        },
+        "settings": {
+          "memorygc": "Automatic Garbage Collection",
+          "cachewarming": "Cache Warming",
+          "queryoptimization": "Query Optimization",
+          "responsecompression": "Response Compression"
+        },
+        "settingsDesc": {
+          "memorygc": "Automatically run garbage collection when memory usage is high",
+          "cachewarming": "Pre-load frequently accessed data into cache",
+          "queryoptimization": "Optimize database queries for better performance",
+          "responsecompression": "Compress HTTP responses to reduce bandwidth"
+        },
+        "labels": {
+          "heapUsed": "Heap Used",
+          "heapTotal": "Heap Total",
+          "externalMemory": "External Memory",
+          "rss": "RSS",
+          "hitRate": "Cache Hit Rate",
+          "cacheSize": "Cache size",
+          "cpuUsage": "CPU Usage",
+          "uptime": "Uptime",
+          "used": "used",
+          "total": "total",
+          "impact": "impact",
+          "totalSize": "Total Size",
+          "keysStored": "Keys Stored",
+          "evictions": "Evictions"
+        },
+        "buttons": {
+          "runOptimization": "Run Optimization",
+          "start": "Start",
+          "stop": "Stop",
+          "clearCache": "Clear Cache",
+          "refresh": "Refresh",
+          "optimizeMemory": "Optimize Memory",
+          "optimizing": "Optimizing...",
+          "runDiagnostics": "Run Diagnostics"
+        },
+        "switches": {
+          "autoOptimize": "Auto-Optimize"
+        },
+        "impact": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        },
+        "status": {
+          "healthy": "Healthy",
+          "warning": "Warning",
+          "critical": "Critical",
+          "connected": "Connected",
+          "optimal": "Optimal",
+          "needsAttention": "Needs Attention"
+        },
+        "tabs": {
+          "metrics": "Metrics",
+          "optimization": "Optimization",
+          "history": "History",
+          "realtime": "Real-Time",
+          "cache": "Cache Analytics",
+          "settings": "Settings"
+        },
+        "thresholds": {
+          "memoryUsage": "Memory Usage Alert Threshold",
+          "cpuUsage": "CPU Usage Alert Threshold",
+          "cacheHitRate": "Cache Hit Rate Minimum",
+          "databaseLatency": "Database Latency Maximum"
+        },
+        "alerts": {
+          "autoOptimizeEnabled": "Auto-optimization is enabled. The system will automatically optimize performance when needed."
+        }
+      },
+      "websocket": {
+        "title": "WebSocket Diagnostics",
+        "cards": {
+          "connectionMetrics": "Connection Metrics",
+          "performanceMetrics": "Performance Metrics"
+        },
+        "labels": {
+          "connected": "Connected",
+          "disconnected": "Disconnected",
+          "reconnects": "Reconnects",
+          "reconnectAttempts": "Reconnect Attempts",
+          "authenticated": "Authenticated",
+          "lastHeartbeat": "Last Heartbeat",
+          "lastError": "Last Error",
+          "yes": "Yes",
+          "no": "No",
+          "never": "Never",
+          "none": "None"
+        },
+        "metrics": {
+          "totalConnections": "Total Connections",
+          "activeConnections": "Active Connections",
+          "errorCount": "Error Count",
+          "avgLatency": "Avg. Latency",
+          "messagesSent": "Messages Sent",
+          "messagesReceived": "Messages Received",
+          "messagesExchanged": "Messages Exchanged",
+          "avgConnectionDuration": "Avg. Connection Duration"
+        },
+        "buttons": {
+          "connect": "Connect",
+          "disconnect": "Disconnect",
+          "clearLogs": "Clear Logs",
+          "testConnection": "Test Connection",
+          "subscribe": "Subscribe",
+          "unsubscribe": "Unsubscribe",
+          "reconnect": "Reconnect Main WebSocket",
+          "connectHealth": "Connect to Health WebSocket",
+          "refreshStats": "Refresh Stats",
+          "connectDedicated": "Connect to Dedicated Health"
+        },
+        "tabs": {
+          "status": "Status",
+          "logs": "Logs",
+          "testing": "Testing",
+          "subscriptions": "Subscriptions",
+          "main": "Main Connection",
+          "health": "Health Service",
+          "dedicated": "Dedicated Health"
+        },
+        "sections": {
+          "mainConnection": "Main WebSocket Connection",
+          "mainConnectionDesc": "Monitor and diagnose the primary WebSocket connection used by the application.",
+          "healthService": "Health WebSocket Service",
+          "healthServiceDesc": "Connect to the health WebSocket endpoint to test connection stability.",
+          "dedicatedHealth": "Dedicated Health Service",
+          "dedicatedHealthDesc": "Connect to the dedicated health endpoint for low-level WebSocket diagnostics."
+        },
+        "subscriptions": {
+          "systemEvents": "System Events",
+          "trackingUpdates": "Tracking Updates",
+          "notifications": "Notifications"
+        },
+        "alerts": {
+          "connectionError": "Connection Error"
+        }
+      },
+      "health": {
+        "title": "System Health Monitoring",
+        "subtitle": "Real-time monitoring of system performance and health metrics",
+        "sections": {
+          "systemHealth": "System Health",
+          "serviceStatus": "Service Status",
+          "cachePerformance": "Cache Performance",
+          "systemMetrics": "System Metrics",
+          "alertLog": "Alert Log",
+          "overallStatus": "Overall System Status",
+          "performanceTrends": "Performance Trends",
+          "resourceUsage": "Resource Usage",
+          "networkStatistics": "Network Statistics",
+          "cacheHitRateTrend": "Cache Hit Rate Trend"
+        },
+        "status": {
+          "healthy": "Healthy",
+          "degraded": "Degraded",
+          "unhealthy": "Unhealthy"
+        },
+        "severity": {
+          "info": "Info",
+          "warning": "Warning",
+          "error": "Error",
+          "critical": "Critical"
+        },
+        "resources": {
+          "cpuUsage": "CPU Usage",
+          "memory": "Memory Usage",
+          "disk": "Disk Usage",
+          "networkConnections": "Active Connections"
+        },
+        "labels": {
+          "successRate": "Success Rate",
+          "errorRate": "Error Rate",
+          "responseTime": "Response Time",
+          "lastCheck": "Last checked",
+          "databaseLatency": "Database Latency",
+          "uptime": "Uptime",
+          "dataReceived": "Data Received",
+          "dataSent": "Data Sent",
+          "activeInterfaces": "Active Interfaces",
+          "cache": "Cache",
+          "hitRate": "Hit Rate",
+          "hits": "Hits",
+          "misses": "Misses",
+          "keys": "Keys",
+          "size": "Size",
+          "alert": "Alert"
+        },
+        "buttons": {
+          "refresh": "Refresh",
+          "autoRefresh": "Auto-refresh",
+          "clearAlerts": "Clear Alerts"
+        },
+        "tabs": {
+          "overview": "Overview",
+          "services": "Services",
+          "resources": "Resources",
+          "alerts": "Alerts",
+          "metrics": "System Metrics",
+          "cache": "Cache Performance"
+        },
+        "alerts": {
+          "noAlerts": "No Active Alerts",
+          "allSystemsOperational": "All systems are operating normally",
+          "cachePerformance": "Cache Performance Alert",
+          "cachePerformanceDesc": "Cache hit rate is currently below optimal levels. Target is 85% for best performance."
+        }
+      }
+    },
+    "content": {
+      "about": {
+        "buttons": {
+          "addSection": "Add Section",
+          "saveChanges": "Save Changes"
+        },
+        "labels": {
+          "section": "Section",
+          "title": "Title",
+          "content": "Content",
+          "active": "Active"
+        },
+        "newSectionTitle": "New Section",
+        "toast": {
+          "successTitle": "Success",
+          "successDescription": "About page content has been updated",
+          "errorTitle": "Error"
+        }
+      },
+      "branding": {
+        "title": "Branding",
+        "description": "Upload and manage your company logo and favicon",
+        "tabs": {
+          "logoFavicon": "Logo & Favicon",
+          "themeColors": "Theme Colors",
+          "typography": "Typography"
+        },
+        "sections": {
+          "companyLogo": "Company Logo",
+          "favicon": "Favicon",
+          "themeConfiguration": "Theme Configuration",
+          "colorScheme": "Color Scheme",
+          "colorSchemeDescription": "Customize the color scheme and appearance of your platform",
+          "typographySettings": "Typography Settings"
+        },
+        "labels": {
+          "primaryLogo": "Primary Logo",
+          "primaryColor": "Primary Brand Color",
+          "appearance": "Default Color Mode",
+          "borderRadius": "Element Border Radius",
+          "uiVariant": "UI Variant",
+          "noLogo": "No logo uploaded",
+          "noFavicon": "No favicon"
+        },
+        "options": {
+          "light": "Light",
+          "dark": "Dark",
+          "system": "System",
+          "professional": "Professional",
+          "tint": "Tint",
+          "vibrant": "Vibrant"
+        },
+        "buttons": {
+          "uploadLogo": "Upload Logo",
+          "uploadFavicon": "Upload Favicon",
+          "applyTheme": "Apply Theme",
+          "resetToDefault": "Reset to Default"
+        },
+        "placeholders": {
+          "selectVariant": "Select UI variant",
+          "selectAppearance": "Select color mode"
+        },
+        "hints": {
+          "logoSize": "Recommended size: 300x100px. Use PNG for best quality.",
+          "faviconSize": "Recommended size: 32x32px or 64x64px. PNG format preferred.",
+          "primaryColorHint": "This color will be used as the primary color throughout the application",
+          "variantHint": "Professional is subtle, Tint is softer, Vibrant is more colorful",
+          "appearanceHint": "System will follow the user's device preferences"
+        },
+        "preview": {
+          "logo": "Logo Preview",
+          "favicon": "Favicon Preview"
+        },
+        "toast": {
+          "uploadSuccessTitle": "Asset uploaded successfully",
+          "uploadSuccessDescription": "The brand asset has been uploaded and applied.",
+          "uploadErrorTitle": "Upload failed",
+          "themeSuccessTitle": "Theme updated successfully",
+          "themeSuccessDescription": "The brand theme has been updated and applied.",
+          "themeErrorTitle": "Theme update failed"
+        }
+      },
+      "manager": {
+        "title": "Content Management",
+        "tabs": {
+          "aboutPage": "About Page",
+          "services": "Services",
+          "branding": "Branding"
+        },
+        "cards": {
+          "aboutPageContent": "About Page Content",
+          "servicesContent": "Services Content"
+        }
+      },
+      "services": {
+        "buttons": {
+          "addService": "Add Service",
+          "saveChanges": "Save Changes"
+        },
+        "labels": {
+          "service": "Service",
+          "title": "Title",
+          "description": "Description",
+          "icon": "Icon Name",
+          "active": "Active"
+        },
+        "newServiceTitle": "New Service",
+        "toast": {
+          "successTitle": "Success",
+          "successDescription": "Services content has been updated",
+          "errorTitle": "Error"
+        }
+      }
+    },
+    "security": {
+      "activity": {
+        "title": "Admin Activity Dashboard",
+        "description": "Monitor and analyze admin actions and system events",
+        "cards": {
+          "totalActionsToday": "Total Actions Today",
+          "activeAdmins": "Active Admins",
+          "actionTypes": "Action Types",
+          "errorRate": "Error Rate",
+          "actionsByType": "Actions by Type",
+          "actionsByTypeDesc": "Distribution of admin actions today",
+          "mostActiveAdmins": "Most Active Admins",
+          "mostActiveAdminsDesc": "Top 5 admins by action count today",
+          "recentErrorActions": "Recent Error Actions",
+          "recentErrorActionsDesc": "Recent actions that resulted in errors",
+          "recentActivityFeed": "Recent Activity Feed",
+          "recentActivityFeedDesc": "Live stream of recent admin actions",
+          "auditLogs": "Audit Logs",
+          "auditLogsDesc": "Complete audit trail of all admin actions"
+        },
+        "status": {
+          "success": "Success",
+          "error": "Error",
+          "unknown": "Unknown",
+          "pending": "Pending",
+          "failure": "Failure"
+        },
+        "filters": {
+          "search": "Search",
+          "searchPlaceholder": "Search logs...",
+          "action": "Action",
+          "allActions": "All actions",
+          "entityType": "Entity Type",
+          "allTypes": "All types",
+          "status": "Status",
+          "all": "All",
+          "startDate": "Start Date",
+          "endDate": "End Date"
+        },
+        "table": {
+          "timestamp": "Timestamp",
+          "user": "User",
+          "action": "Action",
+          "entityType": "Entity Type",
+          "entityId": "Entity ID",
+          "status": "Status",
+          "ipAddress": "IP Address",
+          "date": "Date",
+          "details": "Details"
+        },
+        "buttons": {
+          "refresh": "Refresh",
+          "filter": "Filter",
+          "clearFilters": "Clear",
+          "export": "Export"
+        },
+        "pagination": {
+          "showing": "Showing {{from}} to {{to}} of {{total}} entries",
+          "page": "Page {{current}} of {{total}}",
+          "previous": "Previous",
+          "next": "Next"
+        },
+        "noDataAvailable": "No data available",
+        "noRecentActivity": "No recent activity",
+        "noLogsFound": "No audit logs found"
+      },
+      "identity": {
+        "title": "Identity & Security Management",
+        "description": "Centralized control for authentication, authorization, and security policies",
+        "tabs": {
+          "dashboard": "Dashboard",
+          "users": "Users",
+          "roles": "Roles",
+          "policies": "Policies",
+          "audit": "Audit",
+          "analytics": "Analytics",
+          "overview": "Overview",
+          "sessions": "Sessions",
+          "incidents": "Incidents",
+          "compliance": "Compliance"
+        },
+        "sections": {
+          "userManagement": "User Management",
+          "roleManagement": "Role Management",
+          "securityPolicies": "Security Policies",
+          "auditLogs": "Audit Logs",
+          "authenticationTrends": "Authentication Trends",
+          "securityEventsByType": "Security Events by Type",
+          "securityScore": "Security Score",
+          "activeThreats": "Active Threats",
+          "authenticationStats": "Authentication Stats",
+          "complianceStatus": "Compliance Status",
+          "userActivity": "User Activity",
+          "systemHealth": "System Health"
+        },
+        "table": {
+          "username": "Username",
+          "email": "Email",
+          "role": "Role",
+          "status": "Status",
+          "twoFactor": "2FA",
+          "lastLogin": "Last Login",
+          "actions": "Actions",
+          "policyName": "Policy Name",
+          "type": "Type",
+          "resource": "Resource",
+          "priority": "Priority",
+          "timestamp": "Timestamp",
+          "user": "User",
+          "action": "Action",
+          "ipAddress": "IP Address",
+          "severity": "Severity"
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive",
+          "never": "Never"
+        },
+        "roleTypes": {
+          "system": "System",
+          "custom": "Custom"
+        },
+        "buttons": {
+          "refresh": "Refresh",
+          "generateReport": "Generate Report",
+          "editLayout": "Edit Layout",
+          "saveLayout": "Save Layout",
+          "resetToDefault": "Reset to Default",
+          "addUser": "Add User",
+          "addRole": "Add Role",
+          "revokeSession": "Revoke Session",
+          "lockAccount": "Lock Account",
+          "exportReport": "Export Report",
+          "cancel": "Cancel"
+        },
+        "widgetEditor": {
+          "title": "Widget Layout Editor",
+          "description": "Drag widgets to rearrange, toggle visibility, or reset to default layout"
+        },
+        "alerts": {
+          "emergencyModeActive": "Emergency Mode Active",
+          "emergencyModeDesc": "Security lockdown is in effect. Only administrators can access the system."
+        },
+        "filters": {
+          "all": "All",
+          "info": "Info",
+          "warning": "Warning",
+          "critical": "Critical",
+          "searchPlaceholder": "Search logs..."
+        },
+        "dialogs": {
+          "generateComplianceReport": "Generate Compliance Report",
+          "complianceReportDesc": "Select the compliance framework and reporting period",
+          "sessionDetails": "Session Details",
+          "policySettings": "Policy Settings"
+        },
+        "form": {
+          "framework": "Framework",
+          "selectFramework": "Select framework",
+          "reportPeriod": "Report Period",
+          "selectPeriod": "Select period"
+        },
+        "periods": {
+          "monthly": "Monthly",
+          "quarterly": "Quarterly",
+          "annual": "Annual"
+        },
+        "stats": {
+          "totalUsers": "Total Users",
+          "activeSessions": "Active Sessions",
+          "failedLogins": "Failed Logins",
+          "securityScore": "Security Score"
+        },
+        "severity": {
+          "info": "Info",
+          "warning": "Warning",
+          "error": "Error",
+          "critical": "Critical"
+        },
+        "permissionsConfigured": "{{count}} permissions configured"
+      },
+      "settings": {
+        "title": "Security Settings",
+        "tabs": {
+          "settings": "Settings",
+          "accessControl": "Access Control",
+          "auditLogs": "Audit Logs"
+        },
+        "sections": {
+          "authenticationSettings": "Authentication Settings",
+          "authenticationSettingsDesc": "Configure authentication and session security",
+          "securityFeatures": "Security Features",
+          "securityFeaturesDesc": "Additional security and monitoring features",
+          "ipWhitelist": "IP Whitelist",
+          "ipWhitelistDesc": "Restrict access to specific IP addresses",
+          "recentActivity": "Recent Activity",
+          "recentActivityDesc": "Last 50 user actions and system events",
+          "sessionManagement": "Session Management",
+          "passwordPolicy": "Password Policy",
+          "rateLimiting": "Rate Limiting",
+          "securityOverview": "Security Overview"
+        },
+        "overview": {
+          "securityScore": "Security Score",
+          "twoFactorUsers": "2FA Users",
+          "ofTotalUsers": "of {{total}} total users",
+          "failedLogins": "Failed Logins",
+          "inLast24Hours": "in the last 24 hours",
+          "lastScan": "Last Scan",
+          "never": "Never",
+          "totalUsers": "Total Users",
+          "activeUsers": "Active Users",
+          "recentFailedLogins": "Recent Failed Logins",
+          "lastSecurityScan": "Last Security Scan"
+        },
+        "form": {
+          "requireTwoFactor": "Require Two-Factor Authentication",
+          "requireTwoFactorDesc": "Force all users to enable 2FA",
+          "sessionTimeout": "Session Timeout (minutes)",
+          "maxLoginAttempts": "Max Login Attempts",
+          "passwordMinLength": "Minimum Password Length",
+          "passwordComplexity": "Password Complexity",
+          "passwordComplexityDesc": "Require special characters and numbers",
+          "auditLogs": "Audit Logs",
+          "auditLogsDesc": "Track all user actions and changes",
+          "rateLimiting": "Rate Limiting",
+          "rateLimitingDesc": "Limit API requests per user",
+          "ipPlaceholder": "Enter IP address (e.g., 192.168.1.1)",
+          "enabled": "Enabled",
+          "maxRequests": "Max Requests",
+          "windowMinutes": "Window Minutes"
+        },
+        "buttons": {
+          "runSecurityScan": "Run Security Scan",
+          "addIp": "Add IP",
+          "remove": "Remove",
+          "saveChanges": "Save Changes",
+          "updateSettings": "Update Settings"
+        },
+        "noIpAddresses": "No IP addresses in whitelist. All IPs are allowed.",
+        "noAuditLogs": "No audit logs available",
+        "toast": {
+          "successTitle": "Success",
+          "errorTitle": "Error",
+          "settingsUpdated": "Security settings updated successfully",
+          "scanCompleteTitle": "Security Scan Complete",
+          "scanCompleteDesc": "Security vulnerabilities have been scanned and logged",
+          "invalidIpTitle": "Invalid IP Address",
+          "invalidIpDesc": "Please enter a valid IP address"
+        }
+      }
+    },
+    "management": {
+      "pageModule": {
+        "title": "Page & Module Management",
+        "subtitle": "Manage your application's pages, modules, and features",
+        "tabs": {
+          "all": "All Modules",
+          "tree": "Tree View",
+          "table": "Table View"
+        },
+        "stats": {
+          "totalModules": "Total Modules",
+          "acrossAllCategories": "Across all categories",
+          "active": "Active",
+          "currentlyEnabled": "Currently enabled",
+          "protected": "Protected",
+          "requireAuth": "Require authentication",
+          "adminOnly": "Admin Only",
+          "adminModules": "Admin modules"
+        },
+        "table": {
+          "name": "Name",
+          "type": "Type",
+          "category": "Category",
+          "path": "Path",
+          "status": "Status",
+          "auth": "Auth",
+          "visibility": "Visibility",
+          "actions": "Actions"
+        },
+        "types": {
+          "page": "Page",
+          "module": "Module",
+          "service": "Service",
+          "department": "Department"
+        },
+        "categories": {
+          "public": "Public",
+          "protected": "Protected",
+          "admin": "Admin",
+          "developer": "Developer",
+          "department": "Department"
+        },
+        "form": {
+          "name": "Internal Name",
+          "namePlaceholder": "e.g., userDashboard",
+          "displayName": "Display Name",
+          "displayNamePlaceholder": "e.g., User Dashboard",
+          "type": "Type",
+          "selectType": "Select type",
+          "category": "Category",
+          "selectCategory": "Select category",
+          "path": "Route Path",
+          "pathPlaceholder": "e.g., /dashboard",
+          "componentPath": "Component Path",
+          "componentPathPlaceholder": "e.g., @/pages/Dashboard",
+          "description": "Description",
+          "descriptionPlaceholder": "Module description...",
+          "icon": "Icon",
+          "iconPlaceholder": "e.g., Home",
+          "parent": "Parent",
+          "order": "Order",
+          "requiresAuth": "Requires Auth",
+          "requiredRole": "Required Role",
+          "requiredRolePlaceholder": "e.g., admin",
+          "isActive": "Active",
+          "isVisible": "Visible"
+        },
+        "buttons": {
+          "addModule": "Add Module",
+          "addPage": "Add Page",
+          "edit": "Edit",
+          "delete": "Delete",
+          "activate": "Activate",
+          "deactivate": "Deactivate",
+          "show": "Show",
+          "hide": "Hide",
+          "save": "Save",
+          "cancel": "Cancel",
+          "create": "Create",
+          "update": "Update",
+          "saving": "Saving..."
+        },
+        "dialog": {
+          "createTitle": "Create New Module",
+          "editTitle": "Edit Module",
+          "createDescription": "Add a new page or module to your application",
+          "editDescription": "Update module configuration"
+        },
+        "filter": {
+          "searchPlaceholder": "Search modules...",
+          "filterByType": "Filter by type",
+          "filterByCategory": "Filter by category",
+          "allTypes": "All Types",
+          "allCategories": "All Categories"
+        },
+        "views": {
+          "allModulesTitle": "All Modules",
+          "allModulesDesc": "Quick overview of all pages and modules",
+          "treeTitle": "Module Tree",
+          "treeDesc": "Hierarchical view of modules and their relationships",
+          "tableTitle": "Module Table",
+          "tableDesc": "Detailed table view with all module information"
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive",
+          "disabled": "Disabled"
+        },
+        "loading": "Loading modules...",
+        "toast": {
+          "moduleUpdated": "Module Updated",
+          "moduleUpdatedDesc": "Module activation status has been changed.",
+          "moduleCreated": "Module created successfully",
+          "moduleUpdatedSuccess": "Module updated successfully",
+          "moduleDeleted": "Module Deleted",
+          "moduleDeletedDesc": "Module has been removed from the system.",
+          "deleteFailed": "Delete Failed",
+          "deleteFailedDesc": "Cannot delete module with dependencies",
+          "success": "Success"
+        }
+      },
+      "users": {
+        "title": "User Management",
+        "stats": {
+          "totalUsers": "Total Users",
+          "activeUsers": "Active Users",
+          "adminUsers": "Admin Users",
+          "recentLogins": "Recent Logins"
+        },
+        "tabs": {
+          "users": "Users",
+          "roles": "Roles",
+          "permissions": "Permissions",
+          "activity": "Activity"
+        },
+        "table": {
+          "user": "User",
+          "username": "Username",
+          "email": "Email",
+          "role": "Role",
+          "permissions": "Permissions",
+          "status": "Status",
+          "lastLogin": "Last Login",
+          "actions": "Actions",
+          "never": "Never"
+        },
+        "roles": {
+          "admin": "Admin",
+          "user": "User",
+          "moderator": "Moderator",
+          "manager": "Manager",
+          "analyst": "Analyst"
+        },
+        "permissions": {
+          "read": "Read",
+          "write": "Write",
+          "admin": "Admin",
+          "manage_users": "Manage Users",
+          "manage_system": "Manage System",
+          "view_analytics": "View Analytics",
+          "manage_content": "Manage Content",
+          "manage_settings": "Manage Settings"
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        },
+        "form": {
+          "username": "Username",
+          "usernamePlaceholder": "Enter username",
+          "email": "Email",
+          "emailPlaceholder": "Enter email",
+          "password": "Password",
+          "passwordPlaceholder": "Enter password",
+          "role": "Role",
+          "permissions": "Permissions",
+          "activeUser": "Active User"
+        },
+        "buttons": {
+          "addUser": "Add User",
+          "edit": "Edit",
+          "delete": "Delete",
+          "activate": "Activate",
+          "deactivate": "Deactivate",
+          "createUser": "Create User",
+          "updateUser": "Update User",
+          "cancel": "Cancel"
+        },
+        "dialog": {
+          "createTitle": "Create New User",
+          "createDescription": "Add a new user to the system with specified role and permissions.",
+          "editTitle": "Edit User",
+          "editDescription": "Update user information, role, and permissions.",
+          "deleteTitle": "Delete User",
+          "deleteConfirm": "Are you sure you want to delete this user?"
+        },
+        "filter": {
+          "searchPlaceholder": "Search users...",
+          "filterByRole": "Filter by role",
+          "allRoles": "All Roles"
+        },
+        "toast": {
+          "success": "Success",
+          "error": "Error",
+          "userCreated": "User created successfully",
+          "userUpdated": "User updated successfully",
+          "userDeleted": "User deleted successfully",
+          "createFailed": "Failed to create user",
+          "updateFailed": "Failed to update user",
+          "deleteFailed": "Failed to delete user"
+        },
+        "usersCount": "Users ({{count}})"
+      }
+    },
+    "landing": {
+      "badge": "Secure Administration",
+      "title": "Molochain",
+      "titleHighlight": "Admin Portal",
+      "description": "Centralized system administration and management for the Molochain platform. Monitor, configure, and control all aspects of your logistics ecosystem.",
+      "buttons": {
+        "signInSSO": "Sign In with SSO",
+        "exploreFeatures": "Explore Features",
+        "accessPortal": "Access Admin Portal"
+      },
+      "features": {
+        "sectionTitle": "Powerful Administration Tools",
+        "sectionSubtitle": "Everything you need to manage and monitor your Molochain platform",
+        "systemMonitoring": {
+          "title": "System Monitoring",
+          "description": "Real-time monitoring of all system components, performance metrics, and health status across the entire platform."
+        },
+        "userManagement": {
+          "title": "User Management",
+          "description": "Comprehensive user administration with role-based access control, permissions management, and activity tracking."
+        },
+        "securityControls": {
+          "title": "Security Controls",
+          "description": "Advanced security features including authentication policies, audit logs, and threat detection systems."
+        },
+        "analyticsDashboard": {
+          "title": "Analytics Dashboard",
+          "description": "Powerful analytics and reporting tools to gain insights into platform usage, trends, and business metrics."
+        }
+      },
+      "capabilities": {
+        "sectionTitle": "Complete Control at Your Fingertips",
+        "sectionDescription": "The Molochain Admin Portal provides administrators with comprehensive tools to manage every aspect of the platform efficiently and securely.",
+        "healthMonitoring": "Real-time system health monitoring",
+        "rbac": "Role-based access control (RBAC)",
+        "auditLogging": "Comprehensive audit logging",
+        "performanceAnalytics": "Performance analytics",
+        "configManagement": "Configuration management",
+        "integrationControls": "Integration controls"
+      },
+      "metrics": {
+        "uptime": "Uptime SLA",
+        "responseTime": "Response Time",
+        "securityMonitoring": "Security Monitoring",
+        "configOptions": "Config Options"
+      },
+      "cta": {
+        "title": "Ready to Get Started?",
+        "description": "Sign in with your organizational credentials to access the admin portal."
+      },
+      "info": {
+        "authorizedPersonnel": "Authorized Personnel Only"
+      }
+    },
+    "settings": {
+      "title": "Administration Settings",
+      "tabs": {
+        "storage": "Storage",
+        "security": "Security",
+        "database": "Database",
+        "users": "Users",
+        "system": "System"
+      },
+      "security": {
+        "title": "Security Settings",
+        "twoFactor": {
+          "title": "Two-Factor Authentication",
+          "description": "Enforce 2FA for all admin accounts"
+        },
+        "session": {
+          "title": "Session Management",
+          "description": "Session timeout: 30 minutes"
+        },
+        "rateLimit": {
+          "title": "API Rate Limiting",
+          "description": "1000 requests per minute"
+        }
+      },
+      "database": {
+        "title": "Database Settings",
+        "type": {
+          "title": "Database Type",
+          "description": "PostgreSQL 15.2"
+        },
+        "pool": {
+          "title": "Connection Pool",
+          "description": "Max connections: 100"
+        },
+        "backup": {
+          "title": "Backup Schedule",
+          "description": "Daily at 2:00 AM UTC"
+        }
+      },
+      "users": {
+        "title": "User Management",
+        "total": {
+          "title": "Total Users",
+          "description": "Active: 127 | Inactive: 23"
+        },
+        "roles": {
+          "title": "User Roles",
+          "description": "Admin: 5 | Manager: 18 | User: 127"
+        },
+        "registration": {
+          "title": "Registration",
+          "description": "Email verification required"
+        }
+      },
+      "system": {
+        "title": "System Settings",
+        "version": {
+          "title": "Platform Version",
+          "description": "MoloChain v1.0.0"
+        },
+        "environment": {
+          "title": "Environment"
+        },
+        "uptime": {
+          "title": "System Uptime",
+          "description": "99.95% this month"
+        }
+      }
+    }
+  },
+  "caseStudies": {
+    "badge": "Real Results, Real Impact",
+    "title": "Customer Success Stories",
+    "description": "Discover how MoloChain has transformed logistics operations for businesses worldwide. From global shipping optimization to e-commerce fulfillment, see the measurable impact we've delivered for our clients.",
+    "features": {
+      "verified": "Verified Results",
+      "roi": "Measurable ROI",
+      "global": "Global Impact"
+    },
+    "stats": {
+      "successStories": "Success Stories",
+      "industriesServed": "Industries Served",
+      "clientSatisfaction": "Client Satisfaction",
+      "countriesCovered": "Countries Covered"
+    },
+    "filter": {
+      "label": "Filter:",
+      "byIndustry": "Filter by Industry",
+      "allIndustries": "All Industries",
+      "selectIndustry": "Select industry"
+    },
+    "sections": {
+      "allCaseStudies": "All Case Studies",
+      "browseCaseStudies": "Browse our collection of success stories across industries",
+      "featuredCaseStudy": "Featured Case Study"
+    },
+    "cta": {
+      "title": "Ready to Write Your Success Story?",
+      "description": "Join hundreds of businesses that have transformed their logistics operations with MoloChain. Let's discuss how we can help you achieve similar results.",
+      "contactSales": "Contact Sales",
+      "requestDemo": "Request Demo"
+    },
+    "buttons": {
+      "viewCaseStudy": "View Case Study",
+      "loadMore": "Load More"
+    },
+    "count": {
+      "story": "story",
+      "stories": "stories"
+    }
+  },
+  "projects": {
+    "notFound": {
+      "title": "Project Not Found",
+      "description": "The project you're looking for doesn't exist.",
+      "backToProjects": "Back to Projects"
+    },
+    "sections": {
+      "challenge": "Challenge",
+      "solution": "Solution",
+      "results": "Results",
+      "technologiesUsed": "Technologies Used",
+      "testimonials": "Testimonials"
+    },
+    "metrics": {
+      "deliveryTime": "Delivery Time",
+      "efficiency": "Efficiency",
+      "coverage": "Coverage",
+      "carbonReduction": "Carbon Reduction",
+      "temperatureAccuracy": "Temperature Accuracy",
+      "networkCoverage": "Network Coverage",
+      "throughput": "Throughput",
+      "waitTime": "Wait Time",
+      "staffEfficiency": "Staff Efficiency",
+      "aiAccuracy": "AI Accuracy",
+      "processAutomation": "Process Automation",
+      "efficiencyGain": "Efficiency Gain",
+      "connectivity": "Connectivity",
+      "performance": "Performance",
+      "capacity": "Capacity",
+      "automation": "Automation",
+      "sustainability": "Sustainability",
+      "innovation": "Innovation",
+      "impact": "Impact",
+      "adoption": "Adoption"
+    },
+    "details": {
+      "client": "Client",
+      "location": "Location",
+      "startDate": "Start Date",
+      "completionDate": "Completion Date"
+    },
+    "rating": {
+      "stars": "{{count}} stars"
+    }
+  },
+  "brandbook": {
+    "title": "Brand Book",
+    "description": "Complete brand guidelines and assets",
+    "version": "Version {{version}}",
+    "updated": "Updated {{date}}",
+    "sections": {
+      "colors": {
+        "title": "Colors",
+        "description": "Brand color palette with primary, secondary, and semantic colors"
+      },
+      "typography": {
+        "title": "Typography",
+        "description": "Font families, weights, and type scale specifications"
+      },
+      "logos": {
+        "title": "Logos",
+        "description": "Logo variations, usage guidelines, and downloadable assets"
+      },
+      "components": {
+        "title": "Components",
+        "description": "UI component library with live examples and code snippets",
+        "count": "20+ components"
+      },
+      "tokens": {
+        "title": "Design Tokens",
+        "description": "Spacing, border radius, shadows, and animation values"
+      },
+      "guidelines": {
+        "title": "Guidelines",
+        "description": "Usage rules, do's and don'ts, and best practices"
+      }
+    },
+    "buttons": {
+      "downloadBrandKit": "Download Brand Kit",
+      "viewGuidelines": "View Guidelines"
+    },
+    "quickReference": {
+      "title": "Quick Color Reference",
+      "description": "The core Molochain color palette at a glance"
+    },
+    "cards": {
+      "brandName": "Brand Name",
+      "primaryColor": "Primary Color",
+      "primaryFont": "Primary Font"
+    },
+    "counts": {
+      "colors": "{{count}} colors",
+      "typefaces": "{{count}} typefaces",
+      "logoSets": "{{count}} logo sets",
+      "tokens": "{{count}} tokens",
+      "guides": "{{count}} guides"
+    }
   }
 }

@@ -7,8 +7,10 @@ import AboutEditor from "./AboutEditor";
 import ServicesEditor from "./ServicesEditor";
 import BrandingEditor from "./BrandingEditor";
 import { Loader2, Paintbrush, FileText, Briefcase } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 export default function ContentManager() {
+  const { t } = useTranslation();
   const { toast } = useToast();
 
   const { data: aboutContent, isLoading: isLoadingAbout } = useQuery<AboutSection[]>({
@@ -34,29 +36,29 @@ export default function ContentManager() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold tracking-tight">Content Management</h2>
+        <h2 className="text-3xl font-bold tracking-tight">{t('admin.content.manager.title')}</h2>
       </div>
 
       <Tabs defaultValue="about" className="space-y-4">
         <TabsList>
           <TabsTrigger value="about" className="flex items-center">
             <FileText className="w-4 h-4 mr-2" />
-            About Page
+            {t('admin.content.manager.tabs.aboutPage')}
           </TabsTrigger>
           <TabsTrigger value="services" className="flex items-center">
             <Briefcase className="w-4 h-4 mr-2" />
-            Services
+            {t('admin.content.manager.tabs.services')}
           </TabsTrigger>
           <TabsTrigger value="branding" className="flex items-center">
             <Paintbrush className="w-4 h-4 mr-2" />
-            Branding
+            {t('admin.content.manager.tabs.branding')}
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="about" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>About Page Content</CardTitle>
+              <CardTitle>{t('admin.content.manager.cards.aboutPageContent')}</CardTitle>
             </CardHeader>
             <CardContent>
               <AboutEditor content={aboutContent} />
@@ -67,7 +69,7 @@ export default function ContentManager() {
         <TabsContent value="services" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Services Content</CardTitle>
+              <CardTitle>{t('admin.content.manager.cards.servicesContent')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ServicesEditor services={services} />

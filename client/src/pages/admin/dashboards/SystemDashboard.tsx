@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -39,6 +40,7 @@ interface ServiceStatus {
 }
 
 export default function SystemDashboard() {
+  const { t } = useTranslation();
   const [metrics, setMetrics] = useState<SystemMetrics | null>(null);
   const [services, setServices] = useState<ServiceStatus[]>([]);
   const [performanceHistory, setPerformanceHistory] = useState<any[]>([]);
@@ -203,13 +205,13 @@ export default function SystemDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">System Dashboard</h1>
-          <p className="text-muted-foreground">Real-time system monitoring and metrics</p>
+          <h1 className="text-3xl font-bold">{t('admin.dashboards.system.title')}</h1>
+          <p className="text-muted-foreground">{t('admin.dashboards.system.subtitle')}</p>
         </div>
         <div className="flex items-center space-x-2">
           <Badge variant="outline" className="px-3 py-1">
             <Clock className="h-3 w-3 mr-2" />
-            Uptime: {metrics ? formatUptime(metrics.uptime) : '---'}
+            {t('admin.dashboards.system.stats.uptime')}: {metrics ? formatUptime(metrics.uptime) : '---'}
           </Badge>
           <Button
             variant="outline"
@@ -218,12 +220,12 @@ export default function SystemDashboard() {
             disabled={refreshing}
           >
             <RefreshCw className={cn("h-4 w-4 mr-2", refreshing && "animate-spin")} />
-            Refresh
+            {t('admin.dashboards.system.buttons.refresh')}
           </Button>
           <Link href="/admin/performance">
             <Button variant="default" size="sm">
               <Settings className="h-4 w-4 mr-2" />
-              Performance
+              {t('admin.dashboards.system.buttons.performance')}
             </Button>
           </Link>
         </div>
@@ -234,7 +236,7 @@ export default function SystemDashboard() {
         <Card>
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium">CPU Usage</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.dashboards.system.stats.cpuUsage')}</CardTitle>
               <Cpu className="h-4 w-4 text-muted-foreground" />
             </div>
           </CardHeader>
@@ -250,7 +252,7 @@ export default function SystemDashboard() {
         <Card>
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium">Memory</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.dashboards.system.stats.memory')}</CardTitle>
               <MemoryStick className="h-4 w-4 text-muted-foreground" />
             </div>
           </CardHeader>
@@ -258,7 +260,7 @@ export default function SystemDashboard() {
             <div className="text-2xl font-bold">{metrics?.memory.percentage || 0}%</div>
             <Progress value={metrics?.memory.percentage || 0} className="mt-2" />
             <p className="text-xs text-muted-foreground mt-2">
-              {metrics?.memory.cached?.toFixed(1)}% cached
+              {metrics?.memory.cached?.toFixed(1)}% {t('admin.dashboards.system.labels.cached')}
             </p>
           </CardContent>
         </Card>
@@ -266,7 +268,7 @@ export default function SystemDashboard() {
         <Card>
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium">Disk Usage</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.dashboards.system.stats.disk')}</CardTitle>
               <HardDrive className="h-4 w-4 text-muted-foreground" />
             </div>
           </CardHeader>
@@ -282,7 +284,7 @@ export default function SystemDashboard() {
         <Card>
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium">Network</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.dashboards.system.stats.network')}</CardTitle>
               <Network className="h-4 w-4 text-muted-foreground" />
             </div>
           </CardHeader>
@@ -305,17 +307,17 @@ export default function SystemDashboard() {
       {/* Main Content Tabs */}
       <Tabs defaultValue="services" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="services">Services</TabsTrigger>
-          <TabsTrigger value="performance">Performance</TabsTrigger>
-          <TabsTrigger value="processes">Processes</TabsTrigger>
-          <TabsTrigger value="alerts">Alerts</TabsTrigger>
+          <TabsTrigger value="services">{t('admin.dashboards.system.tabs.services')}</TabsTrigger>
+          <TabsTrigger value="performance">{t('admin.dashboards.system.tabs.performance')}</TabsTrigger>
+          <TabsTrigger value="processes">{t('admin.dashboards.system.tabs.processes')}</TabsTrigger>
+          <TabsTrigger value="alerts">{t('admin.dashboards.system.tabs.alerts')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="services" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Service Status</CardTitle>
-              <CardDescription>Monitor the health of critical system services</CardDescription>
+              <CardTitle>{t('admin.dashboards.system.sections.serviceStatus')}</CardTitle>
+              <CardDescription>{t('admin.dashboards.system.sections.serviceStatusDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -329,20 +331,20 @@ export default function SystemDashboard() {
                         </div>
                         <div>
                           <div className="flex items-center space-x-2">
-                            <span className="font-medium">{service.name}</span>
+                            <span className="font-medium">{t(`admin.dashboards.system.services.${service.name.toLowerCase().replace(/\s+/g, '')}`, service.name)}</span>
                             {getStatusIcon(service.status)}
                           </div>
                           <p className="text-sm text-muted-foreground">
-                            Response time: {service.responseTime}ms
+                            {t('admin.dashboards.system.labels.responseTime')}: {service.responseTime}ms
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
                         <Badge variant={service.status === 'active' ? 'default' : 'secondary'}>
-                          {service.uptime}% uptime
+                          {service.uptime}% {t('admin.dashboards.system.labels.uptime')}
                         </Badge>
                         <p className="text-xs text-muted-foreground mt-1">
-                          Last check: {new Date(service.lastCheck).toLocaleTimeString()}
+                          {t('admin.dashboards.system.labels.lastCheck')}: {new Date(service.lastCheck).toLocaleTimeString()}
                         </p>
                       </div>
                     </div>
@@ -356,8 +358,8 @@ export default function SystemDashboard() {
         <TabsContent value="performance" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Performance Trends</CardTitle>
-              <CardDescription>24-hour system performance history</CardDescription>
+              <CardTitle>{t('admin.dashboards.system.sections.performanceTrends')}</CardTitle>
+              <CardDescription>{t('admin.dashboards.system.sections.performanceTrendsDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -379,22 +381,22 @@ export default function SystemDashboard() {
         <TabsContent value="processes" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Process Information</CardTitle>
-              <CardDescription>System process statistics and management</CardDescription>
+              <CardTitle>{t('admin.dashboards.system.sections.processInfo')}</CardTitle>
+              <CardDescription>{t('admin.dashboards.system.sections.processInfoDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-3 gap-4">
                 <div className="text-center p-4 border rounded-lg">
                   <div className="text-2xl font-bold">{metrics?.processes.total || 0}</div>
-                  <p className="text-sm text-muted-foreground">Total Processes</p>
+                  <p className="text-sm text-muted-foreground">{t('admin.dashboards.system.labels.totalProcesses')}</p>
                 </div>
                 <div className="text-center p-4 border rounded-lg">
                   <div className="text-2xl font-bold text-green-500">{metrics?.processes.active || 0}</div>
-                  <p className="text-sm text-muted-foreground">Active</p>
+                  <p className="text-sm text-muted-foreground">{t('admin.dashboards.system.labels.active')}</p>
                 </div>
                 <div className="text-center p-4 border rounded-lg">
                   <div className="text-2xl font-bold text-blue-500">{metrics?.processes.sleeping || 0}</div>
-                  <p className="text-sm text-muted-foreground">Sleeping</p>
+                  <p className="text-sm text-muted-foreground">{t('admin.dashboards.system.labels.sleeping')}</p>
                 </div>
               </div>
             </CardContent>
@@ -404,8 +406,8 @@ export default function SystemDashboard() {
         <TabsContent value="alerts" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>System Alerts</CardTitle>
-              <CardDescription>Recent system alerts and warnings</CardDescription>
+              <CardTitle>{t('admin.dashboards.system.sections.systemAlerts')}</CardTitle>
+              <CardDescription>{t('admin.dashboards.system.sections.systemAlertsDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               {services.filter(s => s.status !== 'active').length > 0 ? (
@@ -413,9 +415,9 @@ export default function SystemDashboard() {
                   {services.filter(s => s.status !== 'active').map((service) => (
                     <Alert key={service.name} variant={service.status === 'error' ? 'destructive' : 'default'}>
                       <AlertCircle className="h-4 w-4" />
-                      <AlertTitle>{service.name}</AlertTitle>
+                      <AlertTitle>{t(`admin.dashboards.system.services.${service.name.toLowerCase().replace(/\s+/g, '')}`, service.name)}</AlertTitle>
                       <AlertDescription>
-                        Service is currently {service.status}. Response time: {service.responseTime}ms
+                        {t('admin.dashboards.system.alerts.serviceStatus', { status: t(`admin.dashboards.system.status.${service.status}`), responseTime: service.responseTime })}
                       </AlertDescription>
                     </Alert>
                   ))}
@@ -423,7 +425,7 @@ export default function SystemDashboard() {
               ) : (
                 <div className="text-center py-8 text-muted-foreground">
                   <CheckCircle className="h-12 w-12 mx-auto mb-4 text-green-500" />
-                  <p>No active alerts. All systems operational.</p>
+                  <p>{t('admin.dashboards.system.alerts.noAlerts')}</p>
                 </div>
               )}
             </CardContent>

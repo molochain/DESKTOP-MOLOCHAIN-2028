@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Link } from 'wouter';
 import { queryClient, apiRequest } from '@/lib/queryClient';
@@ -39,48 +40,100 @@ interface SystemSettings {
   };
 }
 
+const getDefaultSettings = (t: (key: string) => string): SystemSettings => ({
+  apiKeys: [
+    {
+      id: 'openai',
+      name: t('settings.apiKeys.openai.name'),
+      service: 'openai',
+      key: '',
+      isActive: false,
+      description: t('settings.apiKeys.openai.description'),
+      required: true,
+    },
+    {
+      id: 'stripe',
+      name: t('settings.apiKeys.stripe.name'),
+      service: 'stripe',
+      key: '',
+      isActive: false,
+      description: t('settings.apiKeys.stripe.description'),
+      required: true,
+    },
+    {
+      id: 'instagram',
+      name: t('settings.apiKeys.instagram.name'),
+      service: 'instagram',
+      key: '',
+      isActive: false,
+      description: t('settings.apiKeys.instagram.description'),
+      required: false,
+    },
+    {
+      id: 'google-maps',
+      name: t('settings.apiKeys.googleMaps.name'),
+      service: 'google-maps',
+      key: '',
+      isActive: false,
+      description: t('settings.apiKeys.googleMaps.description'),
+      required: false,
+    },
+  ],
+  features: {
+    openAI: false,
+    stripe: false,
+    instagram: false,
+    googleMaps: false,
+  },
+  performance: {
+    cacheEnabled: true,
+    cacheHitRate: 0,
+    optimizationLevel: 'standard',
+  },
+});
+
 export default function Settings() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [showKeys, setShowKeys] = useState<{ [key: string]: boolean }>({});
   const [editedKeys, setEditedKeys] = useState<{ [key: string]: string }>({});
   const [isEditing, setIsEditing] = useState<{ [key: string]: boolean }>({});
 
-  // Fetch system settings
+  const defaultSettings = useMemo(() => getDefaultSettings(t), [t]);
+
   const { data: settings, isLoading, error } = useQuery<SystemSettings>({
     queryKey: ['/api/settings'],
     retry: 1,
   });
 
-  // Update API key mutation
   const updateApiKey = useMutation({
     mutationFn: async ({ id, key }: { id: string; key: string }) => {
       return apiRequest('PATCH', `/api/settings/api-keys/${id}`, { key });
     },
     onSuccess: () => {
       toast({
-        title: 'Success',
-        description: 'API key updated successfully',
+        title: t('settings.toast.success'),
+        description: t('settings.toast.apiKeyUpdated'),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/settings'] });
     },
     onError: (error) => {
       toast({
-        title: 'Error',
-        description: 'Failed to update API key',
+        title: t('settings.toast.error'),
+        description: t('settings.toast.apiKeyUpdateFailed'),
         variant: 'destructive',
       });
     },
   });
 
-  // Toggle feature mutation
   const toggleFeature = useMutation({
     mutationFn: async ({ feature, enabled }: { feature: string; enabled: boolean }) => {
       return apiRequest('PATCH', '/api/settings/features', { feature, enabled });
     },
     onSuccess: () => {
       toast({
-        title: 'Success',
-        description: 'Feature updated successfully',
+        title: t('settings.toast.success'),
+        description: t('settings.toast.featureUpdated'),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/settings'] });
     },
@@ -100,8 +153,8 @@ export default function Settings() {
     const newKey = editedKeys[id];
     if (!newKey || newKey.trim() === '') {
       toast({
-        title: 'Error',
-        description: 'API key cannot be empty',
+        title: t('settings.toast.error'),
+        description: t('settings.toast.apiKeyEmpty'),
         variant: 'destructive',
       });
       return;
@@ -121,6 +174,26 @@ export default function Settings() {
     return `${key.substring(0, 4)}••••••••${key.substring(key.length - 4)}`;
   };
 
+  const getFeatureDescription = (feature: string): string => {
+    const descriptions: { [key: string]: string } = {
+      openAI: t('settings.features.openAI.description'),
+      stripe: t('settings.features.stripe.description'),
+      instagram: t('settings.features.instagram.description'),
+      googleMaps: t('settings.features.googleMaps.description'),
+    };
+    return descriptions[feature] || '';
+  };
+
+  const getFeatureName = (feature: string): string => {
+    const names: { [key: string]: string } = {
+      openAI: t('settings.features.openAI.name'),
+      stripe: t('settings.features.stripe.name'),
+      instagram: t('settings.features.instagram.name'),
+      googleMaps: t('settings.features.googleMaps.name'),
+    };
+    return names[feature] || feature.replace(/([A-Z])/g, ' $1').trim();
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -128,59 +201,6 @@ export default function Settings() {
       </div>
     );
   }
-
-  // Default settings if no data
-  const defaultSettings: SystemSettings = {
-    apiKeys: [
-      {
-        id: 'openai',
-        name: 'OpenAI API Key',
-        service: 'openai',
-        key: '',
-        isActive: false,
-        description: 'Required for AI-powered features including chat assistants, content generation, and analytics',
-        required: true,
-      },
-      {
-        id: 'stripe',
-        name: 'Stripe Secret Key',
-        service: 'stripe',
-        key: '',
-        isActive: false,
-        description: 'Required for payment processing, subscriptions, and billing management',
-        required: true,
-      },
-      {
-        id: 'instagram',
-        name: 'Instagram Access Token',
-        service: 'instagram',
-        key: '',
-        isActive: false,
-        description: 'Required for Instagram marketing features and social media integration',
-        required: false,
-      },
-      {
-        id: 'google-maps',
-        name: 'Google Maps API Key',
-        service: 'google-maps',
-        key: '',
-        isActive: false,
-        description: 'Required for location services, route optimization, and mapping features',
-        required: false,
-      },
-    ],
-    features: {
-      openAI: false,
-      stripe: false,
-      instagram: false,
-      googleMaps: false,
-    },
-    performance: {
-      cacheEnabled: true,
-      cacheHitRate: 0,
-      optimizationLevel: 'standard',
-    },
-  };
 
   const currentSettings = settings || defaultSettings;
 
@@ -191,31 +211,30 @@ export default function Settings() {
           <div>
             <h1 className="text-3xl font-bold flex items-center gap-2">
               <SettingsIcon className="w-8 h-8" />
-              System Settings
+              {t('settings.title')}
             </h1>
             <p className="text-muted-foreground mt-2">
-              Manage API keys, features, and system configuration
+              {t('settings.description')}
             </p>
           </div>
         </div>
 
         <Tabs defaultValue="api-keys">
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="api-keys">API Keys</TabsTrigger>
-            <TabsTrigger value="features">Features</TabsTrigger>
-            <TabsTrigger value="performance">Performance</TabsTrigger>
+            <TabsTrigger value="api-keys">{t('settings.tabs.apiKeys')}</TabsTrigger>
+            <TabsTrigger value="features">{t('settings.tabs.features')}</TabsTrigger>
+            <TabsTrigger value="performance">{t('settings.tabs.performance')}</TabsTrigger>
           </TabsList>
 
-          {/* API Keys Tab */}
           <TabsContent value="api-keys" className="space-y-4">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Key className="w-5 h-5" />
-                  API Key Management
+                  {t('settings.apiKeyManagement.title')}
                 </CardTitle>
                 <CardDescription>
-                  Configure API keys for third-party services. Keep these keys secure and never share them publicly.
+                  {t('settings.apiKeyManagement.description')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -226,17 +245,17 @@ export default function Settings() {
                         <div className="flex items-center gap-2">
                           <h3 className="font-semibold">{apiKey.name}</h3>
                           {apiKey.required && (
-                            <Badge variant="secondary">Required</Badge>
+                            <Badge variant="secondary">{t('settings.badges.required')}</Badge>
                           )}
                           {apiKey.isActive ? (
                             <Badge variant="default" className="flex items-center gap-1">
                               <CheckCircle className="w-3 h-3" />
-                              Active
+                              {t('settings.badges.active')}
                             </Badge>
                           ) : (
                             <Badge variant="outline" className="flex items-center gap-1">
                               <XCircle className="w-3 h-3" />
-                              Not Configured
+                              {t('settings.badges.notConfigured')}
                             </Badge>
                           )}
                         </div>
@@ -247,7 +266,7 @@ export default function Settings() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`key-${apiKey.id}`}>API Key</Label>
+                      <Label htmlFor={`key-${apiKey.id}`}>{t('settings.apiKeyManagement.apiKeyLabel')}</Label>
                       <div className="flex items-center gap-2">
                         {isEditing[apiKey.id] ? (
                           <>
@@ -256,7 +275,7 @@ export default function Settings() {
                               type="text"
                               value={editedKeys[apiKey.id] || ''}
                               onChange={(e) => setEditedKeys(prev => ({ ...prev, [apiKey.id]: e.target.value }))}
-                              placeholder="Enter your API key"
+                              placeholder={t('settings.apiKeyManagement.placeholder')}
                               className="flex-1"
                             />
                             <Button
@@ -271,7 +290,7 @@ export default function Settings() {
                               variant="outline"
                               onClick={() => handleCancelEdit(apiKey.id)}
                             >
-                              Cancel
+                              {t('settings.buttons.cancel')}
                             </Button>
                           </>
                         ) : (
@@ -281,7 +300,7 @@ export default function Settings() {
                               type={showKeys[apiKey.id] ? 'text' : 'password'}
                               value={apiKey.key || ''}
                               readOnly
-                              placeholder={apiKey.key ? maskApiKey(apiKey.key) : 'Not configured'}
+                              placeholder={apiKey.key ? maskApiKey(apiKey.key) : t('settings.apiKeyManagement.notConfiguredPlaceholder')}
                               className="flex-1"
                               data-testid={`input-api-key-${apiKey.id}`}
                             />
@@ -298,14 +317,14 @@ export default function Settings() {
                               onClick={() => handleEditKey(apiKey.id)}
                               data-testid={`button-edit-${apiKey.id}`}
                             >
-                              Edit
+                              {t('settings.buttons.edit')}
                             </Button>
                           </>
                         )}
                       </div>
                       {apiKey.lastUsed && (
                         <p className="text-xs text-muted-foreground">
-                          Last used: {new Date(apiKey.lastUsed).toLocaleString()}
+                          {t('settings.apiKeyManagement.lastUsed')}: {new Date(apiKey.lastUsed).toLocaleString()}
                         </p>
                       )}
                     </div>
@@ -314,22 +333,21 @@ export default function Settings() {
 
                 <Alert>
                   <Shield className="w-4 h-4" />
-                  <AlertTitle>Security Notice</AlertTitle>
+                  <AlertTitle>{t('settings.alerts.securityNotice.title')}</AlertTitle>
                   <AlertDescription>
-                    API keys are encrypted and stored securely. Never share your API keys in public repositories or client-side code.
+                    {t('settings.alerts.securityNotice.description')}
                   </AlertDescription>
                 </Alert>
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* Features Tab */}
           <TabsContent value="features" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Feature Configuration</CardTitle>
+                <CardTitle>{t('settings.featureConfiguration.title')}</CardTitle>
                 <CardDescription>
-                  Enable or disable platform features based on your needs
+                  {t('settings.featureConfiguration.description')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -337,12 +355,9 @@ export default function Settings() {
                   {Object.entries(currentSettings.features).map(([feature, enabled]) => (
                     <div key={feature} className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
-                        <h3 className="font-semibold capitalize">{feature.replace(/([A-Z])/g, ' $1').trim()}</h3>
+                        <h3 className="font-semibold">{getFeatureName(feature)}</h3>
                         <p className="text-sm text-muted-foreground">
-                          {feature === 'openAI' && 'AI-powered features including chat and content generation'}
-                          {feature === 'stripe' && 'Payment processing and subscription management'}
-                          {feature === 'instagram' && 'Instagram marketing and social media integration'}
-                          {feature === 'googleMaps' && 'Location services and mapping features'}
+                          {getFeatureDescription(feature)}
                         </p>
                       </div>
                       <Switch
@@ -357,27 +372,26 @@ export default function Settings() {
             </Card>
           </TabsContent>
 
-          {/* Performance Tab */}
           <TabsContent value="performance" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Performance Settings</CardTitle>
+                <CardTitle>{t('settings.performance.title')}</CardTitle>
                 <CardDescription>
-                  Monitor and optimize system performance
+                  {t('settings.performance.description')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid gap-4">
                   <div className="p-4 border rounded-lg">
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-semibold">Cache Performance</h3>
+                      <h3 className="font-semibold">{t('settings.performance.cachePerformance')}</h3>
                       <Badge variant={currentSettings.performance.cacheHitRate > 80 ? 'default' : 'secondary'}>
-                        {currentSettings.performance.cacheHitRate}% Hit Rate
+                        {currentSettings.performance.cacheHitRate}% {t('settings.performance.hitRate')}
                       </Badge>
                     </div>
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm">Cache Enabled</span>
+                        <span className="text-sm">{t('settings.performance.cacheEnabled')}</span>
                         <Switch
                           checked={currentSettings.performance.cacheEnabled}
                           data-testid="switch-cache-enabled"
@@ -393,7 +407,7 @@ export default function Settings() {
                   </div>
 
                   <div className="p-4 border rounded-lg">
-                    <h3 className="font-semibold mb-2">Optimization Level</h3>
+                    <h3 className="font-semibold mb-2">{t('settings.performance.optimizationLevel')}</h3>
                     <div className="flex gap-2">
                       {['standard', 'balanced', 'performance'].map((level) => (
                         <Badge
@@ -401,7 +415,7 @@ export default function Settings() {
                           variant={currentSettings.performance.optimizationLevel === level ? 'default' : 'outline'}
                           className="capitalize"
                         >
-                          {level}
+                          {t(`settings.performance.levels.${level}`)}
                         </Badge>
                       ))}
                     </div>
@@ -410,10 +424,9 @@ export default function Settings() {
 
                 <Alert>
                   <AlertCircle className="w-4 h-4" />
-                  <AlertTitle>Performance Tip</AlertTitle>
+                  <AlertTitle>{t('settings.alerts.performanceTip.title')}</AlertTitle>
                   <AlertDescription>
-                    Enable caching to improve response times. Current cache hit rate is {currentSettings.performance.cacheHitRate}%.
-                    Target is 85% for optimal performance.
+                    {t('settings.alerts.performanceTip.description', { hitRate: currentSettings.performance.cacheHitRate })}
                   </AlertDescription>
                 </Alert>
               </CardContent>

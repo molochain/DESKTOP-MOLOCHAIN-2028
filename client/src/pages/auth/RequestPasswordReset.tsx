@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocation } from "wouter";
 import { useMutation } from "@tanstack/react-query";
 import { fetchWithCsrf } from "@/lib/csrf";
+import { useTranslation } from "react-i18next";
 
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -28,18 +29,19 @@ import {
 import { Link } from "wouter";
 import { Loader2, Mail, ArrowLeft, UserPlus } from "lucide-react";
 
-// Form schema
-const formSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-});
-
-type FormValues = z.infer<typeof formSchema>;
+type FormValues = {
+  email: string;
+};
 
 export default function RequestPasswordReset() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
+  const { t } = useTranslation();
 
-  // Form definition
+  const formSchema = z.object({
+    email: z.string().email(t("auth.passwordReset.validation.emailInvalid")),
+  });
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,7 +49,6 @@ export default function RequestPasswordReset() {
     },
   });
 
-  // Mutation for password reset request
   const requestResetMutation = useMutation({
     mutationFn: async (values: FormValues) => {
       const response = await fetchWithCsrf("/api/auth/request-reset", {
@@ -57,28 +58,27 @@ export default function RequestPasswordReset() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Request failed");
+        throw new Error(errorData.message || t("auth.passwordReset.toast.requestFailed"));
       }
 
       return response.json();
     },
     onSuccess: () => {
       toast({
-        title: "Password reset email sent",
-        description: "If your email is registered, you will receive a password reset link.",
+        title: t("auth.passwordReset.toast.successTitle"),
+        description: t("auth.passwordReset.toast.successDescription"),
       });
       form.reset();
     },
     onError: (error: Error) => {
       toast({
-        title: "Failed to request password reset",
+        title: t("auth.passwordReset.toast.failedTitle"),
         description: error.message,
         variant: "destructive",
       });
     },
   });
 
-  // Form submission handler
   const onSubmit = async (values: FormValues) => {
     try {
       await requestResetMutation.mutateAsync(values);
@@ -103,10 +103,10 @@ export default function RequestPasswordReset() {
         <Card className="shadow-lg border-t-4 border-t-primary">
           <CardHeader className="space-y-2">
             <CardTitle className="text-2xl font-bold text-center">
-              Reset Password
+              {t("auth.passwordReset.title")}
             </CardTitle>
             <CardDescription className="text-center">
-              Enter your email address and we'll send you a link to reset your password
+              {t("auth.passwordReset.description")}
             </CardDescription>
           </CardHeader>
           
@@ -120,11 +120,11 @@ export default function RequestPasswordReset() {
                     <FormItem>
                       <FormLabel className="flex items-center gap-2">
                         <Mail className="h-4 w-4 text-muted-foreground" />
-                        Email
+                        {t("auth.passwordReset.emailLabel")}
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Enter your email address"
+                          placeholder={t("auth.passwordReset.emailPlaceholder")}
                           type="email"
                           autoComplete="email"
                           className="border-gray-300 focus:ring-primary focus:border-primary"
@@ -145,12 +145,12 @@ export default function RequestPasswordReset() {
                     {requestResetMutation.isPending ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        Sending Reset Link...
+                        {t("auth.passwordReset.sendingButton")}
                       </>
                     ) : (
                       <>
                         <Mail className="h-4 w-4" />
-                        Send Reset Link
+                        {t("auth.passwordReset.submitButton")}
                       </>
                     )}
                   </Button>
@@ -163,23 +163,23 @@ export default function RequestPasswordReset() {
             <div className="text-sm text-center">
               <Link href="/login" className="text-primary font-medium hover:underline transition-colors inline-flex items-center">
                 <ArrowLeft className="h-3.5 w-3.5 mr-1" />
-                Back to Login
+                {t("auth.passwordReset.backToLogin")}
               </Link>
             </div>
             <div className="text-sm text-center">
               <span className="text-muted-foreground">
-                Don't have an account?{" "}
+                {t("auth.passwordReset.noAccount")}{" "}
               </span>
               <Link href="/register" className="text-primary font-medium hover:underline transition-colors inline-flex items-center">
                 <UserPlus className="h-3.5 w-3.5 mr-1" />
-                Sign up
+                {t("auth.passwordReset.signUp")}
               </Link>
             </div>
           </CardFooter>
         </Card>
         
         <div className="text-center text-sm text-muted-foreground">
-          <p>Protected by industry-leading security practices</p>
+          <p>{t("auth.passwordReset.securityNotice")}</p>
         </div>
       </div>
     </div>

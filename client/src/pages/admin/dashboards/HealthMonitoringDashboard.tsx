@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -91,6 +92,7 @@ interface HealthData {
 }
 
 export default function HealthMonitoringDashboard() {
+  const { t } = useTranslation();
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [refreshInterval, setRefreshInterval] = useState(5000);
 
@@ -177,15 +179,15 @@ export default function HealthMonitoringDashboard() {
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-2">
             <Activity className="w-8 h-8" />
-            System Health Monitoring
+            {t('admin.dashboards.health.title')}
           </h1>
           <p className="text-muted-foreground mt-2">
-            Real-time monitoring of system performance and health metrics
+            {t('admin.dashboards.health.subtitle')}
           </p>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-sm">Auto-refresh</span>
+            <span className="text-sm">{t('admin.dashboards.health.buttons.autoRefresh')}</span>
             <input
               type="checkbox"
               checked={autoRefresh}
@@ -195,7 +197,7 @@ export default function HealthMonitoringDashboard() {
           </div>
           <Button onClick={() => refetch()} size="sm" variant="outline">
             <RefreshCw className="w-4 h-4 mr-2" />
-            Refresh
+            {t('admin.dashboards.health.buttons.refresh')}
           </Button>
         </div>
       </div>
@@ -204,7 +206,7 @@ export default function HealthMonitoringDashboard() {
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
-            <span>Overall System Status</span>
+            <span>{t('admin.dashboards.health.sections.overallStatus')}</span>
             {getStatusIcon(data.status)}
           </CardTitle>
         </CardHeader>
@@ -213,28 +215,28 @@ export default function HealthMonitoringDashboard() {
             <div className="flex items-center gap-3">
               <Database className={`w-8 h-8 ${getStatusColor(data.status)}`} />
               <div>
-                <p className="text-sm text-muted-foreground">Database Latency</p>
+                <p className="text-sm text-muted-foreground">{t('admin.dashboards.health.labels.databaseLatency')}</p>
                 <p className="text-xl font-bold">{data.databaseLatency}ms</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Cpu className="w-8 h-8 text-blue-500" />
               <div>
-                <p className="text-sm text-muted-foreground">CPU Usage</p>
+                <p className="text-sm text-muted-foreground">{t('admin.dashboards.health.resources.cpuUsage')}</p>
                 <p className="text-xl font-bold">{data.systemMetrics.cpu.usage.toFixed(1)}%</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <MemoryStick className="w-8 h-8 text-purple-500" />
               <div>
-                <p className="text-sm text-muted-foreground">Memory Usage</p>
+                <p className="text-sm text-muted-foreground">{t('admin.dashboards.health.resources.memory')}</p>
                 <p className="text-xl font-bold">{(100 - data.systemMetrics.memory.freePercentage).toFixed(1)}%</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Clock className="w-8 h-8 text-green-500" />
               <div>
-                <p className="text-sm text-muted-foreground">Uptime</p>
+                <p className="text-sm text-muted-foreground">{t('admin.dashboards.health.labels.uptime')}</p>
                 <p className="text-xl font-bold">{Math.floor(data.systemMetrics.uptime / 3600)}h</p>
               </div>
             </div>
@@ -244,10 +246,10 @@ export default function HealthMonitoringDashboard() {
 
       <Tabs defaultValue="metrics" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="metrics">System Metrics</TabsTrigger>
-          <TabsTrigger value="services">Services</TabsTrigger>
-          <TabsTrigger value="cache">Cache Performance</TabsTrigger>
-          <TabsTrigger value="alerts">Alerts</TabsTrigger>
+          <TabsTrigger value="metrics">{t('admin.dashboards.health.tabs.metrics')}</TabsTrigger>
+          <TabsTrigger value="services">{t('admin.dashboards.health.tabs.services')}</TabsTrigger>
+          <TabsTrigger value="cache">{t('admin.dashboards.health.tabs.cache')}</TabsTrigger>
+          <TabsTrigger value="alerts">{t('admin.dashboards.health.tabs.alerts')}</TabsTrigger>
         </TabsList>
 
         {/* System Metrics Tab */}
@@ -256,7 +258,7 @@ export default function HealthMonitoringDashboard() {
             {/* CPU & Memory Chart */}
             <Card>
               <CardHeader>
-                <CardTitle>Performance Trends</CardTitle>
+                <CardTitle>{t('admin.dashboards.health.sections.performanceTrends')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={250}>
@@ -276,26 +278,26 @@ export default function HealthMonitoringDashboard() {
             {/* Resource Usage */}
             <Card>
               <CardHeader>
-                <CardTitle>Resource Usage</CardTitle>
+                <CardTitle>{t('admin.dashboards.health.sections.resourceUsage')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
                   <div className="flex justify-between mb-1">
-                    <span className="text-sm">CPU Usage</span>
+                    <span className="text-sm">{t('admin.dashboards.health.resources.cpuUsage')}</span>
                     <span className="text-sm font-medium">{data.systemMetrics.cpu.usage.toFixed(1)}%</span>
                   </div>
                   <Progress value={data.systemMetrics.cpu.usage} className="h-2" />
                 </div>
                 <div>
                   <div className="flex justify-between mb-1">
-                    <span className="text-sm">Memory Usage</span>
+                    <span className="text-sm">{t('admin.dashboards.health.resources.memory')}</span>
                     <span className="text-sm font-medium">{(100 - data.systemMetrics.memory.freePercentage).toFixed(1)}%</span>
                   </div>
                   <Progress value={100 - data.systemMetrics.memory.freePercentage} className="h-2" />
                 </div>
                 <div>
                   <div className="flex justify-between mb-1">
-                    <span className="text-sm">Disk Usage</span>
+                    <span className="text-sm">{t('admin.dashboards.health.resources.disk')}</span>
                     <span className="text-sm font-medium">
                       {((data.systemMetrics.disk.used / data.systemMetrics.disk.total) * 100).toFixed(1)}%
                     </span>
@@ -311,25 +313,25 @@ export default function HealthMonitoringDashboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Network className="w-5 h-5" />
-                Network Statistics
+                {t('admin.dashboards.health.sections.networkStatistics')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
-                  <p className="text-sm text-muted-foreground">Active Connections</p>
+                  <p className="text-sm text-muted-foreground">{t('admin.dashboards.health.resources.networkConnections')}</p>
                   <p className="text-2xl font-bold">{data.systemMetrics.network.connections}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Data Received</p>
+                  <p className="text-sm text-muted-foreground">{t('admin.dashboards.health.labels.dataReceived')}</p>
                   <p className="text-2xl font-bold">{(data.systemMetrics.network.bytesReceived / 1024 / 1024).toFixed(2)} MB</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Data Sent</p>
+                  <p className="text-sm text-muted-foreground">{t('admin.dashboards.health.labels.dataSent')}</p>
                   <p className="text-2xl font-bold">{(data.systemMetrics.network.bytesSent / 1024 / 1024).toFixed(2)} MB</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Active Interfaces</p>
+                  <p className="text-sm text-muted-foreground">{t('admin.dashboards.health.labels.activeInterfaces')}</p>
                   <p className="text-2xl font-bold">{data.systemMetrics.network.activeInterfaces}</p>
                 </div>
               </div>
@@ -351,19 +353,19 @@ export default function HealthMonitoringDashboard() {
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Response Time</span>
+                      <span className="text-sm text-muted-foreground">{t('admin.dashboards.health.labels.responseTime')}</span>
                       <span className="text-sm font-medium">{service.responseTime}ms</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Success Rate</span>
+                      <span className="text-sm text-muted-foreground">{t('admin.dashboards.health.labels.successRate')}</span>
                       <span className="text-sm font-medium">{service.metrics.successRate}%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Error Rate</span>
+                      <span className="text-sm text-muted-foreground">{t('admin.dashboards.health.labels.errorRate')}</span>
                       <span className="text-sm font-medium">{service.metrics.errorRate}%</span>
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      Last checked: {new Date(service.lastCheck).toLocaleTimeString()}
+                      {t('admin.dashboards.health.labels.lastCheck')}: {new Date(service.lastCheck).toLocaleTimeString()}
                     </div>
                   </div>
                 </CardContent>
@@ -376,9 +378,9 @@ export default function HealthMonitoringDashboard() {
         <TabsContent value="cache" className="space-y-4">
           <Alert className="mb-4">
             <Zap className="w-4 h-4" />
-            <AlertTitle>Cache Performance Alert</AlertTitle>
+            <AlertTitle>{t('admin.dashboards.health.alerts.cachePerformance')}</AlertTitle>
             <AlertDescription>
-              Cache hit rate is currently below optimal levels. Target is 85% for best performance.
+              {t('admin.dashboards.health.alerts.cachePerformanceDesc')}
             </AlertDescription>
           </Alert>
 
@@ -386,13 +388,13 @@ export default function HealthMonitoringDashboard() {
             {data.cacheMetrics.map(cache => (
               <Card key={cache.name}>
                 <CardHeader>
-                  <CardTitle className="capitalize">{cache.name} Cache</CardTitle>
+                  <CardTitle className="capitalize">{cache.name} {t('admin.dashboards.health.labels.cache')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
                     <div>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm">Hit Rate</span>
+                        <span className="text-sm">{t('admin.dashboards.health.labels.hitRate')}</span>
                         <span className={`text-sm font-medium ${cache.hitRate < 50 ? 'text-red-500' : cache.hitRate < 85 ? 'text-yellow-500' : 'text-green-500'}`}>
                           {cache.hitRate}%
                         </span>
@@ -401,19 +403,19 @@ export default function HealthMonitoringDashboard() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
-                        <p className="text-muted-foreground">Hits</p>
+                        <p className="text-muted-foreground">{t('admin.dashboards.health.labels.hits')}</p>
                         <p className="font-medium">{cache.hits}</p>
                       </div>
                       <div>
-                        <p className="text-muted-foreground">Misses</p>
+                        <p className="text-muted-foreground">{t('admin.dashboards.health.labels.misses')}</p>
                         <p className="font-medium">{cache.misses}</p>
                       </div>
                       <div>
-                        <p className="text-muted-foreground">Keys</p>
+                        <p className="text-muted-foreground">{t('admin.dashboards.health.labels.keys')}</p>
                         <p className="font-medium">{cache.keys}</p>
                       </div>
                       <div>
-                        <p className="text-muted-foreground">Size</p>
+                        <p className="text-muted-foreground">{t('admin.dashboards.health.labels.size')}</p>
                         <p className="font-medium">{(cache.size / 1024).toFixed(1)} KB</p>
                       </div>
                     </div>
@@ -426,7 +428,7 @@ export default function HealthMonitoringDashboard() {
           {/* Cache Hit Rate Chart */}
           <Card>
             <CardHeader>
-              <CardTitle>Cache Hit Rate Trend</CardTitle>
+              <CardTitle>{t('admin.dashboards.health.sections.cacheHitRateTrend')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={250}>
@@ -448,8 +450,8 @@ export default function HealthMonitoringDashboard() {
             <Card>
               <CardContent className="flex flex-col items-center justify-center py-8">
                 <CheckCircle className="w-12 h-12 text-green-500 mb-4" />
-                <p className="text-lg font-medium">No Active Alerts</p>
-                <p className="text-sm text-muted-foreground">All systems are operating normally</p>
+                <p className="text-lg font-medium">{t('admin.dashboards.health.alerts.noAlerts')}</p>
+                <p className="text-sm text-muted-foreground">{t('admin.dashboards.health.alerts.allSystemsOperational')}</p>
               </CardContent>
             </Card>
           ) : (
@@ -457,7 +459,7 @@ export default function HealthMonitoringDashboard() {
               {data.alerts.map(alert => (
                 <Alert key={alert.id} variant={alert.severity === 'error' ? 'destructive' : 'default'}>
                   <AlertCircle className="w-4 h-4" />
-                  <AlertTitle className="capitalize">{alert.severity} Alert</AlertTitle>
+                  <AlertTitle className="capitalize">{t(`admin.dashboards.health.severity.${alert.severity}`)} {t('admin.dashboards.health.labels.alert')}</AlertTitle>
                   <AlertDescription>
                     <p>{alert.message}</p>
                     <p className="text-xs mt-1">{new Date(alert.timestamp).toLocaleString()}</p>

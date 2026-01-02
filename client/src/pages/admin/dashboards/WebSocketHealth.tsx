@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,51 +42,51 @@ function ConnectionLog({ logs }: { logs: LogMessage[] }) {
   );
 }
 
-function ConnectionStatus({ isConnected, state }: { isConnected: boolean, state: any }) {
+function ConnectionStatus({ isConnected, state, t }: { isConnected: boolean, state: any, t: any }) {
   return (
     <div className="mb-6">
       <div className="flex items-center mb-2">
         <div className={`w-3 h-3 rounded-full mr-2 ${isConnected ? 'bg-green-500' : 'bg-red-500'}`}></div>
-        <span className="font-semibold">{isConnected ? 'Connected' : 'Disconnected'}</span>
+        <span className="font-semibold">{isConnected ? t('admin.dashboards.websocket.labels.connected') : t('admin.dashboards.websocket.labels.disconnected')}</span>
       </div>
       
       <div className="grid grid-cols-2 gap-3 text-sm">
         <div>
-          <span className="text-gray-500">Reconnect Attempts:</span> {state.reconnectAttempts}/{state.maxAttempts}
+          <span className="text-gray-500">{t('admin.dashboards.websocket.labels.reconnectAttempts')}:</span> {state.reconnectAttempts}/{state.maxAttempts}
         </div>
         <div>
-          <span className="text-gray-500">Authenticated:</span> {state.isAuthenticated ? 'Yes' : 'No'}
+          <span className="text-gray-500">{t('admin.dashboards.websocket.labels.authenticated')}:</span> {state.isAuthenticated ? t('admin.dashboards.websocket.labels.yes') : t('admin.dashboards.websocket.labels.no')}
         </div>
         <div>
-          <span className="text-gray-500">Last Heartbeat:</span> {state.lastHeartbeat ? new Date(state.lastHeartbeat).toLocaleTimeString() : 'Never'}
+          <span className="text-gray-500">{t('admin.dashboards.websocket.labels.lastHeartbeat')}:</span> {state.lastHeartbeat ? new Date(state.lastHeartbeat).toLocaleTimeString() : t('admin.dashboards.websocket.labels.never')}
         </div>
         <div>
-          <span className="text-gray-500">Last Error:</span> {state.lastError || 'None'}
+          <span className="text-gray-500">{t('admin.dashboards.websocket.labels.lastError')}:</span> {state.lastError || t('admin.dashboards.websocket.labels.none')}
         </div>
       </div>
     </div>
   );
 }
 
-function WebSocketStats({ stats }: { stats: any }) {
+function WebSocketStats({ stats, t }: { stats: any, t: any }) {
   return (
     <div className="grid grid-cols-2 gap-4 mb-6">
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-lg">Connection Metrics</CardTitle>
+          <CardTitle className="text-lg">{t('admin.dashboards.websocket.cards.connectionMetrics')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-1">
             <div className="flex justify-between text-sm">
-              <span>Total Connections:</span>
+              <span>{t('admin.dashboards.websocket.metrics.totalConnections')}:</span>
               <span className="font-mono">{stats?.connections || 0}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span>Active Connections:</span>
+              <span>{t('admin.dashboards.websocket.metrics.activeConnections')}:</span>
               <span className="font-mono">{(stats?.connections || 0) - (stats?.disconnections || 0)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span>Error Count:</span>
+              <span>{t('admin.dashboards.websocket.metrics.errorCount')}:</span>
               <span className="font-mono">{stats?.errors || 0}</span>
             </div>
           </div>
@@ -94,20 +95,20 @@ function WebSocketStats({ stats }: { stats: any }) {
       
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-lg">Performance Metrics</CardTitle>
+          <CardTitle className="text-lg">{t('admin.dashboards.websocket.cards.performanceMetrics')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-1">
             <div className="flex justify-between text-sm">
-              <span>Avg. Latency:</span>
+              <span>{t('admin.dashboards.websocket.metrics.avgLatency')}:</span>
               <span className="font-mono">{stats?.avgLatency || 'N/A'} ms</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span>Avg. Connection Duration:</span>
+              <span>{t('admin.dashboards.websocket.metrics.avgConnectionDuration')}:</span>
               <span className="font-mono">{stats?.avgConnectionDuration ? `${Math.round(stats.avgConnectionDuration / 1000)}s` : 'N/A'}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span>Messages Exchanged:</span>
+              <span>{t('admin.dashboards.websocket.metrics.messagesExchanged')}:</span>
               <span className="font-mono">{(stats?.messagesReceived || 0) + (stats?.messagesSent || 0)}</span>
             </div>
           </div>
@@ -176,6 +177,7 @@ interface DiagnosticToolProps {
 }
 
 function DiagnosticsTool({ isConnected, connectionState, sendMessage, reconnect }: DiagnosticToolProps) {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('main');
   const [healthData, setHealthData] = useState<any>(null);
   const [connectionLogs, setConnectionLogs] = useState<LogMessage[]>([]);
@@ -424,11 +426,11 @@ function DiagnosticsTool({ isConnected, connectionState, sendMessage, reconnect 
 
   return (
     <div className="container py-8">
-      <h1 className="text-3xl font-bold tracking-tight mb-6">WebSocket Diagnostics</h1>
+      <h1 className="text-3xl font-bold tracking-tight mb-6">{t('admin.dashboards.websocket.title')}</h1>
       
       {connectionState.lastError && (
         <Alert variant="destructive" className="mb-6">
-          <AlertTitle>Connection Error</AlertTitle>
+          <AlertTitle>{t('admin.dashboards.websocket.alerts.connectionError')}</AlertTitle>
           <AlertDescription>
             {connectionState.lastError}
           </AlertDescription>
@@ -438,34 +440,34 @@ function DiagnosticsTool({ isConnected, connectionState, sendMessage, reconnect 
       <div className="flex justify-between items-center mb-4">
         <div>
           <Badge variant={isConnected ? "default" : "destructive"} className={`mr-2 ${isConnected ? "bg-green-500 text-white" : ""}`}>
-            {isConnected ? "Connected" : "Disconnected"}
+            {isConnected ? t('admin.dashboards.websocket.labels.connected') : t('admin.dashboards.websocket.labels.disconnected')}
           </Badge>
           <Badge variant="outline">
-            Reconnects: {connectionState.reconnectAttempts}/{connectionState.maxAttempts}
+            {t('admin.dashboards.websocket.labels.reconnects')}: {connectionState.reconnectAttempts}/{connectionState.maxAttempts}
           </Badge>
         </div>
         <Button onClick={() => reconnect()} disabled={isConnected && connectionState.reconnectAttempts === 0}>
-          Reconnect Main WebSocket
+          {t('admin.dashboards.websocket.buttons.reconnect')}
         </Button>
       </div>
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
         <TabsList className="mb-4">
-          <TabsTrigger value="main">Main Connection</TabsTrigger>
-          <TabsTrigger value="health">Health Service</TabsTrigger>
-          <TabsTrigger value="dedicated">Dedicated Health</TabsTrigger>
+          <TabsTrigger value="main">{t('admin.dashboards.websocket.tabs.main')}</TabsTrigger>
+          <TabsTrigger value="health">{t('admin.dashboards.websocket.tabs.health')}</TabsTrigger>
+          <TabsTrigger value="dedicated">{t('admin.dashboards.websocket.tabs.dedicated')}</TabsTrigger>
         </TabsList>
         
         <TabsContent value="main">
           <Card>
             <CardHeader>
-              <CardTitle>Main WebSocket Connection</CardTitle>
+              <CardTitle>{t('admin.dashboards.websocket.sections.mainConnection')}</CardTitle>
               <CardDescription>
-                Monitor and diagnose the primary WebSocket connection used by the application.
+                {t('admin.dashboards.websocket.sections.mainConnectionDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ConnectionStatus isConnected={isConnected} state={connectionState} />
+              <ConnectionStatus isConnected={isConnected} state={connectionState} t={t} />
               <MessageTester onSendMessage={sendMainMessage} onClear={() => clearLogs('main')} />
               <ConnectionLog logs={connectionLogs} />
             </CardContent>
@@ -475,20 +477,20 @@ function DiagnosticsTool({ isConnected, connectionState, sendMessage, reconnect 
         <TabsContent value="health">
           <Card>
             <CardHeader>
-              <CardTitle>Health WebSocket Service</CardTitle>
+              <CardTitle>{t('admin.dashboards.websocket.sections.healthService')}</CardTitle>
               <CardDescription>
-                Connect to the health WebSocket endpoint to test connection stability.
+                {t('admin.dashboards.websocket.sections.healthServiceDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {healthData && <WebSocketStats stats={healthData} />}
+              {healthData && <WebSocketStats stats={healthData} t={t} />}
               
               <div className="flex justify-between mb-4">
                 <Button onClick={connectToHealthWs}>
-                  Connect to Health WebSocket
+                  {t('admin.dashboards.websocket.buttons.connectHealth')}
                 </Button>
                 <Button onClick={fetchHealthData} variant="outline">
-                  Refresh Stats
+                  {t('admin.dashboards.websocket.buttons.refreshStats')}
                 </Button>
               </div>
               
@@ -501,15 +503,15 @@ function DiagnosticsTool({ isConnected, connectionState, sendMessage, reconnect 
         <TabsContent value="dedicated">
           <Card>
             <CardHeader>
-              <CardTitle>Dedicated Health Service</CardTitle>
+              <CardTitle>{t('admin.dashboards.websocket.sections.dedicatedHealth')}</CardTitle>
               <CardDescription>
-                Connect to the dedicated health endpoint for low-level WebSocket diagnostics.
+                {t('admin.dashboards.websocket.sections.dedicatedHealthDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex justify-end mb-4">
                 <Button onClick={connectToDedicatedWs}>
-                  Connect to Dedicated Health
+                  {t('admin.dashboards.websocket.buttons.connectDedicated')}
                 </Button>
               </div>
               

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -55,6 +56,7 @@ const availablePermissions = [
 ];
 
 export default function UserManagement() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState('');
@@ -117,13 +119,13 @@ export default function UserManagement() {
         permissions: ['read']
       });
       toast({
-        title: 'Success',
-        description: 'User created successfully'
+        title: t('admin.management.users.toast.success'),
+        description: t('admin.management.users.toast.userCreated')
       });
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
+        title: t('admin.management.users.toast.error'),
         description: error.message,
         variant: 'destructive'
       });
@@ -146,13 +148,13 @@ export default function UserManagement() {
       setIsEditDialogOpen(false);
       setSelectedUser(null);
       toast({
-        title: 'Success',
-        description: 'User updated successfully'
+        title: t('admin.management.users.toast.success'),
+        description: t('admin.management.users.toast.userUpdated')
       });
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
+        title: t('admin.management.users.toast.error'),
         description: error.message,
         variant: 'destructive'
       });
@@ -171,13 +173,13 @@ export default function UserManagement() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/users'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/users/stats'] });
       toast({
-        title: 'Success',
-        description: 'User deleted successfully'
+        title: t('admin.management.users.toast.success'),
+        description: t('admin.management.users.toast.userDeleted')
       });
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
+        title: t('admin.management.users.toast.error'),
         description: error.message,
         variant: 'destructive'
       });
@@ -202,8 +204,7 @@ export default function UserManagement() {
   };
 
   const handleDeleteUser = (id: number) => {
-    // Use proper dialog for confirmation in production
-    const confirmed = window.confirm('Are you sure you want to delete this user?');
+    const confirmed = window.confirm(t('admin.management.users.dialog.deleteConfirm'));
     if (confirmed) {
       deleteUserMutation.mutate(id);
     }
@@ -215,7 +216,7 @@ export default function UserManagement() {
       username: user.username,
       email: user.email,
       role: user.role,
-      permissions: user.permissions || ['read'], // Handle null permissions
+      permissions: user.permissions || ['read'],
       isActive: user.isActive
     });
     setIsEditDialogOpen(true);
@@ -250,68 +251,68 @@ export default function UserManagement() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold tracking-tight">User Management</h2>
+        <h2 className="text-3xl font-bold tracking-tight">{t('admin.management.users.title')}</h2>
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
             <Button>
               <UserPlus className="h-4 w-4 mr-2" />
-              Add User
+              {t('admin.management.users.buttons.addUser')}
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-md">
             <DialogHeader>
-              <DialogTitle>Create New User</DialogTitle>
+              <DialogTitle>{t('admin.management.users.dialog.createTitle')}</DialogTitle>
               <DialogDescription>
-                Add a new user to the system with specified role and permissions.
+                {t('admin.management.users.dialog.createDescription')}
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
               <div>
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="username">{t('admin.management.users.form.username')}</Label>
                 <Input
                   id="username"
                   value={createForm.username}
                   onChange={(e) => setCreateForm(prev => ({ ...prev, username: e.target.value }))}
-                  placeholder="Enter username"
+                  placeholder={t('admin.management.users.form.usernamePlaceholder')}
                 />
               </div>
               <div>
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t('admin.management.users.form.email')}</Label>
                 <Input
                   id="email"
                   type="email"
                   value={createForm.email}
                   onChange={(e) => setCreateForm(prev => ({ ...prev, email: e.target.value }))}
-                  placeholder="Enter email"
+                  placeholder={t('admin.management.users.form.emailPlaceholder')}
                 />
               </div>
               <div>
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t('admin.management.users.form.password')}</Label>
                 <Input
                   id="password"
                   type="password"
                   value={createForm.password}
                   onChange={(e) => setCreateForm(prev => ({ ...prev, password: e.target.value }))}
-                  placeholder="Enter password"
+                  placeholder={t('admin.management.users.form.passwordPlaceholder')}
                 />
               </div>
               <div>
-                <Label htmlFor="role">Role</Label>
+                <Label htmlFor="role">{t('admin.management.users.form.role')}</Label>
                 <Select value={createForm.role} onValueChange={(value) => setCreateForm(prev => ({ ...prev, role: value }))}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="user">User</SelectItem>
-                    <SelectItem value="analyst">Analyst</SelectItem>
-                    <SelectItem value="manager">Manager</SelectItem>
-                    <SelectItem value="moderator">Moderator</SelectItem>
-                    <SelectItem value="admin">Admin</SelectItem>
+                    <SelectItem value="user">{t('admin.management.users.roles.user')}</SelectItem>
+                    <SelectItem value="analyst">{t('admin.management.users.roles.analyst')}</SelectItem>
+                    <SelectItem value="manager">{t('admin.management.users.roles.manager')}</SelectItem>
+                    <SelectItem value="moderator">{t('admin.management.users.roles.moderator')}</SelectItem>
+                    <SelectItem value="admin">{t('admin.management.users.roles.admin')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Label>Permissions</Label>
+                <Label>{t('admin.management.users.form.permissions')}</Label>
                 <div className="grid grid-cols-2 gap-2 mt-2">
                   {availablePermissions.map(permission => (
                     <div key={permission} className="flex items-center space-x-2">
@@ -319,7 +320,7 @@ export default function UserManagement() {
                         checked={createForm.permissions.includes(permission)}
                         onCheckedChange={() => handlePermissionToggle(permission, true)}
                       />
-                      <span className="text-sm">{permission}</span>
+                      <span className="text-sm">{t(`admin.management.users.permissions.${permission}`)}</span>
                     </div>
                   ))}
                 </div>
@@ -327,11 +328,11 @@ export default function UserManagement() {
             </div>
             <DialogFooter>
               <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
-                Cancel
+                {t('admin.management.users.buttons.cancel')}
               </Button>
               <Button onClick={handleCreateUser} disabled={createUserMutation.isPending}>
                 {createUserMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                Create User
+                {t('admin.management.users.buttons.createUser')}
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -342,7 +343,7 @@ export default function UserManagement() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Users</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.management.users.stats.totalUsers')}</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -351,7 +352,7 @@ export default function UserManagement() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Users</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.management.users.stats.activeUsers')}</CardTitle>
             <Shield className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -360,7 +361,7 @@ export default function UserManagement() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Admin Users</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.management.users.stats.adminUsers')}</CardTitle>
             <Shield className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -369,7 +370,7 @@ export default function UserManagement() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Recent Logins</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.management.users.stats.recentLogins')}</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -384,7 +385,7 @@ export default function UserManagement() {
           <div className="relative">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search users..."
+              placeholder={t('admin.management.users.filter.searchPlaceholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-8"
@@ -393,15 +394,15 @@ export default function UserManagement() {
         </div>
         <Select value={roleFilter} onValueChange={setRoleFilter}>
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by role" />
+            <SelectValue placeholder={t('admin.management.users.filter.filterByRole')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Roles</SelectItem>
-            <SelectItem value="admin">Admin</SelectItem>
-            <SelectItem value="moderator">Moderator</SelectItem>
-            <SelectItem value="manager">Manager</SelectItem>
-            <SelectItem value="analyst">Analyst</SelectItem>
-            <SelectItem value="user">User</SelectItem>
+            <SelectItem value="all">{t('admin.management.users.filter.allRoles')}</SelectItem>
+            <SelectItem value="admin">{t('admin.management.users.roles.admin')}</SelectItem>
+            <SelectItem value="moderator">{t('admin.management.users.roles.moderator')}</SelectItem>
+            <SelectItem value="manager">{t('admin.management.users.roles.manager')}</SelectItem>
+            <SelectItem value="analyst">{t('admin.management.users.roles.analyst')}</SelectItem>
+            <SelectItem value="user">{t('admin.management.users.roles.user')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -409,18 +410,18 @@ export default function UserManagement() {
       {/* Users Table */}
       <Card>
         <CardHeader>
-          <CardTitle>Users ({filteredUsers.length})</CardTitle>
+          <CardTitle>{t('admin.management.users.usersCount', { count: filteredUsers.length })}</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>User</TableHead>
-                <TableHead>Role</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Last Login</TableHead>
-                <TableHead>Permissions</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>{t('admin.management.users.table.user')}</TableHead>
+                <TableHead>{t('admin.management.users.table.role')}</TableHead>
+                <TableHead>{t('admin.management.users.table.status')}</TableHead>
+                <TableHead>{t('admin.management.users.table.lastLogin')}</TableHead>
+                <TableHead>{t('admin.management.users.table.permissions')}</TableHead>
+                <TableHead>{t('admin.management.users.table.actions')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -434,22 +435,22 @@ export default function UserManagement() {
                   </TableCell>
                   <TableCell>
                     <Badge className={roleColors[user.role]}>
-                      {user.role}
+                      {t(`admin.management.users.roles.${user.role}`)}
                     </Badge>
                   </TableCell>
                   <TableCell>
                     <Badge variant={user.isActive ? "secondary" : "destructive"}>
-                      {user.isActive ? "Active" : "Inactive"}
+                      {user.isActive ? t('admin.management.users.status.active') : t('admin.management.users.status.inactive')}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString() : 'Never'}
+                    {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString() : t('admin.management.users.table.never')}
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-1 flex-wrap">
                       {(Array.isArray(user.permissions) ? user.permissions : Object.keys(user.permissions || {})).slice(0, 3).map(permission => (
                         <Badge key={permission} variant="outline" className="text-xs">
-                          {permission}
+                          {t(`admin.management.users.permissions.${permission}`)}
                         </Badge>
                       ))}
                       {(Array.isArray(user.permissions) ? user.permissions : Object.keys(user.permissions || {})).length > 3 && (
@@ -489,14 +490,14 @@ export default function UserManagement() {
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Edit User</DialogTitle>
+            <DialogTitle>{t('admin.management.users.dialog.editTitle')}</DialogTitle>
             <DialogDescription>
-              Update user information, role, and permissions.
+              {t('admin.management.users.dialog.editDescription')}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="edit-username">Username</Label>
+              <Label htmlFor="edit-username">{t('admin.management.users.form.username')}</Label>
               <Input
                 id="edit-username"
                 value={updateForm.username}
@@ -504,7 +505,7 @@ export default function UserManagement() {
               />
             </div>
             <div>
-              <Label htmlFor="edit-email">Email</Label>
+              <Label htmlFor="edit-email">{t('admin.management.users.form.email')}</Label>
               <Input
                 id="edit-email"
                 type="email"
@@ -513,17 +514,17 @@ export default function UserManagement() {
               />
             </div>
             <div>
-              <Label htmlFor="edit-role">Role</Label>
+              <Label htmlFor="edit-role">{t('admin.management.users.form.role')}</Label>
               <Select value={updateForm.role} onValueChange={(value) => setUpdateForm(prev => ({ ...prev, role: value }))}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="user">User</SelectItem>
-                  <SelectItem value="analyst">Analyst</SelectItem>
-                  <SelectItem value="manager">Manager</SelectItem>
-                  <SelectItem value="moderator">Moderator</SelectItem>
-                  <SelectItem value="admin">Admin</SelectItem>
+                  <SelectItem value="user">{t('admin.management.users.roles.user')}</SelectItem>
+                  <SelectItem value="analyst">{t('admin.management.users.roles.analyst')}</SelectItem>
+                  <SelectItem value="manager">{t('admin.management.users.roles.manager')}</SelectItem>
+                  <SelectItem value="moderator">{t('admin.management.users.roles.moderator')}</SelectItem>
+                  <SelectItem value="admin">{t('admin.management.users.roles.admin')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -532,10 +533,10 @@ export default function UserManagement() {
                 checked={updateForm.isActive}
                 onCheckedChange={(checked) => setUpdateForm(prev => ({ ...prev, isActive: checked }))}
               />
-              <Label>Active User</Label>
+              <Label>{t('admin.management.users.form.activeUser')}</Label>
             </div>
             <div>
-              <Label>Permissions</Label>
+              <Label>{t('admin.management.users.form.permissions')}</Label>
               <div className="grid grid-cols-2 gap-2 mt-2">
                 {availablePermissions.map(permission => (
                   <div key={permission} className="flex items-center space-x-2">
@@ -543,7 +544,7 @@ export default function UserManagement() {
                       checked={updateForm.permissions.includes(permission)}
                       onCheckedChange={() => handlePermissionToggle(permission, false)}
                     />
-                    <span className="text-sm">{permission}</span>
+                    <span className="text-sm">{t(`admin.management.users.permissions.${permission}`)}</span>
                   </div>
                 ))}
               </div>
@@ -551,11 +552,11 @@ export default function UserManagement() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
-              Cancel
+              {t('admin.management.users.buttons.cancel')}
             </Button>
             <Button onClick={handleUpdateUser} disabled={updateUserMutation.isPending}>
               {updateUserMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-              Update User
+              {t('admin.management.users.buttons.updateUser')}
             </Button>
           </DialogFooter>
         </DialogContent>

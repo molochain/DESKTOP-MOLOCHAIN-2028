@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -93,6 +94,7 @@ interface AuditSummary {
 const CHART_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16'];
 
 export default function AdminActivityDashboard() {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [limit] = useState(20);
   const [filters, setFilters] = useState({
@@ -203,7 +205,7 @@ export default function AdminActivityDashboard() {
       return (
         <Badge variant="default" className="bg-green-100 text-green-800 hover:bg-green-100" data-testid="badge-status-success">
           <CheckCircle className="w-3 h-3 mr-1" />
-          Success
+          {t('admin.security.activity.status.success')}
         </Badge>
       );
     }
@@ -211,13 +213,13 @@ export default function AdminActivityDashboard() {
       return (
         <Badge variant="destructive" data-testid="badge-status-error">
           <XCircle className="w-3 h-3 mr-1" />
-          Error
+          {t('admin.security.activity.status.error')}
         </Badge>
       );
     }
     return (
       <Badge variant="outline" data-testid="badge-status-unknown">
-        {status || 'Unknown'}
+        {status || t('admin.security.activity.status.unknown')}
       </Badge>
     );
   };
@@ -227,19 +229,19 @@ export default function AdminActivityDashboard() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">Admin Activity Dashboard</h1>
-            <p className="text-muted-foreground">Monitor and analyze admin actions and system events</p>
+            <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">{t('admin.security.activity.title')}</h1>
+            <p className="text-muted-foreground">{t('admin.security.activity.description')}</p>
           </div>
           <Button onClick={handleRefresh} variant="outline" data-testid="button-refresh">
             <RefreshCw className="h-4 w-4 mr-2" />
-            Refresh
+            {t('admin.security.activity.buttons.refresh')}
           </Button>
         </div>
 
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Actions Today</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.security.activity.cards.totalActionsToday')}</CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -253,7 +255,7 @@ export default function AdminActivityDashboard() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Admins</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.security.activity.cards.activeAdmins')}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -267,7 +269,7 @@ export default function AdminActivityDashboard() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Action Types</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.security.activity.cards.actionTypes')}</CardTitle>
               <Shield className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -281,7 +283,7 @@ export default function AdminActivityDashboard() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Error Rate</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.security.activity.cards.errorRate')}</CardTitle>
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -301,8 +303,8 @@ export default function AdminActivityDashboard() {
         <div className="grid gap-4 lg:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Actions by Type</CardTitle>
-              <CardDescription>Distribution of admin actions today</CardDescription>
+              <CardTitle>{t('admin.security.activity.cards.actionsByType')}</CardTitle>
+              <CardDescription>{t('admin.security.activity.cards.actionsByTypeDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               {summaryLoading ? (
@@ -331,7 +333,7 @@ export default function AdminActivityDashboard() {
                 </ResponsiveContainer>
               ) : (
                 <div className="h-[250px] flex items-center justify-center text-muted-foreground">
-                  No data available
+                  {t('admin.security.activity.noDataAvailable')}
                 </div>
               )}
             </CardContent>
@@ -339,8 +341,8 @@ export default function AdminActivityDashboard() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Most Active Admins</CardTitle>
-              <CardDescription>Top 5 admins by action count today</CardDescription>
+              <CardTitle>{t('admin.security.activity.cards.mostActiveAdmins')}</CardTitle>
+              <CardDescription>{t('admin.security.activity.cards.mostActiveAdminsDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               {summaryLoading ? (
@@ -359,7 +361,7 @@ export default function AdminActivityDashboard() {
                 </ResponsiveContainer>
               ) : (
                 <div className="h-[250px] flex items-center justify-center text-muted-foreground">
-                  No data available
+                  {t('admin.security.activity.noDataAvailable')}
                 </div>
               )}
             </CardContent>
@@ -371,9 +373,9 @@ export default function AdminActivityDashboard() {
             <CardHeader>
               <CardTitle className="text-red-700 flex items-center gap-2">
                 <AlertCircle className="h-5 w-5" />
-                Recent Error Actions
+                {t('admin.security.activity.cards.recentErrorActions')}
               </CardTitle>
-              <CardDescription>Recent actions that resulted in errors</CardDescription>
+              <CardDescription>{t('admin.security.activity.cards.recentErrorActionsDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
@@ -406,9 +408,9 @@ export default function AdminActivityDashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Clock className="h-5 w-5" />
-              Recent Activity Feed
+              {t('admin.security.activity.cards.recentActivityFeed')}
             </CardTitle>
-            <CardDescription>Live stream of recent admin actions</CardDescription>
+            <CardDescription>{t('admin.security.activity.cards.recentActivityFeedDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ScrollArea className="h-[200px]">
@@ -451,7 +453,7 @@ export default function AdminActivityDashboard() {
                 </div>
               ) : (
                 <div className="flex items-center justify-center h-full text-muted-foreground">
-                  No recent activity
+                  {t('admin.security.activity.noRecentActivity')}
                 </div>
               )}
             </ScrollArea>
@@ -460,19 +462,19 @@ export default function AdminActivityDashboard() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Audit Logs</CardTitle>
-            <CardDescription>Complete audit trail of all admin actions</CardDescription>
+            <CardTitle>{t('admin.security.activity.cards.auditLogs')}</CardTitle>
+            <CardDescription>{t('admin.security.activity.cards.auditLogsDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="flex flex-wrap gap-4 items-end">
                 <div className="flex-1 min-w-[200px]">
-                  <Label htmlFor="search">Search</Label>
+                  <Label htmlFor="search">{t('admin.security.activity.filters.search')}</Label>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="search"
-                      placeholder="Search logs..."
+                      placeholder={t('admin.security.activity.filters.searchPlaceholder')}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="pl-10"
@@ -482,7 +484,7 @@ export default function AdminActivityDashboard() {
                 </div>
 
                 <div className="w-[150px]">
-                  <Label htmlFor="action-filter">Action</Label>
+                  <Label htmlFor="action-filter">{t('admin.security.activity.filters.action')}</Label>
                   <Select
                     value={filters.action}
                     onValueChange={(value) => {
@@ -491,10 +493,10 @@ export default function AdminActivityDashboard() {
                     }}
                   >
                     <SelectTrigger id="action-filter" data-testid="select-action-filter">
-                      <SelectValue placeholder="All actions" />
+                      <SelectValue placeholder={t('admin.security.activity.filters.allActions')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All actions</SelectItem>
+                      <SelectItem value="all">{t('admin.security.activity.filters.allActions')}</SelectItem>
                       {uniqueActions.map((action) => (
                         <SelectItem key={action} value={action}>
                           {action}
@@ -505,7 +507,7 @@ export default function AdminActivityDashboard() {
                 </div>
 
                 <div className="w-[150px]">
-                  <Label htmlFor="entity-filter">Entity Type</Label>
+                  <Label htmlFor="entity-filter">{t('admin.security.activity.filters.entityType')}</Label>
                   <Select
                     value={filters.entityType}
                     onValueChange={(value) => {
@@ -514,10 +516,10 @@ export default function AdminActivityDashboard() {
                     }}
                   >
                     <SelectTrigger id="entity-filter" data-testid="select-entity-filter">
-                      <SelectValue placeholder="All types" />
+                      <SelectValue placeholder={t('admin.security.activity.filters.allTypes')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All types</SelectItem>
+                      <SelectItem value="all">{t('admin.security.activity.filters.allTypes')}</SelectItem>
                       {uniqueEntityTypes.map((type) => (
                         <SelectItem key={type} value={type}>
                           {type}
@@ -528,7 +530,7 @@ export default function AdminActivityDashboard() {
                 </div>
 
                 <div className="w-[130px]">
-                  <Label htmlFor="status-filter">Status</Label>
+                  <Label htmlFor="status-filter">{t('admin.security.activity.filters.status')}</Label>
                   <Select
                     value={filters.status}
                     onValueChange={(value) => {
@@ -537,18 +539,18 @@ export default function AdminActivityDashboard() {
                     }}
                   >
                     <SelectTrigger id="status-filter" data-testid="select-status-filter">
-                      <SelectValue placeholder="All" />
+                      <SelectValue placeholder={t('admin.security.activity.filters.all')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All</SelectItem>
-                      <SelectItem value="success">Success</SelectItem>
-                      <SelectItem value="error">Error</SelectItem>
+                      <SelectItem value="all">{t('admin.security.activity.filters.all')}</SelectItem>
+                      <SelectItem value="success">{t('admin.security.activity.status.success')}</SelectItem>
+                      <SelectItem value="error">{t('admin.security.activity.status.error')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="w-[150px]">
-                  <Label htmlFor="start-date">Start Date</Label>
+                  <Label htmlFor="start-date">{t('admin.security.activity.filters.startDate')}</Label>
                   <Input
                     id="start-date"
                     type="date"
@@ -562,7 +564,7 @@ export default function AdminActivityDashboard() {
                 </div>
 
                 <div className="w-[150px]">
-                  <Label htmlFor="end-date">End Date</Label>
+                  <Label htmlFor="end-date">{t('admin.security.activity.filters.endDate')}</Label>
                   <Input
                     id="end-date"
                     type="date"
@@ -577,7 +579,7 @@ export default function AdminActivityDashboard() {
 
                 <Button variant="outline" onClick={clearFilters} data-testid="button-clear-filters">
                   <Filter className="h-4 w-4 mr-2" />
-                  Clear
+                  {t('admin.security.activity.buttons.clearFilters')}
                 </Button>
               </div>
 
@@ -585,13 +587,13 @@ export default function AdminActivityDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Timestamp</TableHead>
-                      <TableHead>User</TableHead>
-                      <TableHead>Action</TableHead>
-                      <TableHead>Entity Type</TableHead>
-                      <TableHead>Entity ID</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>IP Address</TableHead>
+                      <TableHead>{t('admin.security.activity.table.timestamp')}</TableHead>
+                      <TableHead>{t('admin.security.activity.table.user')}</TableHead>
+                      <TableHead>{t('admin.security.activity.table.action')}</TableHead>
+                      <TableHead>{t('admin.security.activity.table.entityType')}</TableHead>
+                      <TableHead>{t('admin.security.activity.table.entityId')}</TableHead>
+                      <TableHead>{t('admin.security.activity.table.status')}</TableHead>
+                      <TableHead>{t('admin.security.activity.table.ipAddress')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -635,7 +637,7 @@ export default function AdminActivityDashboard() {
                     ) : (
                       <TableRow>
                         <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
-                          No audit logs found
+                          {t('admin.security.activity.noLogsFound')}
                         </TableCell>
                       </TableRow>
                     )}
@@ -646,7 +648,7 @@ export default function AdminActivityDashboard() {
               {logsData?.pagination && logsData.pagination.totalPages > 1 && (
                 <div className="flex items-center justify-between">
                   <p className="text-sm text-muted-foreground">
-                    Showing {((page - 1) * limit) + 1} to {Math.min(page * limit, logsData.pagination.total)} of {logsData.pagination.total} entries
+                    {t('admin.security.activity.pagination.showing', { from: ((page - 1) * limit) + 1, to: Math.min(page * limit, logsData.pagination.total), total: logsData.pagination.total })}
                   </p>
                   <div className="flex items-center gap-2">
                     <Button
@@ -657,10 +659,10 @@ export default function AdminActivityDashboard() {
                       data-testid="button-prev-page"
                     >
                       <ChevronLeft className="h-4 w-4" />
-                      Previous
+                      {t('admin.security.activity.pagination.previous')}
                     </Button>
                     <span className="text-sm">
-                      Page {page} of {logsData.pagination.totalPages}
+                      {t('admin.security.activity.pagination.page', { current: page, total: logsData.pagination.totalPages })}
                     </span>
                     <Button
                       variant="outline"
@@ -669,7 +671,7 @@ export default function AdminActivityDashboard() {
                       disabled={page >= logsData.pagination.totalPages}
                       data-testid="button-next-page"
                     >
-                      Next
+                      {t('admin.security.activity.pagination.next')}
                       <ChevronRight className="h-4 w-4" />
                     </Button>
                   </div>

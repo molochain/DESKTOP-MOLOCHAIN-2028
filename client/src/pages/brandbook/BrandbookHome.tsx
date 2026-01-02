@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
+import { useTranslation } from 'react-i18next';
 import { 
   Palette, 
   Type, 
@@ -15,62 +16,64 @@ import {
 } from "lucide-react";
 import { defaultMolochainBrand } from "@shared/brand-schema";
 
-const brandSections = [
-  {
-    title: "Colors",
-    description: "Brand color palette with primary, secondary, and semantic colors",
-    icon: Palette,
-    href: "/brandbook/colors",
-    count: `${defaultMolochainBrand.colors.length} colors`,
-  },
-  {
-    title: "Typography",
-    description: "Font families, weights, and type scale specifications",
-    icon: Type,
-    href: "/brandbook/typography",
-    count: `${defaultMolochainBrand.typography.length} typefaces`,
-  },
-  {
-    title: "Logos",
-    description: "Logo variations, usage guidelines, and downloadable assets",
-    icon: Image,
-    href: "/brandbook/logos",
-    count: `${defaultMolochainBrand.logos.length} logo sets`,
-  },
-  {
-    title: "Components",
-    description: "UI component library with live examples and code snippets",
-    icon: Component,
-    href: "/brandbook/components",
-    count: "20+ components",
-  },
-  {
-    title: "Design Tokens",
-    description: "Spacing, border radius, shadows, and animation values",
-    icon: Code2,
-    href: "/brandbook/tokens",
-    count: `${defaultMolochainBrand.designTokens.length} tokens`,
-  },
-  {
-    title: "Guidelines",
-    description: "Usage rules, do's and don'ts, and best practices",
-    icon: BookOpen,
-    href: "/brandbook/guidelines",
-    count: `${defaultMolochainBrand.guidelines.length} guides`,
-  },
-];
-
 export default function BrandbookHome() {
+  const { t } = useTranslation();
+  
+  const brandSections = [
+    {
+      title: t('brandbook.sections.colors.title'),
+      description: t('brandbook.sections.colors.description'),
+      icon: Palette,
+      href: "/brandbook/colors",
+      count: t('brandbook.counts.colors', { count: defaultMolochainBrand.colors.length }),
+    },
+    {
+      title: t('brandbook.sections.typography.title'),
+      description: t('brandbook.sections.typography.description'),
+      icon: Type,
+      href: "/brandbook/typography",
+      count: t('brandbook.counts.typefaces', { count: defaultMolochainBrand.typography.length }),
+    },
+    {
+      title: t('brandbook.sections.logos.title'),
+      description: t('brandbook.sections.logos.description'),
+      icon: Image,
+      href: "/brandbook/logos",
+      count: t('brandbook.counts.logoSets', { count: defaultMolochainBrand.logos.length }),
+    },
+    {
+      title: t('brandbook.sections.components.title'),
+      description: t('brandbook.sections.components.description'),
+      icon: Component,
+      href: "/brandbook/components",
+      count: t('brandbook.sections.components.count'),
+    },
+    {
+      title: t('brandbook.sections.tokens.title'),
+      description: t('brandbook.sections.tokens.description'),
+      icon: Code2,
+      href: "/brandbook/tokens",
+      count: t('brandbook.counts.tokens', { count: defaultMolochainBrand.designTokens.length }),
+    },
+    {
+      title: t('brandbook.sections.guidelines.title'),
+      description: t('brandbook.sections.guidelines.description'),
+      icon: BookOpen,
+      href: "/brandbook/guidelines",
+      count: t('brandbook.counts.guides', { count: defaultMolochainBrand.guidelines.length }),
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-12 text-center">
           <Badge variant="outline" className="mb-4">
             <Calendar className="mr-1 h-3 w-3" />
-            Version {defaultMolochainBrand.version} • Updated {defaultMolochainBrand.lastUpdated}
+            {t('brandbook.version', { version: defaultMolochainBrand.version })} • {t('brandbook.updated', { date: defaultMolochainBrand.lastUpdated })}
           </Badge>
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
-            {defaultMolochainBrand.name} Brand Book
+            {defaultMolochainBrand.name} {t('brandbook.title')}
           </h1>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-6">
             {defaultMolochainBrand.description}
@@ -79,13 +82,13 @@ export default function BrandbookHome() {
             <Button asChild size="lg" data-testid="button-download-kit">
               <a href="/api/brand/download-kit" download>
                 <Download className="mr-2 h-4 w-4" />
-                Download Brand Kit
+                {t('brandbook.buttons.downloadBrandKit')}
               </a>
             </Button>
             <Button variant="outline" size="lg" asChild data-testid="button-view-guidelines">
               <Link href="/brandbook/guidelines">
                 <BookOpen className="mr-2 h-4 w-4" />
-                View Guidelines
+                {t('brandbook.buttons.viewGuidelines')}
               </Link>
             </Button>
           </div>
@@ -120,8 +123,8 @@ export default function BrandbookHome() {
           <CardContent className="p-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
-                <h2 className="text-2xl font-bold mb-2">Quick Color Reference</h2>
-                <p className="text-blue-100">The core Molochain color palette at a glance</p>
+                <h2 className="text-2xl font-bold mb-2">{t('brandbook.quickReference.title')}</h2>
+                <p className="text-blue-100">{t('brandbook.quickReference.description')}</p>
               </div>
               <div className="flex gap-2 flex-wrap justify-center">
                 {defaultMolochainBrand.colors.slice(0, 6).map((color) => (
@@ -147,7 +150,7 @@ export default function BrandbookHome() {
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Brand Name</CardTitle>
+              <CardTitle className="text-lg">{t('brandbook.cards.brandName')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold text-blue-600">{defaultMolochainBrand.name}</p>
@@ -156,7 +159,7 @@ export default function BrandbookHome() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Primary Color</CardTitle>
+              <CardTitle className="text-lg">{t('brandbook.cards.primaryColor')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-3">
@@ -173,7 +176,7 @@ export default function BrandbookHome() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Primary Font</CardTitle>
+              <CardTitle className="text-lg">{t('brandbook.cards.primaryFont')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold" style={{ fontFamily: defaultMolochainBrand.typography[0].family }}>

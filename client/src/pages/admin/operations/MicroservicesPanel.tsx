@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { 
@@ -76,34 +77,7 @@ interface MicroservicesResponse {
   lastUpdated: string;
 }
 
-const statusConfig = {
-  healthy: {
-    label: "Healthy",
-    icon: CheckCircle,
-    className: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-    iconClass: "text-green-500"
-  },
-  unhealthy: {
-    label: "Unhealthy", 
-    icon: XCircle,
-    className: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
-    iconClass: "text-red-500"
-  },
-  not_found: {
-    label: "Not Found",
-    icon: AlertTriangle,
-    className: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-    iconClass: "text-yellow-500"
-  },
-  starting: {
-    label: "Starting",
-    icon: RefreshCw,
-    className: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-    iconClass: "text-blue-500 animate-spin"
-  }
-};
-
-function SystemMetricsCards({ metrics }: { metrics: SystemMetrics | null }) {
+function SystemMetricsCards({ metrics, t }: { metrics: SystemMetrics | null; t: (key: string) => string }) {
   if (!metrics) {
     return (
       <div className="grid gap-4 md:grid-cols-4">
@@ -124,16 +98,16 @@ function SystemMetricsCards({ metrics }: { metrics: SystemMetrics | null }) {
         <CardHeader className="pb-2">
           <CardDescription className="flex items-center gap-2">
             <Cpu className="h-4 w-4 text-blue-500" />
-            CPU Usage
+            {t('admin.operations.microservices.metrics.cpuUsage')}
           </CardDescription>
           <CardTitle className="text-2xl">{cpuUsage.toFixed(1)}%</CardTitle>
         </CardHeader>
         <CardContent>
           <Progress value={Math.min(cpuUsage, 100)} className="h-2" />
           <div className="text-xs text-muted-foreground mt-2">
-            Load: {metrics.cpu.loadAvg.map(l => l.toFixed(2)).join(", ")}
+            {t('admin.operations.microservices.metrics.load')}: {metrics.cpu.loadAvg.map(l => l.toFixed(2)).join(", ")}
             <br />
-            Cores: {metrics.cpu.cores}
+            {t('admin.operations.microservices.metrics.cores')}: {metrics.cpu.cores}
           </div>
         </CardContent>
       </Card>
@@ -142,7 +116,7 @@ function SystemMetricsCards({ metrics }: { metrics: SystemMetrics | null }) {
         <CardHeader className="pb-2">
           <CardDescription className="flex items-center gap-2">
             <MemoryStick className="h-4 w-4 text-purple-500" />
-            Memory
+            {t('admin.operations.microservices.metrics.memory')}
           </CardDescription>
           <CardTitle className="text-2xl">{memoryUsed.toFixed(1)}%</CardTitle>
         </CardHeader>
@@ -161,7 +135,7 @@ function SystemMetricsCards({ metrics }: { metrics: SystemMetrics | null }) {
         <CardHeader className="pb-2">
           <CardDescription className="flex items-center gap-2">
             <HardDrive className="h-4 w-4 text-orange-500" />
-            Disk
+            {t('admin.operations.microservices.metrics.disk')}
           </CardDescription>
           <CardTitle className="text-2xl">{diskUsed.toFixed(1)}%</CardTitle>
         </CardHeader>
@@ -180,7 +154,7 @@ function SystemMetricsCards({ metrics }: { metrics: SystemMetrics | null }) {
         <CardHeader className="pb-2">
           <CardDescription className="flex items-center gap-2">
             <Network className="h-4 w-4 text-green-500" />
-            Network
+            {t('admin.operations.microservices.metrics.network')}
           </CardDescription>
           <CardTitle className="text-2xl">{metrics.network.connections}</CardTitle>
         </CardHeader>
@@ -205,6 +179,7 @@ interface LogsDialogState {
 }
 
 export default function MicroservicesPanel() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -216,6 +191,33 @@ export default function MicroservicesPanel() {
     loading: false
   });
 
+  const statusConfig = {
+    healthy: {
+      label: t('admin.operations.microservices.status.healthy'),
+      icon: CheckCircle,
+      className: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+      iconClass: "text-green-500"
+    },
+    unhealthy: {
+      label: t('admin.operations.microservices.status.unhealthy'), 
+      icon: XCircle,
+      className: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+      iconClass: "text-red-500"
+    },
+    not_found: {
+      label: t('admin.operations.microservices.status.notFound'),
+      icon: AlertTriangle,
+      className: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+      iconClass: "text-yellow-500"
+    },
+    starting: {
+      label: t('admin.operations.microservices.status.starting'),
+      icon: RefreshCw,
+      className: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+      iconClass: "text-blue-500 animate-spin"
+    }
+  };
+
   const { data, isLoading, error, refetch } = useQuery<MicroservicesResponse>({
     queryKey: ["/api/admin/microservices"],
     refetchInterval: 30000
@@ -226,8 +228,8 @@ export default function MicroservicesPanel() {
     await refetch();
     setIsRefreshing(false);
     toast({
-      title: "Refreshed",
-      description: "Microservices status updated"
+      title: t('admin.operations.microservices.toast.refreshed'),
+      description: t('admin.operations.microservices.toast.refreshedDesc')
     });
   };
 
@@ -238,15 +240,15 @@ export default function MicroservicesPanel() {
     },
     onSuccess: (data, serviceId) => {
       toast({
-        title: "Restart Requested",
+        title: t('admin.operations.microservices.toast.restartRequested'),
         description: data.message || `Restart signal sent for ${serviceId}`,
       });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/microservices"] });
     },
     onError: (error: Error) => {
       toast({
-        title: "Restart Failed",
-        description: error.message || "Failed to send restart signal",
+        title: t('admin.operations.microservices.toast.restartFailed'),
+        description: error.message || t('admin.operations.microservices.toast.restartFailedDesc'),
         variant: "destructive"
       });
     }
@@ -268,8 +270,8 @@ export default function MicroservicesPanel() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Log Fetch Failed",
-        description: error.message || "Failed to fetch logs",
+        title: t('admin.operations.microservices.toast.logFetchFailed'),
+        description: error.message || t('admin.operations.microservices.toast.logFetchFailedDesc'),
         variant: "destructive"
       });
       setLogsDialog(prev => ({ ...prev, loading: false }));
@@ -320,16 +322,16 @@ export default function MicroservicesPanel() {
           <CardHeader>
             <CardTitle className="text-destructive flex items-center gap-2">
               <XCircle className="h-5 w-5" />
-              Error Loading Microservices
+              {t('admin.operations.microservices.error.title')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              Failed to fetch microservices status. This may require authentication.
+              {t('admin.operations.microservices.error.description')}
             </p>
             <Button onClick={() => refetch()} className="mt-4" data-testid="button-retry">
               <RefreshCw className="mr-2 h-4 w-4" />
-              Retry
+              {t('admin.operations.microservices.buttons.retry')}
             </Button>
           </CardContent>
         </Card>
@@ -354,10 +356,10 @@ export default function MicroservicesPanel() {
         <div>
           <h2 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Server className="h-8 w-8" />
-            Microservices Control Panel
+            {t('admin.operations.microservices.title')}
           </h2>
           <p className="text-muted-foreground mt-1">
-            Real-time monitoring of Docker microservices and system health
+            {t('admin.operations.microservices.subtitle')}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -370,7 +372,7 @@ export default function MicroservicesPanel() {
             >
               <a href={prometheusUrl} target="_blank" rel="noopener noreferrer">
                 <Gauge className="mr-2 h-4 w-4" />
-                Prometheus
+                {t('admin.operations.microservices.buttons.prometheus')}
                 <ExternalLink className="ml-2 h-3 w-3" />
               </a>
             </Button>
@@ -383,7 +385,7 @@ export default function MicroservicesPanel() {
             >
               <a href={grafanaUrl} target="_blank" rel="noopener noreferrer">
                 <Activity className="mr-2 h-4 w-4" />
-                Grafana
+                {t('admin.operations.microservices.buttons.grafana')}
                 <ExternalLink className="ml-2 h-4 w-4" />
               </a>
             </Button>
@@ -394,25 +396,25 @@ export default function MicroservicesPanel() {
             data-testid="button-refresh"
           >
             <RefreshCw className={`mr-2 h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
-            Refresh
+            {t('admin.operations.microservices.buttons.refresh')}
           </Button>
         </div>
       </div>
 
-      <SystemMetricsCards metrics={systemMetrics} />
+      <SystemMetricsCards metrics={systemMetrics} t={t} />
 
       <div className="grid gap-4 md:grid-cols-4">
         <Card data-testid="card-total-services">
           <CardHeader className="pb-2">
             <CardDescription className="flex items-center gap-2">
               <Layers className="h-4 w-4" />
-              Total Services
+              {t('admin.operations.microservices.stats.total')}
             </CardDescription>
             <CardTitle className="text-4xl">{summary.total}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-sm text-muted-foreground">
-              Docker containers monitored
+              {t('admin.operations.microservices.stats.totalDesc')}
             </div>
           </CardContent>
         </Card>
@@ -421,7 +423,7 @@ export default function MicroservicesPanel() {
           <CardHeader className="pb-2">
             <CardDescription className="flex items-center gap-2">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              Healthy
+              {t('admin.operations.microservices.stats.healthy')}
             </CardDescription>
             <CardTitle className="text-4xl text-green-600">{summary.healthy}</CardTitle>
           </CardHeader>
@@ -434,7 +436,7 @@ export default function MicroservicesPanel() {
           <CardHeader className="pb-2">
             <CardDescription className="flex items-center gap-2">
               <XCircle className="h-4 w-4 text-red-500" />
-              Unhealthy
+              {t('admin.operations.microservices.stats.unhealthy')}
             </CardDescription>
             <CardTitle className="text-4xl text-red-600">
               {summary.unhealthy}
@@ -442,7 +444,7 @@ export default function MicroservicesPanel() {
           </CardHeader>
           <CardContent>
             <div className="text-sm text-muted-foreground">
-              Needing attention
+              {t('admin.operations.microservices.stats.unhealthyDesc')}
             </div>
           </CardContent>
         </Card>
@@ -451,13 +453,13 @@ export default function MicroservicesPanel() {
           <CardHeader className="pb-2">
             <CardDescription className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-blue-500" />
-              System Uptime
+              {t('admin.operations.microservices.stats.systemUptime')}
             </CardDescription>
             <CardTitle className="text-2xl">{systemMetrics?.uptime.formatted || "—"}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-sm text-muted-foreground">
-              {summary.healthPercentage}% health score
+              {t('admin.operations.microservices.stats.healthScore', { percentage: summary.healthPercentage })}
             </div>
           </CardContent>
         </Card>
@@ -467,15 +469,15 @@ export default function MicroservicesPanel() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Service Status</CardTitle>
+              <CardTitle>{t('admin.operations.microservices.cards.serviceStatus')}</CardTitle>
               <CardDescription>
-                Detailed status of each microservice (auto-refresh every 30s)
+                {t('admin.operations.microservices.cards.serviceStatusDesc')}
               </CardDescription>
             </div>
             {categories.length > 0 && (
               <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
                 <TabsList>
-                  <TabsTrigger value="all" data-testid="tab-all">All</TabsTrigger>
+                  <TabsTrigger value="all" data-testid="tab-all">{t('admin.operations.microservices.tabs.all')}</TabsTrigger>
                   {categories.map(cat => (
                     <TabsTrigger key={cat} value={cat} data-testid={`tab-${cat}`}>
                       {cat}
@@ -490,21 +492,21 @@ export default function MicroservicesPanel() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Service</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Port</TableHead>
-                <TableHead>Uptime</TableHead>
-                <TableHead>Response</TableHead>
-                <TableHead>Last Check</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead>{t('admin.operations.microservices.table.service')}</TableHead>
+                <TableHead>{t('admin.operations.microservices.table.category')}</TableHead>
+                <TableHead>{t('admin.operations.microservices.table.status')}</TableHead>
+                <TableHead>{t('admin.operations.microservices.table.port')}</TableHead>
+                <TableHead>{t('admin.operations.microservices.table.uptime')}</TableHead>
+                <TableHead>{t('admin.operations.microservices.table.responseTime')}</TableHead>
+                <TableHead>{t('admin.operations.microservices.table.lastCheck')}</TableHead>
+                <TableHead className="text-right">{t('admin.operations.microservices.table.actions')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredServices.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={8} className="text-center text-muted-foreground py-8">
-                    No services found in this category
+                    {t('admin.operations.microservices.table.noServicesFound')}
                   </TableCell>
                 </TableRow>
               ) : (
@@ -523,7 +525,7 @@ export default function MicroservicesPanel() {
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline" className="text-xs">
-                          {service.category || "Other"}
+                          {service.category || t('admin.operations.microservices.labels.other')}
                         </Badge>
                       </TableCell>
                       <TableCell>
@@ -584,7 +586,7 @@ export default function MicroservicesPanel() {
                                   <FileText className={`h-4 w-4 ${logsMutation.isPending ? "animate-pulse" : ""}`} />
                                 </Button>
                               </TooltipTrigger>
-                              <TooltipContent>View Container Logs</TooltipContent>
+                              <TooltipContent>{t('admin.operations.microservices.buttons.viewLogs')}</TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
                           <TooltipProvider>
@@ -600,7 +602,7 @@ export default function MicroservicesPanel() {
                                   <RotateCcw className={`h-4 w-4 ${restartMutation.isPending ? "animate-spin" : ""}`} />
                                 </Button>
                               </TooltipTrigger>
-                              <TooltipContent>Request Restart</TooltipContent>
+                              <TooltipContent>{t('admin.operations.microservices.buttons.restart')}</TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
                         </div>
@@ -616,7 +618,7 @@ export default function MicroservicesPanel() {
 
       {data?.lastUpdated && (
         <div className="text-sm text-muted-foreground text-center">
-          Last updated: {new Date(data.lastUpdated).toLocaleString()}
+          {t('admin.operations.microservices.labels.lastUpdated')}: {new Date(data.lastUpdated).toLocaleString()}
         </div>
       )}
 
@@ -625,17 +627,17 @@ export default function MicroservicesPanel() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <FileText className="h-5 w-5" />
-              Container Logs: {logsDialog.containerName || logsDialog.serviceId}
+              {t('admin.operations.microservices.dialogs.containerLogs')}: {logsDialog.containerName || logsDialog.serviceId}
             </DialogTitle>
             <DialogDescription>
-              Last 100 log lines from the container
+              {t('admin.operations.microservices.dialogs.containerLogsDesc')}
             </DialogDescription>
           </DialogHeader>
           <ScrollArea className="h-[60vh] w-full rounded-md border bg-muted/50 p-4">
             {logsDialog.loading ? (
               <div className="flex items-center justify-center h-full">
                 <RefreshCw className="h-6 w-6 animate-spin text-muted-foreground" />
-                <span className="ml-2 text-muted-foreground">Loading logs...</span>
+                <span className="ml-2 text-muted-foreground">{t('common.loading')}</span>
               </div>
             ) : logsDialog.logs.length > 0 ? (
               <pre className="text-xs font-mono whitespace-pre-wrap break-all">
@@ -647,7 +649,7 @@ export default function MicroservicesPanel() {
               </pre>
             ) : (
               <div className="text-center text-muted-foreground py-8">
-                No logs available
+                {t('admin.operations.microservices.dialogs.noLogs')}
               </div>
             )}
           </ScrollArea>

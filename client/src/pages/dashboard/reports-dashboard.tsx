@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Download, Upload, FileText, BarChart3, Building2, Layers, TrendingUp } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -28,6 +29,7 @@ type Division = {
 };
 
 export default function ReportsDashboard() {
+  const { t } = useTranslation();
   const [selectedDepartmentId, setSelectedDepartmentId] = useState<string>('');
   const [selectedDivisionId, setSelectedDivisionId] = useState<string>('');
   const [isImportDialogOpen, setIsImportDialogOpen] = useState(false);
@@ -87,14 +89,14 @@ export default function ReportsDashboard() {
       URL.revokeObjectURL(url);
 
       toast({
-        title: "Success",
-        description: "Data exported successfully",
+        title: t('reports.toast.exportSuccess'),
+        description: t('reports.toast.exportSuccessDescription'),
       });
     },
     onError: () => {
       toast({
-        title: "Error",
-        description: "Failed to export data",
+        title: t('reports.toast.exportError'),
+        description: t('reports.toast.exportErrorDescription'),
         variant: "destructive",
       });
     },
@@ -114,14 +116,14 @@ export default function ReportsDashboard() {
       setImportFile(null);
       setImportType('');
       toast({
-        title: "Success",
-        description: (result as any).message || "Data imported successfully",
+        title: t('reports.toast.importSuccess'),
+        description: (result as any).message || t('reports.toast.importSuccessDescription'),
       });
     },
     onError: () => {
       toast({
-        title: "Error",
-        description: "Failed to import data",
+        title: t('reports.toast.importError'),
+        description: t('reports.toast.importErrorDescription'),
         variant: "destructive",
       });
     },
@@ -160,8 +162,8 @@ export default function ReportsDashboard() {
       importMutation.mutate({ type: importType, data: importData });
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Invalid file format. Please upload a valid JSON file.",
+        title: t('reports.toast.importError'),
+        description: t('reports.toast.invalidFileFormat'),
         variant: "destructive",
       });
     }
@@ -197,31 +199,31 @@ export default function ReportsDashboard() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-3xl font-bold">Reports & Analytics</h1>
+                <h1 className="text-3xl font-bold">{t('reports.title')}</h1>
                 <p className="text-gray-600 dark:text-gray-400 mt-2">
-                  Comprehensive reporting and data management
+                  {t('reports.subtitle')}
                 </p>
               </div>
               <div className="flex gap-2">
                 <Button onClick={() => setIsImportDialogOpen(true)}>
                   <Upload className="mr-2 h-4 w-4" />
-                  Import Data
+                  {t('reports.buttons.importData')}
                 </Button>
                 <Button 
                   onClick={() => exportMutation.mutate()}
                   disabled={exportMutation.isPending}
                 >
                   <Download className="mr-2 h-4 w-4" />
-                  {exportMutation.isPending ? "Exporting..." : "Export All Data"}
+                  {exportMutation.isPending ? t('reports.buttons.exporting') : t('reports.buttons.exportAllData')}
                 </Button>
               </div>
             </div>
 
             <Tabs defaultValue="organization" className="space-y-4">
               <TabsList className="bg-white dark:bg-gray-800">
-                <TabsTrigger value="organization">Organization Report</TabsTrigger>
-                <TabsTrigger value="department">Department Report</TabsTrigger>
-                <TabsTrigger value="division">Division Report</TabsTrigger>
+                <TabsTrigger value="organization">{t('reports.tabs.organization')}</TabsTrigger>
+                <TabsTrigger value="department">{t('reports.tabs.department')}</TabsTrigger>
+                <TabsTrigger value="division">{t('reports.tabs.division')}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="organization" className="space-y-4">
@@ -245,9 +247,9 @@ export default function ReportsDashboard() {
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                           <Building2 className="h-5 w-5 text-primary" />
-                          Department Statistics
+                          {t('reports.sections.departmentStatistics')}
                         </CardTitle>
-                        <CardDescription>Division and module counts by department</CardDescription>
+                        <CardDescription>{t('reports.sections.divisionModuleCounts')}</CardDescription>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-3">
@@ -256,8 +258,8 @@ export default function ReportsDashboard() {
                               <div>
                                 <h4 className="font-medium">{dept.name}</h4>
                                 <div className="flex gap-4 text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                  <span>{dept.divisionCount} Divisions</span>
-                                  <span>{dept.moduleCount} Modules</span>
+                                  <span>{dept.divisionCount} {t('reports.labels.divisions')}</span>
+                                  <span>{dept.moduleCount} {t('reports.labels.modules')}</span>
                                 </div>
                               </div>
                               <TrendingUp className="h-5 w-5 text-green-500" />
@@ -272,27 +274,27 @@ export default function ReportsDashboard() {
               <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                           <BarChart3 className="h-5 w-5 text-primary" />
-                          System Health Overview
+                          {t('reports.sections.systemHealthOverview')}
                         </CardTitle>
-                        <CardDescription>Module health distribution</CardDescription>
+                        <CardDescription>{t('reports.sections.moduleHealthDistribution')}</CardDescription>
                       </CardHeader>
                       <CardContent>
                         <div className="grid gap-4 md:grid-cols-4">
                           <div className="text-center">
                             <p className="text-2xl font-bold">{(orgReport as any).healthOverview?.total || 0}</p>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Total Modules</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.totalModules')}</p>
                           </div>
                           <div className="text-center">
                             <p className="text-2xl font-bold text-green-500">{(orgReport as any).healthOverview?.healthy || 0}</p>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Healthy</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.healthy')}</p>
                           </div>
                           <div className="text-center">
                             <p className="text-2xl font-bold text-yellow-500">{(orgReport as any).healthOverview?.warning || 0}</p>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Warning</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.warning')}</p>
                           </div>
                           <div className="text-center">
                             <p className="text-2xl font-bold text-red-500">{(orgReport as any).healthOverview?.critical || 0}</p>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Critical</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.critical')}</p>
                           </div>
                         </div>
                       </CardContent>
@@ -301,8 +303,8 @@ export default function ReportsDashboard() {
                     {/* Compliance Overview */}
                     <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                       <CardHeader>
-                        <CardTitle>Compliance Status</CardTitle>
-                        <CardDescription>Standards compliance across the organization</CardDescription>
+                        <CardTitle>{t('reports.sections.complianceStatus')}</CardTitle>
+                        <CardDescription>{t('reports.sections.complianceDescription')}</CardDescription>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-3">
@@ -327,8 +329,8 @@ export default function ReportsDashboard() {
               <TabsContent value="department" className="space-y-4">
                 <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                   <CardHeader>
-                    <CardTitle>Select Department</CardTitle>
-                    <CardDescription>Choose a department to view detailed report</CardDescription>
+                    <CardTitle>{t('reports.labels.selectDepartment')}</CardTitle>
+                    <CardDescription>{t('reports.labels.selectDepartmentDescription')}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <Select value={selectedDepartmentId} onValueChange={setSelectedDepartmentId}>
@@ -356,15 +358,15 @@ export default function ReportsDashboard() {
                       <CardContent>
                         <div className="grid gap-4 md:grid-cols-3">
                           <div>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Total Divisions</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.totalDivisions')}</p>
                             <p className="text-2xl font-bold">{deptReport.divisions?.length || 0}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Total Modules</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.totalModules')}</p>
                             <p className="text-2xl font-bold">{deptReport.totalModules || 0}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Status</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.status')}</p>
                             <Badge className="mt-1">{deptReport.department?.status}</Badge>
                           </div>
                         </div>
@@ -373,21 +375,21 @@ export default function ReportsDashboard() {
 
                     <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                       <CardHeader>
-                        <CardTitle>Health Statistics</CardTitle>
+                        <CardTitle>{t('reports.sections.healthStatistics')}</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="grid gap-4 md:grid-cols-3">
                           <div className="text-center p-4 bg-green-500/10 rounded-lg">
                             <p className="text-2xl font-bold text-green-500">{deptReport.healthStats?.healthy || 0}</p>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Healthy</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.healthy')}</p>
                           </div>
                           <div className="text-center p-4 bg-yellow-500/10 rounded-lg">
                             <p className="text-2xl font-bold text-yellow-500">{deptReport.healthStats?.warning || 0}</p>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Warning</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.warning')}</p>
                           </div>
                           <div className="text-center p-4 bg-red-500/10 rounded-lg">
                             <p className="text-2xl font-bold text-red-500">{deptReport.healthStats?.critical || 0}</p>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Critical</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.critical')}</p>
                           </div>
                         </div>
                       </CardContent>
@@ -399,8 +401,8 @@ export default function ReportsDashboard() {
               <TabsContent value="division" className="space-y-4">
                 <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                   <CardHeader>
-                    <CardTitle>Select Division</CardTitle>
-                    <CardDescription>Choose a division to view detailed report</CardDescription>
+                    <CardTitle>{t('reports.labels.selectDivision')}</CardTitle>
+                    <CardDescription>{t('reports.labels.selectDivisionDescription')}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <Select value={selectedDivisionId} onValueChange={setSelectedDivisionId}>
@@ -428,19 +430,19 @@ export default function ReportsDashboard() {
                       <CardContent>
                         <div className="grid gap-4 md:grid-cols-4">
                           <div>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Sub-Divisions</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.subDivisions')}</p>
                             <p className="text-2xl font-bold">{divReport.subDivisions?.length || 0}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Domains</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.domains')}</p>
                             <p className="text-2xl font-bold">{divReport.domains?.length || 0}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Modules</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.modules')}</p>
                             <p className="text-2xl font-bold">{divReport.modules?.length || 0}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Status</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{t('reports.labels.status')}</p>
                             <Badge className="mt-1">{divReport.division?.status}</Badge>
                           </div>
                         </div>
@@ -449,7 +451,7 @@ export default function ReportsDashboard() {
 
                     <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                       <CardHeader>
-                        <CardTitle>Module Health Distribution</CardTitle>
+                        <CardTitle>{t('reports.sections.moduleHealthDist')}</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-2">
@@ -473,28 +475,28 @@ export default function ReportsDashboard() {
 <Dialog open={isImportDialogOpen} onOpenChange={setIsImportDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Import Data</DialogTitle>
+            <DialogTitle>{t('reports.import.title')}</DialogTitle>
             <DialogDescription>
-              Upload a JSON file to bulk import data
+              {t('reports.import.description')}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="import-type">Data Type</Label>
+              <Label htmlFor="import-type">{t('reports.labels.dataType')}</Label>
               <Select value={importType} onValueChange={setImportType}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select data type" />
+                  <SelectValue placeholder={t('reports.import.selectPlaceholder')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="departments">Departments</SelectItem>
-                  <SelectItem value="divisions">Divisions</SelectItem>
-                  <SelectItem value="sub-divisions">Sub-Divisions</SelectItem>
-                  <SelectItem value="domains">Domains</SelectItem>
+                  <SelectItem value="departments">{t('reports.import.departments')}</SelectItem>
+                  <SelectItem value="divisions">{t('reports.import.divisions')}</SelectItem>
+                  <SelectItem value="sub-divisions">{t('reports.import.subDivisions')}</SelectItem>
+                  <SelectItem value="domains">{t('reports.import.domains')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div>
-              <Label htmlFor="import-file">JSON File</Label>
+              <Label htmlFor="import-file">{t('reports.labels.jsonFile')}</Label>
               <Input
                 id="import-file"
                 type="file"
@@ -505,13 +507,13 @@ export default function ReportsDashboard() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsImportDialogOpen(false)}>
-              Cancel
+              {t('reports.buttons.cancel')}
             </Button>
             <Button 
               onClick={handleImport} 
               disabled={!importFile || !importType || importMutation.isPending}
             >
-              {importMutation.isPending ? "Importing..." : "Import"}
+              {importMutation.isPending ? t('reports.buttons.importing') : t('reports.buttons.import')}
             </Button>
           </DialogFooter>
         </DialogContent>

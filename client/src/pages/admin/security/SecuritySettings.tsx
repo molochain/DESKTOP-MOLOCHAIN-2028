@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -49,6 +50,7 @@ interface AuditLog {
 }
 
 export default function SecuritySettings() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [newIpAddress, setNewIpAddress] = useState('');
@@ -94,14 +96,14 @@ export default function SecuritySettings() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/security/settings'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/security/stats'] });
       toast({
-        title: 'Success',
-        description: 'Security settings updated successfully'
+        title: t('admin.security.settings.toast.successTitle'),
+        description: t('admin.security.settings.toast.settingsUpdated')
       });
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.message,
+        title: t('admin.security.settings.toast.errorTitle'),
+        description: error.message || t('common.unexpectedError'),
         variant: 'destructive'
       });
     }
@@ -118,14 +120,14 @@ export default function SecuritySettings() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/security/stats'] });
       toast({
-        title: 'Security Scan Complete',
-        description: 'Security vulnerabilities have been scanned and logged'
+        title: t('admin.security.settings.toast.scanCompleteTitle'),
+        description: t('admin.security.settings.toast.scanCompleteDesc')
       });
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.message,
+        title: t('admin.security.settings.toast.errorTitle'),
+        description: error.message || t('common.unexpectedError'),
         variant: 'destructive'
       });
     }
@@ -148,8 +150,8 @@ export default function SecuritySettings() {
     const ipRegex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
     if (!ipRegex.test(newIpAddress)) {
       toast({
-        title: 'Invalid IP Address',
-        description: 'Please enter a valid IP address',
+        title: t('admin.security.settings.toast.invalidIpTitle'),
+        description: t('admin.security.settings.toast.invalidIpDesc'),
         variant: 'destructive'
       });
       return;
@@ -190,14 +192,14 @@ export default function SecuritySettings() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold tracking-tight">Security Settings</h2>
+        <h2 className="text-3xl font-bold tracking-tight">{t('admin.security.settings.title')}</h2>
         <Button
           onClick={() => securityScanMutation.mutate()}
           disabled={securityScanMutation.isPending}
         >
           {securityScanMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
           <Shield className="h-4 w-4 mr-2" />
-          Run Security Scan
+          {t('admin.security.settings.buttons.runSecurityScan')}
         </Button>
       </div>
 
@@ -205,7 +207,7 @@ export default function SecuritySettings() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Security Score</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.security.settings.overview.securityScore')}</CardTitle>
             {getSecurityScoreIcon(securityStats?.securityScore || 0)}
           </CardHeader>
           <CardContent>
@@ -217,38 +219,38 @@ export default function SecuritySettings() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">2FA Users</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.security.settings.overview.twoFactorUsers')}</CardTitle>
             <Key className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{securityStats?.twoFactorUsers || 0}</div>
             <p className="text-xs text-muted-foreground">
-              of {securityStats?.totalUsers || 0} total users
+              {t('admin.security.settings.overview.ofTotalUsers', { total: securityStats?.totalUsers || 0 })}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Failed Logins</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.security.settings.overview.failedLogins')}</CardTitle>
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{securityStats?.recentFailedLogins || 0}</div>
             <p className="text-xs text-muted-foreground">
-              in the last 24 hours
+              {t('admin.security.settings.overview.inLast24Hours')}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Last Scan</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.security.settings.overview.lastScan')}</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-sm">
               {securityStats?.lastSecurityScan 
                 ? new Date(securityStats.lastSecurityScan).toLocaleDateString()
-                : 'Never'
+                : t('admin.security.settings.overview.never')
               }
             </div>
           </CardContent>
@@ -257,26 +259,26 @@ export default function SecuritySettings() {
 
       <Tabs defaultValue="settings" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
-          <TabsTrigger value="access">Access Control</TabsTrigger>
-          <TabsTrigger value="audit">Audit Logs</TabsTrigger>
+          <TabsTrigger value="settings">{t('admin.security.settings.tabs.settings')}</TabsTrigger>
+          <TabsTrigger value="access">{t('admin.security.settings.tabs.accessControl')}</TabsTrigger>
+          <TabsTrigger value="audit">{t('admin.security.settings.tabs.auditLogs')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="settings">
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>Authentication Settings</CardTitle>
+                <CardTitle>{t('admin.security.settings.sections.authenticationSettings')}</CardTitle>
                 <CardDescription>
-                  Configure authentication and session security
+                  {t('admin.security.settings.sections.authenticationSettingsDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label>Require Two-Factor Authentication</Label>
+                    <Label>{t('admin.security.settings.form.requireTwoFactor')}</Label>
                     <p className="text-sm text-muted-foreground">
-                      Force all users to enable 2FA
+                      {t('admin.security.settings.form.requireTwoFactorDesc')}
                     </p>
                   </div>
                   <Switch
@@ -286,7 +288,7 @@ export default function SecuritySettings() {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="sessionTimeout">Session Timeout (minutes)</Label>
+                  <Label htmlFor="sessionTimeout">{t('admin.security.settings.form.sessionTimeout')}</Label>
                   <Input
                     id="sessionTimeout"
                     type="number"
@@ -296,7 +298,7 @@ export default function SecuritySettings() {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="maxLoginAttempts">Max Login Attempts</Label>
+                  <Label htmlFor="maxLoginAttempts">{t('admin.security.settings.form.maxLoginAttempts')}</Label>
                   <Input
                     id="maxLoginAttempts"
                     type="number"
@@ -306,7 +308,7 @@ export default function SecuritySettings() {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="passwordMinLength">Minimum Password Length</Label>
+                  <Label htmlFor="passwordMinLength">{t('admin.security.settings.form.passwordMinLength')}</Label>
                   <Input
                     id="passwordMinLength"
                     type="number"
@@ -319,17 +321,17 @@ export default function SecuritySettings() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Security Features</CardTitle>
+                <CardTitle>{t('admin.security.settings.sections.securityFeatures')}</CardTitle>
                 <CardDescription>
-                  Additional security and monitoring features
+                  {t('admin.security.settings.sections.securityFeaturesDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label>Password Complexity</Label>
+                    <Label>{t('admin.security.settings.form.passwordComplexity')}</Label>
                     <p className="text-sm text-muted-foreground">
-                      Require special characters and numbers
+                      {t('admin.security.settings.form.passwordComplexityDesc')}
                     </p>
                   </div>
                   <Switch
@@ -340,9 +342,9 @@ export default function SecuritySettings() {
                 
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label>Audit Logs</Label>
+                    <Label>{t('admin.security.settings.form.auditLogs')}</Label>
                     <p className="text-sm text-muted-foreground">
-                      Track all user actions and changes
+                      {t('admin.security.settings.form.auditLogsDesc')}
                     </p>
                   </div>
                   <Switch
@@ -353,9 +355,9 @@ export default function SecuritySettings() {
                 
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label>Rate Limiting</Label>
+                    <Label>{t('admin.security.settings.form.rateLimiting')}</Label>
                     <p className="text-sm text-muted-foreground">
-                      Limit API requests per user
+                      {t('admin.security.settings.form.rateLimitingDesc')}
                     </p>
                   </div>
                   <Switch
@@ -374,21 +376,21 @@ export default function SecuritySettings() {
         <TabsContent value="access">
           <Card>
             <CardHeader>
-              <CardTitle>IP Whitelist</CardTitle>
+              <CardTitle>{t('admin.security.settings.sections.ipWhitelist')}</CardTitle>
               <CardDescription>
-                Restrict access to specific IP addresses
+                {t('admin.security.settings.sections.ipWhitelistDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="flex gap-2">
                   <Input
-                    placeholder="Enter IP address (e.g., 192.168.1.1)"
+                    placeholder={t('admin.security.settings.form.ipPlaceholder')}
                     value={newIpAddress}
                     onChange={(e) => setNewIpAddress(e.target.value)}
                   />
                   <Button onClick={addIpToWhitelist}>
-                    Add IP
+                    {t('admin.security.settings.buttons.addIp')}
                   </Button>
                 </div>
                 
@@ -401,14 +403,14 @@ export default function SecuritySettings() {
                         size="sm"
                         onClick={() => removeIpFromWhitelist(ip)}
                       >
-                        Remove
+                        {t('admin.security.settings.buttons.remove')}
                       </Button>
                     </div>
                   ))}
                   
                   {(!securitySettings?.ipWhitelist || securitySettings.ipWhitelist.length === 0) && (
                     <p className="text-sm text-muted-foreground">
-                      No IP addresses in whitelist. All IPs are allowed.
+                      {t('admin.security.settings.noIpAddresses')}
                     </p>
                   )}
                 </div>
@@ -420,9 +422,9 @@ export default function SecuritySettings() {
         <TabsContent value="audit">
           <Card>
             <CardHeader>
-              <CardTitle>Recent Activity</CardTitle>
+              <CardTitle>{t('admin.security.settings.sections.recentActivity')}</CardTitle>
               <CardDescription>
-                Last 50 user actions and system events
+                {t('admin.security.settings.sections.recentActivityDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -443,7 +445,7 @@ export default function SecuritySettings() {
                 
                 {(!auditLogs || auditLogs.length === 0) && (
                   <p className="text-sm text-muted-foreground text-center py-8">
-                    No audit logs available
+                    {t('admin.security.settings.noAuditLogs')}
                   </p>
                 )}
               </div>

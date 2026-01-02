@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -56,6 +57,7 @@ interface MetricSnapshot {
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 
 export default function PerformanceDashboard() {
+  const { t } = useTranslation();
   const [timeRange, setTimeRange] = useState('5m');
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [metrics, setMetrics] = useState<MetricSnapshot[]>([]);
@@ -99,8 +101,8 @@ export default function PerformanceDashboard() {
       
       wsRef.current.onerror = () => {
         toast({
-          title: "Connection Issue",
-          description: "Real-time updates may be delayed",
+          title: t('performance.toast.connectionIssue'),
+          description: t('performance.toast.connectionIssueDescription'),
           variant: "destructive"
         });
       };
@@ -163,8 +165,8 @@ export default function PerformanceDashboard() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Performance Dashboard</h1>
-          <p className="text-muted-foreground">Real-time system monitoring and metrics</p>
+          <h1 className="text-3xl font-bold">{t('performance.title')}</h1>
+          <p className="text-muted-foreground">{t('performance.subtitle')}</p>
         </div>
         
         <div className="flex gap-4 items-center">
@@ -173,11 +175,11 @@ export default function PerformanceDashboard() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="5m">Last 5 min</SelectItem>
-              <SelectItem value="15m">Last 15 min</SelectItem>
-              <SelectItem value="1h">Last 1 hour</SelectItem>
-              <SelectItem value="6h">Last 6 hours</SelectItem>
-              <SelectItem value="24h">Last 24 hours</SelectItem>
+              <SelectItem value="5m">{t('performance.timeRange.5m')}</SelectItem>
+              <SelectItem value="15m">{t('performance.timeRange.15m')}</SelectItem>
+              <SelectItem value="1h">{t('performance.timeRange.1h')}</SelectItem>
+              <SelectItem value="6h">{t('performance.timeRange.6h')}</SelectItem>
+              <SelectItem value="24h">{t('performance.timeRange.24h')}</SelectItem>
             </SelectContent>
           </Select>
           
@@ -202,7 +204,7 @@ export default function PerformanceDashboard() {
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium flex items-center gap-2">
                 <Cpu className="h-4 w-4" />
-                CPU Usage
+                {t('performance.cards.cpuUsage')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -213,7 +215,7 @@ export default function PerformanceDashboard() {
               </div>
               <Progress value={currentMetric.cpu.usage} className="mt-2" />
               <p className="text-xs text-muted-foreground mt-1">
-                Load: {currentMetric.cpu.loadAverage.map(l => l.toFixed(2)).join(', ')}
+                {t('performance.cards.load')}: {currentMetric.cpu.loadAverage.map(l => l.toFixed(2)).join(', ')}
               </p>
             </CardContent>
           </Card>
@@ -222,7 +224,7 @@ export default function PerformanceDashboard() {
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium flex items-center gap-2">
                 <HardDrive className="h-4 w-4" />
-                Memory Usage
+                {t('performance.cards.memoryUsage')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -242,23 +244,23 @@ export default function PerformanceDashboard() {
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium flex items-center gap-2">
                 <Network className="h-4 w-4" />
-                API Performance
+                {t('performance.cards.apiPerformance')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {currentMetric.api.requestsPerMinute} <span className="text-sm">rpm</span>
+                {currentMetric.api.requestsPerMinute} <span className="text-sm">{t('performance.cards.rpm')}</span>
               </div>
               <div className="flex justify-between mt-2">
                 <Badge variant={currentMetric.api.errorRate > 1 ? 'destructive' : 'secondary'}>
-                  {currentMetric.api.errorRate.toFixed(1)}% errors
+                  {currentMetric.api.errorRate.toFixed(1)}% {t('performance.cards.errors')}
                 </Badge>
                 <Badge variant="outline">
                   {currentMetric.api.averageResponseTime.toFixed(0)}ms
                 </Badge>
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                {currentMetric.api.activeConnections} active connections
+                {currentMetric.api.activeConnections} {t('performance.cards.activeConnections')}
               </p>
             </CardContent>
           </Card>
@@ -267,12 +269,12 @@ export default function PerformanceDashboard() {
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium flex items-center gap-2">
                 <Database className="h-4 w-4" />
-                Database
+                {t('performance.cards.database')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {currentMetric.database.activeConnections} <span className="text-sm">connections</span>
+                {currentMetric.database.activeConnections} <span className="text-sm">{t('performance.cards.connections')}</span>
               </div>
               <div className="flex justify-between mt-2">
                 <Badge variant={currentMetric.database.slowQueries > 5 ? 'destructive' : 'secondary'}>
@@ -283,7 +285,7 @@ export default function PerformanceDashboard() {
                 </Badge>
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                Cache hit rate: {currentMetric.cache.hitRate.toFixed(1)}%
+                {t('performance.cards.cacheHitRate')}: {currentMetric.cache.hitRate.toFixed(1)}%
               </p>
             </CardContent>
           </Card>
@@ -293,17 +295,17 @@ export default function PerformanceDashboard() {
       {/* Detailed Charts */}
       <Tabs defaultValue="system" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="system">System</TabsTrigger>
-          <TabsTrigger value="api">API</TabsTrigger>
-          <TabsTrigger value="database">Database</TabsTrigger>
-          <TabsTrigger value="realtime">Real-time</TabsTrigger>
+          <TabsTrigger value="system">{t('performance.tabs.system')}</TabsTrigger>
+          <TabsTrigger value="api">{t('performance.tabs.api')}</TabsTrigger>
+          <TabsTrigger value="database">{t('performance.tabs.database')}</TabsTrigger>
+          <TabsTrigger value="realtime">{t('performance.tabs.realtime')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="system" className="space-y-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle>CPU Usage Over Time</CardTitle>
+                <CardTitle>{t('performance.charts.cpuUsageOverTime')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -322,7 +324,7 @@ export default function PerformanceDashboard() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Memory Usage Trend</CardTitle>
+                <CardTitle>{t('performance.charts.memoryUsageTrend')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -344,7 +346,7 @@ export default function PerformanceDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle>Request Rate & Response Time</CardTitle>
+                <CardTitle>{t('performance.charts.requestRateResponseTime')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -364,7 +366,7 @@ export default function PerformanceDashboard() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Error Rate</CardTitle>
+                <CardTitle>{t('performance.charts.errorRate')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -385,7 +387,7 @@ export default function PerformanceDashboard() {
         <TabsContent value="database" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Database Performance</CardTitle>
+              <CardTitle>{t('performance.charts.databasePerformance')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -410,18 +412,18 @@ export default function PerformanceDashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <Card>
                 <CardHeader>
-                  <CardTitle>WebSocket Connections</CardTitle>
+                  <CardTitle>{t('performance.websocket.title')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span>Active Connections</span>
+                      <span>{t('performance.websocket.activeConnections')}</span>
                       <Badge variant="outline" className="text-lg">
                         {currentMetric.websocket.connections}
                       </Badge>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span>Messages/Second</span>
+                      <span>{t('performance.websocket.messagesPerSecond')}</span>
                       <Badge variant="outline" className="text-lg">
                         {currentMetric.websocket.messagesPerSecond.toFixed(1)}
                       </Badge>
@@ -432,12 +434,12 @@ export default function PerformanceDashboard() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Cache Performance</CardTitle>
+                  <CardTitle>{t('performance.cache.title')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span>Hit Rate</span>
+                      <span>{t('performance.cache.hitRate')}</span>
                       <Badge 
                         variant={currentMetric.cache.hitRate > 80 ? 'default' : 'destructive'}
                         className="text-lg"
@@ -447,7 +449,7 @@ export default function PerformanceDashboard() {
                     </div>
                     <Progress value={currentMetric.cache.hitRate} />
                     <div className="flex justify-between text-sm text-muted-foreground">
-                      <span>{currentMetric.cache.keys} keys</span>
+                      <span>{currentMetric.cache.keys} {t('performance.cache.keys')}</span>
                       <span>{(currentMetric.cache.memory / 1024 / 1024).toFixed(1)} MB</span>
                     </div>
                   </div>
@@ -465,7 +467,7 @@ export default function PerformanceDashboard() {
             <Alert variant="destructive">
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription>
-                High CPU usage detected: {currentMetric.cpu.usage.toFixed(1)}%
+                {t('performance.alerts.highCpu')} {currentMetric.cpu.usage.toFixed(1)}%
               </AlertDescription>
             </Alert>
           )}
@@ -473,7 +475,7 @@ export default function PerformanceDashboard() {
             <Alert variant="destructive">
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription>
-                High memory usage: {currentMetric.memory.percentage.toFixed(1)}%
+                {t('performance.alerts.highMemory')} {currentMetric.memory.percentage.toFixed(1)}%
               </AlertDescription>
             </Alert>
           )}
@@ -481,7 +483,7 @@ export default function PerformanceDashboard() {
             <Alert variant="destructive">
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription>
-                Elevated API error rate: {currentMetric.api.errorRate.toFixed(1)}%
+                {t('performance.alerts.highErrorRate')} {currentMetric.api.errorRate.toFixed(1)}%
               </AlertDescription>
             </Alert>
           )}

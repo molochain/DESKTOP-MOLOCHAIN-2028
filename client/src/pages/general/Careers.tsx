@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,71 +11,75 @@ import {
   GraduationCap, Award, Building2, ChevronRight, Send, Search
 } from "lucide-react";
 
-const benefits = [
-  { icon: <Globe className="h-6 w-6" />, title: "Global Opportunities", description: "Work with teams across 150+ countries" },
-  { icon: <TrendingUp className="h-6 w-6" />, title: "Career Growth", description: "Clear paths for advancement and development" },
-  { icon: <Heart className="h-6 w-6" />, title: "Health & Wellness", description: "Comprehensive healthcare and wellness programs" },
-  { icon: <GraduationCap className="h-6 w-6" />, title: "Learning & Development", description: "Continuous training and skill development" },
-  { icon: <Users className="h-6 w-6" />, title: "Team Culture", description: "Collaborative and inclusive work environment" },
-  { icon: <Award className="h-6 w-6" />, title: "Recognition", description: "Performance-based rewards and recognition" }
-];
-
-const openPositions = [
-  {
-    id: 1,
-    title: "Senior Logistics Coordinator",
-    department: "Operations",
-    location: "Istanbul, Turkey",
-    type: "Full-time",
-    description: "Lead logistics operations and coordinate global shipments for major clients."
-  },
-  {
-    id: 2,
-    title: "Full Stack Developer",
-    department: "Technology",
-    location: "Remote",
-    type: "Full-time",
-    description: "Build and maintain our cutting-edge logistics platform and APIs."
-  },
-  {
-    id: 3,
-    title: "Business Development Manager",
-    department: "Sales",
-    location: "Dubai, UAE",
-    type: "Full-time",
-    description: "Expand our client base and develop strategic partnerships."
-  },
-  {
-    id: 4,
-    title: "Supply Chain Analyst",
-    department: "Analytics",
-    location: "London, UK",
-    type: "Full-time",
-    description: "Analyze supply chain data and optimize logistics operations."
-  },
-  {
-    id: 5,
-    title: "Customer Success Manager",
-    department: "Customer Service",
-    location: "Rotterdam, Netherlands",
-    type: "Full-time",
-    description: "Ensure client satisfaction and manage key accounts."
-  },
-  {
-    id: 6,
-    title: "Customs Specialist",
-    department: "Compliance",
-    location: "Shanghai, China",
-    type: "Full-time",
-    description: "Handle customs documentation and ensure regulatory compliance."
-  }
-];
-
 export default function Careers() {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("all");
 
-  const departments = ["all", ...new Set(openPositions.map(p => p.department))];
+  const benefits = useMemo(() => [
+    { icon: <Globe className="h-6 w-6" />, title: t('careers.benefits.globalOpportunities.title'), description: t('careers.benefits.globalOpportunities.description') },
+    { icon: <TrendingUp className="h-6 w-6" />, title: t('careers.benefits.careerGrowth.title'), description: t('careers.benefits.careerGrowth.description') },
+    { icon: <Heart className="h-6 w-6" />, title: t('careers.benefits.healthWellness.title'), description: t('careers.benefits.healthWellness.description') },
+    { icon: <GraduationCap className="h-6 w-6" />, title: t('careers.benefits.learningDevelopment.title'), description: t('careers.benefits.learningDevelopment.description') },
+    { icon: <Users className="h-6 w-6" />, title: t('careers.benefits.teamCulture.title'), description: t('careers.benefits.teamCulture.description') },
+    { icon: <Award className="h-6 w-6" />, title: t('careers.benefits.recognition.title'), description: t('careers.benefits.recognition.description') }
+  ], [t]);
+
+  const openPositions = useMemo(() => [
+    {
+      id: 1,
+      title: t('careers.positions.seniorLogisticsCoordinator.title'),
+      department: t('careers.departments.operations'),
+      location: t('careers.positions.seniorLogisticsCoordinator.location'),
+      type: t('careers.jobTypes.fullTime'),
+      description: t('careers.positions.seniorLogisticsCoordinator.description')
+    },
+    {
+      id: 2,
+      title: t('careers.positions.fullStackDeveloper.title'),
+      department: t('careers.departments.technology'),
+      location: t('careers.positions.fullStackDeveloper.location'),
+      type: t('careers.jobTypes.fullTime'),
+      description: t('careers.positions.fullStackDeveloper.description')
+    },
+    {
+      id: 3,
+      title: t('careers.positions.businessDevelopmentManager.title'),
+      department: t('careers.departments.sales'),
+      location: t('careers.positions.businessDevelopmentManager.location'),
+      type: t('careers.jobTypes.fullTime'),
+      description: t('careers.positions.businessDevelopmentManager.description')
+    },
+    {
+      id: 4,
+      title: t('careers.positions.supplyChainAnalyst.title'),
+      department: t('careers.departments.analytics'),
+      location: t('careers.positions.supplyChainAnalyst.location'),
+      type: t('careers.jobTypes.fullTime'),
+      description: t('careers.positions.supplyChainAnalyst.description')
+    },
+    {
+      id: 5,
+      title: t('careers.positions.customerSuccessManager.title'),
+      department: t('careers.departments.customerService'),
+      location: t('careers.positions.customerSuccessManager.location'),
+      type: t('careers.jobTypes.fullTime'),
+      description: t('careers.positions.customerSuccessManager.description')
+    },
+    {
+      id: 6,
+      title: t('careers.positions.customsSpecialist.title'),
+      department: t('careers.departments.compliance'),
+      location: t('careers.positions.customsSpecialist.location'),
+      type: t('careers.jobTypes.fullTime'),
+      description: t('careers.positions.customsSpecialist.description')
+    }
+  ], [t]);
+
+  const departments = useMemo(() => {
+    const deptSet = new Set(openPositions.map(p => p.department));
+    return ["all", ...Array.from(deptSet)];
+  }, [openPositions]);
 
   const filteredPositions = openPositions.filter(position => {
     const matchesSearch = position.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -90,17 +95,16 @@ export default function Careers() {
           <div className="max-w-3xl mx-auto text-center">
             <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20" data-testid="badge-careers">
               <Briefcase className="h-3 w-3 mr-1" />
-              Careers
+              {t('careers.badge')}
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold mb-6" data-testid="text-careers-title">
-              Join Our <span className="text-primary">Global Team</span>
+              {t('careers.title')} <span className="text-primary">{t('careers.titleHighlight')}</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8" data-testid="text-careers-subtitle">
-              Build your career with a company that's revolutionizing global logistics. 
-              We're always looking for talented individuals to join our mission.
+              {t('careers.subtitle')}
             </p>
             <Button size="lg" className="gap-2" data-testid="button-view-positions">
-              View Open Positions
+              {t('careers.viewOpenPositions')}
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
@@ -110,9 +114,9 @@ export default function Careers() {
       <section className="py-16 bg-white dark:bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4" data-testid="text-benefits-title">Why Work With Us</h2>
+            <h2 className="text-3xl font-bold mb-4" data-testid="text-benefits-title">{t('careers.whyWorkWithUs')}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              We offer more than just a job. Join a team that values innovation, growth, and work-life balance.
+              {t('careers.whyWorkWithUsDescription')}
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -134,9 +138,9 @@ export default function Careers() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4" data-testid="text-positions-title">Open Positions</h2>
+            <h2 className="text-3xl font-bold mb-4" data-testid="text-positions-title">{t('careers.openPositions')}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Explore our current openings and find the perfect role for your skills and aspirations.
+              {t('careers.openPositionsDescription')}
             </p>
           </div>
 
@@ -144,7 +148,7 @@ export default function Careers() {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search positions..."
+                placeholder={t('careers.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -160,7 +164,7 @@ export default function Careers() {
                   onClick={() => setSelectedDepartment(dept)}
                   data-testid={`button-filter-${dept}`}
                 >
-                  {dept === "all" ? "All Departments" : dept}
+                  {dept === "all" ? t('careers.allDepartments') : dept}
                 </Button>
               ))}
             </div>
@@ -189,7 +193,7 @@ export default function Careers() {
                       </div>
                     </div>
                     <Button className="gap-2" data-testid={`button-apply-${position.id}`}>
-                      Apply Now
+                      {t('careers.applyNow')}
                       <Send className="h-4 w-4" />
                     </Button>
                   </div>
@@ -201,8 +205,8 @@ export default function Careers() {
           {filteredPositions.length === 0 && (
             <div className="text-center py-12">
               <Building2 className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <h3 className="font-semibold text-lg mb-2">No positions found</h3>
-              <p className="text-muted-foreground">Try adjusting your search or filter criteria.</p>
+              <h3 className="font-semibold text-lg mb-2">{t('careers.noPositionsFound')}</h3>
+              <p className="text-muted-foreground">{t('careers.noPositionsFoundDescription')}</p>
             </div>
           )}
         </div>
@@ -211,14 +215,14 @@ export default function Careers() {
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4" data-testid="text-cta-title">Don't See the Right Role?</h2>
+            <h2 className="text-3xl font-bold mb-4" data-testid="text-cta-title">{t('careers.cta.title')}</h2>
             <p className="text-lg opacity-90 mb-8">
-              We're always looking for exceptional talent. Send us your resume and we'll keep you in mind for future opportunities.
+              {t('careers.cta.description')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
                 <Button size="lg" variant="secondary" className="gap-2" data-testid="button-contact-us">
-                  Contact Us
+                  {t('careers.cta.contactUs')}
                   <ChevronRight className="h-4 w-4" />
                 </Button>
               </Link>

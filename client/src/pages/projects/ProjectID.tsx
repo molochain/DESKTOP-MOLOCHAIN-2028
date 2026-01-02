@@ -1,10 +1,12 @@
 import { Timer, BarChart3, Globe2, Users, Network, BrainCircuit } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 import ProjectDetail from "@/components/projects/ProjectDetail";
 import { useRoute, Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ProjectUpdateProvider } from "@/contexts/ProjectUpdateContext";
 
 const ProjectPage = () => {
+  const { t } = useTranslation();
   const [, params] = useRoute("/projects/:id");
   const projectId = parseInt(params?.id || "0");
 
@@ -532,11 +534,11 @@ const ProjectPage = () => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Project Not Found</h1>
-          <p className="text-gray-600">The project you're looking for doesn't exist.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('projects.notFound.title')}</h1>
+          <p className="text-gray-600">{t('projects.notFound.description')}</p>
           <Link href="/projects">
             <Button variant="outline" className="mt-4">
-              Back to Projects
+              {t('projects.notFound.backToProjects')}
             </Button>
           </Link>
         </div>

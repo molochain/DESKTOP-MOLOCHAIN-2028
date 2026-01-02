@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -138,6 +139,7 @@ const statusIcons = {
 };
 
 export default function CommunicationsHub() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState("submissions");
@@ -269,10 +271,10 @@ export default function CommunicationsHub() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/submissions'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/submissions/stats'] });
-      toast({ title: "Status updated successfully" });
+      toast({ title: t('admin.operations.communications.toast.statusUpdated') });
     },
     onError: () => {
-      toast({ title: "Failed to update status", variant: "destructive" });
+      toast({ title: t('admin.operations.communications.toast.statusUpdateFailed'), variant: "destructive" });
     }
   });
 
@@ -301,10 +303,10 @@ export default function CommunicationsHub() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/email/settings'] });
-      toast({ title: "Email settings saved successfully" });
+      toast({ title: t('admin.operations.communications.toast.settingsSaved') });
     },
     onError: () => {
-      toast({ title: "Failed to save email settings", variant: "destructive" });
+      toast({ title: t('admin.operations.communications.toast.settingsSaveFailed'), variant: "destructive" });
     }
   });
 
@@ -314,10 +316,10 @@ export default function CommunicationsHub() {
       return res.json();
     },
     onSuccess: () => {
-      toast({ title: "Connection test successful" });
+      toast({ title: t('admin.operations.communications.toast.connectionSuccess') });
     },
     onError: () => {
-      toast({ title: "Connection test failed", variant: "destructive" });
+      toast({ title: t('admin.operations.communications.toast.connectionFailed'), variant: "destructive" });
     }
   });
 
@@ -340,10 +342,10 @@ export default function CommunicationsHub() {
       setIsTemplateDialogOpen(false);
       setEditingTemplate(null);
       templateForm.reset();
-      toast({ title: editingTemplate ? "Template updated" : "Template created" });
+      toast({ title: editingTemplate ? t('admin.operations.communications.toast.templateUpdated') : t('admin.operations.communications.toast.templateCreated') });
     },
     onError: () => {
-      toast({ title: "Failed to save template", variant: "destructive" });
+      toast({ title: t('admin.operations.communications.toast.templateSaveFailed'), variant: "destructive" });
     }
   });
 
@@ -353,10 +355,10 @@ export default function CommunicationsHub() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/email/templates'] });
-      toast({ title: "Template deleted" });
+      toast({ title: t('admin.operations.communications.toast.templateDeleted') });
     },
     onError: () => {
-      toast({ title: "Failed to delete template", variant: "destructive" });
+      toast({ title: t('admin.operations.communications.toast.templateDeleteFailed'), variant: "destructive" });
     }
   });
 
@@ -374,10 +376,10 @@ export default function CommunicationsHub() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/email/recipients'] });
       setIsRecipientDialogOpen(false);
       recipientForm.reset();
-      toast({ title: "Recipient added" });
+      toast({ title: t('admin.operations.communications.toast.recipientAdded') });
     },
     onError: () => {
-      toast({ title: "Failed to add recipient", variant: "destructive" });
+      toast({ title: t('admin.operations.communications.toast.recipientAddFailed'), variant: "destructive" });
     }
   });
 
@@ -387,10 +389,10 @@ export default function CommunicationsHub() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/email/recipients'] });
-      toast({ title: "Recipient removed" });
+      toast({ title: t('admin.operations.communications.toast.recipientRemoved') });
     },
     onError: () => {
-      toast({ title: "Failed to remove recipient", variant: "destructive" });
+      toast({ title: t('admin.operations.communications.toast.recipientRemoveFailed'), variant: "destructive" });
     }
   });
 
@@ -403,7 +405,7 @@ export default function CommunicationsHub() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/email/recipients'] });
     },
     onError: () => {
-      toast({ title: "Failed to update recipient", variant: "destructive" });
+      toast({ title: t('admin.operations.communications.toast.recipientUpdateFailed'), variant: "destructive" });
     }
   });
 
@@ -421,10 +423,10 @@ export default function CommunicationsHub() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/email/api-keys'] });
       setGeneratedApiKey(data.data.rawApiKey);
       apiKeyForm.reset();
-      toast({ title: "API key created successfully" });
+      toast({ title: t('admin.operations.communications.toast.apiKeyCreated') });
     },
     onError: () => {
-      toast({ title: "Failed to create API key", variant: "destructive" });
+      toast({ title: t('admin.operations.communications.toast.apiKeyCreateFailed'), variant: "destructive" });
     }
   });
 
@@ -434,10 +436,10 @@ export default function CommunicationsHub() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/email/api-keys'] });
-      toast({ title: "API key deleted" });
+      toast({ title: t('admin.operations.communications.toast.apiKeyDeleted') });
     },
     onError: () => {
-      toast({ title: "Failed to delete API key", variant: "destructive" });
+      toast({ title: t('admin.operations.communications.toast.apiKeyDeleteFailed'), variant: "destructive" });
     }
   });
 
@@ -450,16 +452,16 @@ export default function CommunicationsHub() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/email/api-keys'] });
     },
     onError: () => {
-      toast({ title: "Failed to update API key", variant: "destructive" });
+      toast({ title: t('admin.operations.communications.toast.apiKeyUpdateFailed'), variant: "destructive" });
     }
   });
 
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      toast({ title: "Copied to clipboard" });
+      toast({ title: t('admin.operations.communications.toast.copiedToClipboard') });
     } catch {
-      toast({ title: "Failed to copy", variant: "destructive" });
+      toast({ title: t('admin.operations.communications.toast.copyFailed'), variant: "destructive" });
     }
   };
 
@@ -487,8 +489,8 @@ export default function CommunicationsHub() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight" data-testid="page-title">Communications Hub</h2>
-          <p className="text-muted-foreground">Manage form submissions and email settings</p>
+          <h2 className="text-3xl font-bold tracking-tight" data-testid="page-title">{t('admin.operations.communications.title')}</h2>
+          <p className="text-muted-foreground">{t('admin.operations.communications.subtitle')}</p>
         </div>
       </div>
 
@@ -496,65 +498,65 @@ export default function CommunicationsHub() {
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="submissions" data-testid="tab-submissions">
             <MessageSquare className="h-4 w-4 mr-2" />
-            Submissions
+            {t('admin.operations.communications.tabs.submissions')}
           </TabsTrigger>
           <TabsTrigger value="statistics" data-testid="tab-statistics">
             <BarChart3 className="h-4 w-4 mr-2" />
-            Statistics
+            {t('admin.operations.communications.tabs.statistics')}
           </TabsTrigger>
           <TabsTrigger value="email-settings" data-testid="tab-email-settings">
             <Settings className="h-4 w-4 mr-2" />
-            Email Settings
+            {t('admin.operations.communications.tabs.emailSettings')}
           </TabsTrigger>
           <TabsTrigger value="templates-recipients" data-testid="tab-templates-recipients">
             <Mail className="h-4 w-4 mr-2" />
-            Templates & Recipients
+            {t('admin.operations.communications.tabs.templatesRecipients')}
           </TabsTrigger>
           <TabsTrigger value="api-keys" data-testid="tab-api-keys">
             <Key className="h-4 w-4 mr-2" />
-            API Keys
+            {t('admin.operations.communications.tabs.apiKeys')}
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="submissions" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Filters</CardTitle>
+              <CardTitle>{t('admin.operations.communications.cards.filters')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-4">
                 <div className="w-48">
-                  <Label>Form Type</Label>
+                  <Label>{t('admin.operations.communications.form.formType')}</Label>
                   <Select value={formTypeFilter} onValueChange={setFormTypeFilter} data-testid="filter-form-type">
                     <SelectTrigger>
-                      <SelectValue placeholder="All Types" />
+                      <SelectValue placeholder={t('admin.operations.communications.labels.allTypes')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Types</SelectItem>
-                      <SelectItem value="contact">Contact</SelectItem>
-                      <SelectItem value="quote">Quote</SelectItem>
-                      <SelectItem value="support">Support</SelectItem>
-                      <SelectItem value="feedback">Feedback</SelectItem>
+                      <SelectItem value="all">{t('admin.operations.communications.labels.allTypes')}</SelectItem>
+                      <SelectItem value="contact">{t('admin.operations.communications.labels.contact')}</SelectItem>
+                      <SelectItem value="quote">{t('admin.operations.communications.labels.quote')}</SelectItem>
+                      <SelectItem value="support">{t('admin.operations.communications.labels.support')}</SelectItem>
+                      <SelectItem value="feedback">{t('admin.operations.communications.labels.feedback')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="w-48">
-                  <Label>Status</Label>
+                  <Label>{t('admin.operations.communications.table.status')}</Label>
                   <Select value={statusFilter} onValueChange={setStatusFilter} data-testid="filter-status">
                     <SelectTrigger>
-                      <SelectValue placeholder="All Status" />
+                      <SelectValue placeholder={t('admin.operations.communications.labels.allStatus')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Status</SelectItem>
-                      <SelectItem value="pending">Pending</SelectItem>
-                      <SelectItem value="in_review">In Review</SelectItem>
-                      <SelectItem value="responded">Responded</SelectItem>
-                      <SelectItem value="closed">Closed</SelectItem>
+                      <SelectItem value="all">{t('admin.operations.communications.labels.allStatus')}</SelectItem>
+                      <SelectItem value="pending">{t('admin.operations.communications.stats.pending')}</SelectItem>
+                      <SelectItem value="in_review">{t('admin.operations.communications.stats.inReview')}</SelectItem>
+                      <SelectItem value="responded">{t('admin.operations.communications.stats.responded')}</SelectItem>
+                      <SelectItem value="closed">{t('admin.operations.communications.stats.closed')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="flex-1 min-w-[200px]">
-                  <Label>Date Range</Label>
+                  <Label>{t('admin.operations.communications.form.dateRange')}</Label>
                   <DatePickerWithRange
                     date={dateRange}
                     onDateChange={setDateRange}
@@ -567,9 +569,9 @@ export default function CommunicationsHub() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Form Submissions</CardTitle>
+              <CardTitle>{t('admin.operations.communications.cards.formSubmissions')}</CardTitle>
               <CardDescription>
-                {submissionsQuery.data?.total ?? 0} total submissions
+                {t('admin.operations.communications.cards.totalSubmissions', { count: submissionsQuery.data?.total ?? 0 })}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -582,13 +584,13 @@ export default function CommunicationsHub() {
                   <Table data-testid="submissions-table">
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Email</TableHead>
-                        <TableHead>Form Type</TableHead>
-                        <TableHead>Subject</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead>{t('admin.operations.communications.table.date')}</TableHead>
+                        <TableHead>{t('admin.operations.communications.table.name')}</TableHead>
+                        <TableHead>{t('admin.operations.communications.table.email')}</TableHead>
+                        <TableHead>{t('admin.operations.communications.table.formType')}</TableHead>
+                        <TableHead>{t('admin.operations.communications.table.subject')}</TableHead>
+                        <TableHead>{t('admin.operations.communications.table.status')}</TableHead>
+                        <TableHead>{t('admin.operations.communications.table.actions')}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -611,19 +613,11 @@ export default function CommunicationsHub() {
                             <TableCell>
                               <Badge className={statusColors[submission.status]}>
                                 <StatusIcon className="h-3 w-3 mr-1" />
-                                {submission.status.replace('_', ' ')}
+                                {t(`admin.operations.communications.status.${submission.status}`)}
                               </Badge>
                             </TableCell>
                             <TableCell>
-                              <Button 
-                                variant="ghost" 
-                                size="sm"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  openSubmissionDetails(submission);
-                                }}
-                                data-testid={`view-submission-${submission.id}`}
-                              >
+                              <Button variant="ghost" size="sm" data-testid={`view-submission-${submission.id}`}>
                                 <Eye className="h-4 w-4" />
                               </Button>
                             </TableCell>
@@ -633,40 +627,12 @@ export default function CommunicationsHub() {
                       {(!submissionsQuery.data?.submissions || submissionsQuery.data.submissions.length === 0) && (
                         <TableRow>
                           <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
-                            No submissions found
+                            {t('admin.operations.communications.labels.noSubmissionsFound')}
                           </TableCell>
                         </TableRow>
                       )}
                     </TableBody>
                   </Table>
-
-                  {submissionsQuery.data && submissionsQuery.data.totalPages > 1 && (
-                    <div className="flex items-center justify-between mt-4">
-                      <p className="text-sm text-muted-foreground">
-                        Page {submissionsQuery.data.page} of {submissionsQuery.data.totalPages}
-                      </p>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setPage(p => Math.max(1, p - 1))}
-                          disabled={page === 1}
-                          data-testid="pagination-prev"
-                        >
-                          Previous
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setPage(p => p + 1)}
-                          disabled={page >= submissionsQuery.data.totalPages}
-                          data-testid="pagination-next"
-                        >
-                          Next
-                        </Button>
-                      </div>
-                    </div>
-                  )}
                 </>
               )}
             </CardContent>
@@ -674,67 +640,53 @@ export default function CommunicationsHub() {
         </TabsContent>
 
         <TabsContent value="statistics" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-4">
-            <Card data-testid="stat-total">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Submissions</CardTitle>
-                <MessageSquare className="h-4 w-4 text-muted-foreground" />
+          <div className="grid gap-4 md:grid-cols-5">
+            <Card>
+              <CardHeader className="pb-2">
+                <CardDescription>{t('admin.operations.communications.stats.total')}</CardDescription>
+                <CardTitle className="text-3xl">{statsQuery.data?.total || 0}</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{statsQuery.data?.total ?? 0}</div>
-              </CardContent>
             </Card>
-            <Card data-testid="stat-pending">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Pending</CardTitle>
-                <Clock className="h-4 w-4 text-yellow-500" />
+            <Card>
+              <CardHeader className="pb-2">
+                <CardDescription>{t('admin.operations.communications.stats.pending')}</CardDescription>
+                <CardTitle className="text-3xl text-yellow-600">{statsQuery.data?.pending || 0}</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-yellow-600">{statsQuery.data?.pending ?? 0}</div>
-              </CardContent>
             </Card>
-            <Card data-testid="stat-in-review">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">In Review</CardTitle>
-                <AlertCircle className="h-4 w-4 text-blue-500" />
+            <Card>
+              <CardHeader className="pb-2">
+                <CardDescription>{t('admin.operations.communications.stats.inReview')}</CardDescription>
+                <CardTitle className="text-3xl text-blue-600">{statsQuery.data?.inReview || 0}</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-blue-600">{statsQuery.data?.inReview ?? 0}</div>
-              </CardContent>
             </Card>
-            <Card data-testid="stat-responded">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Responded</CardTitle>
-                <CheckCircle className="h-4 w-4 text-green-500" />
+            <Card>
+              <CardHeader className="pb-2">
+                <CardDescription>{t('admin.operations.communications.stats.responded')}</CardDescription>
+                <CardTitle className="text-3xl text-green-600">{statsQuery.data?.responded || 0}</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-green-600">{statsQuery.data?.responded ?? 0}</div>
-              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-2">
+                <CardDescription>{t('admin.operations.communications.stats.closed')}</CardDescription>
+                <CardTitle className="text-3xl text-gray-600">{statsQuery.data?.closed || 0}</CardTitle>
+              </CardHeader>
             </Card>
           </div>
 
           <Card>
             <CardHeader>
-              <CardTitle>Submissions by Form Type</CardTitle>
+              <CardTitle>{t('admin.operations.communications.form.formType')}</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="h-[300px]" data-testid="chart-by-form-type">
-                {statsQuery.isLoading ? (
-                  <div className="flex items-center justify-center h-full">
-                    <Loader2 className="h-8 w-8 animate-spin" />
-                  </div>
-                ) : (
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={statsQuery.data?.byFormType ?? []}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="formType" />
-                      <YAxis />
-                      <Tooltip />
-                      <Bar dataKey="count" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                )}
-              </div>
+            <CardContent className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={statsQuery.data?.byFormType || []}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="formType" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="count" fill="hsl(var(--primary))" />
+                </BarChart>
+              </ResponsiveContainer>
             </CardContent>
           </Card>
         </TabsContent>
@@ -742,29 +694,19 @@ export default function CommunicationsHub() {
         <TabsContent value="email-settings" className="space-y-4">
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle>SMTP Configuration</CardTitle>
-                  <CardDescription>Configure your email server settings</CardDescription>
-                </div>
-                {emailSettingsQuery.data?.verified && (
-                  <Badge className="bg-green-100 text-green-800" data-testid="smtp-verified-badge">
-                    <CheckCircle className="h-3 w-3 mr-1" />
-                    Verified
-                  </Badge>
-                )}
-              </div>
+              <CardTitle>{t('admin.operations.communications.cards.emailSettings')}</CardTitle>
+              <CardDescription>{t('admin.operations.communications.cards.emailSettingsDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <Form {...emailSettingsForm}>
-                <form onSubmit={emailSettingsForm.handleSubmit((data) => saveEmailSettingsMutation.mutate(data))} className="space-y-6">
+                <form onSubmit={emailSettingsForm.handleSubmit((data) => saveEmailSettingsMutation.mutate(data))} className="space-y-4">
                   <div className="grid gap-4 md:grid-cols-2">
                     <FormField
                       control={emailSettingsForm.control}
                       name="smtpHost"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>SMTP Host</FormLabel>
+                          <FormLabel>{t('admin.operations.communications.form.smtpHost')}</FormLabel>
                           <FormControl>
                             <Input placeholder="smtp.example.com" {...field} data-testid="input-smtp-host" />
                           </FormControl>
@@ -777,7 +719,7 @@ export default function CommunicationsHub() {
                       name="smtpPort"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>SMTP Port</FormLabel>
+                          <FormLabel>{t('admin.operations.communications.form.smtpPort')}</FormLabel>
                           <FormControl>
                             <Input type="number" placeholder="587" {...field} data-testid="input-smtp-port" />
                           </FormControl>
@@ -790,7 +732,7 @@ export default function CommunicationsHub() {
                       name="smtpUsername"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>SMTP Username</FormLabel>
+                          <FormLabel>{t('admin.operations.communications.form.username')}</FormLabel>
                           <FormControl>
                             <Input placeholder="username" {...field} data-testid="input-smtp-username" />
                           </FormControl>
@@ -803,7 +745,7 @@ export default function CommunicationsHub() {
                       name="smtpPassword"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>SMTP Password</FormLabel>
+                          <FormLabel>{t('admin.operations.communications.form.password')}</FormLabel>
                           <FormControl>
                             <Input type="password" placeholder="••••••••" {...field} data-testid="input-smtp-password" />
                           </FormControl>
@@ -816,9 +758,9 @@ export default function CommunicationsHub() {
                       name="fromName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>From Name</FormLabel>
+                          <FormLabel>{t('admin.operations.communications.form.fromName')}</FormLabel>
                           <FormControl>
-                            <Input placeholder="Company Name" {...field} data-testid="input-from-name" />
+                            <Input placeholder="MoloChain" {...field} data-testid="input-from-name" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -829,7 +771,7 @@ export default function CommunicationsHub() {
                       name="fromEmail"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>From Email</FormLabel>
+                          <FormLabel>{t('admin.operations.communications.form.fromEmail')}</FormLabel>
                           <FormControl>
                             <Input placeholder="noreply@example.com" {...field} data-testid="input-from-email" />
                           </FormControl>
@@ -842,7 +784,7 @@ export default function CommunicationsHub() {
                       name="replyTo"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Reply-To Email</FormLabel>
+                          <FormLabel>{t('admin.operations.communications.form.replyTo')}</FormLabel>
                           <FormControl>
                             <Input placeholder="support@example.com" {...field} data-testid="input-reply-to" />
                           </FormControl>
@@ -854,49 +796,24 @@ export default function CommunicationsHub() {
                       control={emailSettingsForm.control}
                       name="useTls"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                          <div className="space-y-0.5">
-                            <FormLabel className="text-base">Use TLS</FormLabel>
-                            <FormDescription>Enable TLS encryption for SMTP connection</FormDescription>
-                          </div>
+                        <FormItem className="flex items-center gap-2 pt-6">
                           <FormControl>
-                            <Switch
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              data-testid="switch-use-tls"
-                            />
+                            <Switch checked={field.value} onCheckedChange={field.onChange} data-testid="switch-use-tls" />
                           </FormControl>
+                          <FormLabel className="!mt-0">{t('admin.operations.communications.form.useTls')}</FormLabel>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
                   </div>
-
                   <div className="flex gap-2">
-                    <Button 
-                      type="button" 
-                      variant="outline" 
-                      onClick={() => testConnectionMutation.mutate()}
-                      disabled={testConnectionMutation.isPending}
-                      data-testid="button-test-connection"
-                    >
-                      {testConnectionMutation.isPending ? (
-                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      ) : (
-                        <RefreshCw className="h-4 w-4 mr-2" />
-                      )}
-                      Test Connection
+                    <Button type="submit" disabled={saveEmailSettingsMutation.isPending} data-testid="button-save-settings">
+                      {saveEmailSettingsMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                      {t('admin.operations.communications.buttons.saveSettings')}
                     </Button>
-                    <Button 
-                      type="submit" 
-                      disabled={saveEmailSettingsMutation.isPending}
-                      data-testid="button-save-settings"
-                    >
-                      {saveEmailSettingsMutation.isPending ? (
-                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      ) : (
-                        <Send className="h-4 w-4 mr-2" />
-                      )}
-                      Save Settings
+                    <Button type="button" variant="outline" onClick={() => testConnectionMutation.mutate()} disabled={testConnectionMutation.isPending} data-testid="button-test-connection">
+                      {testConnectionMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                      {t('admin.operations.communications.buttons.testConnection')}
                     </Button>
                   </div>
                 </form>
@@ -909,22 +826,20 @@ export default function CommunicationsHub() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle>Email Templates</CardTitle>
-                <CardDescription>Manage email templates for notifications</CardDescription>
+                <CardTitle>{t('admin.operations.communications.cards.emailTemplates')}</CardTitle>
               </div>
               <Button onClick={() => openTemplateDialog()} data-testid="button-add-template">
                 <Plus className="h-4 w-4 mr-2" />
-                Add Template
+                {t('admin.operations.communications.buttons.addTemplate')}
               </Button>
             </CardHeader>
             <CardContent>
               <Table data-testid="templates-table">
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Subject</TableHead>
-                    <TableHead>Created</TableHead>
-                    <TableHead>Actions</TableHead>
+                    <TableHead>{t('admin.operations.communications.table.name')}</TableHead>
+                    <TableHead>{t('admin.operations.communications.table.subject')}</TableHead>
+                    <TableHead>{t('admin.operations.communications.table.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -932,23 +847,12 @@ export default function CommunicationsHub() {
                     <TableRow key={template.id} data-testid={`template-row-${template.id}`}>
                       <TableCell className="font-medium">{template.name}</TableCell>
                       <TableCell>{template.subject}</TableCell>
-                      <TableCell>{format(new Date(template.createdAt), 'MMM d, yyyy')}</TableCell>
                       <TableCell>
                         <div className="flex gap-2">
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            onClick={() => openTemplateDialog(template)}
-                            data-testid={`edit-template-${template.id}`}
-                          >
+                          <Button variant="ghost" size="sm" onClick={() => openTemplateDialog(template)} data-testid={`edit-template-${template.id}`}>
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => deleteTemplateMutation.mutate(template.id)}
-                            data-testid={`delete-template-${template.id}`}
-                          >
+                          <Button variant="ghost" size="sm" onClick={() => deleteTemplateMutation.mutate(template.id)} data-testid={`delete-template-${template.id}`}>
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
@@ -957,8 +861,8 @@ export default function CommunicationsHub() {
                   ))}
                   {(!templatesQuery.data || templatesQuery.data.length === 0) && (
                     <TableRow>
-                      <TableCell colSpan={4} className="text-center text-muted-foreground py-8">
-                        No templates found
+                      <TableCell colSpan={3} className="text-center text-muted-foreground py-8">
+                        {t('admin.operations.communications.labels.noTemplatesFound')}
                       </TableCell>
                     </TableRow>
                   )}
@@ -970,22 +874,21 @@ export default function CommunicationsHub() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle>Notification Recipients</CardTitle>
-                <CardDescription>Manage who receives notification emails</CardDescription>
+                <CardTitle>{t('admin.operations.communications.cards.notificationRecipients')}</CardTitle>
               </div>
               <Button onClick={() => setIsRecipientDialogOpen(true)} data-testid="button-add-recipient">
                 <Plus className="h-4 w-4 mr-2" />
-                Add Recipient
+                {t('admin.operations.communications.buttons.addRecipient')}
               </Button>
             </CardHeader>
             <CardContent>
               <Table data-testid="recipients-table">
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Actions</TableHead>
+                    <TableHead>{t('admin.operations.communications.table.name')}</TableHead>
+                    <TableHead>{t('admin.operations.communications.table.email')}</TableHead>
+                    <TableHead>{t('admin.operations.communications.table.status')}</TableHead>
+                    <TableHead>{t('admin.operations.communications.table.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -1017,7 +920,7 @@ export default function CommunicationsHub() {
                   {(!recipientsQuery.data || recipientsQuery.data.length === 0) && (
                     <TableRow>
                       <TableCell colSpan={4} className="text-center text-muted-foreground py-8">
-                        No recipients found
+                        {t('admin.operations.communications.labels.noRecipientsFound')}
                       </TableCell>
                     </TableRow>
                   )}
@@ -1031,12 +934,12 @@ export default function CommunicationsHub() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle>Email API Keys</CardTitle>
-                <CardDescription>Manage API keys for programmatic email access</CardDescription>
+                <CardTitle>{t('admin.operations.communications.cards.emailApiKeys')}</CardTitle>
+                <CardDescription>{t('admin.operations.communications.cards.emailApiKeysDesc')}</CardDescription>
               </div>
               <Button onClick={() => setIsApiKeyDialogOpen(true)} data-testid="button-add-api-key">
                 <Plus className="h-4 w-4 mr-2" />
-                Create API Key
+                {t('admin.operations.communications.buttons.createApiKey')}
               </Button>
             </CardHeader>
             <CardContent>
@@ -1048,13 +951,13 @@ export default function CommunicationsHub() {
                 <Table data-testid="api-keys-table">
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Key Preview</TableHead>
-                      <TableHead>Subdomain</TableHead>
-                      <TableHead>Description</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Last Used</TableHead>
-                      <TableHead>Created</TableHead>
-                      <TableHead>Actions</TableHead>
+                      <TableHead>{t('admin.operations.communications.table.keyPreview')}</TableHead>
+                      <TableHead>{t('admin.operations.communications.table.subdomain')}</TableHead>
+                      <TableHead>{t('admin.operations.communications.form.description')}</TableHead>
+                      <TableHead>{t('admin.operations.communications.table.status')}</TableHead>
+                      <TableHead>{t('admin.operations.communications.table.lastUsed')}</TableHead>
+                      <TableHead>{t('admin.operations.communications.table.created')}</TableHead>
+                      <TableHead>{t('admin.operations.communications.table.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -1077,7 +980,7 @@ export default function CommunicationsHub() {
                         <TableCell className="text-muted-foreground">
                           {apiKey.lastUsedAt 
                             ? format(new Date(apiKey.lastUsedAt), 'MMM d, yyyy') 
-                            : 'Never'}
+                            : t('admin.operations.communications.table.never')}
                         </TableCell>
                         <TableCell>{format(new Date(apiKey.createdAt), 'MMM d, yyyy')}</TableCell>
                         <TableCell>
@@ -1095,7 +998,7 @@ export default function CommunicationsHub() {
                     {(!apiKeysQuery.data || apiKeysQuery.data.length === 0) && (
                       <TableRow>
                         <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
-                          No API keys found
+                          {t('admin.operations.communications.labels.noApiKeysFound')}
                         </TableCell>
                       </TableRow>
                     )}
@@ -1110,15 +1013,15 @@ export default function CommunicationsHub() {
       <Sheet open={isSubmissionSheetOpen} onOpenChange={setIsSubmissionSheetOpen}>
         <SheetContent className="sm:max-w-lg">
           <SheetHeader>
-            <SheetTitle>Submission Details</SheetTitle>
+            <SheetTitle>{t('admin.operations.communications.dialogs.submissionDetails')}</SheetTitle>
             <SheetDescription>
-              View and manage this form submission
+              {t('admin.operations.communications.dialogs.submissionDetailsDesc')}
             </SheetDescription>
           </SheetHeader>
           {selectedSubmission && (
             <div className="mt-6 space-y-6">
               <div className="space-y-2">
-                <Label>Status</Label>
+                <Label>{t('admin.operations.communications.table.status')}</Label>
                 <Select 
                   value={selectedSubmission.status} 
                   onValueChange={(value) => updateStatusMutation.mutate({ id: selectedSubmission.id, status: value })}
@@ -1128,39 +1031,39 @@ export default function CommunicationsHub() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="pending">Pending</SelectItem>
-                    <SelectItem value="in_review">In Review</SelectItem>
-                    <SelectItem value="responded">Responded</SelectItem>
-                    <SelectItem value="closed">Closed</SelectItem>
+                    <SelectItem value="pending">{t('admin.operations.communications.stats.pending')}</SelectItem>
+                    <SelectItem value="in_review">{t('admin.operations.communications.stats.inReview')}</SelectItem>
+                    <SelectItem value="responded">{t('admin.operations.communications.stats.responded')}</SelectItem>
+                    <SelectItem value="closed">{t('admin.operations.communications.stats.closed')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="grid gap-4">
                 <div>
-                  <Label className="text-muted-foreground">Form Type</Label>
+                  <Label className="text-muted-foreground">{t('admin.operations.communications.form.formType')}</Label>
                   <p className="font-medium">{selectedSubmission.formType}</p>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground">Name</Label>
+                  <Label className="text-muted-foreground">{t('admin.operations.communications.form.name')}</Label>
                   <p className="font-medium">{selectedSubmission.name}</p>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground">Email</Label>
+                  <Label className="text-muted-foreground">{t('admin.operations.communications.form.email')}</Label>
                   <p className="font-medium">{selectedSubmission.email}</p>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground">Subject</Label>
+                  <Label className="text-muted-foreground">{t('admin.operations.communications.table.subject')}</Label>
                   <p className="font-medium">{selectedSubmission.subject}</p>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground">Message</Label>
+                  <Label className="text-muted-foreground">{t('admin.operations.communications.labels.message')}</Label>
                   <p className="whitespace-pre-wrap bg-muted p-3 rounded-md text-sm">
                     {selectedSubmission.message}
                   </p>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground">Submitted</Label>
+                  <Label className="text-muted-foreground">{t('admin.operations.communications.labels.submitted')}</Label>
                   <p className="font-medium">
                     {format(new Date(selectedSubmission.createdAt), 'PPpp')}
                   </p>
@@ -1174,9 +1077,9 @@ export default function CommunicationsHub() {
       <Dialog open={isTemplateDialogOpen} onOpenChange={setIsTemplateDialogOpen}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>{editingTemplate ? 'Edit Template' : 'Create Template'}</DialogTitle>
+            <DialogTitle>{editingTemplate ? t('admin.operations.communications.dialogs.editTemplate') : t('admin.operations.communications.dialogs.addTemplate')}</DialogTitle>
             <DialogDescription>
-              {editingTemplate ? 'Update the email template' : 'Create a new email template'}
+              {editingTemplate ? t('admin.operations.communications.dialogs.updateTemplate') : t('admin.operations.communications.dialogs.createTemplate')}
             </DialogDescription>
           </DialogHeader>
           <Form {...templateForm}>
@@ -1186,7 +1089,7 @@ export default function CommunicationsHub() {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Template Name</FormLabel>
+                    <FormLabel>{t('admin.operations.communications.form.templateName')}</FormLabel>
                     <FormControl>
                       <Input placeholder="Welcome Email" {...field} data-testid="input-template-name" />
                     </FormControl>
@@ -1199,7 +1102,7 @@ export default function CommunicationsHub() {
                 name="subject"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Subject Line</FormLabel>
+                    <FormLabel>{t('admin.operations.communications.form.subjectLine')}</FormLabel>
                     <FormControl>
                       <Input placeholder="Welcome to our platform!" {...field} data-testid="input-template-subject" />
                     </FormControl>
@@ -1212,7 +1115,7 @@ export default function CommunicationsHub() {
                 name="body"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email Body</FormLabel>
+                    <FormLabel>{t('admin.operations.communications.form.emailBody')}</FormLabel>
                     <FormControl>
                       <Textarea 
                         placeholder="Enter email body content..." 
@@ -1227,11 +1130,11 @@ export default function CommunicationsHub() {
               />
               <DialogFooter>
                 <Button type="button" variant="outline" onClick={() => setIsTemplateDialogOpen(false)}>
-                  Cancel
+                  {t('admin.operations.communications.buttons.cancel')}
                 </Button>
                 <Button type="submit" disabled={saveTemplateMutation.isPending} data-testid="button-save-template">
                   {saveTemplateMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                  {editingTemplate ? 'Update' : 'Create'}
+                  {editingTemplate ? t('admin.operations.communications.buttons.update') : t('admin.operations.communications.buttons.create')}
                 </Button>
               </DialogFooter>
             </form>
@@ -1242,9 +1145,9 @@ export default function CommunicationsHub() {
       <Dialog open={isRecipientDialogOpen} onOpenChange={setIsRecipientDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add Recipient</DialogTitle>
+            <DialogTitle>{t('admin.operations.communications.dialogs.addRecipient')}</DialogTitle>
             <DialogDescription>
-              Add a new notification recipient
+              {t('admin.operations.communications.dialogs.addRecipientDesc')}
             </DialogDescription>
           </DialogHeader>
           <Form {...recipientForm}>
@@ -1254,7 +1157,7 @@ export default function CommunicationsHub() {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>{t('admin.operations.communications.form.name')}</FormLabel>
                     <FormControl>
                       <Input placeholder="John Doe" {...field} data-testid="input-recipient-name" />
                     </FormControl>
@@ -1267,7 +1170,7 @@ export default function CommunicationsHub() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t('admin.operations.communications.form.email')}</FormLabel>
                     <FormControl>
                       <Input placeholder="john@example.com" {...field} data-testid="input-recipient-email" />
                     </FormControl>
@@ -1277,11 +1180,11 @@ export default function CommunicationsHub() {
               />
               <DialogFooter>
                 <Button type="button" variant="outline" onClick={() => setIsRecipientDialogOpen(false)}>
-                  Cancel
+                  {t('admin.operations.communications.buttons.cancel')}
                 </Button>
                 <Button type="submit" disabled={saveRecipientMutation.isPending} data-testid="button-save-recipient">
                   {saveRecipientMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                  Add Recipient
+                  {t('admin.operations.communications.buttons.addRecipient')}
                 </Button>
               </DialogFooter>
             </form>
@@ -1298,9 +1201,9 @@ export default function CommunicationsHub() {
       }}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>Create API Key</DialogTitle>
+            <DialogTitle>{t('admin.operations.communications.dialogs.createApiKey')}</DialogTitle>
             <DialogDescription>
-              Create a new API key for programmatic email access
+              {t('admin.operations.communications.dialogs.createApiKeyDesc')}
             </DialogDescription>
           </DialogHeader>
           
@@ -1309,13 +1212,13 @@ export default function CommunicationsHub() {
               <div className="flex items-start gap-2 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-md">
                 <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-500 mt-0.5 flex-shrink-0" />
                 <div className="text-sm text-yellow-800 dark:text-yellow-200">
-                  <p className="font-medium">Save this API key now!</p>
-                  <p>This is the only time you will see the full key. Copy it and store it securely.</p>
+                  <p className="font-medium">{t('admin.operations.communications.apiKey.warning')}</p>
+                  <p>{t('admin.operations.communications.apiKey.warningDesc')}</p>
                 </div>
               </div>
               
               <div className="space-y-2">
-                <Label>Your API Key</Label>
+                <Label>{t('admin.operations.communications.apiKey.yourApiKey')}</Label>
                 <div className="flex gap-2">
                   <Input 
                     value={generatedApiKey} 
@@ -1340,7 +1243,7 @@ export default function CommunicationsHub() {
                   setGeneratedApiKey(null);
                   apiKeyForm.reset();
                 }} data-testid="button-close-api-key-dialog">
-                  Done
+                  {t('admin.operations.communications.buttons.done')}
                 </Button>
               </DialogFooter>
             </div>
@@ -1352,12 +1255,12 @@ export default function CommunicationsHub() {
                   name="subdomain"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Subdomain Name</FormLabel>
+                      <FormLabel>{t('admin.operations.communications.form.subdomainName')}</FormLabel>
                       <FormControl>
                         <Input placeholder="my-subdomain" {...field} data-testid="input-api-key-subdomain" />
                       </FormControl>
                       <FormDescription>
-                        The subdomain this API key will be associated with
+                        {t('admin.operations.communications.apiKey.subdomainDesc')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -1368,7 +1271,7 @@ export default function CommunicationsHub() {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Description (Optional)</FormLabel>
+                      <FormLabel>{t('admin.operations.communications.apiKey.descriptionOptional')}</FormLabel>
                       <FormControl>
                         <Input placeholder="API key for production environment" {...field} data-testid="input-api-key-description" />
                       </FormControl>
@@ -1378,11 +1281,11 @@ export default function CommunicationsHub() {
                 />
                 <DialogFooter>
                   <Button type="button" variant="outline" onClick={() => setIsApiKeyDialogOpen(false)}>
-                    Cancel
+                    {t('admin.operations.communications.buttons.cancel')}
                   </Button>
                   <Button type="submit" disabled={createApiKeyMutation.isPending} data-testid="button-generate-api-key">
                     {createApiKeyMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                    Generate Key
+                    {t('admin.operations.communications.buttons.generateKey')}
                   </Button>
                 </DialogFooter>
               </form>

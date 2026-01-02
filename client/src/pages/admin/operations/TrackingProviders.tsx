@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,6 +28,7 @@ interface Provider extends ProviderInput {
 }
 
 export default function TrackingProviders() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const form = useForm<ProviderInput>({
     resolver: zodResolver(providerSchema),
@@ -55,14 +57,14 @@ export default function TrackingProviders() {
     },
     onSuccess: () => {
       toast({
-        title: "Provider Added",
-        description: "The tracking provider has been added successfully.",
+        title: t('admin.operations.tracking.toast.providerAdded'),
+        description: t('admin.operations.tracking.toast.providerAddedDesc'),
       });
       form.reset();
     },
     onError: (error) => {
       toast({
-        title: "Error",
+        title: t('admin.operations.tracking.toast.error'),
         description: error.message,
         variant: "destructive",
       });
@@ -85,7 +87,7 @@ export default function TrackingProviders() {
     },
     onError: (error) => {
       toast({
-        title: "Error",
+        title: t('admin.operations.tracking.toast.error'),
         description: error.message,
         variant: "destructive",
       });
@@ -101,9 +103,9 @@ export default function TrackingProviders() {
       <div className="grid gap-8">
         <Card>
           <CardHeader>
-            <CardTitle>Add Tracking Provider</CardTitle>
+            <CardTitle>{t('admin.operations.tracking.cards.addProvider')}</CardTitle>
             <CardDescription>
-              Configure external tracking providers for shipment tracking integration.
+              {t('admin.operations.tracking.cards.addProviderDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -114,9 +116,9 @@ export default function TrackingProviders() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Provider Name</FormLabel>
+                      <FormLabel>{t('admin.operations.tracking.form.providerName')}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter provider name..." {...field} />
+                        <Input placeholder={t('admin.operations.tracking.form.providerNamePlaceholder')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -128,19 +130,19 @@ export default function TrackingProviders() {
                   name="type"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Provider Type</FormLabel>
+                      <FormLabel>{t('admin.operations.tracking.form.providerType')}</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select provider type" />
+                            <SelectValue placeholder={t('admin.operations.tracking.form.providerTypePlaceholder')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="FEDEX">FedEx</SelectItem>
-                          <SelectItem value="UPS">UPS</SelectItem>
-                          <SelectItem value="DHL">DHL</SelectItem>
-                          <SelectItem value="USPS">USPS</SelectItem>
-                          <SelectItem value="MAERSK">Maersk</SelectItem>
+                          <SelectItem value="FEDEX">{t('admin.operations.tracking.providerTypes.FEDEX')}</SelectItem>
+                          <SelectItem value="UPS">{t('admin.operations.tracking.providerTypes.UPS')}</SelectItem>
+                          <SelectItem value="DHL">{t('admin.operations.tracking.providerTypes.DHL')}</SelectItem>
+                          <SelectItem value="USPS">{t('admin.operations.tracking.providerTypes.USPS')}</SelectItem>
+                          <SelectItem value="MAERSK">{t('admin.operations.tracking.providerTypes.MAERSK')}</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -153,9 +155,9 @@ export default function TrackingProviders() {
                   name="apiKey"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>API Key</FormLabel>
+                      <FormLabel>{t('admin.operations.tracking.form.apiKey')}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter API key..." {...field} />
+                        <Input placeholder={t('admin.operations.tracking.form.apiKeyPlaceholder')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -167,9 +169,9 @@ export default function TrackingProviders() {
                   name="apiSecret"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>API Secret (Optional)</FormLabel>
+                      <FormLabel>{t('admin.operations.tracking.form.apiSecret')}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter API secret..." {...field} type="password" />
+                        <Input placeholder={t('admin.operations.tracking.form.apiSecretPlaceholder')} {...field} type="password" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -181,9 +183,9 @@ export default function TrackingProviders() {
                   name="accountNumber"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Account Number (Optional)</FormLabel>
+                      <FormLabel>{t('admin.operations.tracking.form.accountNumber')}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter account number..." {...field} />
+                        <Input placeholder={t('admin.operations.tracking.form.accountNumberPlaceholder')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -195,9 +197,9 @@ export default function TrackingProviders() {
                   name="meterNumber"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Meter Number (Optional)</FormLabel>
+                      <FormLabel>{t('admin.operations.tracking.form.meterNumber')}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter meter number..." {...field} />
+                        <Input placeholder={t('admin.operations.tracking.form.meterNumberPlaceholder')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -215,14 +217,14 @@ export default function TrackingProviders() {
                           onCheckedChange={field.onChange}
                         />
                       </FormControl>
-                      <FormLabel className="!mt-0">Enable Provider</FormLabel>
+                      <FormLabel className="!mt-0">{t('admin.operations.tracking.form.enabled')}</FormLabel>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
                 <Button type="submit" className="w-full">
-                  Add Provider
+                  {t('admin.operations.tracking.buttons.addProvider')}
                 </Button>
               </form>
             </Form>
@@ -231,17 +233,17 @@ export default function TrackingProviders() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Tracking Providers</CardTitle>
+            <CardTitle>{t('admin.operations.tracking.cards.configuredProviders')}</CardTitle>
             <CardDescription>
-              Manage your configured tracking providers.
+              {t('admin.operations.tracking.cards.configuredProvidersDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             {isLoading ? (
-              <div>Loading providers...</div>
+              <div>{t('admin.operations.tracking.labels.loading')}</div>
             ) : providers.length === 0 ? (
               <div className="text-center text-muted-foreground">
-                No tracking providers configured yet.
+                {t('admin.operations.tracking.labels.noProviders')}
               </div>
             ) : (
               <div className="space-y-4">
@@ -253,7 +255,7 @@ export default function TrackingProviders() {
                     <div>
                       <h3 className="font-medium">{provider.name}</h3>
                       <p className="text-sm text-muted-foreground">
-                        Type: {provider.type}
+                        {t('admin.operations.tracking.table.type')}: {provider.type}
                       </p>
                     </div>
                     <Switch

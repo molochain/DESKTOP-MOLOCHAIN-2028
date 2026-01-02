@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -57,6 +58,7 @@ interface ForeignKey {
 }
 
 export default function DatabaseSchemaExplorer() {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
@@ -217,9 +219,9 @@ export default function DatabaseSchemaExplorer() {
           <CardContent className="flex items-center justify-center p-8">
             <div className="text-center">
               <Database className="h-12 w-12 mx-auto mb-4 text-red-500" />
-              <h3 className="text-lg font-medium mb-2">Database Connection Error</h3>
+              <h3 className="text-lg font-medium mb-2">{t('developer.schemaExplorer.error.title')}</h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Unable to connect to the database. Please check your connection settings.
+                {t('developer.schemaExplorer.error.description')}
               </p>
             </div>
           </CardContent>
@@ -235,9 +237,9 @@ export default function DatabaseSchemaExplorer() {
           <CardContent className="flex items-center justify-center p-8">
             <div className="text-center">
               <Activity className="h-12 w-12 mx-auto mb-4 animate-spin text-blue-500" />
-              <h3 className="text-lg font-medium mb-2">Loading Database Schema</h3>
+              <h3 className="text-lg font-medium mb-2">{t('developer.schemaExplorer.loading.title')}</h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Analyzing your database structure...
+                {t('developer.schemaExplorer.loading.description')}
               </p>
             </div>
           </CardContent>
@@ -251,19 +253,19 @@ export default function DatabaseSchemaExplorer() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Database Schema Explorer</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t('developer.schemaExplorer.title')}</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-2">
-            Explore and analyze your database with {tables.length} tables and {foreignKeys.length} relationships
+            {t('developer.schemaExplorer.subtitle', { tables: tables.length, relationships: foreignKeys.length })}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Button onClick={exportToJSON} variant="outline" size="sm">
             <Download className="h-4 w-4 mr-2" />
-            Export JSON
+            {t('developer.schemaExplorer.buttons.exportJson')}
           </Button>
           <Button onClick={exportToSQL} variant="outline" size="sm">
             <FileText className="h-4 w-4 mr-2" />
-            Export SQL
+            {t('developer.schemaExplorer.buttons.exportSql')}
           </Button>
         </div>
       </div>
@@ -275,7 +277,7 @@ export default function DatabaseSchemaExplorer() {
             <div className="flex items-center space-x-2">
               <Database className="h-5 w-5 text-blue-600" />
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Total Tables</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('developer.schemaExplorer.stats.totalTables')}</p>
                 <p className="text-2xl font-bold">{tables.length}</p>
               </div>
             </div>
@@ -286,7 +288,7 @@ export default function DatabaseSchemaExplorer() {
             <div className="flex items-center space-x-2">
               <Table className="h-5 w-5 text-green-600" />
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Total Columns</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('developer.schemaExplorer.stats.totalColumns')}</p>
                 <p className="text-2xl font-bold">{columns.length}</p>
               </div>
             </div>
@@ -297,7 +299,7 @@ export default function DatabaseSchemaExplorer() {
             <div className="flex items-center space-x-2">
               <Link className="h-5 w-5 text-purple-600" />
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Relationships</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('developer.schemaExplorer.stats.relationships')}</p>
                 <p className="text-2xl font-bold">{foreignKeys.length}</p>
               </div>
             </div>
@@ -308,7 +310,7 @@ export default function DatabaseSchemaExplorer() {
             <div className="flex items-center space-x-2">
               <GitBranch className="h-5 w-5 text-orange-600" />
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Categories</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('developer.schemaExplorer.stats.categories')}</p>
                 <p className="text-2xl font-bold">{categories.length - 1}</p>
               </div>
             </div>
@@ -323,7 +325,7 @@ export default function DatabaseSchemaExplorer() {
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
-                placeholder="Search tables..."
+                placeholder={t('developer.schemaExplorer.search.placeholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -332,12 +334,12 @@ export default function DatabaseSchemaExplorer() {
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
               <SelectTrigger className="w-full sm:w-48">
                 <Filter className="h-4 w-4 mr-2" />
-                <SelectValue placeholder="Filter by category" />
+                <SelectValue placeholder={t('developer.schemaExplorer.filter.placeholder')} />
               </SelectTrigger>
               <SelectContent>
                 {categories.map(category => (
                   <SelectItem key={category} value={category}>
-                    {category === 'all' ? 'All Categories' : category}
+                    {category === 'all' ? t('developer.schemaExplorer.filter.allCategories') : category}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -348,14 +350,14 @@ export default function DatabaseSchemaExplorer() {
                 variant={viewMode === 'grid' ? 'default' : 'outline'}
                 onClick={() => setViewMode('grid')}
               >
-                Grid
+                {t('developer.schemaExplorer.viewMode.grid')}
               </Button>
               <Button
                 size="sm"
                 variant={viewMode === 'list' ? 'default' : 'outline'}
                 onClick={() => setViewMode('list')}
               >
-                List
+                {t('developer.schemaExplorer.viewMode.list')}
               </Button>
             </div>
           </div>
@@ -371,11 +373,11 @@ export default function DatabaseSchemaExplorer() {
               <CardTitle className="flex items-center justify-between">
                 <span className="flex items-center gap-2">
                   <Table className="h-5 w-5" />
-                  Database Tables ({filteredTables.length})
+                  {t('developer.schemaExplorer.cards.databaseTables.title')} ({filteredTables.length})
                 </span>
               </CardTitle>
               <CardDescription>
-                Click on a table to view its structure and relationships
+                {t('developer.schemaExplorer.cards.databaseTables.description')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -402,16 +404,16 @@ export default function DatabaseSchemaExplorer() {
                             )}
                           </div>
                           <Badge className={`${getCategoryColor(table.category)} text-xs`}>
-                            {table.category || 'Uncategorized'}
+                            {table.category || t('developer.schemaExplorer.uncategorized')}
                           </Badge>
                           <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
                             <div className="flex items-center gap-1">
                               <Hash className="h-3 w-3" />
-                              {table.column_count} columns
+                              {table.column_count} {t('developer.schemaExplorer.columns')}
                             </div>
                             <div className="flex items-center gap-1">
                               <Database className="h-3 w-3" />
-                              {table.row_count.toLocaleString()} rows
+                              {table.row_count.toLocaleString()} {t('developer.schemaExplorer.rows')}
                             </div>
                           </div>
                         </div>
@@ -436,13 +438,13 @@ export default function DatabaseSchemaExplorer() {
                             <div className="min-w-0">
                               <h4 className="font-medium truncate">{table.table_name}</h4>
                               <p className="text-sm text-gray-600 dark:text-gray-400">
-                                {table.column_count} columns • {table.row_count.toLocaleString()} rows
+                                {table.column_count} {t('developer.schemaExplorer.columns')} • {table.row_count.toLocaleString()} {t('developer.schemaExplorer.rows')}
                               </p>
                             </div>
                           </div>
                           <div className="flex items-center gap-2 flex-shrink-0">
                             <Badge className={`${getCategoryColor(table.category)} text-xs`}>
-                              {table.category || 'Uncategorized'}
+                              {table.category || t('developer.schemaExplorer.uncategorized')}
                             </Badge>
                             {table.has_foreign_keys && (
                               <Badge variant="outline" className="text-xs">
@@ -467,10 +469,10 @@ export default function DatabaseSchemaExplorer() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Eye className="h-5 w-5" />
-                Table Details
+                {t('developer.schemaExplorer.cards.tableDetails.title')}
               </CardTitle>
               <CardDescription>
-                {selectedTable ? `Structure of ${selectedTable}` : 'Select a table to view details'}
+                {selectedTable ? t('developer.schemaExplorer.cards.tableDetails.structureOf', { table: selectedTable }) : t('developer.schemaExplorer.cards.tableDetails.selectTable')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -478,13 +480,13 @@ export default function DatabaseSchemaExplorer() {
                 <Tabs defaultValue="columns" className="w-full">
                   <TabsList className="grid w-full grid-cols-3">
                     <TabsTrigger value="columns">
-                      Columns ({selectedTableColumns.length})
+                      {t('developer.schemaExplorer.tabs.columns')} ({selectedTableColumns.length})
                     </TabsTrigger>
                     <TabsTrigger value="relations">
-                      Relations ({selectedTableRelationships.length})
+                      {t('developer.schemaExplorer.tabs.relations')} ({selectedTableRelationships.length})
                     </TabsTrigger>
                     <TabsTrigger value="annotations">
-                      Annotations
+                      {t('developer.schemaExplorer.tabs.annotations')}
                     </TabsTrigger>
                   </TabsList>
                   
@@ -505,10 +507,10 @@ export default function DatabaseSchemaExplorer() {
                               </span>
                               <div className="flex items-center gap-1">
                                 {column.is_primary_key && (
-                                  <Badge variant="outline" className="text-xs">PK</Badge>
+                                  <Badge variant="outline" className="text-xs">{t('developer.schemaExplorer.columnDetails.pk')}</Badge>
                                 )}
                                 {column.is_foreign_key && (
-                                  <Badge variant="outline" className="text-xs">FK</Badge>
+                                  <Badge variant="outline" className="text-xs">{t('developer.schemaExplorer.columnDetails.fk')}</Badge>
                                 )}
                               </div>
                             </div>
@@ -518,8 +520,8 @@ export default function DatabaseSchemaExplorer() {
                                 <span className="font-mono text-xs">{column.data_type}</span>
                               </div>
                               <div className="text-xs">
-                                {column.is_nullable === 'YES' ? 'Nullable' : 'Not Null'}
-                                {column.column_default && ` • Default: ${column.column_default}`}
+                                {column.is_nullable === 'YES' ? t('developer.schemaExplorer.columnDetails.nullable') : t('developer.schemaExplorer.columnDetails.notNull')}
+                                {column.column_default && ` • ${t('developer.schemaExplorer.columnDetails.default')}: ${column.column_default}`}
                               </div>
                             </div>
                           </div>
@@ -551,7 +553,7 @@ export default function DatabaseSchemaExplorer() {
                                 </div>
                               </div>
                               <div className="mt-2 text-xs text-gray-500">
-                                {relation.table_name === selectedTable ? 'References' : 'Referenced by'}
+                                {relation.table_name === selectedTable ? t('developer.schemaExplorer.relationships.references') : t('developer.schemaExplorer.relationships.referencedBy')}
                               </div>
                             </div>
                           ))}
@@ -559,7 +561,7 @@ export default function DatabaseSchemaExplorer() {
                       ) : (
                         <div className="text-center py-8">
                           <Link className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                          <p className="text-gray-500 text-sm">No relationships found</p>
+                          <p className="text-gray-500 text-sm">{t('developer.schemaExplorer.relationships.noRelationships')}</p>
                         </div>
                       )}
                     </ScrollArea>
@@ -576,9 +578,9 @@ export default function DatabaseSchemaExplorer() {
               ) : (
                 <div className="text-center py-8">
                   <Database className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                  <p className="text-gray-500">Select a table to view its details</p>
+                  <p className="text-gray-500">{t('developer.schemaExplorer.selectTablePrompt')}</p>
                   <p className="text-sm text-gray-400 mt-2">
-                    {tables.length} tables available
+                    {t('developer.schemaExplorer.tablesAvailable', { count: tables.length })}
                   </p>
                 </div>
               )}
@@ -593,10 +595,10 @@ export default function DatabaseSchemaExplorer() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Network className="h-5 w-5" />
-              Relationship Map
+              {t('developer.schemaExplorer.relationshipMap.title')}
             </CardTitle>
             <CardDescription>
-              Visual representation of table connections
+              {t('developer.schemaExplorer.relationshipMap.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -604,7 +606,7 @@ export default function DatabaseSchemaExplorer() {
               <div className="text-center space-y-4">
                 <div className="inline-block p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
                   <h3 className="font-medium text-lg">{selectedTable}</h3>
-                  <p className="text-sm text-gray-500">Current Table</p>
+                  <p className="text-sm text-gray-500">{t('developer.schemaExplorer.relationshipMap.currentTable')}</p>
                 </div>
                 
                 {selectedTableRelationships.length > 0 && (
@@ -627,7 +629,7 @@ export default function DatabaseSchemaExplorer() {
                             {selectedTableRelationships.filter((fk) => 
                               (fk.table_name === selectedTable && fk.foreign_table_name === tableName) ||
                               (fk.foreign_table_name === selectedTable && fk.table_name === tableName)
-                            ).length} connection(s)
+                            ).length} {t('developer.schemaExplorer.relationshipMap.connections')}
                           </p>
                         </div>
                       ))}
