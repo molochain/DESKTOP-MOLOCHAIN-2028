@@ -227,7 +227,7 @@ export function ServiceReviews({ serviceId, serviceName, canReview = false }: Se
                       Write a Review
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="max-w-2xl">
+                  <DialogContent className="max-w-2xl" aria-describedby={undefined}>
                     <DialogHeader>
                       <DialogTitle>Write a Review for {serviceName}</DialogTitle>
                       <DialogDescription>

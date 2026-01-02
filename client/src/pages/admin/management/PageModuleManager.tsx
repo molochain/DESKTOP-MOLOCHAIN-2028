@@ -412,7 +412,7 @@ export default function PageModuleManager() {
               {t('admin.management.pageModule.buttons.addModule')}
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" aria-describedby={undefined}>
             <DialogHeader>
               <DialogTitle>{editingModule ? t('admin.management.pageModule.dialog.editTitle') : t('admin.management.pageModule.dialog.createTitle')}</DialogTitle>
               <DialogDescription>

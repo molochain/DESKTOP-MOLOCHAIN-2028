@@ -54,7 +54,7 @@ const AgentProfileModal: React.FC<AgentProfileModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[600px] p-0 overflow-hidden">
+      <DialogContent className="sm:max-w-[600px] p-0 overflow-hidden" aria-describedby={undefined}>
         <DialogHeader className="sr-only">
           <DialogTitle>Agent Profile: {agent.name}</DialogTitle>
           <DialogDescription>

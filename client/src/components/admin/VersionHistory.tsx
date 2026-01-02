@@ -69,7 +69,7 @@ export default function VersionHistory({ contentType, contentId }: VersionHistor
           <span className="font-medium">History</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl" aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>Version History</DialogTitle>
           <DialogDescription>

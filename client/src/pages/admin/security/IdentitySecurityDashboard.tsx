@@ -1087,7 +1087,7 @@ export default function IdentitySecurityDashboard() {
 
       {/* Notification Settings Dialog */}
       <Dialog open={showNotificationSettings} onOpenChange={setShowNotificationSettings}>
-        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto" aria-describedby={undefined}>
           <NotificationSettings 
             onSave={() => setShowNotificationSettings(false)}
             onCancel={() => setShowNotificationSettings(false)}
@@ -1097,7 +1097,7 @@ export default function IdentitySecurityDashboard() {
 
       {/* Compliance Report Dialog */}
       <Dialog open={showComplianceDialog} onOpenChange={setShowComplianceDialog}>
-        <DialogContent>
+        <DialogContent aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle>{t('admin.security.identity.dialogs.generateComplianceReport')}</DialogTitle>
             <DialogDescription>

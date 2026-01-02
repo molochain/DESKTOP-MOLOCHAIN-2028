@@ -472,8 +472,8 @@ export default function ReportsDashboard() {
             </Tabs>
 
       {/* Import Dialog */}
-<Dialog open={isImportDialogOpen} onOpenChange={setIsImportDialogOpen}>
-        <DialogContent>
+      <Dialog open={isImportDialogOpen} onOpenChange={setIsImportDialogOpen}>
+        <DialogContent aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle>{t('reports.import.title')}</DialogTitle>
             <DialogDescription>

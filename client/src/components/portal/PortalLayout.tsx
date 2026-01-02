@@ -185,7 +185,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="p-0 w-64">
+              <SheetContent side="left" className="p-0 w-64" aria-describedby={undefined}>
                 <SidebarContent />
               </SheetContent>
             </Sheet>

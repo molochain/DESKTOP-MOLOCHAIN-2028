@@ -623,7 +623,7 @@ export default function MicroservicesPanel() {
       )}
 
       <Dialog open={logsDialog.open} onOpenChange={(open) => setLogsDialog(prev => ({ ...prev, open }))}>
-        <DialogContent className="max-w-4xl max-h-[80vh]">
+        <DialogContent className="max-w-4xl max-h-[80vh]" aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <FileText className="h-5 w-5" />

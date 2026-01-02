@@ -125,7 +125,7 @@ export default function WalletConnectionModal({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl" aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle className="text-2xl flex items-center gap-2">
             <Wallet className="h-6 w-6" />

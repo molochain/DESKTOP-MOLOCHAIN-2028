@@ -316,7 +316,7 @@ export function TwoFactorAuth({ mode = "section", onSuccess, onCancel }: TwoFact
 
         {/* Setup Dialog */}
         <Dialog open={showSetupDialog} onOpenChange={setShowSetupDialog}>
-          <DialogContent className="max-w-md">
+          <DialogContent className="max-w-md" aria-describedby={undefined}>
             <DialogHeader>
               <DialogTitle>Set Up Two-Factor Authentication</DialogTitle>
               <DialogDescription>
@@ -444,7 +444,7 @@ export function TwoFactorAuth({ mode = "section", onSuccess, onCancel }: TwoFact
 
         {/* Disable Confirmation Dialog */}
         <AlertDialog open={showDisableDialog} onOpenChange={setShowDisableDialog}>
-          <AlertDialogContent>
+          <AlertDialogContent aria-describedby={undefined}>
             <AlertDialogHeader>
               <AlertDialogTitle>Disable Two-Factor Authentication?</AlertDialogTitle>
               <AlertDialogDescription>

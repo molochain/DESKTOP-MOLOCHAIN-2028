@@ -78,7 +78,7 @@ export default function CreatePost() {
                   Share your logistics insights...
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[600px]">
+              <DialogContent className="sm:max-w-[600px]" aria-describedby={undefined}>
                 <DialogHeader>
                   <DialogTitle>Create a post</DialogTitle>
                   <DialogDescription>

@@ -350,7 +350,7 @@ function ServiceManagement() {
                 {t('services.management.buttons.createService')}
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent aria-describedby={undefined}>
               <DialogHeader>
                 <DialogTitle>{t('services.management.dialog.createTitle')}</DialogTitle>
                 <DialogDescription>
@@ -846,7 +846,7 @@ function ServiceManagement() {
       {/* Edit Service Dialog */}
       {selectedService && (
         <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-          <DialogContent>
+          <DialogContent aria-describedby={undefined}>
             <DialogHeader>
               <DialogTitle>{t('services.management.dialog.editTitle')}</DialogTitle>
               <DialogDescription>

@@ -53,7 +53,7 @@ export function ConfirmDialog({
       <AlertDialogTrigger asChild data-testid={`${testId}-trigger`}>
         {trigger}
       </AlertDialogTrigger>
-      <AlertDialogContent data-testid={testId}>
+      <AlertDialogContent data-testid={testId} aria-describedby={undefined}>
         <AlertDialogHeader>
           <AlertDialogTitle data-testid={`${testId}-title`}>
             {title}

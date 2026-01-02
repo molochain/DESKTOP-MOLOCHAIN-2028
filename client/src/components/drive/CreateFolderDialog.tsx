@@ -63,7 +63,7 @@ export default function CreateFolderDialog({ onCreateFolder, isLoading }: Create
           New Folder
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px]" aria-describedby={undefined}>
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Create New Folder</DialogTitle>

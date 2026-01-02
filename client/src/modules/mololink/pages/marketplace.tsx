@@ -641,7 +641,7 @@ export default function Marketplace() {
 
       {/* Create Listing Dialog */}
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle>Create New Listing</DialogTitle>
             <DialogDescription>
@@ -994,7 +994,7 @@ export default function Marketplace() {
 
       {/* Place Bid Dialog */}
       <Dialog open={showBidDialog} onOpenChange={setShowBidDialog}>
-        <DialogContent>
+        <DialogContent aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle>Place Bid</DialogTitle>
             <DialogDescription>

@@ -1210,7 +1210,7 @@ const Contact = () => {
         {/* Calendar modal for scheduling meetings */}
         {selectedAgent && (
           <Dialog open={isCalendarModalOpen} onOpenChange={setIsCalendarModalOpen}>
-            <DialogContent className="sm:max-w-[500px] p-0">
+            <DialogContent className="sm:max-w-[500px] p-0" aria-describedby={undefined}>
               <DialogHeader className="p-6 pb-2">
                 <DialogTitle>Schedule a Meeting</DialogTitle>
                 <DialogDescription>
@@ -1230,7 +1230,7 @@ const Contact = () => {
         {/* Performance Metrics modal */}
         {selectedAgent && (
           <Dialog open={isPerformanceModalOpen} onOpenChange={setIsPerformanceModalOpen}>
-            <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto p-0">
+            <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto p-0" aria-describedby={undefined}>
               <DialogHeader className="p-6 pb-2">
                 <DialogTitle>Performance Metrics</DialogTitle>
                 <DialogDescription>

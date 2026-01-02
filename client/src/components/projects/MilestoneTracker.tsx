@@ -221,7 +221,7 @@ export default function MilestoneTracker({ projectId }: MilestoneTrackerProps) {
       </div>
 
       <Dialog open={showWorkflowDialog} onOpenChange={setShowWorkflowDialog}>
-        <DialogContent>
+        <DialogContent aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle>Workflow Templates</DialogTitle>
             <DialogDescription>

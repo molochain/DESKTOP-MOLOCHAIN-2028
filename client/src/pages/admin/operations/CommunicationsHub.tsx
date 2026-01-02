@@ -1075,7 +1075,7 @@ export default function CommunicationsHub() {
       </Sheet>
 
       <Dialog open={isTemplateDialogOpen} onOpenChange={setIsTemplateDialogOpen}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="sm:max-w-lg" aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle>{editingTemplate ? t('admin.operations.communications.dialogs.editTemplate') : t('admin.operations.communications.dialogs.addTemplate')}</DialogTitle>
             <DialogDescription>
@@ -1143,7 +1143,7 @@ export default function CommunicationsHub() {
       </Dialog>
 
       <Dialog open={isRecipientDialogOpen} onOpenChange={setIsRecipientDialogOpen}>
-        <DialogContent>
+        <DialogContent aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle>{t('admin.operations.communications.dialogs.addRecipient')}</DialogTitle>
             <DialogDescription>
@@ -1199,7 +1199,7 @@ export default function CommunicationsHub() {
           apiKeyForm.reset();
         }
       }}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="sm:max-w-lg" aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle>{t('admin.operations.communications.dialogs.createApiKey')}</DialogTitle>
             <DialogDescription>

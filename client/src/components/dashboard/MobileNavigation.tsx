@@ -41,7 +41,7 @@ export function MobileNavigation() {
           <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-80 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 p-0 flex flex-col">
+      <SheetContent side="left" className="w-80 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 p-0 flex flex-col" aria-describedby={undefined}>
         <SheetHeader className="p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
           <SheetTitle className="text-gray-900 dark:text-white">Navigation</SheetTitle>
         </SheetHeader>

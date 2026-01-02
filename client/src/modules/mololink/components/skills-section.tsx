@@ -206,7 +206,7 @@ export default function SkillsSection({ userId, isOwnProfile }: SkillsSectionPro
                   Add Skill
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent aria-describedby={undefined}>
                 <DialogHeader>
                   <DialogTitle>Add a New Skill</DialogTitle>
                   <DialogDescription>

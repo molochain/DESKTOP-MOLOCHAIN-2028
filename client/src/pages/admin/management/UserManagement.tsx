@@ -259,7 +259,7 @@ export default function UserManagement() {
               {t('admin.management.users.buttons.addUser')}
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-md">
+          <DialogContent className="max-w-md" aria-describedby={undefined}>
             <DialogHeader>
               <DialogTitle>{t('admin.management.users.dialog.createTitle')}</DialogTitle>
               <DialogDescription>
@@ -488,7 +488,7 @@ export default function UserManagement() {
 
       {/* Edit User Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md" aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle>{t('admin.management.users.dialog.editTitle')}</DialogTitle>
             <DialogDescription>

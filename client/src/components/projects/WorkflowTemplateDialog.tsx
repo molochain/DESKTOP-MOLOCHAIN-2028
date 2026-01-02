@@ -29,7 +29,7 @@ export function WorkflowTemplateDialog({ onSelect, trigger }: WorkflowTemplateDi
       <DialogTrigger asChild>
         {trigger || <Button variant="outline">Select Workflow Template</Button>}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px]" aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>Select Workflow Template</DialogTitle>
           <DialogDescription>
