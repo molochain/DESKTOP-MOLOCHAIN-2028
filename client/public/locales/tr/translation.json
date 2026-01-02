@@ -401,6 +401,11 @@
         "clear": "Karşılaştırmayı Temizle",
         "getQuote": "Seçili Hizmetler İçin Teklif Al"
       }
+    },
+    "detail": {
+      "notFound": "Hizmet Bulunamadı",
+      "notFoundDescription": "\"{{serviceId}}\" hizmeti bulunamadı. Kaldırılmış olabilir veya URL yanlış olabilir.",
+      "backToServices": "Hizmetlere Dön"
     }
   },
   "tools": {
@@ -642,28 +647,41 @@
         "country": "Türkiye",
         "type": "Küresel Merkez",
         "address": "Maslak İş Merkezi",
-        "services": ["Operasyonlar", "Strateji", "Teknoloji"]
+        "services": [
+          "Operasyonlar",
+          "Strateji",
+          "Teknoloji"
+        ]
       },
       "dubai": {
         "city": "Dubai",
         "country": "BAE",
         "type": "Bölgesel Merkez",
         "address": "Business Bay",
-        "services": ["Orta Doğu Operasyonları", "Hava Kargo"]
+        "services": [
+          "Orta Doğu Operasyonları",
+          "Hava Kargo"
+        ]
       },
       "hamburg": {
         "city": "Hamburg",
         "country": "Almanya",
         "type": "Avrupa Ofisi",
         "address": "HafenCity",
-        "services": ["Avrupa Dağıtımı", "Deniz Taşımacılığı"]
+        "services": [
+          "Avrupa Dağıtımı",
+          "Deniz Taşımacılığı"
+        ]
       },
       "singapore": {
         "city": "Singapur",
         "country": "Singapur",
         "type": "Asya Pasifik Merkezi",
         "address": "Marina Bay",
-        "services": ["APAC Operasyonları", "Transit Hizmetleri"]
+        "services": [
+          "APAC Operasyonları",
+          "Transit Hizmetleri"
+        ]
       }
     },
     "cta": {

@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -18,6 +19,7 @@ const getIconFromName = (iconName: string | null | undefined) => {
 };
 
 export default function ServiceDetailTemplate({ serviceId }: ServiceDetailTemplateProps) {
+  const { t } = useTranslation();
   const { data: apiService, isLoading, isError } = useServiceDetail(serviceId);
   const serviceConfig = getServiceConfig(serviceId);
 
@@ -44,16 +46,16 @@ export default function ServiceDetailTemplate({ serviceId }: ServiceDetailTempla
             <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
               <AlertCircle className="h-8 w-8 text-red-600" />
             </div>
-            <CardTitle className="text-2xl">Service Not Found</CardTitle>
+            <CardTitle className="text-2xl">{t('services.detail.notFound')}</CardTitle>
           </CardHeader>
           <CardContent className="text-center space-y-4">
             <p className="text-muted-foreground">
-              The service "{serviceId}" could not be found. It may have been removed or the URL might be incorrect.
+              {t('services.detail.notFoundDescription', { serviceId })}
             </p>
             <Link href="/services">
               <Button data-testid="back-to-services-button">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Services
+                {t('services.detail.backToServices')}
               </Button>
             </Link>
           </CardContent>

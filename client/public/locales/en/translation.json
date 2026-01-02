@@ -351,6 +351,11 @@
         "clear": "Clear Comparison",
         "getQuote": "Get Quote for Selected Services"
       }
+    },
+    "detail": {
+      "notFound": "Service Not Found",
+      "notFoundDescription": "The service \"{{serviceId}}\" could not be found. It may have been removed or the URL might be incorrect.",
+      "backToServices": "Back to Services"
     }
   },
   "tools": {
@@ -592,28 +597,41 @@
         "country": "Turkey",
         "type": "Global Headquarters",
         "address": "Maslak Business District",
-        "services": ["Operations", "Strategy", "Technology"]
+        "services": [
+          "Operations",
+          "Strategy",
+          "Technology"
+        ]
       },
       "dubai": {
         "city": "Dubai",
         "country": "UAE",
         "type": "Regional Hub",
         "address": "Business Bay",
-        "services": ["Middle East Operations", "Air Freight"]
+        "services": [
+          "Middle East Operations",
+          "Air Freight"
+        ]
       },
       "hamburg": {
         "city": "Hamburg",
         "country": "Germany",
         "type": "European Office",
         "address": "HafenCity",
-        "services": ["European Distribution", "Ocean Freight"]
+        "services": [
+          "European Distribution",
+          "Ocean Freight"
+        ]
       },
       "singapore": {
         "city": "Singapore",
         "country": "Singapore",
         "type": "Asia Pacific Hub",
         "address": "Marina Bay",
-        "services": ["APAC Operations", "Transit Services"]
+        "services": [
+          "APAC Operations",
+          "Transit Services"
+        ]
       }
     },
     "cta": {
