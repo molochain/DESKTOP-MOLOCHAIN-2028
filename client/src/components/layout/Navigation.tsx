@@ -153,13 +153,6 @@ export const ProfileMenu = ({ user, onLogout }: { user: any; onLogout: () => Pro
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem 
-          onClick={() => navigate('/dashboard')}
-          className="font-medium"
-        >
-          <Home className="mr-2 h-4 w-4" />
-          <span>{t('profile.menu.dashboard', 'Dashboard')}</span>
-        </DropdownMenuItem>
         {(isAdmin || isDeveloper) && (
           <>
             <DropdownMenuItem 
@@ -214,29 +207,6 @@ const Navigation = () => {
   };
 
   const navigationGroups = {
-    dashboard: user ? {
-      trigger: t('nav.dashboard', 'Dashboard'),
-      items: [
-        { 
-          href: "/dashboard", 
-          label: t('nav.myDashboard', 'My Dashboard'),
-          icon: <Home className="h-4 w-4" />,
-          description: t('nav.myDashboardDesc', 'Access your personalized dashboard')
-        },
-        { 
-          href: "/profile", 
-          label: t('nav.profile', 'Profile'),
-          icon: <User className="h-4 w-4" />,
-          description: t('nav.profileDesc', 'Manage your account settings')
-        },
-        { 
-          href: "/settings", 
-          label: t('nav.settings', 'Settings'),
-          icon: <Settings className="h-4 w-4" />,
-          description: t('nav.settingsDesc', 'Configure your preferences')
-        }
-      ]
-    } : null,
     services: {
       trigger: t('nav.services', 'Services'),
       items: [
@@ -358,15 +328,6 @@ const Navigation = () => {
             {t('nav.home', 'Home')}
           </button>
 
-          {user && navigationGroups.dashboard && (
-            <NavDropdown
-              key="dashboard"
-              trigger={navigationGroups.dashboard.trigger}
-              items={navigationGroups.dashboard.items}
-              isActive={isDropdownActive(navigationGroups.dashboard.items)}
-            />
-          )}
-
           <NavDropdown
             key="services"
             trigger={navigationGroups.services.trigger}
@@ -408,7 +369,6 @@ const Navigation = () => {
       'solutions': 'nav.solutions',
       'company': 'nav.company',
       'resources': 'nav.resources',
-      'dashboard': 'nav.dashboard',
     };
 
     cmsMenu.forEach((menuItem) => {
@@ -471,17 +431,6 @@ const Navigation = () => {
     });
 
     const cmsLabels = cmsMenu.map(m => m.label.toLowerCase());
-    
-    if (user && navigationGroups.dashboard) {
-      navElements.push(
-        <NavDropdown
-          key="dashboard"
-          trigger={navigationGroups.dashboard.trigger}
-          items={navigationGroups.dashboard.items}
-          isActive={isDropdownActive(navigationGroups.dashboard.items)}
-        />
-      );
-    }
 
     navElements.push(
       <NavDropdown
