@@ -202,6 +202,97 @@
         "handling": "Hassas Kargo İşleme",
         "tracking": "Hassas Takip"
       }
+    },
+    "project": {
+      "title": "Proje Yönetimi",
+      "description": "Karmaşık lojistik proje yönetimi",
+      "features": {
+        "planning": "Kapsamlı Planlama",
+        "execution": "Hassas Uygulama",
+        "monitoring": "Sürekli İzleme",
+        "reporting": "Düzenli Raporlama"
+      }
+    },
+    "consultation": {
+      "title": "Danışmanlık Hizmetleri",
+      "description": "Lojistik alanında uzman danışmanlık",
+      "features": {
+        "analysis": "Tedarik Zinciri Analizi",
+        "optimization": "Süreç Optimizasyonu",
+        "strategy": "Lojistik Stratejisi",
+        "implementation": "Çözüm Uygulaması"
+      }
+    },
+    "page": {
+      "heroTitle": "MoloChain Küresel Hizmetler",
+      "heroSubtitle": "İnovasyonla desteklenen kapsamlı lojistik çözümler. Hava kargosundan depolamaya, 180'den fazla ülkede mükemmellik sunuyoruz.",
+      "searchPlaceholder": "Hizmet ara...",
+      "compareServices": "Hizmetleri Karşılaştır",
+      "pricingCalculator": "Fiyat Hesaplayıcı",
+      "aiRecommendations": "Yapay Zeka Önerileri",
+      "filterByCategory": "Kategoriye Göre Filtrele",
+      "allServices": "Tüm Hizmetler",
+      "servicesCount": "{{count}} hizmet",
+      "servicesCount_one": "{{count}} hizmet",
+      "active": "Aktif",
+      "defaultDescription": "Profesyonel lojistik hizmeti",
+      "viewDetails": "Detayları Gör",
+      "clearFilters": "Filtreleri Temizle",
+      "tryAgain": "Tekrar Dene",
+      "generalService": "Genel Hizmet",
+      "selectCategory": "Kategori seçin",
+      "stats": {
+        "countries": "Ülkeler",
+        "services": "Hizmetler",
+        "yearsExperience": "Yıllık Deneyim",
+        "activeUsers": "Aktif Kullanıcılar"
+      },
+      "features": {
+        "secure": "Güvenli ve Güvenilir",
+        "support": "7/24 Destek",
+        "global": "Küresel Kapsama"
+      },
+      "error": {
+        "title": "Hizmetler Yüklenemedi",
+        "subtitle": "Hizmetlerimizi yüklerken sorun yaşıyoruz. Lütfen daha sonra tekrar deneyin."
+      },
+      "noResults": {
+        "title": "Hizmet Bulunamadı",
+        "subtitle": "Aradığınızı bulmak için arama veya filtreyi ayarlamayı deneyin."
+      },
+      "whyChoose": {
+        "title": "Neden MoloChain?",
+        "subtitle": "En son teknoloji ve küresel erişimle sektör lideri lojistik çözümleri",
+        "fast": {
+          "title": "Hızlı ve Verimli",
+          "description": "En hızlı teslimat süreleri için optimize edilmiş rotalar ve gerçek zamanlı takip"
+        },
+        "secure": {
+          "title": "Güvenli ve Güvenilir",
+          "description": "Tüm gönderiler için gelişmiş güvenlik protokolleri ve sigorta kapsamı"
+        },
+        "custom": {
+          "title": "Özel Çözümler",
+          "description": "İşletmenizin özel ihtiyaçlarını karşılamak için özelleştirilmiş lojistik stratejileri"
+        }
+      },
+      "cta": {
+        "title": "Lojistiğinizi Dönüştürmeye Hazır mısınız?",
+        "subtitle": "Lojistik ihtiyaçları için MoloChain'e güvenen dünya çapındaki binlerce işletmeye katılın",
+        "getStarted": "Başlayın",
+        "learnMore": "Daha Fazla Bilgi"
+      },
+      "categories": {
+        "all": "Tüm Hizmetler",
+        "transport": "Taşımacılık",
+        "warehouse": "Depolama",
+        "customs": "Gümrük",
+        "financial": "Finansal",
+        "general": "Genel",
+        "air": "Hava Kargo",
+        "maritime": "Deniz",
+        "rail": "Demiryolu"
+      }
     }
   },
   "tools": {
@@ -228,31 +319,129 @@
   "auth": {
     "login": {
       "title": "Tekrar Hoşgeldiniz",
+      "description": "MoloChain platformuna erişmek için giriş yapın",
       "email": "E-posta",
+      "emailPlaceholder": "E-posta adresinizi girin",
       "password": "Şifre",
+      "passwordPlaceholder": "Şifrenizi girin",
       "submit": "Giriş Yap",
       "loggingIn": "Giriş yapılıyor...",
       "forgotPassword": "Şifremi Unuttum",
+      "rememberMe": "30 gün boyunca beni hatırla",
       "noAccount": "Hesabınız yok mu?",
-      "register": "Kayıt Ol"
+      "createAccount": "Hesap Oluşturun",
+      "register": "Kayıt Ol",
+      "agreementPrefix": "Giriş yaparak",
+      "termsOfService": "Hizmet Şartları",
+      "and": "ve",
+      "privacyPolicy": "Gizlilik Politikası",
+      "nav": {
+        "home": "Ana Sayfa",
+        "register": "Kayıt Ol"
+      },
+      "toast": {
+        "success": "Giriş Başarılı",
+        "welcomeBack": "Tekrar hoşgeldiniz, {{username}}!",
+        "failed": "Giriş Başarısız",
+        "error": "Hata",
+        "fillFields": "Lütfen tüm alanları doldurun"
+      }
     },
     "register": {
       "title": "Hesap Oluştur",
+      "description": "MoloChain platformuna erişmek için hesabınızı oluşturun",
       "username": "Kullanıcı Adı",
+      "usernamePlaceholder": "kullaniciadi123",
       "email": "E-posta",
+      "emailPlaceholder": "ornek@email.com",
       "password": "Şifre",
+      "passwordPlaceholder": "Güçlü bir şifre girin",
+      "passwordHint": "En az 8 karakter, büyük harf, küçük harf, rakam ve özel karakter",
       "fullName": "Ad Soyad",
+      "fullNamePlaceholder": "Ad Soyad",
       "company": "Şirket (İsteğe bağlı)",
+      "companyPlaceholder": "Şirket adınız",
       "phone": "Telefon Numarası (İsteğe bağlı)",
+      "phonePlaceholder": "+90 212 345 6789",
       "submit": "Hesap Oluştur",
       "creating": "Hesap oluşturuluyor...",
       "haveAccount": "Zaten hesabınız var mı?",
-      "login": "Giriş Yap"
+      "login": "Giriş Yap",
+      "securityNotice": "Sektör lideri güvenlik uygulamalarıyla korunmaktadır",
+      "toast": {
+        "success": "Kayıt başarılı",
+        "successDescription": "Hesabınız oluşturuldu. Lütfen giriş yapın."
+      },
+      "validation": {
+        "usernameMin": "Kullanıcı adı en az 3 karakter olmalıdır",
+        "usernameMax": "Kullanıcı adı 50 karakterden az olmalıdır",
+        "usernameFormat": "Kullanıcı adı yalnızca harf, rakam, alt çizgi ve tire içerebilir",
+        "emailInvalid": "Lütfen geçerli bir e-posta adresi girin",
+        "emailRequired": "E-posta gereklidir",
+        "passwordMin": "Şifre en az 8 karakter olmalıdır",
+        "passwordUppercase": "Şifre en az bir büyük harf içermelidir",
+        "passwordLowercase": "Şifre en az bir küçük harf içermelidir",
+        "passwordNumber": "Şifre en az bir rakam içermelidir",
+        "passwordSpecial": "Şifre en az bir özel karakter içermelidir",
+        "fullNameMin": "Ad soyad en az 2 karakter olmalıdır"
+      }
+    },
+    "passwordReset": {
+      "title": "Şifre Sıfırlama",
+      "description": "E-posta adresinizi girin, size şifre sıfırlama bağlantısı gönderelim",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "E-posta adresinizi girin",
+      "submitButton": "Sıfırlama Bağlantısı Gönder",
+      "sendingButton": "Sıfırlama Bağlantısı Gönderiliyor...",
+      "backToLogin": "Giriş Sayfasına Dön",
+      "noAccount": "Hesabınız yok mu?",
+      "signUp": "Kayıt olun",
+      "securityNotice": "Sektör lideri güvenlik uygulamalarıyla korunmaktadır",
+      "validation": {
+        "emailInvalid": "Lütfen geçerli bir e-posta adresi girin"
+      },
+      "toast": {
+        "successTitle": "Şifre sıfırlama e-postası gönderildi",
+        "successDescription": "E-postanız kayıtlıysa, şifre sıfırlama bağlantısı alacaksınız.",
+        "failedTitle": "Şifre sıfırlama isteği başarısız",
+        "requestFailed": "İstek başarısız"
+      }
+    },
+    "resetPassword": {
+      "title": "Yeni Şifre Belirle",
+      "description": "Hesabınız için güvenli yeni bir şifre oluşturun",
+      "newPasswordLabel": "Yeni Şifre",
+      "newPasswordPlaceholder": "Yeni şifrenizi girin",
+      "confirmPasswordLabel": "Şifreyi Onayla",
+      "confirmPasswordPlaceholder": "Yeni şifrenizi onaylayın",
+      "submitButton": "Yeni Şifreyi Belirle",
+      "settingButton": "Yeni Şifre Belirleniyor...",
+      "backToLogin": "Giriş Sayfasına Dön",
+      "securityNotice": "Sektör lideri güvenlik uygulamalarıyla korunmaktadır",
+      "validation": {
+        "passwordMin": "Şifre en az 8 karakter olmalıdır",
+        "passwordMax": "Şifre 100 karakteri aşamaz",
+        "confirmRequired": "Lütfen şifrenizi onaylayın",
+        "passwordsMismatch": "Şifreler eşleşmiyor"
+      },
+      "toast": {
+        "successTitle": "Şifre sıfırlama başarılı",
+        "successDescription": "Şifreniz sıfırlandı. Artık yeni şifrenizle giriş yapabilirsiniz.",
+        "failedTitle": "Şifre sıfırlama başarısız",
+        "resetFailed": "Şifre sıfırlama başarısız",
+        "invalidLinkTitle": "Geçersiz sıfırlama bağlantısı",
+        "invalidLinkDescription": "Şifre sıfırlama bağlantısı geçersiz veya süresi dolmuş.",
+        "tokenMissing": "Sıfırlama kodu eksik"
+      }
     }
   },
   "about": {
     "title": "Molo Lojistik Hakkında",
     "subtitle": "Küresel lojistik ve taşımacılıkta öncü güç",
+    "badge": "MoloChain Hakkında",
+    "heroTitle": "Lojistik ile Dünyayı Birleştiriyoruz",
+    "heroSubtitle": "25 yılı aşkın süredir MoloChain, küresel lojistiğin ön saflarında yer alarak işletmeleri hareket halinde tutan ve ekonomileri büyüten yenilikçi çözümler sunuyor.",
+    "exploreServices": "Hizmetlerimizi Keşfedin",
     "approach": {
       "title": "Yaklaşımımız",
       "description": "Molo'da insan odaklı ve işbirlikçi bir yaklaşıma inanıyoruz. Her müşteri sadece bir müşteri değil, aynı zamanda bir ortak ve dosttur. Şeffaflık, güven ve kaliteli hizmet sunumuna olan bağlılığımız, bizi küresel taşımacılık sektöründe güvenilir bir marka haline getirdi.",
@@ -276,8 +465,67 @@
         "description": "Dünya çapında büyük ticari şirketlerle işbirliği"
       }
     },
+    "stats": {
+      "countries": {
+        "label": "Ülkeler",
+        "value": "180+",
+        "description": "Kıtalar arası küresel varlık"
+      },
+      "services": {
+        "label": "Hizmetler",
+        "value": "46+",
+        "description": "Kapsamlı lojistik çözümler"
+      },
+      "yearsExperience": {
+        "label": "Yıllık Deneyim",
+        "value": "25+",
+        "description": "1999'dan beri sektör uzmanlığı"
+      },
+      "activeCustomers": {
+        "label": "Aktif Müşteriler",
+        "value": "10 Bin+",
+        "description": "Dünya çapındaki işletmelerin güvenci"
+      }
+    },
+    "mission": {
+      "badge": "Misyonumuz",
+      "title": "İnovasyon ile Küresel Ticareti Güçlendiriyoruz",
+      "description1": "MoloChain'de, verimli lojistiğin küresel ticaretin omurgası olduğuna inanıyoruz. Misyonumuz, her ölçekteki işletmenin dünya sahnesinde rekabet etmesini sağlayan kesintisiz, teknoloji odaklı tedarik zinciri çözümleri sunmaktır.",
+      "description2": "Lojistiği devrimleştirme vizyonuyla kurulan şirketimiz, bölgesel bir nakliyeciden kapsamlı bir küresel lojistik sağlayıcısına dönüştü. Bugün, 180'den fazla ülkede 10.000'den fazla müşteriye 46+ özelleştirilmiş hizmet sunuyoruz."
+    },
+    "values": {
+      "title": "Değerlerimiz",
+      "heading": "Bizi İleriye Taşıyan",
+      "subtitle": "Temel değerlerimiz kim olduğumuzu tanımlar ve müşterilerimize hizmet ederken aldığımız her kararı yönlendirir.",
+      "reliability": {
+        "title": "Güvenilirlik",
+        "description": "Güvenebileceğiniz tutarlı, güvenilir hizmetle vaatlerimizi yerine getiriyoruz."
+      },
+      "innovation": {
+        "title": "İnovasyon",
+        "description": "Lojistiği optimize etmek ve verimliliği artırmak için en son teknolojiyi kullanıyoruz."
+      },
+      "customerFocus": {
+        "title": "Müşteri Odaklılık",
+        "description": "Başarınız önceliğimizdir. Olağanüstü hizmetle kalıcı ortaklıklar kuruyoruz."
+      },
+      "transparency": {
+        "title": "Şeffaflık",
+        "description": "Tedarik zinciriniz boyunca net iletişim ve gerçek zamanlı görünürlük."
+      },
+      "excellence": {
+        "title": "Mükemmellik",
+        "description": "Sürekli iyileştirme ve sınıfının en iyisi çözümler sunmaya kararlıyız."
+      },
+      "integrity": {
+        "title": "Dürüstlük",
+        "description": "Her iş ilişkisinde dürüstlük ve etik standartlarla hareket ediyoruz."
+      }
+    },
     "globalPresence": {
       "title": "Küresel Varlık",
+      "heading": "Dünya Çapında Stratejik Konumlanma",
+      "subtitle": "Küresel ofis ağımız, size ihtiyaç duyduğunuz yerde her zaman yakın olmamızı sağlar.",
       "description": "Depo ve nakliye rotalarımızın stratejik ağı, başlıca küresel ticaret merkezlerini kapsayarak dünya çapında verimli ve güvenilir lojistik çözümler sunuyor."
     },
     "expertise": {
@@ -320,6 +568,15 @@
       "list2": "Verimliliği artırmak için yeni teknolojilere yatırım yapmak",
       "list3": "Yeni ve yenilikçi lojistik çözümler geliştirmek",
       "description5": "Sürekli büyümemizin müşterilerimize ve küresel lojistik sektörüne fayda sağlayacağından eminiz."
+    },
+    "cta": {
+      "title": "MoloChain ile Ortak Olmaya Hazır mısınız?",
+      "subtitle": "Lojistik ihtiyaçları için MoloChain'e güvenen dünya çapındaki binlerce işletmeye katılın. Tedarik zincirinizi nasıl optimize edebileceğimizi konuşalım.",
+      "getInTouch": "İletişime Geçin",
+      "viewServices": "Tüm Hizmetleri Görüntüle",
+      "support247": "7/24 Destek",
+      "countriesCount": "180+ Ülke",
+      "secureReliable": "Güvenli ve Güvenilir"
     }
   },
   "footer": {
@@ -390,7 +647,10 @@
       "name": "Ad",
       "email": "E-posta",
       "message": "Mesaj",
-      "submit": "Mesaj Gönder"
+      "submit": "Mesaj Gönder",
+      "phone": "Telefon",
+      "company": "Şirket",
+      "subject": "Konu"
     },
     "info": {
       "address": "Adres",
@@ -420,13 +680,92 @@
     "no": "Hayır",
     "confirm": "Onayla",
     "welcome": "Hoş Geldiniz",
-    "logout": "Çıkış"
+    "logout": "Çıkış",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "sort": "Sırala",
+    "view": "Görüntüle",
+    "create": "Oluştur",
+    "update": "Güncelle",
+    "refresh": "Yenile",
+    "download": "İndir",
+    "upload": "Yükle",
+    "export": "Dışa Aktar",
+    "import": "İçe Aktar",
+    "select": "Seç",
+    "selectAll": "Tümünü Seç",
+    "clear": "Temizle",
+    "apply": "Uygula",
+    "reset": "Sıfırla",
+    "continue": "Devam",
+    "previous": "Önceki",
+    "finish": "Bitir",
+    "more": "Daha Fazla",
+    "less": "Daha Az",
+    "showMore": "Daha Fazla Göster",
+    "showLess": "Daha Az Göster",
+    "seeAll": "Tümünü Gör",
+    "required": "Gerekli",
+    "optional": "İsteğe Bağlı"
   },
   "language": {
     "select": "Dil Seçin",
     "english": "English",
     "arabic": "العربية",
     "persian": "فارسی",
-    "turkish": "Türkçe"
+    "turkish": "Türkçe",
+    "spanish": "Español",
+    "russian": "Русский",
+    "chinese": "中文"
+  },
+  "tracking": {
+    "title": "Gönderi Takibi",
+    "subtitle": "Gönderinizi takip edin",
+    "trackingNumber": "Takip Numarası",
+    "trackingNumberPlaceholder": "Takip numaranızı girin",
+    "track": "Takip Et",
+    "status": "Durum",
+    "location": "Konum",
+    "date": "Tarih",
+    "time": "Saat",
+    "origin": "Çıkış",
+    "destination": "Varış",
+    "estimatedDelivery": "Tahmini Teslimat",
+    "inTransit": "Yolda",
+    "delivered": "Teslim Edildi",
+    "pending": "Beklemede",
+    "processing": "İşleniyor",
+    "outForDelivery": "Dağıtıma Çıktı",
+    "noResults": "Sonuç bulunamadı"
+  },
+  "quote": {
+    "title": "Teklif İsteği",
+    "subtitle": "Özel teklif alın",
+    "form": {
+      "origin": "Çıkış",
+      "destination": "Varış",
+      "weight": "Ağırlık",
+      "dimensions": "Boyutlar",
+      "cargoType": "Kargo Tipi",
+      "serviceType": "Hizmet Tipi",
+      "additionalInfo": "Ek Bilgiler",
+      "submit": "Teklif İste",
+      "name": "Ad",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "company": "Şirket"
+    },
+    "success": {
+      "title": "İsteğiniz Gönderildi",
+      "message": "Ekibimiz en kısa sürede sizinle iletişime geçecektir."
+    }
+  },
+  "privacy": {
+    "title": "Gizlilik Politikası",
+    "lastUpdated": "Son güncelleme: 19 Ocak 2025"
+  },
+  "terms": {
+    "title": "Hizmet Şartları",
+    "lastUpdated": "Son güncelleme: 19 Ocak 2025"
   }
 }
