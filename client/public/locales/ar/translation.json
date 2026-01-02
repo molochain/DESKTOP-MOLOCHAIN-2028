@@ -441,6 +441,143 @@
         "question4": "Do you provide insurance coverage?",
         "answer4": "Yes, comprehensive insurance coverage is available for all shipments. We offer various coverage levels to match your cargo value and risk tolerance."
       }
+    },
+    "management": {
+      "title": "Service Management",
+      "subtitle": "Monitor, manage, and configure all system services",
+      "buttons": {
+        "refresh": "Refresh",
+        "createService": "Create Service"
+      },
+      "dialog": {
+        "createTitle": "Create New Service",
+        "createDescription": "Register a new service in the system",
+        "editTitle": "Edit Service",
+        "editDescription": "Update service configuration"
+      },
+      "form": {
+        "serviceCode": "Service Code",
+        "serviceCodePlaceholder": "e.g., payment-service",
+        "serviceName": "Service Name",
+        "serviceNamePlaceholder": "e.g., Payment Processing Service",
+        "description": "Description",
+        "descriptionPlaceholder": "Service description...",
+        "category": "Category",
+        "selectCategory": "Select category",
+        "type": "Type",
+        "selectType": "Select type"
+      },
+      "categories": {
+        "shipping": "Shipping",
+        "warehousing": "Warehousing",
+        "customs": "Customs",
+        "freight": "Freight",
+        "logistics": "Logistics",
+        "ai": "AI",
+        "integration": "Integration",
+        "monitoring": "Monitoring",
+        "performance": "Performance",
+        "other": "Other"
+      },
+      "types": {
+        "internal": "Internal",
+        "external": "External",
+        "integration": "Integration"
+      },
+      "stats": {
+        "totalServices": "Total Services",
+        "activeCount": "{{count}} active",
+        "healthy": "Healthy",
+        "degraded": "Degraded",
+        "unhealthy": "Unhealthy",
+        "categories": "Categories",
+        "requiresAttention": "Requires attention",
+        "criticalIssues": "Critical issues",
+        "serviceCategories": "Service categories"
+      },
+      "tabs": {
+        "overview": "Overview",
+        "monitoring": "Monitoring",
+        "instances": "Instances",
+        "integrations": "Integrations"
+      },
+      "servicesCard": {
+        "title": "Services",
+        "description": "Manage and monitor all registered services"
+      },
+      "search": {
+        "placeholder": "Search services..."
+      },
+      "filters": {
+        "allCategories": "All Categories",
+        "allTypes": "All Types"
+      },
+      "table": {
+        "service": "Service",
+        "category": "Category",
+        "type": "Type",
+        "status": "Status",
+        "health": "Health",
+        "version": "Version",
+        "lastCheck": "Last Check",
+        "never": "Never"
+      },
+      "healthStatus": {
+        "unknown": "Unknown"
+      },
+      "menu": {
+        "actions": "Actions",
+        "viewDetails": "View Details",
+        "restart": "Restart"
+      },
+      "metrics": {
+        "title": "Metrics",
+        "totalRequests": "Total Requests",
+        "successRate": "Success Rate",
+        "avgResponseTime": "Avg Response Time",
+        "errorCount": "Error Count",
+        "uptime": "Uptime"
+      },
+      "monitoring": {
+        "title": "Service Monitoring",
+        "description": "Real-time health and performance monitoring",
+        "dataFor": "Monitoring data for <strong>{{name}}</strong>",
+        "healthHistory": "Health History",
+        "time": "Time",
+        "responseTime": "Response Time",
+        "failures": "Failures",
+        "selectService": "Select a service to view monitoring data"
+      },
+      "instances": {
+        "title": "Service Instances",
+        "description": "Manage service instances and deployments",
+        "comingSoon": "Service instance management coming soon"
+      },
+      "integrations": {
+        "title": "Service Integrations",
+        "description": "Configure external service integrations",
+        "comingSoon": "Integration management coming soon"
+      },
+      "statusOptions": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "maintenance": "Maintenance",
+        "deprecated": "Deprecated"
+      },
+      "toast": {
+        "serviceCreated": "Service Created",
+        "serviceCreatedDescription": "The service has been created successfully.",
+        "createFailed": "Failed to create service",
+        "serviceUpdated": "Service Updated",
+        "serviceUpdatedDescription": "The service has been updated successfully.",
+        "updateFailed": "Failed to update service",
+        "serviceDeleted": "Service Deleted",
+        "serviceDeletedDescription": "The service has been deleted successfully.",
+        "deleteFailed": "Failed to delete service",
+        "restartInitiated": "Service Restart Initiated",
+        "restartInitiatedDescription": "Service {{service}} is being restarted.",
+        "restartFailed": "Failed to restart service"
+      }
     }
   },
   "tools": {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   Card,
@@ -123,6 +124,7 @@ interface ServiceStats {
 }
 
 function ServiceManagement() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = useState('');
@@ -186,8 +188,8 @@ function ServiceManagement() {
     },
     onSuccess: () => {
       toast({
-        title: 'Service Created',
-        description: 'The service has been created successfully.'
+        title: t('services.management.toast.serviceCreated'),
+        description: t('services.management.toast.serviceCreatedDescription')
       });
       queryClient.invalidateQueries({ queryKey: ['/api/services'] });
       queryClient.invalidateQueries({ queryKey: ['/api/services/stats/summary'] });
@@ -195,8 +197,8 @@ function ServiceManagement() {
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.message || 'Failed to create service',
+        title: t('common.error'),
+        description: error.message || t('services.management.toast.createFailed'),
         variant: 'destructive'
       });
     }
@@ -209,16 +211,16 @@ function ServiceManagement() {
     },
     onSuccess: () => {
       toast({
-        title: 'Service Updated',
-        description: 'The service has been updated successfully.'
+        title: t('services.management.toast.serviceUpdated'),
+        description: t('services.management.toast.serviceUpdatedDescription')
       });
       queryClient.invalidateQueries({ queryKey: ['/api/services'] });
       setIsEditDialogOpen(false);
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.message || 'Failed to update service',
+        title: t('common.error'),
+        description: error.message || t('services.management.toast.updateFailed'),
         variant: 'destructive'
       });
     }
@@ -231,8 +233,8 @@ function ServiceManagement() {
     },
     onSuccess: () => {
       toast({
-        title: 'Service Deleted',
-        description: 'The service has been deleted successfully.'
+        title: t('services.management.toast.serviceDeleted'),
+        description: t('services.management.toast.serviceDeletedDescription')
       });
       queryClient.invalidateQueries({ queryKey: ['/api/services'] });
       queryClient.invalidateQueries({ queryKey: ['/api/services/stats/summary'] });
@@ -240,8 +242,8 @@ function ServiceManagement() {
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.message || 'Failed to delete service',
+        title: t('common.error'),
+        description: error.message || t('services.management.toast.deleteFailed'),
         variant: 'destructive'
       });
     }
@@ -254,15 +256,15 @@ function ServiceManagement() {
     },
     onSuccess: (data, variables) => {
       toast({
-        title: 'Service Restart Initiated',
-        description: `Service ${variables} is being restarted.`
+        title: t('services.management.toast.restartInitiated'),
+        description: t('services.management.toast.restartInitiatedDescription', { service: variables })
       });
       queryClient.invalidateQueries({ queryKey: ['/api/services'] });
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.message || 'Failed to restart service',
+        title: t('common.error'),
+        description: error.message || t('services.management.toast.restartFailed'),
         variant: 'destructive'
       });
     }
@@ -326,9 +328,9 @@ function ServiceManagement() {
       {/* Header */}
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">Service Management</h1>
+          <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">{t('services.management.title')}</h1>
           <p className="text-muted-foreground mt-2">
-            Monitor, manage, and configure all system services
+            {t('services.management.subtitle')}
           </p>
         </div>
         <div className="flex gap-2">
@@ -339,20 +341,20 @@ function ServiceManagement() {
             data-testid="button-refresh"
           >
             <RefreshCw className="h-4 w-4 mr-2" />
-            Refresh
+            {t('services.management.buttons.refresh')}
           </Button>
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
               <Button size="sm" data-testid="button-create-service">
                 <Plus className="h-4 w-4 mr-2" />
-                Create Service
+                {t('services.management.buttons.createService')}
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Create New Service</DialogTitle>
+                <DialogTitle>{t('services.management.dialog.createTitle')}</DialogTitle>
                 <DialogDescription>
-                  Register a new service in the system
+                  {t('services.management.dialog.createDescription')}
                 </DialogDescription>
               </DialogHeader>
               <form
@@ -371,69 +373,69 @@ function ServiceManagement() {
                 className="space-y-4"
               >
                 <div className="grid gap-2">
-                  <Label htmlFor="code">Service Code</Label>
+                  <Label htmlFor="code">{t('services.management.form.serviceCode')}</Label>
                   <Input
                     id="code"
                     name="code"
-                    placeholder="e.g., payment-service"
+                    placeholder={t('services.management.form.serviceCodePlaceholder')}
                     required
                     data-testid="input-service-code"
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="name">Service Name</Label>
+                  <Label htmlFor="name">{t('services.management.form.serviceName')}</Label>
                   <Input
                     id="name"
                     name="name"
-                    placeholder="e.g., Payment Processing Service"
+                    placeholder={t('services.management.form.serviceNamePlaceholder')}
                     required
                     data-testid="input-service-name"
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="description">Description</Label>
+                  <Label htmlFor="description">{t('services.management.form.description')}</Label>
                   <Textarea
                     id="description"
                     name="description"
-                    placeholder="Service description..."
+                    placeholder={t('services.management.form.descriptionPlaceholder')}
                     data-testid="input-service-description"
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="category">Category</Label>
+                  <Label htmlFor="category">{t('services.management.form.category')}</Label>
                   <Select name="category" required>
                     <SelectTrigger data-testid="select-service-category">
-                      <SelectValue placeholder="Select category" />
+                      <SelectValue placeholder={t('services.management.form.selectCategory')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="SHIPPING">Shipping</SelectItem>
-                      <SelectItem value="WAREHOUSING">Warehousing</SelectItem>
-                      <SelectItem value="CUSTOMS">Customs</SelectItem>
-                      <SelectItem value="FREIGHT">Freight</SelectItem>
-                      <SelectItem value="LOGISTICS">Logistics</SelectItem>
-                      <SelectItem value="AI">AI</SelectItem>
-                      <SelectItem value="INTEGRATION">Integration</SelectItem>
-                      <SelectItem value="MONITORING">Monitoring</SelectItem>
-                      <SelectItem value="PERFORMANCE">Performance</SelectItem>
-                      <SelectItem value="OTHER">Other</SelectItem>
+                      <SelectItem value="SHIPPING">{t('services.management.categories.shipping')}</SelectItem>
+                      <SelectItem value="WAREHOUSING">{t('services.management.categories.warehousing')}</SelectItem>
+                      <SelectItem value="CUSTOMS">{t('services.management.categories.customs')}</SelectItem>
+                      <SelectItem value="FREIGHT">{t('services.management.categories.freight')}</SelectItem>
+                      <SelectItem value="LOGISTICS">{t('services.management.categories.logistics')}</SelectItem>
+                      <SelectItem value="AI">{t('services.management.categories.ai')}</SelectItem>
+                      <SelectItem value="INTEGRATION">{t('services.management.categories.integration')}</SelectItem>
+                      <SelectItem value="MONITORING">{t('services.management.categories.monitoring')}</SelectItem>
+                      <SelectItem value="PERFORMANCE">{t('services.management.categories.performance')}</SelectItem>
+                      <SelectItem value="OTHER">{t('services.management.categories.other')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="type">Type</Label>
+                  <Label htmlFor="type">{t('services.management.form.type')}</Label>
                   <Select name="type" required>
                     <SelectTrigger data-testid="select-service-type">
-                      <SelectValue placeholder="Select type" />
+                      <SelectValue placeholder={t('services.management.form.selectType')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="internal">Internal</SelectItem>
-                      <SelectItem value="external">External</SelectItem>
-                      <SelectItem value="integration">Integration</SelectItem>
+                      <SelectItem value="internal">{t('services.management.types.internal')}</SelectItem>
+                      <SelectItem value="external">{t('services.management.types.external')}</SelectItem>
+                      <SelectItem value="integration">{t('services.management.types.integration')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <DialogFooter>
-                  <Button type="submit" data-testid="button-submit-create">Create</Button>
+                  <Button type="submit" data-testid="button-submit-create">{t('common.submit')}</Button>
                 </DialogFooter>
               </form>
             </DialogContent>
@@ -446,19 +448,19 @@ function ServiceManagement() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Services</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('services.management.stats.totalServices')}</CardTitle>
               <Server className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold" data-testid="text-total-services">{stats.totalServices}</div>
               <p className="text-xs text-muted-foreground">
-                {stats.activeServices} active
+                {t('services.management.stats.activeCount', { count: stats.activeServices })}
               </p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Healthy</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('services.management.stats.healthy')}</CardTitle>
               <CheckCircle className="h-4 w-4 text-green-500" />
             </CardHeader>
             <CardContent>
@@ -471,31 +473,31 @@ function ServiceManagement() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Degraded</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('services.management.stats.degraded')}</CardTitle>
               <AlertCircle className="h-4 w-4 text-yellow-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold" data-testid="text-degraded-services">{stats.degradedServices}</div>
               <p className="text-xs text-muted-foreground">
-                Requires attention
+                {t('services.management.stats.requiresAttention')}
               </p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Unhealthy</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('services.management.stats.unhealthy')}</CardTitle>
               <XCircle className="h-4 w-4 text-red-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold" data-testid="text-unhealthy-services">{stats.unhealthyServices}</div>
               <p className="text-xs text-muted-foreground">
-                Critical issues
+                {t('services.management.stats.criticalIssues')}
               </p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Categories</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('services.management.stats.categories')}</CardTitle>
               <Database className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -503,7 +505,7 @@ function ServiceManagement() {
                 {Object.keys(stats.byCategory).length}
               </div>
               <p className="text-xs text-muted-foreground">
-                Service categories
+                {t('services.management.stats.serviceCategories')}
               </p>
             </CardContent>
           </Card>
@@ -512,18 +514,18 @@ function ServiceManagement() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
         <TabsList>
-          <TabsTrigger value="overview" data-testid="tab-overview">Overview</TabsTrigger>
-          <TabsTrigger value="monitoring" data-testid="tab-monitoring">Monitoring</TabsTrigger>
-          <TabsTrigger value="instances" data-testid="tab-instances">Instances</TabsTrigger>
-          <TabsTrigger value="integrations" data-testid="tab-integrations">Integrations</TabsTrigger>
+          <TabsTrigger value="overview" data-testid="tab-overview">{t('services.management.tabs.overview')}</TabsTrigger>
+          <TabsTrigger value="monitoring" data-testid="tab-monitoring">{t('services.management.tabs.monitoring')}</TabsTrigger>
+          <TabsTrigger value="instances" data-testid="tab-instances">{t('services.management.tabs.instances')}</TabsTrigger>
+          <TabsTrigger value="integrations" data-testid="tab-integrations">{t('services.management.tabs.integrations')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
           {/* Filters */}
           <Card>
             <CardHeader>
-              <CardTitle>Services</CardTitle>
-              <CardDescription>Manage and monitor all registered services</CardDescription>
+              <CardTitle>{t('services.management.servicesCard.title')}</CardTitle>
+              <CardDescription>{t('services.management.servicesCard.description')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex gap-4">
@@ -531,7 +533,7 @@ function ServiceManagement() {
                   <div className="relative">
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
-                      placeholder="Search services..."
+                      placeholder={t('services.management.search.placeholder')}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="pl-8"
@@ -541,30 +543,30 @@ function ServiceManagement() {
                 </div>
                 <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                   <SelectTrigger className="w-[180px]" data-testid="select-filter-category">
-                    <SelectValue placeholder="Category" />
+                    <SelectValue placeholder={t('services.management.form.category')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Categories</SelectItem>
-                    <SelectItem value="SHIPPING">Shipping</SelectItem>
-                    <SelectItem value="WAREHOUSING">Warehousing</SelectItem>
-                    <SelectItem value="CUSTOMS">Customs</SelectItem>
-                    <SelectItem value="FREIGHT">Freight</SelectItem>
-                    <SelectItem value="LOGISTICS">Logistics</SelectItem>
-                    <SelectItem value="AI">AI</SelectItem>
-                    <SelectItem value="INTEGRATION">Integration</SelectItem>
-                    <SelectItem value="MONITORING">Monitoring</SelectItem>
-                    <SelectItem value="OTHER">Other</SelectItem>
+                    <SelectItem value="all">{t('services.management.filters.allCategories')}</SelectItem>
+                    <SelectItem value="SHIPPING">{t('services.management.categories.shipping')}</SelectItem>
+                    <SelectItem value="WAREHOUSING">{t('services.management.categories.warehousing')}</SelectItem>
+                    <SelectItem value="CUSTOMS">{t('services.management.categories.customs')}</SelectItem>
+                    <SelectItem value="FREIGHT">{t('services.management.categories.freight')}</SelectItem>
+                    <SelectItem value="LOGISTICS">{t('services.management.categories.logistics')}</SelectItem>
+                    <SelectItem value="AI">{t('services.management.categories.ai')}</SelectItem>
+                    <SelectItem value="INTEGRATION">{t('services.management.categories.integration')}</SelectItem>
+                    <SelectItem value="MONITORING">{t('services.management.categories.monitoring')}</SelectItem>
+                    <SelectItem value="OTHER">{t('services.management.categories.other')}</SelectItem>
                   </SelectContent>
                 </Select>
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
                   <SelectTrigger className="w-[180px]" data-testid="select-filter-type">
-                    <SelectValue placeholder="Type" />
+                    <SelectValue placeholder={t('services.management.form.type')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Types</SelectItem>
-                    <SelectItem value="internal">Internal</SelectItem>
-                    <SelectItem value="external">External</SelectItem>
-                    <SelectItem value="integration">Integration</SelectItem>
+                    <SelectItem value="all">{t('services.management.filters.allTypes')}</SelectItem>
+                    <SelectItem value="internal">{t('services.management.types.internal')}</SelectItem>
+                    <SelectItem value="external">{t('services.management.types.external')}</SelectItem>
+                    <SelectItem value="integration">{t('services.management.types.integration')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -581,13 +583,13 @@ function ServiceManagement() {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Service</TableHead>
-                        <TableHead>Category</TableHead>
-                        <TableHead>Type</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Health</TableHead>
-                        <TableHead>Version</TableHead>
-                        <TableHead>Last Check</TableHead>
+                        <TableHead>{t('services.management.table.service')}</TableHead>
+                        <TableHead>{t('services.management.table.category')}</TableHead>
+                        <TableHead>{t('services.management.table.type')}</TableHead>
+                        <TableHead>{t('services.management.table.status')}</TableHead>
+                        <TableHead>{t('services.management.table.health')}</TableHead>
+                        <TableHead>{t('services.management.table.version')}</TableHead>
+                        <TableHead>{t('services.management.table.lastCheck')}</TableHead>
                         <TableHead className="w-[70px]"></TableHead>
                       </TableRow>
                     </TableHeader>
@@ -613,7 +615,7 @@ function ServiceManagement() {
                             <div className="flex items-center gap-2">
                               {getHealthStatusIcon(service.healthStatus)}
                               <span className="text-sm">
-                                {service.healthStatus || 'Unknown'}
+                                {service.healthStatus || t('services.management.healthStatus.unknown')}
                               </span>
                             </div>
                           </TableCell>
@@ -624,7 +626,7 @@ function ServiceManagement() {
                                 {format(new Date(service.lastHealthCheck), 'MMM d, HH:mm')}
                               </div>
                             ) : (
-                              <span className="text-xs text-muted-foreground">Never</span>
+                              <span className="text-xs text-muted-foreground">{t('services.management.table.never')}</span>
                             )}
                           </TableCell>
                           <TableCell>
@@ -635,13 +637,13 @@ function ServiceManagement() {
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                <DropdownMenuLabel>{t('services.management.menu.actions')}</DropdownMenuLabel>
                                 <DropdownMenuItem
                                   onClick={() => setSelectedService(service)}
                                   data-testid={`menu-view-${service.code}`}
                                 >
                                   <Eye className="h-4 w-4 mr-2" />
-                                  View Details
+                                  {t('services.management.menu.viewDetails')}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                   onClick={() => {
@@ -651,14 +653,14 @@ function ServiceManagement() {
                                   data-testid={`menu-edit-${service.code}`}
                                 >
                                   <Edit className="h-4 w-4 mr-2" />
-                                  Edit
+                                  {t('common.edit')}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                   onClick={() => restartServiceMutation.mutate(service.code)}
                                   data-testid={`menu-restart-${service.code}`}
                                 >
                                   <RefreshCw className="h-4 w-4 mr-2" />
-                                  Restart
+                                  {t('services.management.menu.restart')}
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
@@ -667,7 +669,7 @@ function ServiceManagement() {
                                   data-testid={`menu-delete-${service.code}`}
                                 >
                                   <Trash2 className="h-4 w-4 mr-2" />
-                                  Delete
+                                  {t('common.delete')}
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
@@ -691,57 +693,57 @@ function ServiceManagement() {
               <CardContent className="space-y-4">
                 {selectedService.description && (
                   <div>
-                    <Label>Description</Label>
+                    <Label>{t('services.management.form.description')}</Label>
                     <p className="text-sm text-muted-foreground">{selectedService.description}</p>
                   </div>
                 )}
                 
                 <div className="grid gap-4 md:grid-cols-2">
                   <div>
-                    <Label>Category</Label>
+                    <Label>{t('services.management.form.category')}</Label>
                     <p className="text-sm">{selectedService.category}</p>
                   </div>
                   <div>
-                    <Label>Type</Label>
+                    <Label>{t('services.management.form.type')}</Label>
                     <p className="text-sm">{selectedService.type}</p>
                   </div>
                   <div>
-                    <Label>Status</Label>
+                    <Label>{t('services.management.table.status')}</Label>
                     <Badge variant={getStatusBadgeVariant(selectedService.status)}>
                       {selectedService.status}
                     </Badge>
                   </div>
                   <div>
-                    <Label>Health Status</Label>
+                    <Label>{t('services.management.table.health')}</Label>
                     <div className="flex items-center gap-2">
                       {getHealthStatusIcon(selectedService.healthStatus)}
-                      <span className="text-sm">{selectedService.healthStatus || 'Unknown'}</span>
+                      <span className="text-sm">{selectedService.healthStatus || t('services.management.healthStatus.unknown')}</span>
                     </div>
                   </div>
                 </div>
 
                 {metrics && (
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">Metrics</h3>
+                    <h3 className="text-lg font-semibold">{t('services.management.metrics.title')}</h3>
                     <div className="grid gap-4 md:grid-cols-3">
                       <div className="space-y-2">
-                        <Label>Total Requests</Label>
+                        <Label>{t('services.management.metrics.totalRequests')}</Label>
                         <p className="text-2xl font-bold">{metrics.requestCount.toLocaleString()}</p>
                       </div>
                       <div className="space-y-2">
-                        <Label>Success Rate</Label>
+                        <Label>{t('services.management.metrics.successRate')}</Label>
                         <p className="text-2xl font-bold">{metrics.successRate.toFixed(1)}%</p>
                       </div>
                       <div className="space-y-2">
-                        <Label>Avg Response Time</Label>
+                        <Label>{t('services.management.metrics.avgResponseTime')}</Label>
                         <p className="text-2xl font-bold">{metrics.averageResponseTime}ms</p>
                       </div>
                       <div className="space-y-2">
-                        <Label>Error Count</Label>
+                        <Label>{t('services.management.metrics.errorCount')}</Label>
                         <p className="text-2xl font-bold">{metrics.errorCount}</p>
                       </div>
                       <div className="space-y-2">
-                        <Label>Uptime</Label>
+                        <Label>{t('services.management.metrics.uptime')}</Label>
                         <p className="text-2xl font-bold">{formatUptime(metrics.uptime)}</p>
                       </div>
                     </div>
@@ -755,8 +757,8 @@ function ServiceManagement() {
         <TabsContent value="monitoring" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Service Monitoring</CardTitle>
-              <CardDescription>Real-time health and performance monitoring</CardDescription>
+              <CardTitle>{t('services.management.monitoring.title')}</CardTitle>
+              <CardDescription>{t('services.management.monitoring.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               {selectedService ? (
@@ -764,21 +766,21 @@ function ServiceManagement() {
                   <Alert>
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
-                      Monitoring data for <strong>{selectedService.name}</strong>
+                      {t('services.management.monitoring.dataFor', { name: selectedService.name })}
                     </AlertDescription>
                   </Alert>
 
                   {healthHistory.length > 0 && (
                     <div>
-                      <h3 className="text-lg font-semibold mb-2">Health History</h3>
+                      <h3 className="text-lg font-semibold mb-2">{t('services.management.monitoring.healthHistory')}</h3>
                       <Table>
                         <TableHeader>
                           <TableRow>
-                            <TableHead>Time</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Response Time</TableHead>
-                            <TableHead>Success Rate</TableHead>
-                            <TableHead>Failures</TableHead>
+                            <TableHead>{t('services.management.monitoring.time')}</TableHead>
+                            <TableHead>{t('services.management.table.status')}</TableHead>
+                            <TableHead>{t('services.management.monitoring.responseTime')}</TableHead>
+                            <TableHead>{t('services.management.metrics.successRate')}</TableHead>
+                            <TableHead>{t('services.management.monitoring.failures')}</TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -805,7 +807,7 @@ function ServiceManagement() {
                 </div>
               ) : (
                 <div className="text-center py-8 text-muted-foreground">
-                  Select a service to view monitoring data
+                  {t('services.management.monitoring.selectService')}
                 </div>
               )}
             </CardContent>
@@ -815,12 +817,12 @@ function ServiceManagement() {
         <TabsContent value="instances" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Service Instances</CardTitle>
-              <CardDescription>Manage service instances and deployments</CardDescription>
+              <CardTitle>{t('services.management.instances.title')}</CardTitle>
+              <CardDescription>{t('services.management.instances.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="text-center py-8 text-muted-foreground">
-                Service instance management coming soon
+                {t('services.management.instances.comingSoon')}
               </div>
             </CardContent>
           </Card>
@@ -829,12 +831,12 @@ function ServiceManagement() {
         <TabsContent value="integrations" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Service Integrations</CardTitle>
-              <CardDescription>Configure external service integrations</CardDescription>
+              <CardTitle>{t('services.management.integrations.title')}</CardTitle>
+              <CardDescription>{t('services.management.integrations.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="text-center py-8 text-muted-foreground">
-                Integration management coming soon
+                {t('services.management.integrations.comingSoon')}
               </div>
             </CardContent>
           </Card>
@@ -846,9 +848,9 @@ function ServiceManagement() {
         <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Edit Service</DialogTitle>
+              <DialogTitle>{t('services.management.dialog.editTitle')}</DialogTitle>
               <DialogDescription>
-                Update service configuration
+                {t('services.management.dialog.editDescription')}
               </DialogDescription>
             </DialogHeader>
             <form
@@ -868,7 +870,7 @@ function ServiceManagement() {
               className="space-y-4"
             >
               <div className="grid gap-2">
-                <Label htmlFor="edit-name">Service Name</Label>
+                <Label htmlFor="edit-name">{t('services.management.form.serviceName')}</Label>
                 <Input
                   id="edit-name"
                   name="name"
@@ -878,7 +880,7 @@ function ServiceManagement() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="edit-description">Description</Label>
+                <Label htmlFor="edit-description">{t('services.management.form.description')}</Label>
                 <Textarea
                   id="edit-description"
                   name="description"
@@ -887,40 +889,40 @@ function ServiceManagement() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="edit-category">Category</Label>
+                <Label htmlFor="edit-category">{t('services.management.form.category')}</Label>
                 <Select name="category" defaultValue={selectedService.category}>
                   <SelectTrigger data-testid="select-edit-category">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="SHIPPING">Shipping</SelectItem>
-                    <SelectItem value="WAREHOUSING">Warehousing</SelectItem>
-                    <SelectItem value="CUSTOMS">Customs</SelectItem>
-                    <SelectItem value="FREIGHT">Freight</SelectItem>
-                    <SelectItem value="LOGISTICS">Logistics</SelectItem>
-                    <SelectItem value="AI">AI</SelectItem>
-                    <SelectItem value="INTEGRATION">Integration</SelectItem>
-                    <SelectItem value="MONITORING">Monitoring</SelectItem>
-                    <SelectItem value="OTHER">Other</SelectItem>
+                    <SelectItem value="SHIPPING">{t('services.management.categories.shipping')}</SelectItem>
+                    <SelectItem value="WAREHOUSING">{t('services.management.categories.warehousing')}</SelectItem>
+                    <SelectItem value="CUSTOMS">{t('services.management.categories.customs')}</SelectItem>
+                    <SelectItem value="FREIGHT">{t('services.management.categories.freight')}</SelectItem>
+                    <SelectItem value="LOGISTICS">{t('services.management.categories.logistics')}</SelectItem>
+                    <SelectItem value="AI">{t('services.management.categories.ai')}</SelectItem>
+                    <SelectItem value="INTEGRATION">{t('services.management.categories.integration')}</SelectItem>
+                    <SelectItem value="MONITORING">{t('services.management.categories.monitoring')}</SelectItem>
+                    <SelectItem value="OTHER">{t('services.management.categories.other')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="edit-status">Status</Label>
+                <Label htmlFor="edit-status">{t('services.management.table.status')}</Label>
                 <Select name="status" defaultValue={selectedService.status}>
                   <SelectTrigger data-testid="select-edit-status">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="inactive">Inactive</SelectItem>
-                    <SelectItem value="maintenance">Maintenance</SelectItem>
-                    <SelectItem value="deprecated">Deprecated</SelectItem>
+                    <SelectItem value="active">{t('services.management.statusOptions.active')}</SelectItem>
+                    <SelectItem value="inactive">{t('services.management.statusOptions.inactive')}</SelectItem>
+                    <SelectItem value="maintenance">{t('services.management.statusOptions.maintenance')}</SelectItem>
+                    <SelectItem value="deprecated">{t('services.management.statusOptions.deprecated')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <DialogFooter>
-                <Button type="submit" data-testid="button-submit-edit">Save Changes</Button>
+                <Button type="submit" data-testid="button-submit-edit">{t('common.save')}</Button>
               </DialogFooter>
             </form>
           </DialogContent>
