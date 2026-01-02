@@ -226,9 +226,9 @@ UI screenshots for reference:
 |------|-------------|
 | [PHASE_1_CODEBASE_INVENTORY.md](PHASE_1_CODEBASE_INVENTORY.md) | Phase 1 codebase inventory |
 | [MOLOCHAIN_COMPREHENSIVE_REPORT.pdf](MOLOCHAIN_COMPREHENSIVE_REPORT.pdf) | Comprehensive PDF report |
-| [molochain-auth-system.html](molochain-auth-system.html) | Auth system HTML doc |
-| [cross-subdomain-auth-integration.html](cross-subdomain-auth-integration.html) | Cross-subdomain auth HTML |
-| [production-pages-report.txt](production-pages-report.txt) | Production pages text report |
+| [molochain-auth-system.md](molochain-auth-system.md) | Auth system documentation |
+| [cross-subdomain-auth-integration.md](cross-subdomain-auth-integration.md) | Cross-subdomain auth guide |
+| [production-pages-report.md](production-pages-report.md) | Production pages report |
 | [guides/README.md](guides/README.md) | Guides folder readme |
 
 ---
