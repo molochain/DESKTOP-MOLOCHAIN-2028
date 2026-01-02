@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -115,92 +116,89 @@ export default function ServiceDetailEnhanced({
   certifications = [],
   serviceStats = [],
 }: ServiceDetailEnhancedProps) {
+  const { t } = useTranslation();
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [, setLocation] = useLocation();
   const serviceImage = getServiceImage(id);
 
-  // Default stats if not provided
-  const defaultStats = [
-    { label: "Response Time", value: "< 2 hours", icon: <Clock className="h-5 w-5" /> },
-    { label: "Coverage", value: coverage || "Global", icon: <Globe className="h-5 w-5" /> },
-    { label: "Success Rate", value: "99.8%", icon: <TrendingUp className="h-5 w-5" /> },
-    { label: "Active Clients", value: "500+", icon: <Users className="h-5 w-5" /> },
-  ];
+  const defaultStats = useMemo(() => [
+    { label: t("services.enhanced.stats.responseTime"), value: "< 2 hours", icon: <Clock className="h-5 w-5" /> },
+    { label: t("services.enhanced.stats.coverage"), value: coverage || t("services.enhanced.stats.global"), icon: <Globe className="h-5 w-5" /> },
+    { label: t("services.enhanced.stats.successRate"), value: "99.8%", icon: <TrendingUp className="h-5 w-5" /> },
+    { label: t("services.enhanced.stats.activeClients"), value: "500+", icon: <Users className="h-5 w-5" /> },
+  ], [t, coverage]);
 
   const stats = serviceStats.length > 0 ? serviceStats : defaultStats;
 
-  // Mock testimonials if not provided
-  const defaultTestimonials: Testimonial[] = [
+  const defaultTestimonials: Testimonial[] = useMemo(() => [
     {
       id: "1",
       author: "Sarah Johnson",
       company: "Global Retail Corp",
       rating: 5,
-      content: `Outstanding ${title.toLowerCase()} service! The team went above and beyond to ensure our shipments arrived on time and in perfect condition.`,
-      date: "2 weeks ago",
+      content: t("services.enhanced.testimonials.default1", { service: title.toLowerCase() }),
+      date: t("services.enhanced.testimonials.date1"),
     },
     {
       id: "2",
       author: "Michael Chen",
       company: "TechStart Industries",
       rating: 5,
-      content: "The level of professionalism and attention to detail is unmatched. Highly recommend their services for any logistics needs.",
-      date: "1 month ago",
+      content: t("services.enhanced.testimonials.default2"),
+      date: t("services.enhanced.testimonials.date2"),
     },
     {
       id: "3",
       author: "Emma Williams",
       company: "Fresh Foods Ltd",
       rating: 4,
-      content: "Reliable and efficient service. The real-time tracking and communication made the entire process smooth and transparent.",
-      date: "2 months ago",
+      content: t("services.enhanced.testimonials.default3"),
+      date: t("services.enhanced.testimonials.date3"),
     },
-  ];
+  ], [t, title]);
 
   const displayTestimonials = testimonials.length > 0 ? testimonials : defaultTestimonials;
 
-  // Mock case study if not provided
-  const defaultCaseStudy: CaseStudy = {
+  const defaultCaseStudy: CaseStudy = useMemo(() => ({
     id: "1",
-    title: "Streamlining Global Supply Chain",
-    client: "Fortune 500 Manufacturer",
-    challenge: "Complex international logistics requiring coordination across 15 countries with varying regulations and time-sensitive deliveries.",
-    solution: `Implemented comprehensive ${title.toLowerCase()} solution with dedicated account management, custom tracking systems, and strategic partnership network.`,
+    title: t("services.enhanced.caseStudy.defaultTitle"),
+    client: t("services.enhanced.caseStudy.defaultClient"),
+    challenge: t("services.enhanced.caseStudy.defaultChallenge"),
+    solution: t("services.enhanced.caseStudy.defaultSolution", { service: title.toLowerCase() }),
     results: [
-      "35% reduction in transit times",
-      "28% cost savings on logistics",
-      "99.5% on-time delivery rate",
-      "50% improvement in inventory turnover",
+      t("services.enhanced.caseStudy.result1"),
+      t("services.enhanced.caseStudy.result2"),
+      t("services.enhanced.caseStudy.result3"),
+      t("services.enhanced.caseStudy.result4"),
     ],
     metrics: [
-      { label: "Cost Reduction", value: "28%", change: "+28%" },
-      { label: "Time Saved", value: "35%", change: "+35%" },
-      { label: "Efficiency Gain", value: "50%", change: "+50%" },
+      { label: t("services.enhanced.caseStudy.metricCostReduction"), value: "28%", change: "+28%" },
+      { label: t("services.enhanced.caseStudy.metricTimeSaved"), value: "35%", change: "+35%" },
+      { label: t("services.enhanced.caseStudy.metricEfficiencyGain"), value: "50%", change: "+50%" },
     ],
-  };
+  }), [t, title]);
 
   const displayCaseStudies = caseStudies.length > 0 ? caseStudies : [defaultCaseStudy];
 
-  // Default FAQs if not provided
-  const defaultFaqs: FAQ[] = [
+  const defaultFaqs: FAQ[] = useMemo(() => [
     {
-      question: `What makes your ${title.toLowerCase()} different from competitors?`,
-      answer: "We combine cutting-edge technology with decades of industry expertise to deliver customized solutions. Our global network, real-time tracking, and dedicated support team ensure superior service quality.",
+      question: t("services.enhanced.faq.question1", { service: title.toLowerCase() }),
+      answer: t("services.enhanced.faq.answer1"),
     },
     {
-      question: "How quickly can I get started?",
-      answer: `Most clients can begin using our ${title.toLowerCase()} within 24-48 hours. We provide rapid onboarding with dedicated support to ensure smooth integration with your existing operations.`,
+      question: t("services.enhanced.faq.question2"),
+      answer: t("services.enhanced.faq.answer2", { service: title.toLowerCase() }),
     },
     {
-      question: "What are the pricing options?",
-      answer: `We offer flexible pricing models including volume-based discounts, contract rates, and pay-per-use options. Contact our team for a customized quote based on your specific requirements.`,
+      question: t("services.enhanced.faq.question3"),
+      answer: t("services.enhanced.faq.answer3"),
     },
     {
-      question: "Do you provide insurance coverage?",
-      answer: "Yes, comprehensive insurance coverage is available for all shipments. We offer various coverage levels to match your cargo value and risk tolerance.",
+      question: t("services.enhanced.faq.question4"),
+      answer: t("services.enhanced.faq.answer4"),
     },
-  ];
+  ], [t, title]);
 
   const displayFaqs = faqs.length > 0 ? faqs : defaultFaqs;
 
@@ -212,7 +210,7 @@ export default function ServiceDetailEnhanced({
         <div className="relative max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
           <Link href="/services">
             <Button variant="ghost" className="mb-6 text-white hover:bg-white/20">
-              <ArrowLeft className="mr-2 h-4 w-4" /> Back to Services
+              <ArrowLeft className="mr-2 h-4 w-4" /> {t("services.enhanced.buttons.backToServices")}
             </Button>
           </Link>
           
@@ -259,17 +257,17 @@ export default function ServiceDetailEnhanced({
                   className="bg-white text-blue-600 hover:bg-gray-100"
                   onClick={() => setShowBookingForm(true)}
                 >
-                  Book Service Now
+                  {t("services.enhanced.buttons.bookServiceNow")}
                 </Button>
                 <Link href="/quote">
                   <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/20">
                     <DollarSign className="mr-2 h-5 w-5" />
-                    Get Instant Quote
+                    {t("services.enhanced.buttons.getInstantQuote")}
                   </Button>
                 </Link>
                 <Button size="lg" variant="ghost" className="text-white hover:bg-white/20">
                   <Phone className="mr-2 h-5 w-5" />
-                  Contact Sales
+                  {t("services.enhanced.buttons.contactSales")}
                 </Button>
               </div>
             </div>
@@ -294,7 +292,7 @@ export default function ServiceDetailEnhanced({
                     <div className="flex items-center gap-2">
                       <Shield className="h-5 w-5 text-green-600" />
                       <span className="text-sm font-medium text-gray-900">
-                        {certifications.length} Certifications
+                        {certifications.length} {t("services.enhanced.labels.certifications")}
                       </span>
                     </div>
                   </div>
@@ -313,7 +311,7 @@ export default function ServiceDetailEnhanced({
               {pricing && (
                 <div className="flex items-center gap-2">
                   <DollarSign className="h-4 w-4 text-green-600" />
-                  <span className="font-medium">Starting from {pricing}</span>
+                  <span className="font-medium">{t("services.enhanced.labels.startingFrom")} {pricing}</span>
                 </div>
               )}
               {deliveryTime && (
@@ -325,7 +323,7 @@ export default function ServiceDetailEnhanced({
               {coverage && (
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-purple-600" />
-                  <span className="font-medium">{coverage} coverage</span>
+                  <span className="font-medium">{coverage} {t("services.enhanced.labels.coverage")}</span>
                 </div>
               )}
             </div>
@@ -344,16 +342,16 @@ export default function ServiceDetailEnhanced({
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <Tabs defaultValue="overview" className="space-y-8">
           <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="features">Features</TabsTrigger>
+            <TabsTrigger value="overview">{t("services.enhanced.tabs.overview")}</TabsTrigger>
+            <TabsTrigger value="features">{t("services.enhanced.tabs.features")}</TabsTrigger>
             <TabsTrigger value="testimonials">
-              Testimonials
+              {t("services.enhanced.tabs.testimonials")}
               <Badge className="ml-2" variant="secondary">
                 {displayTestimonials.length}
               </Badge>
             </TabsTrigger>
-            <TabsTrigger value="case-studies">Case Studies</TabsTrigger>
-            <TabsTrigger value="faq">FAQ</TabsTrigger>
+            <TabsTrigger value="case-studies">{t("services.enhanced.tabs.caseStudies")}</TabsTrigger>
+            <TabsTrigger value="faq">{t("services.enhanced.tabs.faq")}</TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
@@ -365,13 +363,13 @@ export default function ServiceDetailEnhanced({
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Zap className="h-5 w-5 text-yellow-500" />
-                      Key Features & Benefits
+                      {t("services.enhanced.sections.keyFeaturesBenefits")}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="grid md:grid-cols-2 gap-8">
                       <div>
-                        <h4 className="font-semibold mb-4 text-gray-900">Features</h4>
+                        <h4 className="font-semibold mb-4 text-gray-900">{t("services.enhanced.sections.features")}</h4>
                         <ul className="space-y-3">
                           {features.slice(0, 6).map((feature, index) => (
                             <motion.li
@@ -388,7 +386,7 @@ export default function ServiceDetailEnhanced({
                         </ul>
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-4 text-gray-900">Benefits</h4>
+                        <h4 className="font-semibold mb-4 text-gray-900">{t("services.enhanced.sections.benefits")}</h4>
                         <ul className="space-y-3">
                           {benefits.slice(0, 6).map((benefit, index) => (
                             <motion.li
@@ -414,7 +412,7 @@ export default function ServiceDetailEnhanced({
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Info className="h-5 w-5 text-blue-500" />
-                        Service Details
+                        {t("services.enhanced.sections.serviceDetails")}
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -449,7 +447,7 @@ export default function ServiceDetailEnhanced({
                 {/* Quick Actions */}
                 <Card className="border-blue-200 bg-blue-50/50">
                   <CardHeader>
-                    <CardTitle>Quick Actions</CardTitle>
+                    <CardTitle>{t("services.enhanced.sections.quickActions")}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <Button
@@ -458,21 +456,21 @@ export default function ServiceDetailEnhanced({
                       onClick={() => setShowBookingForm(true)}
                     >
                       <Calendar className="mr-2 h-4 w-4" />
-                      Schedule Service
+                      {t("services.enhanced.buttons.scheduleService")}
                     </Button>
                     <Link href="/quote" className="block">
                       <Button className="w-full justify-start" variant="outline">
                         <DollarSign className="mr-2 h-4 w-4" />
-                        Request Quote
+                        {t("services.enhanced.buttons.requestQuote")}
                       </Button>
                     </Link>
                     <Button className="w-full justify-start" variant="outline">
                       <Download className="mr-2 h-4 w-4" />
-                      Download Brochure
+                      {t("services.enhanced.buttons.downloadBrochure")}
                     </Button>
                     <Button className="w-full justify-start" variant="outline">
                       <MessageSquare className="mr-2 h-4 w-4" />
-                      Live Chat Support
+                      {t("services.enhanced.buttons.liveChatSupport")}
                     </Button>
                   </CardContent>
                 </Card>
@@ -481,7 +479,7 @@ export default function ServiceDetailEnhanced({
                 {relatedServices.length > 0 && (
                   <Card>
                     <CardHeader>
-                      <CardTitle>Related Services</CardTitle>
+                      <CardTitle>{t("services.enhanced.sections.relatedServices")}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-2">
@@ -506,9 +504,9 @@ export default function ServiceDetailEnhanced({
                 {/* Contact Card */}
                 <Card className="bg-gradient-to-br from-gray-900 to-gray-800 text-white">
                   <CardContent className="pt-6">
-                    <h3 className="text-lg font-semibold mb-4">Need Help?</h3>
+                    <h3 className="text-lg font-semibold mb-4">{t("services.enhanced.sections.needHelp")}</h3>
                     <p className="text-gray-300 mb-6">
-                      Our experts are ready to assist you with your logistics needs.
+                      {t("services.enhanced.sections.needHelpDescription")}
                     </p>
                     <div className="space-y-3">
                       <div className="flex items-center gap-3">
@@ -543,7 +541,7 @@ export default function ServiceDetailEnhanced({
                       </div>
                       <h3 className="font-semibold mb-2">{feature}</h3>
                       <p className="text-sm text-gray-600">
-                        Comprehensive implementation ensuring maximum efficiency and reliability.
+                        {t("services.enhanced.featureDescription")}
                       </p>
                     </CardContent>
                   </Card>
@@ -590,7 +588,7 @@ export default function ServiceDetailEnhanced({
             </div>
             <div className="text-center">
               <Button variant="outline">
-                Load More Reviews
+                {t("services.enhanced.buttons.loadMoreReviews")}
                 <ChevronRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
@@ -607,21 +605,21 @@ export default function ServiceDetailEnhanced({
               >
                 <Card className="overflow-hidden">
                   <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6">
-                    <Badge className="bg-white/20 text-white mb-4">Case Study</Badge>
+                    <Badge className="bg-white/20 text-white mb-4">{t("services.enhanced.labels.caseStudy")}</Badge>
                     <h3 className="text-2xl font-bold mb-2">{study.title}</h3>
-                    <p className="text-blue-100">Client: {study.client}</p>
+                    <p className="text-blue-100">{t("services.enhanced.labels.client")}: {study.client}</p>
                   </div>
                   <CardContent className="pt-6">
                     <div className="grid md:grid-cols-2 gap-8">
                       <div>
-                        <h4 className="font-semibold mb-3 text-gray-900">Challenge</h4>
+                        <h4 className="font-semibold mb-3 text-gray-900">{t("services.enhanced.labels.challenge")}</h4>
                         <p className="text-gray-600 mb-6">{study.challenge}</p>
                         
-                        <h4 className="font-semibold mb-3 text-gray-900">Solution</h4>
+                        <h4 className="font-semibold mb-3 text-gray-900">{t("services.enhanced.labels.solution")}</h4>
                         <p className="text-gray-600">{study.solution}</p>
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-3 text-gray-900">Results</h4>
+                        <h4 className="font-semibold mb-3 text-gray-900">{t("services.enhanced.labels.results")}</h4>
                         <ul className="space-y-2 mb-6">
                           {study.results.map((result, idx) => (
                             <li key={idx} className="flex items-start gap-2">
@@ -652,7 +650,7 @@ export default function ServiceDetailEnhanced({
             <div className="text-center">
               <Link href="/case-studies">
                 <Button>
-                  View All Case Studies
+                  {t("services.enhanced.buttons.viewAllCaseStudies")}
                   <ExternalLink className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
@@ -701,10 +699,10 @@ export default function ServiceDetailEnhanced({
               </motion.div>
             ))}
             <div className="mt-8 text-center">
-              <p className="text-gray-600 mb-4">Still have questions?</p>
+              <p className="text-gray-600 mb-4">{t("services.enhanced.sections.stillHaveQuestions")}</p>
               <Button variant="outline">
                 <MessageSquare className="mr-2 h-4 w-4" />
-                Contact Support
+                {t("services.enhanced.buttons.contactSupport")}
               </Button>
             </div>
           </TabsContent>
@@ -716,7 +714,7 @@ export default function ServiceDetailEnhanced({
             <Card className="max-w-2xl w-full max-h-[90vh] overflow-auto">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle>Book {title}</CardTitle>
+                  <CardTitle>{t("services.enhanced.modal.bookService", { title })}</CardTitle>
                   <Button
                     variant="ghost"
                     size="sm"

@@ -406,6 +406,91 @@
       "notFound": "Hizmet Bulunamadı",
       "notFoundDescription": "\"{{serviceId}}\" hizmeti bulunamadı. Kaldırılmış olabilir veya URL yanlış olabilir.",
       "backToServices": "Hizmetlere Dön"
+    },
+    "enhanced": {
+      "stats": {
+        "responseTime": "Yanıt Süresi",
+        "coverage": "Kapsama",
+        "successRate": "Başarı Oranı",
+        "activeClients": "Aktif Müşteriler",
+        "global": "Küresel"
+      },
+      "tabs": {
+        "overview": "Genel Bakış",
+        "features": "Özellikler",
+        "testimonials": "Müşteri Yorumları",
+        "caseStudies": "Vaka Çalışmaları",
+        "faq": "SSS"
+      },
+      "buttons": {
+        "backToServices": "Hizmetlere Dön",
+        "bookServiceNow": "Hizmeti Şimdi Rezerve Et",
+        "getInstantQuote": "Anında Teklif Al",
+        "contactSales": "Satışla İletişime Geç",
+        "scheduleService": "Hizmet Planla",
+        "requestQuote": "Teklif İste",
+        "downloadBrochure": "Broşürü İndir",
+        "liveChatSupport": "Canlı Sohbet Desteği",
+        "loadMoreReviews": "Daha Fazla Yorum Yükle",
+        "viewAllCaseStudies": "Tüm Vaka Çalışmalarını Görüntüle",
+        "contactSupport": "Destekle İletişime Geç"
+      },
+      "sections": {
+        "keyFeaturesBenefits": "Temel Özellikler ve Avantajlar",
+        "features": "Özellikler",
+        "benefits": "Avantajlar",
+        "serviceDetails": "Hizmet Detayları",
+        "quickActions": "Hızlı İşlemler",
+        "relatedServices": "İlgili Hizmetler",
+        "needHelp": "Yardıma mı İhtiyacınız Var?",
+        "needHelpDescription": "Uzmanlarımız lojistik ihtiyaçlarınızda size yardımcı olmaya hazır.",
+        "stillHaveQuestions": "Hala sorularınız mı var?"
+      },
+      "labels": {
+        "startingFrom": "Başlangıç fiyatı",
+        "coverage": "kapsama",
+        "certifications": "Sertifikalar",
+        "caseStudy": "Vaka Çalışması",
+        "client": "Müşteri",
+        "challenge": "Zorluk",
+        "solution": "Çözüm",
+        "results": "Sonuçlar"
+      },
+      "featureDescription": "Maksimum verimlilik ve güvenilirlik sağlayan kapsamlı uygulama.",
+      "modal": {
+        "bookService": "{{title}} Rezervasyonu"
+      },
+      "testimonials": {
+        "default1": "Harika {{service}} hizmeti! Ekip, gönderilerimizin zamanında ve mükemmel durumda ulaşmasını sağlamak için üstün çaba gösterdi.",
+        "default2": "Profesyonellik ve detaylara dikkat seviyesi eşsiz. Herhangi bir lojistik ihtiyacı için hizmetlerini şiddetle tavsiye ederim.",
+        "default3": "Güvenilir ve verimli hizmet. Gerçek zamanlı takip ve iletişim tüm süreci sorunsuz ve şeffaf hale getirdi.",
+        "date1": "2 hafta önce",
+        "date2": "1 ay önce",
+        "date3": "2 ay önce"
+      },
+      "caseStudy": {
+        "defaultTitle": "Küresel Tedarik Zincirini Optimize Etme",
+        "defaultClient": "Fortune 500 Üreticisi",
+        "defaultChallenge": "Farklı düzenlemeler ve zamana duyarlı teslimatlarla 15 ülke arasında koordinasyon gerektiren karmaşık uluslararası lojistik.",
+        "defaultSolution": "Özel hesap yönetimi, özel takip sistemleri ve stratejik ortaklık ağı ile kapsamlı {{service}} çözümü uygulandı.",
+        "result1": "Transit sürelerinde %35 azalma",
+        "result2": "Lojistik maliyetlerinde %28 tasarruf",
+        "result3": "%99.5 zamanında teslimat oranı",
+        "result4": "Envanter cirosunda %50 iyileşme",
+        "metricCostReduction": "Maliyet Azaltma",
+        "metricTimeSaved": "Kazanılan Zaman",
+        "metricEfficiencyGain": "Verimlilik Artışı"
+      },
+      "faq": {
+        "question1": "{{service}} hizmetinizi rakiplerden ayıran nedir?",
+        "answer1": "Özelleştirilmiş çözümler sunmak için en son teknolojiyi onlarca yıllık sektör uzmanlığıyla birleştiriyoruz. Küresel ağımız, gerçek zamanlı takip ve özel destek ekibimiz üstün hizmet kalitesini garanti eder.",
+        "question2": "Ne kadar hızlı başlayabilirim?",
+        "answer2": "Çoğu müşteri 24-48 saat içinde {{service}} hizmetimizi kullanmaya başlayabilir. Mevcut operasyonlarınızla sorunsuz entegrasyon sağlamak için özel destekle hızlı kurulum sağlıyoruz.",
+        "question3": "Fiyatlandırma seçenekleri nelerdir?",
+        "answer3": "Hacim bazlı indirimler, sözleşme oranları ve kullandıkça öde seçenekleri dahil esnek fiyatlandırma modelleri sunuyoruz. Özel gereksinimlerinize göre özelleştirilmiş teklif için ekibimizle iletişime geçin.",
+        "question4": "Sigorta kapsamı sağlıyor musunuz?",
+        "answer4": "Evet, tüm gönderiler için kapsamlı sigorta kapsamı mevcuttur. Kargo değerinize ve risk toleransınıza uygun çeşitli kapsam seviyeleri sunuyoruz."
+      }
     }
   },
   "tools": {

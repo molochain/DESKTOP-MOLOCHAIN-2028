@@ -356,6 +356,91 @@
       "notFound": "Service Not Found",
       "notFoundDescription": "The service \"{{serviceId}}\" could not be found. It may have been removed or the URL might be incorrect.",
       "backToServices": "Back to Services"
+    },
+    "enhanced": {
+      "stats": {
+        "responseTime": "Response Time",
+        "coverage": "Coverage",
+        "successRate": "Success Rate",
+        "activeClients": "Active Clients",
+        "global": "Global"
+      },
+      "tabs": {
+        "overview": "Overview",
+        "features": "Features",
+        "testimonials": "Testimonials",
+        "caseStudies": "Case Studies",
+        "faq": "FAQ"
+      },
+      "buttons": {
+        "backToServices": "Back to Services",
+        "bookServiceNow": "Book Service Now",
+        "getInstantQuote": "Get Instant Quote",
+        "contactSales": "Contact Sales",
+        "scheduleService": "Schedule Service",
+        "requestQuote": "Request Quote",
+        "downloadBrochure": "Download Brochure",
+        "liveChatSupport": "Live Chat Support",
+        "loadMoreReviews": "Load More Reviews",
+        "viewAllCaseStudies": "View All Case Studies",
+        "contactSupport": "Contact Support"
+      },
+      "sections": {
+        "keyFeaturesBenefits": "Key Features & Benefits",
+        "features": "Features",
+        "benefits": "Benefits",
+        "serviceDetails": "Service Details",
+        "quickActions": "Quick Actions",
+        "relatedServices": "Related Services",
+        "needHelp": "Need Help?",
+        "needHelpDescription": "Our experts are ready to assist you with your logistics needs.",
+        "stillHaveQuestions": "Still have questions?"
+      },
+      "labels": {
+        "startingFrom": "Starting from",
+        "coverage": "coverage",
+        "certifications": "Certifications",
+        "caseStudy": "Case Study",
+        "client": "Client",
+        "challenge": "Challenge",
+        "solution": "Solution",
+        "results": "Results"
+      },
+      "featureDescription": "Comprehensive implementation ensuring maximum efficiency and reliability.",
+      "modal": {
+        "bookService": "Book {{title}}"
+      },
+      "testimonials": {
+        "default1": "Outstanding {{service}} service! The team went above and beyond to ensure our shipments arrived on time and in perfect condition.",
+        "default2": "The level of professionalism and attention to detail is unmatched. Highly recommend their services for any logistics needs.",
+        "default3": "Reliable and efficient service. The real-time tracking and communication made the entire process smooth and transparent.",
+        "date1": "2 weeks ago",
+        "date2": "1 month ago",
+        "date3": "2 months ago"
+      },
+      "caseStudy": {
+        "defaultTitle": "Streamlining Global Supply Chain",
+        "defaultClient": "Fortune 500 Manufacturer",
+        "defaultChallenge": "Complex international logistics requiring coordination across 15 countries with varying regulations and time-sensitive deliveries.",
+        "defaultSolution": "Implemented comprehensive {{service}} solution with dedicated account management, custom tracking systems, and strategic partnership network.",
+        "result1": "35% reduction in transit times",
+        "result2": "28% cost savings on logistics",
+        "result3": "99.5% on-time delivery rate",
+        "result4": "50% improvement in inventory turnover",
+        "metricCostReduction": "Cost Reduction",
+        "metricTimeSaved": "Time Saved",
+        "metricEfficiencyGain": "Efficiency Gain"
+      },
+      "faq": {
+        "question1": "What makes your {{service}} different from competitors?",
+        "answer1": "We combine cutting-edge technology with decades of industry expertise to deliver customized solutions. Our global network, real-time tracking, and dedicated support team ensure superior service quality.",
+        "question2": "How quickly can I get started?",
+        "answer2": "Most clients can begin using our {{service}} within 24-48 hours. We provide rapid onboarding with dedicated support to ensure smooth integration with your existing operations.",
+        "question3": "What are the pricing options?",
+        "answer3": "We offer flexible pricing models including volume-based discounts, contract rates, and pay-per-use options. Contact our team for a customized quote based on your specific requirements.",
+        "question4": "Do you provide insurance coverage?",
+        "answer4": "Yes, comprehensive insurance coverage is available for all shipments. We offer various coverage levels to match your cargo value and risk tolerance."
+      }
     }
   },
   "tools": {
