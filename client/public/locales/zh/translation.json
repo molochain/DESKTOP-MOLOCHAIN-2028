@@ -5,7 +5,17 @@
     "quote": "获取报价",
     "contact": "联系我们",
     "getStarted": "立即开始",
-    "tools": "工具"
+    "tools": "工具",
+    "solutions": "解决方案",
+    "mololink": "MOLOLINK",
+    "mololinkDesc": "专业物流网络",
+    "departments": "部门",
+    "departmentsDesc": "访问部门控制面板",
+    "partners": "合作伙伴",
+    "partnersDesc": "我们可信赖的合作伙伴",
+    "resources": "资源",
+    "termsOfService": "服务条款",
+    "privacyPolicy": "隐私政策"
   },
   "hero": {
     "title": "现代物流",

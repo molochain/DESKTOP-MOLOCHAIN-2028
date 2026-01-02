@@ -5,7 +5,17 @@
     "quote": "Получить цену",
     "contact": "Контакты",
     "getStarted": "Начать",
-    "tools": "Инструменты"
+    "tools": "Инструменты",
+    "solutions": "Решения",
+    "mololink": "MOLOLINK",
+    "mololinkDesc": "Профессиональная логистическая сеть",
+    "departments": "Отделы",
+    "departmentsDesc": "Доступ к панелям управления отделами",
+    "partners": "Партнёры",
+    "partnersDesc": "Наши надёжные партнёры",
+    "resources": "Ресурсы",
+    "termsOfService": "Условия использования",
+    "privacyPolicy": "Политика конфиденциальности"
   },
   "hero": {
     "title": "Современная логистика",

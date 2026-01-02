@@ -5,7 +5,17 @@
     "quote": "Cotización",
     "contact": "Contacto",
     "getStarted": "Comenzar",
-    "tools": "Herramientas"
+    "tools": "Herramientas",
+    "solutions": "Soluciones",
+    "mololink": "MOLOLINK",
+    "mololinkDesc": "Red logística profesional",
+    "departments": "Departamentos",
+    "departmentsDesc": "Acceder a paneles de departamentos",
+    "partners": "Socios",
+    "partnersDesc": "Nuestros socios de confianza",
+    "resources": "Recursos",
+    "termsOfService": "Términos de Servicio",
+    "privacyPolicy": "Política de Privacidad"
   },
   "hero": {
     "title": "Logística Moderna",
