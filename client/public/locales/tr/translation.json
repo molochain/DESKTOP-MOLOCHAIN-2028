@@ -427,26 +427,72 @@
   "auth": {
     "login": {
       "title": "Tekrar Hoşgeldiniz",
-      "email": "E-posta",
+      "description": "MoloChain platformuna erişmek için giriş yapın",
+      "email": "E-posta Adresi",
+      "emailPlaceholder": "E-postanızı girin",
       "password": "Şifre",
+      "passwordPlaceholder": "Şifrenizi girin",
       "submit": "Giriş Yap",
       "loggingIn": "Giriş yapılıyor...",
-      "forgotPassword": "Şifremi Unuttum",
-      "noAccount": "Hesabınız yok mu?",
-      "register": "Kayıt Ol"
+      "forgotPassword": "Şifrenizi mi unuttunuz?",
+      "rememberMe": "30 gün boyunca beni hatırla",
+      "noAccount": "MoloChain'de yeni misiniz?",
+      "createAccount": "Hesap Oluştur",
+      "register": "Kayıt Ol",
+      "agreementPrefix": "Giriş yaparak,",
+      "termsOfService": "Hizmet Şartları",
+      "and": "ve",
+      "privacyPolicy": "Gizlilik Politikası",
+      "nav": {
+        "home": "Ana Sayfa",
+        "register": "Kayıt Ol"
+      },
+      "toast": {
+        "success": "Giriş Başarılı",
+        "welcomeBack": "Tekrar hoşgeldiniz, {{username}}!",
+        "failed": "Giriş Başarısız",
+        "error": "Hata",
+        "fillFields": "Lütfen tüm alanları doldurun"
+      }
     },
     "register": {
       "title": "Hesap Oluştur",
+      "description": "MoloChain platformuna erişmek için hesabınızı oluşturun",
       "username": "Kullanıcı Adı",
+      "usernamePlaceholder": "johndoe123",
       "email": "E-posta",
+      "emailPlaceholder": "john@example.com",
       "password": "Şifre",
+      "passwordPlaceholder": "Güçlü bir şifre girin",
+      "passwordHint": "En az 8 karakter, büyük harf, küçük harf, rakam ve özel karakter",
       "fullName": "Ad Soyad",
+      "fullNamePlaceholder": "Ahmet Yılmaz",
       "company": "Şirket (İsteğe bağlı)",
+      "companyPlaceholder": "Şirketinizin adı",
       "phone": "Telefon Numarası (İsteğe bağlı)",
+      "phonePlaceholder": "+90 532 123 4567",
       "submit": "Hesap Oluştur",
       "creating": "Hesap oluşturuluyor...",
       "haveAccount": "Zaten hesabınız var mı?",
-      "login": "Giriş Yap"
+      "login": "Giriş Yap",
+      "securityNotice": "Sektör lideri güvenlik uygulamalarıyla korunmaktadır",
+      "toast": {
+        "success": "Kayıt başarılı",
+        "successDescription": "Hesabınız oluşturuldu. Lütfen giriş yapın."
+      },
+      "validation": {
+        "usernameMin": "Kullanıcı adı en az 3 karakter olmalıdır",
+        "usernameMax": "Kullanıcı adı 50 karakterden az olmalıdır",
+        "usernameFormat": "Kullanıcı adı yalnızca harf, rakam, alt çizgi ve tire içerebilir",
+        "emailInvalid": "Lütfen geçerli bir e-posta adresi girin",
+        "emailRequired": "E-posta gereklidir",
+        "passwordMin": "Şifre en az 8 karakter olmalıdır",
+        "passwordUppercase": "Şifre en az bir büyük harf içermelidir",
+        "passwordLowercase": "Şifre en az bir küçük harf içermelidir",
+        "passwordNumber": "Şifre en az bir rakam içermelidir",
+        "passwordSpecial": "Şifre en az bir özel karakter içermelidir",
+        "fullNameMin": "Ad soyad en az 2 karakter olmalıdır"
+      }
     }
   },
   "about": {

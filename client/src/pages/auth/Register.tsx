@@ -36,21 +36,21 @@ import {
 } from "lucide-react";
 import { checkAndRedirectToAuth } from "@/lib/authRedirect";
 
-const formSchema = z.object({
+const createFormSchema = (t: (key: string) => string) => z.object({
   username: z.string()
-    .min(3, "Username must be at least 3 characters")
-    .max(50, "Username must be less than 50 characters")
-    .regex(/^[a-zA-Z0-9_-]+$/, "Username can only contain letters, numbers, underscores, and hyphens"),
+    .min(3, t("auth.register.validation.usernameMin"))
+    .max(50, t("auth.register.validation.usernameMax"))
+    .regex(/^[a-zA-Z0-9_-]+$/, t("auth.register.validation.usernameFormat")),
   email: z.string()
-    .email("Please enter a valid email address")
-    .min(1, "Email is required"),
+    .email(t("auth.register.validation.emailInvalid"))
+    .min(1, t("auth.register.validation.emailRequired")),
   password: z.string()
-    .min(8, "Password must be at least 8 characters")
-    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-    .regex(/[0-9]/, "Password must contain at least one number")
-    .regex(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain at least one special character (!@#$%^&*(),.?\":{}|<>)"),
-  fullName: z.string().min(2, "Full name must be at least 2 characters"),
+    .min(8, t("auth.register.validation.passwordMin"))
+    .regex(/[A-Z]/, t("auth.register.validation.passwordUppercase"))
+    .regex(/[a-z]/, t("auth.register.validation.passwordLowercase"))
+    .regex(/[0-9]/, t("auth.register.validation.passwordNumber"))
+    .regex(/[!@#$%^&*(),.?":{}|<>]/, t("auth.register.validation.passwordSpecial")),
+  fullName: z.string().min(2, t("auth.register.validation.fullNameMin")),
   company: z.string().optional(),
   phone: z.string().optional(),
 });
@@ -60,6 +60,8 @@ const Register = () => {
   const [, setLocation] = useLocation();
   const { t } = useTranslation();
   const { registerMutation } = useAuth();
+
+  const formSchema = createFormSchema(t);
 
   useEffect(() => {
     checkAndRedirectToAuth('/register');
@@ -81,8 +83,8 @@ const Register = () => {
     try {
       await registerMutation.mutateAsync(values);
       toast({
-        title: "Registration successful",
-        description: "Your account has been created. Please log in.",
+        title: t("auth.register.toast.success"),
+        description: t("auth.register.toast.successDescription"),
         variant: "default",
       });
       setLocation("/login");
@@ -90,8 +92,6 @@ const Register = () => {
       if (import.meta.env.DEV) {
         console.error("Registration error:", error);
       }
-      // Error is already handled by the mutation's onError callback
-      // which shows a toast notification
     }
   };
 
@@ -112,7 +112,7 @@ const Register = () => {
               {t("auth.register.title")}
             </CardTitle>
             <CardDescription className="text-center">
-              Create your account to access the MoloChain platform
+              {t("auth.register.description")}
             </CardDescription>
           </CardHeader>
           
@@ -126,11 +126,11 @@ const Register = () => {
                     <FormItem>
                       <FormLabel className="flex items-center gap-2">
                         <User className="h-4 w-4 text-muted-foreground" />
-                        {t("auth.register.username") || "Username"}
+                        {t("auth.register.username")}
                       </FormLabel>
                       <FormControl>
                         <Input 
-                          placeholder="johndoe123" 
+                          placeholder={t("auth.register.usernamePlaceholder")} 
                           className="border-gray-300 focus:ring-primary focus:border-primary"
                           {...field} 
                         />
@@ -152,7 +152,7 @@ const Register = () => {
                       <FormControl>
                         <Input 
                           type="email"
-                          placeholder="john@example.com" 
+                          placeholder={t("auth.register.emailPlaceholder")} 
                           className="border-gray-300 focus:ring-primary focus:border-primary"
                           {...field} 
                         />
@@ -174,13 +174,13 @@ const Register = () => {
                       <FormControl>
                         <Input 
                           type="password" 
-                          placeholder="Password123!" 
+                          placeholder={t("auth.register.passwordPlaceholder")} 
                           className="border-gray-300 focus:ring-primary focus:border-primary"
                           {...field} 
                         />
                       </FormControl>
                       <p className="text-xs text-muted-foreground mt-1">
-                        Min 8 chars, uppercase, lowercase, number & special character
+                        {t("auth.register.passwordHint")}
                       </p>
                       <FormMessage className="text-red-500 text-sm" />
                     </FormItem>
@@ -198,7 +198,7 @@ const Register = () => {
                       </FormLabel>
                       <FormControl>
                         <Input 
-                          placeholder={t("auth.register.fullName")} 
+                          placeholder={t("auth.register.fullNamePlaceholder")} 
                           className="border-gray-300 focus:ring-primary focus:border-primary"
                           {...field} 
                         />
@@ -219,7 +219,7 @@ const Register = () => {
                       </FormLabel>
                       <FormControl>
                         <Input 
-                          placeholder={t("auth.register.company")} 
+                          placeholder={t("auth.register.companyPlaceholder")} 
                           className="border-gray-300 focus:ring-primary focus:border-primary"
                           {...field} 
                         />
@@ -240,7 +240,7 @@ const Register = () => {
                       </FormLabel>
                       <FormControl>
                         <Input 
-                          placeholder={t("auth.register.phone")} 
+                          placeholder={t("auth.register.phonePlaceholder")} 
                           className="border-gray-300 focus:ring-primary focus:border-primary"
                           {...field} 
                         />
@@ -287,7 +287,7 @@ const Register = () => {
         </Card>
         
         <div className="text-center text-sm text-muted-foreground">
-          <p>Protected by industry-leading security practices</p>
+          <p>{t("auth.register.securityNotice")}</p>
         </div>
       </div>
     </div>

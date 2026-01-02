@@ -638,26 +638,72 @@
   "auth": {
     "login": {
       "title": "مرحباً بعودتك",
+      "description": "سجل الدخول للوصول إلى منصة مولوتشين",
       "email": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل بريدك الإلكتروني",
       "password": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة المرور",
       "submit": "تسجيل الدخول",
       "loggingIn": "جاري تسجيل الدخول...",
       "forgotPassword": "نسيت كلمة المرور؟",
-      "noAccount": "ليس لديك حساب؟",
-      "register": "التسجيل"
+      "rememberMe": "تذكرني لمدة 30 يومًا",
+      "noAccount": "جديد في مولوتشين؟",
+      "createAccount": "إنشاء حساب جديد",
+      "register": "التسجيل",
+      "agreementPrefix": "بتسجيل الدخول، فإنك توافق على",
+      "termsOfService": "شروط الخدمة",
+      "and": "و",
+      "privacyPolicy": "سياسة الخصوصية",
+      "nav": {
+        "home": "الرئيسية",
+        "register": "التسجيل"
+      },
+      "toast": {
+        "success": "تم تسجيل الدخول بنجاح",
+        "welcomeBack": "مرحباً بعودتك، {{username}}!",
+        "failed": "فشل تسجيل الدخول",
+        "error": "خطأ",
+        "fillFields": "يرجى ملء جميع الحقول"
+      }
     },
     "register": {
       "title": "إنشاء حساب",
+      "description": "أنشئ حسابك للوصول إلى منصة مولوتشين",
       "username": "اسم المستخدم",
+      "usernamePlaceholder": "johndoe123",
       "email": "البريد الإلكتروني",
+      "emailPlaceholder": "john@example.com",
       "password": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة مرور قوية",
+      "passwordHint": "8 أحرف على الأقل، حرف كبير، حرف صغير، رقم ورمز خاص",
       "fullName": "الاسم الكامل",
+      "fullNamePlaceholder": "محمد أحمد",
       "company": "الشركة (اختياري)",
+      "companyPlaceholder": "اسم شركتك",
       "phone": "رقم الهاتف (اختياري)",
+      "phonePlaceholder": "+966 50 123 4567",
       "submit": "إنشاء حساب",
       "creating": "جاري إنشاء الحساب...",
       "haveAccount": "لديك حساب بالفعل؟",
-      "login": "تسجيل الدخول"
+      "login": "تسجيل الدخول",
+      "securityNotice": "محمي بأفضل ممارسات الأمان",
+      "toast": {
+        "success": "تم التسجيل بنجاح",
+        "successDescription": "تم إنشاء حسابك. يرجى تسجيل الدخول."
+      },
+      "validation": {
+        "usernameMin": "يجب أن يكون اسم المستخدم 3 أحرف على الأقل",
+        "usernameMax": "يجب أن يكون اسم المستخدم أقل من 50 حرفًا",
+        "usernameFormat": "يمكن أن يحتوي اسم المستخدم على أحرف وأرقام وشرطات سفلية وشرطات فقط",
+        "emailInvalid": "يرجى إدخال عنوان بريد إلكتروني صالح",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "passwordMin": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+        "passwordUppercase": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",
+        "passwordLowercase": "يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل",
+        "passwordNumber": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل",
+        "passwordSpecial": "يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل",
+        "fullNameMin": "يجب أن يكون الاسم الكامل حرفين على الأقل"
+      }
     }
   },
   "footer": {

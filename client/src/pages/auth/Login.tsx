@@ -10,6 +10,7 @@ import { Loader2, LogIn, Shield, UserPlus, KeyRound, Home, Menu, X } from "lucid
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { checkAndRedirectToAuth } from "@/lib/authRedirect";
+import { useTranslation } from "react-i18next";
 
 interface LoginForm {
   email: string;
@@ -19,6 +20,7 @@ interface LoginForm {
 
 function AuthNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <motion.nav 
@@ -49,13 +51,13 @@ function AuthNavbar() {
                 whileHover={{ scale: 1.05 }}
               >
                 <Home className="h-4 w-4" />
-                Home
+                {t("auth.login.nav.home")}
               </motion.span>
             </Link>
             <Link href="/register">
               <Button variant="outline" className="gap-2" data-testid="link-register-nav">
                 <UserPlus className="h-4 w-4" />
-                Register
+                {t("auth.login.nav.register")}
               </Button>
             </Link>
           </div>
@@ -80,12 +82,12 @@ function AuthNavbar() {
           >
             <div className="px-4 py-4 space-y-3">
               <Link href="/">
-                <span className="block text-gray-600 hover:text-blue-600 py-2">Home</span>
+                <span className="block text-gray-600 hover:text-blue-600 py-2">{t("auth.login.nav.home")}</span>
               </Link>
               <Link href="/register">
                 <Button variant="outline" className="w-full gap-2">
                   <UserPlus className="h-4 w-4" />
-                  Register
+                  {t("auth.login.nav.register")}
                 </Button>
               </Link>
             </div>
@@ -120,6 +122,7 @@ function LoginSkeleton() {
 function LoginContent() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
+  const { t } = useTranslation();
   const [form, setForm] = useState<LoginForm>({
     email: '',
     password: '',
@@ -176,8 +179,8 @@ function LoginContent() {
     },
     onSuccess: (data) => {
       toast({
-        title: 'Login Successful',
-        description: `Welcome back, ${data.username}!`
+        title: t("auth.login.toast.success"),
+        description: t("auth.login.toast.welcomeBack", { username: data.username })
       });
       
       const returnUrl = getReturnUrl();
@@ -197,7 +200,7 @@ function LoginContent() {
     },
     onError: (error: any) => {
       toast({
-        title: 'Login Failed',
+        title: t("auth.login.toast.failed"),
         description: error.message,
         variant: 'destructive'
       });
@@ -209,8 +212,8 @@ function LoginContent() {
     
     if (!form.email || !form.password) {
       toast({
-        title: 'Error',
-        description: 'Please fill in all fields',
+        title: t("auth.login.toast.error"),
+        description: t("auth.login.toast.fillFields"),
         variant: 'destructive'
       });
       return;
@@ -247,10 +250,10 @@ function LoginContent() {
                 transition={{ delay: 0.3 }}
               >
                 <CardTitle className="text-2xl text-center font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                  Welcome Back
+                  {t("auth.login.title")}
                 </CardTitle>
                 <CardDescription className="text-center text-gray-500 mt-2">
-                  Sign in to access the MoloChain platform
+                  {t("auth.login.description")}
                 </CardDescription>
               </motion.div>
             </CardHeader>
@@ -268,11 +271,11 @@ function LoginContent() {
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <Label htmlFor="email" className="text-gray-700 font-medium">Email</Label>
+                  <Label htmlFor="email" className="text-gray-700 font-medium">{t("auth.login.email")}</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="Enter your email"
+                    placeholder={t("auth.login.emailPlaceholder")}
                     value={form.email}
                     onChange={(e) => setForm(prev => ({ ...prev, email: e.target.value }))}
                     disabled={loginMutation.isPending}
@@ -288,7 +291,7 @@ function LoginContent() {
                   transition={{ delay: 0.6 }}
                 >
                   <div className="flex justify-between items-center">
-                    <Label htmlFor="password" className="text-gray-700 font-medium">Password</Label>
+                    <Label htmlFor="password" className="text-gray-700 font-medium">{t("auth.login.password")}</Label>
                     <Link href="/forgot-password">
                       <motion.span 
                         className="text-sm text-blue-600 hover:text-blue-700 cursor-pointer flex items-center gap-1"
@@ -296,14 +299,14 @@ function LoginContent() {
                         data-testid="link-forgot-password"
                       >
                         <KeyRound className="h-3 w-3" />
-                        Forgot password?
+                        {t("auth.login.forgotPassword")}
                       </motion.span>
                     </Link>
                   </div>
                   <Input
                     id="password"
                     type="password"
-                    placeholder="Enter your password"
+                    placeholder={t("auth.login.passwordPlaceholder")}
                     value={form.password}
                     onChange={(e) => setForm(prev => ({ ...prev, password: e.target.value }))}
                     disabled={loginMutation.isPending}
@@ -329,7 +332,7 @@ function LoginContent() {
                     htmlFor="rememberMe" 
                     className="text-sm text-gray-600 cursor-pointer font-normal"
                   >
-                    Remember me for 30 days
+                    {t("auth.login.rememberMe")}
                   </Label>
                 </motion.div>
                 <motion.div
@@ -348,7 +351,7 @@ function LoginContent() {
                     ) : (
                       <LogIn className="h-5 w-5 mr-2" />
                     )}
-                    Sign In
+                    {loginMutation.isPending ? t("auth.login.loggingIn") : t("auth.login.submit")}
                   </Button>
                 </motion.div>
 
@@ -362,7 +365,7 @@ function LoginContent() {
                     <div className="w-full border-t border-gray-200" />
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-4 bg-white text-gray-500">New to MoloChain?</span>
+                    <span className="px-4 bg-white text-gray-500">{t("auth.login.noAccount")}</span>
                   </div>
                 </motion.div>
 
@@ -379,7 +382,7 @@ function LoginContent() {
                       data-testid="button-register"
                     >
                       <UserPlus className="h-5 w-5 mr-2" />
-                      Create an Account
+                      {t("auth.login.createAccount")}
                     </Button>
                   </Link>
                 </motion.div>
@@ -393,13 +396,13 @@ function LoginContent() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            By signing in, you agree to our{" "}
+            {t("auth.login.agreementPrefix")}{" "}
             <Link href="/terms">
-              <span className="text-blue-600 hover:underline cursor-pointer">Terms of Service</span>
+              <span className="text-blue-600 hover:underline cursor-pointer">{t("auth.login.termsOfService")}</span>
             </Link>{" "}
-            and{" "}
+            {t("auth.login.and")}{" "}
             <Link href="/privacy">
-              <span className="text-blue-600 hover:underline cursor-pointer">Privacy Policy</span>
+              <span className="text-blue-600 hover:underline cursor-pointer">{t("auth.login.privacyPolicy")}</span>
             </Link>
           </motion.p>
         </motion.div>

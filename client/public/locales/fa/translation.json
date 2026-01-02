@@ -447,26 +447,72 @@
   "auth": {
     "login": {
       "title": "خوش آمدید",
-      "email": "ایمیل",
+      "description": "برای دسترسی به پلتفرم مولوچین وارد شوید",
+      "email": "آدرس ایمیل",
+      "emailPlaceholder": "ایمیل خود را وارد کنید",
       "password": "رمز عبور",
+      "passwordPlaceholder": "رمز عبور خود را وارد کنید",
       "submit": "ورود",
       "loggingIn": "در حال ورود...",
       "forgotPassword": "رمز عبور را فراموش کرده‌اید؟",
-      "noAccount": "حساب کاربری ندارید؟",
-      "register": "ثبت‌نام"
+      "rememberMe": "مرا به مدت ۳۰ روز به خاطر بسپار",
+      "noAccount": "تازه وارد مولوچین هستید؟",
+      "createAccount": "ایجاد حساب کاربری",
+      "register": "ثبت‌نام",
+      "agreementPrefix": "با ورود، شما با",
+      "termsOfService": "شرایط خدمات",
+      "and": "و",
+      "privacyPolicy": "سیاست حفظ حریم خصوصی",
+      "nav": {
+        "home": "خانه",
+        "register": "ثبت‌نام"
+      },
+      "toast": {
+        "success": "ورود موفقیت‌آمیز",
+        "welcomeBack": "خوش آمدید، {{username}}!",
+        "failed": "ورود ناموفق",
+        "error": "خطا",
+        "fillFields": "لطفاً تمام فیلدها را پر کنید"
+      }
     },
     "register": {
       "title": "ایجاد حساب کاربری",
+      "description": "حساب کاربری خود را برای دسترسی به پلتفرم مولوچین ایجاد کنید",
       "username": "نام کاربری",
+      "usernamePlaceholder": "johndoe123",
       "email": "ایمیل",
+      "emailPlaceholder": "john@example.com",
       "password": "رمز عبور",
+      "passwordPlaceholder": "یک رمز عبور قوی وارد کنید",
+      "passwordHint": "حداقل ۸ کاراکتر، حروف بزرگ، حروف کوچک، عدد و کاراکتر خاص",
       "fullName": "نام کامل",
+      "fullNamePlaceholder": "علی محمدی",
       "company": "شرکت (اختیاری)",
+      "companyPlaceholder": "نام شرکت شما",
       "phone": "شماره تلفن (اختیاری)",
+      "phonePlaceholder": "+98 912 345 6789",
       "submit": "ایجاد حساب",
       "creating": "در حال ایجاد حساب...",
       "haveAccount": "قبلاً حساب کاربری دارید؟",
-      "login": "ورود"
+      "login": "ورود",
+      "securityNotice": "محافظت شده با بهترین روش‌های امنیتی",
+      "toast": {
+        "success": "ثبت‌نام موفقیت‌آمیز",
+        "successDescription": "حساب کاربری شما ایجاد شد. لطفاً وارد شوید."
+      },
+      "validation": {
+        "usernameMin": "نام کاربری باید حداقل ۳ کاراکتر باشد",
+        "usernameMax": "نام کاربری باید کمتر از ۵۰ کاراکتر باشد",
+        "usernameFormat": "نام کاربری فقط می‌تواند شامل حروف، اعداد، زیرخط و خط تیره باشد",
+        "emailInvalid": "لطفاً یک آدرس ایمیل معتبر وارد کنید",
+        "emailRequired": "ایمیل الزامی است",
+        "passwordMin": "رمز عبور باید حداقل ۸ کاراکتر باشد",
+        "passwordUppercase": "رمز عبور باید حداقل یک حرف بزرگ داشته باشد",
+        "passwordLowercase": "رمز عبور باید حداقل یک حرف کوچک داشته باشد",
+        "passwordNumber": "رمز عبور باید حداقل یک عدد داشته باشد",
+        "passwordSpecial": "رمز عبور باید حداقل یک کاراکتر خاص داشته باشد",
+        "fullNameMin": "نام کامل باید حداقل ۲ کاراکتر باشد"
+      }
     }
   },
   "about": {

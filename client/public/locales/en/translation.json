@@ -377,26 +377,72 @@
   "auth": {
     "login": {
       "title": "Welcome Back",
-      "email": "Email",
+      "description": "Sign in to access the MoloChain platform",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
       "password": "Password",
+      "passwordPlaceholder": "Enter your password",
       "submit": "Sign In",
       "loggingIn": "Signing in...",
-      "forgotPassword": "Forgot Password?",
-      "noAccount": "Don't have an account?",
-      "register": "Register"
+      "forgotPassword": "Forgot your password?",
+      "rememberMe": "Remember me for 30 days",
+      "noAccount": "New to MoloChain?",
+      "createAccount": "Create an Account",
+      "register": "Register",
+      "agreementPrefix": "By signing in, you agree to our",
+      "termsOfService": "Terms of Service",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy",
+      "nav": {
+        "home": "Home",
+        "register": "Register"
+      },
+      "toast": {
+        "success": "Login Successful",
+        "welcomeBack": "Welcome back, {{username}}!",
+        "failed": "Login Failed",
+        "error": "Error",
+        "fillFields": "Please fill in all fields"
+      }
     },
     "register": {
       "title": "Create Account",
+      "description": "Create your account to access the MoloChain platform",
       "username": "Username",
+      "usernamePlaceholder": "johndoe123",
       "email": "Email",
+      "emailPlaceholder": "john@example.com",
       "password": "Password",
+      "passwordPlaceholder": "Enter a strong password",
+      "passwordHint": "Min 8 chars, uppercase, lowercase, number & special character",
       "fullName": "Full Name",
+      "fullNamePlaceholder": "John Doe",
       "company": "Company (Optional)",
+      "companyPlaceholder": "Your company name",
       "phone": "Phone Number (Optional)",
+      "phonePlaceholder": "+1 234 567 8900",
       "submit": "Create Account",
       "creating": "Creating account...",
       "haveAccount": "Already have an account?",
-      "login": "Sign In"
+      "login": "Sign In",
+      "securityNotice": "Protected by industry-leading security practices",
+      "toast": {
+        "success": "Registration successful",
+        "successDescription": "Your account has been created. Please log in."
+      },
+      "validation": {
+        "usernameMin": "Username must be at least 3 characters",
+        "usernameMax": "Username must be less than 50 characters",
+        "usernameFormat": "Username can only contain letters, numbers, underscores, and hyphens",
+        "emailInvalid": "Please enter a valid email address",
+        "emailRequired": "Email is required",
+        "passwordMin": "Password must be at least 8 characters",
+        "passwordUppercase": "Password must contain at least one uppercase letter",
+        "passwordLowercase": "Password must contain at least one lowercase letter",
+        "passwordNumber": "Password must contain at least one number",
+        "passwordSpecial": "Password must contain at least one special character",
+        "fullNameMin": "Full name must be at least 2 characters"
+      }
     }
   },
   "about": {
