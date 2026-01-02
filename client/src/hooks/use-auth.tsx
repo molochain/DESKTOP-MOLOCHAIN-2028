@@ -43,7 +43,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       
       if (response.ok) {
         const userData = await response.json();
-        setUser(userData);
+        // Only set user if they are actually authenticated
+        // The API returns { authenticated: false, user: null } for unauthenticated requests
+        if (userData && userData.authenticated === true) {
+          setUser(userData);
+        } else {
+          setUser(null);
+        }
       } else {
         setUser(null);
       }

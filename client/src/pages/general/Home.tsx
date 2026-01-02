@@ -135,7 +135,7 @@ const Home = () => {
       id: 1,
       title: t('home.projects.ecommerce.title', 'Global E-commerce Distribution Network'),
       description: t('home.projects.ecommerce.description', 'Implemented an integrated logistics solution for a major e-commerce platform, reducing delivery times by 40%'),
-      image: "attached_assets/uploads/b6c48f64-ba55-4a33-8e01-74ad13d66b00.jpg",
+      image: "attached_assets/generated_images/global_logistics_connecting_continents.png",
       category: t('home.projects.ecommerce.category', 'E-commerce'),
       stats: {
         deliveryTime: "-40%",
@@ -531,7 +531,7 @@ const Home = () => {
             <AnimatedCard effect="lift" className="overflow-hidden">
               <img
                 className="h-48 w-full object-cover"
-                src="attached_assets/uploads/b6c48f64-ba55-4a33-8e01-74ad13d66b00.jpg"
+                src="attached_assets/generated_images/global_logistics_connecting_continents.png"
                 alt="News 1"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
@@ -551,7 +551,7 @@ const Home = () => {
             <AnimatedCard effect="glow" className="overflow-hidden">
               <img
                 className="h-48 w-full object-cover"
-                src="attached_assets/uploads/b6c48f64-ba55-4a33-8e01-74ad13d66b00.jpg"
+                src="attached_assets/generated_images/global_logistics_connecting_continents.png"
                 alt="News 2"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
@@ -571,7 +571,7 @@ const Home = () => {
             <AnimatedCard effect="scale" className="overflow-hidden">
               <img
                 className="h-48 w-full object-cover"
-                src="attached_assets/uploads/b6c48f64-ba55-4a33-8e01-74ad13d66b00.jpg"
+                src="attached_assets/generated_images/global_logistics_connecting_continents.png"
                 alt="News 3"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
@@ -676,7 +676,7 @@ const Home = () => {
               <Reveal animation="scaleUp" delay="medium">
                 <img
                   className="rounded-lg shadow-lg"
-                  src="attached_assets/uploads/b6c48f64-ba55-4a33-8e01-74ad13d66b00.jpg"
+                  src="attached_assets/generated_images/global_logistics_connecting_continents.png"
                   alt={t("whyUs.imageAlt", "Modern Logistics Hub")}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
