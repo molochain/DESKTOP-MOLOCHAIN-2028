@@ -17,9 +17,9 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Frontend:** React 18 with Vite, TypeScript, Tailwind CSS, and shadcn/ui for a responsive and modern user interface.
 - **Branding:** Consistent design adhering to Molochain branding guidelines, with a `Portal Layout` for authenticated users.
 - **Design System:** Monorepo using Turborepo and pnpm, publishing `@molochain/tokens` (design tokens), `@molochain/ui` (React components with CVA/Tailwind), `@molochain/i18n` (internationalization), and `@molochain/tsconfig` (shared TS config).
-- **Internationalization (i18n):** Comprehensive multilingual support with HTTP-loaded translations:
-  - **Languages:** English (EN), Arabic (AR), Persian/Farsi (FA), Turkish (TR)
-  - **Namespaces:** 15 namespaces (nav, hero, features, services, tools, about, contact, footer, stats, cta, common, language, home, auth, whyUs)
+- **Internationalization (i18n):** Grade A++ multilingual support with HTTP-loaded translations:
+  - **Languages:** English (EN), Arabic (AR), Persian/Farsi (FA), Turkish (TR), Spanish (ES), Russian (RU), Chinese (ZH)
+  - **Features:** 14 departments fully translated, clean navigation (Home, Services, Ecosystem, Contact, Resources, Company)
   - **Translation Files:** `client/public/locales/{lang}/translation.json`
   - **Production Path:** `httpdocs/locales/{lang}/translation.json` on molochain.com
   - **RTL Support:** Automatic `dir` and `lang` attribute updates for Arabic and Persian
@@ -73,3 +73,17 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
   - **CMS**: `https://cms.molochain.com/api`
   - **OTMS**: `https://opt.molochain.com/v1`
   - **Auth Service**: `http://172.22.0.1:7010` (internal)
+
+## Recent Changes (January 2026)
+
+### Production Deployment
+- **Server:** 31.186.24.19 with Docker container "molochain-core"
+- **Frontend:** Static files served from `/var/www/vhosts/molochain.com/httpdocs/`
+- **Backend:** Node.js via PM2 on port 5000 with systemd auto-start configured
+- **Status:** Production API healthy at `https://molochain.com/api/health`
+
+### Cleanup & Fixes
+- **Accessibility:** Added `aria-describedby={undefined}` to DialogContent, AlertDialogContent, and SheetContent components
+- **Orphaned Files Removed:** DashboardNavigation.tsx, DashboardLayout.tsx, DashboardManager.tsx (unused components)
+- **ESM Compatibility:** Fixed memory optimizer to remove CommonJS require.cache logic
+- **Navigation:** Dashboard/Blockchain menu items removed from public navigation (protected portal routes remain for authenticated users)
