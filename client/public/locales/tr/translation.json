@@ -290,6 +290,117 @@
         "title": "3. Kişiselleştirilmiş Sonuçlar",
         "description": "Her hizmetin neden ihtiyaçlarınızı karşıladığına dair eşleşme puanları ve açıklamalarla özelleştirilmiş öneriler alırsınız."
       }
+    },
+    "hub": {
+      "hero": {
+        "title": "Küresel Lojistik Çözümleri",
+        "subtitle": "İşletme ihtiyaçlarınıza özel kapsamlı hizmetler"
+      },
+      "stats": {
+        "services": "Hizmetler",
+        "countries": "Ülkeler",
+        "deliveriesYear": "Teslimat/Yıl",
+        "satisfaction": "Memnuniyet"
+      },
+      "aiRecommendations": "Yapay Zeka Önerileri Al",
+      "searchPlaceholder": "Hizmetleri ada, kategoriye veya anahtar kelimeye göre ara...",
+      "filters": {
+        "category": "Kategori",
+        "allCategories": "Tüm Kategoriler",
+        "sortBy": "Sırala",
+        "mostPopular": "En Popüler",
+        "aToZ": "A'dan Z'ye",
+        "newestFirst": "En Yeniler"
+      },
+      "compare": "Karşılaştır",
+      "tabs": {
+        "allServices": "Tüm Hizmetler",
+        "popular": "Popüler",
+        "industries": "Sektörler",
+        "categories": "Kategoriler"
+      },
+      "badges": {
+        "popular": "Popüler"
+      },
+      "buttons": {
+        "viewDetails": "Detayları Görüntüle",
+        "explore": "{{service}} Keşfet",
+        "viewSolutions": "{{industry}} Çözümlerini Görüntüle",
+        "viewAllServices": "Tüm {{count}} Hizmeti Görüntüle"
+      },
+      "metrics": {
+        "customerRating": "Müşteri Puanı",
+        "growth": "Büyüme",
+        "bookings": "Rezervasyonlar",
+        "support": "Destek"
+      },
+      "tailoredSolutions": "Özelleştirilmiş lojistik çözümler",
+      "keyBenefits": "Temel Avantajlar",
+      "recommendedServices": "Önerilen Hizmetler",
+      "categories": {
+        "transportation": {
+          "title": "Taşımacılık ve Lojistik",
+          "description": "Uçtan uca yük ve kargo çözümleri"
+        },
+        "warehousing": {
+          "title": "Depolama ve Dağıtım",
+          "description": "Modern depolama ve dağıtım"
+        },
+        "customs": {
+          "title": "Uyum ve Dokümantasyon",
+          "description": "Düzenleyici ve gümrük uzmanlığı"
+        },
+        "digital": {
+          "title": "Dijital Çözümler",
+          "description": "Teknoloji odaklı lojistik"
+        },
+        "business": {
+          "title": "İş Hizmetleri",
+          "description": "Stratejik ortaklıklar ve büyüme"
+        }
+      },
+      "industries": {
+        "ecommerce": {
+          "name": "E-ticaret",
+          "benefits": {
+            "sameDay": "Aynı gün teslimat",
+            "returns": "İade yönetimi",
+            "multiChannel": "Çok kanallı dağıtım"
+          }
+        },
+        "manufacturing": {
+          "name": "Üretim",
+          "benefits": {
+            "jit": "Tam zamanında teslimat",
+            "rawMaterial": "Hammadde tedariki",
+            "production": "Üretim planlaması"
+          }
+        },
+        "retail": {
+          "name": "Perakende",
+          "benefits": {
+            "storeReplenishment": "Mağaza stok yenileme",
+            "seasonal": "Mevsimsel envanter",
+            "omnichannel": "Omnichannel lojistik"
+          }
+        },
+        "healthcare": {
+          "name": "Sağlık",
+          "benefits": {
+            "temperature": "Sıcaklık kontrolü",
+            "regulatory": "Düzenleyici uyum",
+            "emergency": "Acil teslimat"
+          }
+        }
+      },
+      "comparison": {
+        "title": "Hizmet Karşılaştırması",
+        "feature": "Özellik",
+        "description": "Açıklama",
+        "keyFeatures": "Temel Özellikler",
+        "clear": "Karşılaştırmayı Temizle",
+        "getQuote": "Seçili Hizmetler İçin Teklif Al"
+      }
     }
   },
   "tools": {

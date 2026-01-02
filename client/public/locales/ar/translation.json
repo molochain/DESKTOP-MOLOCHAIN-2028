@@ -290,6 +290,117 @@
         "title": "٣. نتائج مخصصة",
         "description": "تحصل على توصيات مخصصة مع درجات المطابقة وشرح سبب تلبية كل خدمة لاحتياجاتك."
       }
+    },
+    "hub": {
+      "hero": {
+        "title": "حلول لوجستية عالمية",
+        "subtitle": "خدمات شاملة مصممة لاحتياجات عملك"
+      },
+      "stats": {
+        "services": "الخدمات",
+        "countries": "الدول",
+        "deliveriesYear": "التوصيلات/السنة",
+        "satisfaction": "الرضا"
+      },
+      "aiRecommendations": "احصل على توصيات الذكاء الاصطناعي",
+      "searchPlaceholder": "ابحث عن الخدمات بالاسم أو الفئة أو الكلمة الرئيسية...",
+      "filters": {
+        "category": "الفئة",
+        "allCategories": "جميع الفئات",
+        "sortBy": "ترتيب حسب",
+        "mostPopular": "الأكثر شعبية",
+        "aToZ": "من أ إلى ي",
+        "newestFirst": "الأحدث أولاً"
+      },
+      "compare": "مقارنة",
+      "tabs": {
+        "allServices": "جميع الخدمات",
+        "popular": "الشائعة",
+        "industries": "الصناعات",
+        "categories": "الفئات"
+      },
+      "badges": {
+        "popular": "شائع"
+      },
+      "buttons": {
+        "viewDetails": "عرض التفاصيل",
+        "explore": "استكشاف {{service}}",
+        "viewSolutions": "عرض حلول {{industry}}",
+        "viewAllServices": "عرض جميع {{count}} خدمة"
+      },
+      "metrics": {
+        "customerRating": "تقييم العملاء",
+        "growth": "النمو",
+        "bookings": "الحجوزات",
+        "support": "الدعم"
+      },
+      "tailoredSolutions": "حلول لوجستية مخصصة",
+      "keyBenefits": "المزايا الرئيسية",
+      "recommendedServices": "الخدمات الموصى بها",
+      "categories": {
+        "transportation": {
+          "title": "النقل واللوجستيات",
+          "description": "حلول شاملة للشحن والبضائع"
+        },
+        "warehousing": {
+          "title": "التخزين والتوزيع",
+          "description": "تخزين وتوزيع حديث"
+        },
+        "customs": {
+          "title": "الامتثال والتوثيق",
+          "description": "خبرة تنظيمية وجمركية"
+        },
+        "digital": {
+          "title": "الحلول الرقمية",
+          "description": "لوجستيات مدفوعة بالتكنولوجيا"
+        },
+        "business": {
+          "title": "خدمات الأعمال",
+          "description": "شراكات استراتيجية ونمو"
+        }
+      },
+      "industries": {
+        "ecommerce": {
+          "name": "التجارة الإلكترونية",
+          "benefits": {
+            "sameDay": "التوصيل في نفس اليوم",
+            "returns": "إدارة المرتجعات",
+            "multiChannel": "التوزيع متعدد القنوات"
+          }
+        },
+        "manufacturing": {
+          "name": "التصنيع",
+          "benefits": {
+            "jit": "التسليم في الوقت المحدد",
+            "rawMaterial": "توريد المواد الخام",
+            "production": "تخطيط الإنتاج"
+          }
+        },
+        "retail": {
+          "name": "التجزئة",
+          "benefits": {
+            "storeReplenishment": "تجديد المتاجر",
+            "seasonal": "المخزون الموسمي",
+            "omnichannel": "اللوجستيات متعددة القنوات"
+          }
+        },
+        "healthcare": {
+          "name": "الرعاية الصحية",
+          "benefits": {
+            "temperature": "التحكم في درجة الحرارة",
+            "regulatory": "الامتثال التنظيمي",
+            "emergency": "التوصيل الطارئ"
+          }
+        }
+      },
+      "comparison": {
+        "title": "مقارنة الخدمات",
+        "feature": "الميزة",
+        "description": "الوصف",
+        "keyFeatures": "الميزات الرئيسية",
+        "clear": "مسح المقارنة",
+        "getQuote": "احصل على عرض سعر للخدمات المحددة"
+      }
     }
   },
   "about": {

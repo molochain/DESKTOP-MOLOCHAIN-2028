@@ -310,6 +310,117 @@
         "title": "۳. نتایج شخصی‌سازی شده",
         "description": "شما توصیه‌های سفارشی با امتیازات تطابق و توضیحاتی درباره اینکه چرا هر خدمت نیازهای شما را برآورده می‌کند دریافت می‌کنید."
       }
+    },
+    "hub": {
+      "hero": {
+        "title": "راهکارهای لجستیک جهانی",
+        "subtitle": "خدمات جامع متناسب با نیازهای کسب‌وکار شما"
+      },
+      "stats": {
+        "services": "خدمات",
+        "countries": "کشورها",
+        "deliveriesYear": "تحویل/سال",
+        "satisfaction": "رضایت"
+      },
+      "aiRecommendations": "دریافت توصیه‌های هوش مصنوعی",
+      "searchPlaceholder": "جستجوی خدمات بر اساس نام، دسته یا کلمه کلیدی...",
+      "filters": {
+        "category": "دسته",
+        "allCategories": "همه دسته‌ها",
+        "sortBy": "مرتب‌سازی بر اساس",
+        "mostPopular": "محبوب‌ترین",
+        "aToZ": "الف تا ی",
+        "newestFirst": "جدیدترین"
+      },
+      "compare": "مقایسه",
+      "tabs": {
+        "allServices": "همه خدمات",
+        "popular": "محبوب",
+        "industries": "صنایع",
+        "categories": "دسته‌ها"
+      },
+      "badges": {
+        "popular": "محبوب"
+      },
+      "buttons": {
+        "viewDetails": "مشاهده جزئیات",
+        "explore": "کاوش {{service}}",
+        "viewSolutions": "مشاهده راهکارهای {{industry}}",
+        "viewAllServices": "مشاهده همه {{count}} خدمت"
+      },
+      "metrics": {
+        "customerRating": "امتیاز مشتری",
+        "growth": "رشد",
+        "bookings": "رزروها",
+        "support": "پشتیبانی"
+      },
+      "tailoredSolutions": "راهکارهای لجستیکی سفارشی",
+      "keyBenefits": "مزایای کلیدی",
+      "recommendedServices": "خدمات پیشنهادی",
+      "categories": {
+        "transportation": {
+          "title": "حمل‌ونقل و لجستیک",
+          "description": "راهکارهای جامع حمل بار و کالا"
+        },
+        "warehousing": {
+          "title": "انبارداری و توزیع",
+          "description": "انبارداری و توزیع مدرن"
+        },
+        "customs": {
+          "title": "امور گمرکی و اسناد",
+          "description": "تخصص در امور گمرکی و نظارتی"
+        },
+        "digital": {
+          "title": "راهکارهای دیجیتال",
+          "description": "لجستیک مبتنی بر فناوری"
+        },
+        "business": {
+          "title": "خدمات کسب‌وکار",
+          "description": "مشارکت‌های استراتژیک و رشد"
+        }
+      },
+      "industries": {
+        "ecommerce": {
+          "name": "تجارت الکترونیک",
+          "benefits": {
+            "sameDay": "تحویل همان روز",
+            "returns": "مدیریت مرجوعی",
+            "multiChannel": "توزیع چندکاناله"
+          }
+        },
+        "manufacturing": {
+          "name": "تولید",
+          "benefits": {
+            "jit": "تحویل به موقع",
+            "rawMaterial": "تأمین مواد خام",
+            "production": "برنامه‌ریزی تولید"
+          }
+        },
+        "retail": {
+          "name": "خرده‌فروشی",
+          "benefits": {
+            "storeReplenishment": "تأمین موجودی فروشگاه",
+            "seasonal": "موجودی فصلی",
+            "omnichannel": "لجستیک همه‌کاناله"
+          }
+        },
+        "healthcare": {
+          "name": "بهداشت و درمان",
+          "benefits": {
+            "temperature": "کنترل دما",
+            "regulatory": "انطباق با مقررات",
+            "emergency": "تحویل اورژانسی"
+          }
+        }
+      },
+      "comparison": {
+        "title": "مقایسه خدمات",
+        "feature": "ویژگی",
+        "description": "توضیحات",
+        "keyFeatures": "ویژگی‌های کلیدی",
+        "clear": "پاک کردن مقایسه",
+        "getQuote": "دریافت قیمت برای خدمات انتخابی"
+      }
     }
   },
   "tools": {

@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -42,99 +43,110 @@ import {
 import { cn } from "@/lib/utils";
 import { services } from "@/data/services";
 
-// Service categories with enhanced metadata
-const serviceCategories = {
-  transportation: {
-    title: "Transportation & Logistics",
-    description: "End-to-end freight and cargo solutions",
-    icon: <Truck className="h-5 w-5" />,
-    color: "blue",
-    services: ["trucking", "airfreight", "rail", "container", "special-transport", "chartering"],
-  },
-  warehousing: {
-    title: "Storage & Fulfillment",
-    description: "Modern warehousing and distribution",
-    icon: <Building className="h-5 w-5" />,
-    color: "purple",
-    services: ["warehousing", "port-services", "distribution", "drop-shipping"],
-  },
-  customs: {
-    title: "Compliance & Documentation",
-    description: "Regulatory and customs expertise",
-    icon: <Shield className="h-5 w-5" />,
-    color: "green",
-    services: ["customs", "documentation", "certificates", "export"],
-  },
-  digital: {
-    title: "Digital Solutions",
-    description: "Technology-driven logistics",
-    icon: <Globe className="h-5 w-5" />,
-    color: "indigo",
-    services: ["online-shopping", "technology", "help-develop", "supply-chain"],
-  },
-  business: {
-    title: "Business Services",
-    description: "Strategic partnerships and growth",
-    icon: <Users className="h-5 w-5" />,
-    color: "orange",
-    services: ["consultation", "project", "finance", "partnership", "investing"],
-  },
-};
-
-// Popular services with metrics
-const popularServices = [
-  { id: "trucking", bookings: "2.3K/mo", rating: 4.8, growth: "+15%" },
-  { id: "airfreight", bookings: "1.8K/mo", rating: 4.9, growth: "+22%" },
-  { id: "warehousing", bookings: "1.5K/mo", rating: 4.7, growth: "+8%" },
-  { id: "customs", bookings: "3.1K/mo", rating: 4.6, growth: "+18%" },
-];
-
-// Industry solutions
-const industrySolutions = [
-  {
-    industry: "E-commerce",
-    icon: "🛒",
-    services: ["warehousing", "drop-shipping", "online-shopping", "distribution"],
-    benefits: ["Same-day delivery", "Returns management", "Multi-channel fulfillment"],
-  },
-  {
-    industry: "Manufacturing",
-    icon: "🏭",
-    services: ["supply-chain", "trucking", "rail", "warehousing"],
-    benefits: ["JIT delivery", "Raw material sourcing", "Production planning"],
-  },
-  {
-    industry: "Retail",
-    icon: "🏬",
-    services: ["distribution", "warehousing", "trucking", "online-shopping"],
-    benefits: ["Store replenishment", "Seasonal inventory", "Omnichannel logistics"],
-  },
-  {
-    industry: "Healthcare",
-    icon: "🏥",
-    services: ["special-transport", "airfreight", "warehousing", "distribution"],
-    benefits: ["Temperature control", "Regulatory compliance", "Emergency delivery"],
-  },
-];
-
 export default function ServicesHub() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("popularity");
   const [showComparison, setShowComparison] = useState(false);
   const [compareServices, setCompareServices] = useState<string[]>([]);
 
-  // Filter and sort services
+  const serviceCategories = useMemo(() => ({
+    transportation: {
+      title: t("services.hub.categories.transportation.title"),
+      description: t("services.hub.categories.transportation.description"),
+      icon: <Truck className="h-5 w-5" />,
+      color: "blue",
+      services: ["trucking", "airfreight", "rail", "container", "special-transport", "chartering"],
+    },
+    warehousing: {
+      title: t("services.hub.categories.warehousing.title"),
+      description: t("services.hub.categories.warehousing.description"),
+      icon: <Building className="h-5 w-5" />,
+      color: "purple",
+      services: ["warehousing", "port-services", "distribution", "drop-shipping"],
+    },
+    customs: {
+      title: t("services.hub.categories.customs.title"),
+      description: t("services.hub.categories.customs.description"),
+      icon: <Shield className="h-5 w-5" />,
+      color: "green",
+      services: ["customs", "documentation", "certificates", "export"],
+    },
+    digital: {
+      title: t("services.hub.categories.digital.title"),
+      description: t("services.hub.categories.digital.description"),
+      icon: <Globe className="h-5 w-5" />,
+      color: "indigo",
+      services: ["online-shopping", "technology", "help-develop", "supply-chain"],
+    },
+    business: {
+      title: t("services.hub.categories.business.title"),
+      description: t("services.hub.categories.business.description"),
+      icon: <Users className="h-5 w-5" />,
+      color: "orange",
+      services: ["consultation", "project", "finance", "partnership", "investing"],
+    },
+  }), [t]);
+
+  const popularServices = useMemo(() => [
+    { id: "trucking", bookings: "2.3K/mo", rating: 4.8, growth: "+15%" },
+    { id: "airfreight", bookings: "1.8K/mo", rating: 4.9, growth: "+22%" },
+    { id: "warehousing", bookings: "1.5K/mo", rating: 4.7, growth: "+8%" },
+    { id: "customs", bookings: "3.1K/mo", rating: 4.6, growth: "+18%" },
+  ], []);
+
+  const industrySolutions = useMemo(() => [
+    {
+      industry: t("services.hub.industries.ecommerce.name"),
+      icon: "🛒",
+      services: ["warehousing", "drop-shipping", "online-shopping", "distribution"],
+      benefits: [
+        t("services.hub.industries.ecommerce.benefits.sameDay"),
+        t("services.hub.industries.ecommerce.benefits.returns"),
+        t("services.hub.industries.ecommerce.benefits.multiChannel"),
+      ],
+    },
+    {
+      industry: t("services.hub.industries.manufacturing.name"),
+      icon: "🏭",
+      services: ["supply-chain", "trucking", "rail", "warehousing"],
+      benefits: [
+        t("services.hub.industries.manufacturing.benefits.jit"),
+        t("services.hub.industries.manufacturing.benefits.rawMaterial"),
+        t("services.hub.industries.manufacturing.benefits.production"),
+      ],
+    },
+    {
+      industry: t("services.hub.industries.retail.name"),
+      icon: "🏬",
+      services: ["distribution", "warehousing", "trucking", "online-shopping"],
+      benefits: [
+        t("services.hub.industries.retail.benefits.storeReplenishment"),
+        t("services.hub.industries.retail.benefits.seasonal"),
+        t("services.hub.industries.retail.benefits.omnichannel"),
+      ],
+    },
+    {
+      industry: t("services.hub.industries.healthcare.name"),
+      icon: "🏥",
+      services: ["special-transport", "airfreight", "warehousing", "distribution"],
+      benefits: [
+        t("services.hub.industries.healthcare.benefits.temperature"),
+        t("services.hub.industries.healthcare.benefits.regulatory"),
+        t("services.hub.industries.healthcare.benefits.emergency"),
+      ],
+    },
+  ], [t]);
+
   const filteredServices = useMemo(() => {
     let filtered = services;
 
-    // Category filter
     if (selectedCategory !== "all") {
       const categoryServices = serviceCategories[selectedCategory as keyof typeof serviceCategories]?.services || [];
       filtered = filtered.filter(s => categoryServices.includes(s.id));
     }
 
-    // Search filter
     if (searchQuery) {
       filtered = filtered.filter(
         s =>
@@ -144,7 +156,6 @@ export default function ServicesHub() {
       );
     }
 
-    // Sort
     switch (sortBy) {
       case "popularity":
         filtered = [...filtered].sort((a, b) => {
@@ -164,7 +175,7 @@ export default function ServicesHub() {
     }
 
     return filtered;
-  }, [searchQuery, selectedCategory, sortBy]);
+  }, [searchQuery, selectedCategory, sortBy, serviceCategories, popularServices]);
 
   const handleCompareToggle = (serviceId: string) => {
     setCompareServices(prev => {
@@ -189,18 +200,18 @@ export default function ServicesHub() {
             transition={{ duration: 0.5 }}
             className="text-center"
           >
-            <h1 className="text-5xl font-bold mb-4">Global Logistics Solutions</h1>
+            <h1 className="text-5xl font-bold mb-4">{t("services.hub.hero.title")}</h1>
             <p className="text-xl mb-8 text-blue-100">
-              Comprehensive services tailored to your business needs
+              {t("services.hub.hero.subtitle")}
             </p>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               {[
-                { label: "Services", value: "40+", icon: <Package /> },
-                { label: "Countries", value: "180+", icon: <Globe /> },
-                { label: "Deliveries/Year", value: "2.5M+", icon: <Truck /> },
-                { label: "Satisfaction", value: "98%", icon: <Star /> },
+                { label: t("services.hub.stats.services"), value: "40+", icon: <Package /> },
+                { label: t("services.hub.stats.countries"), value: "180+", icon: <Globe /> },
+                { label: t("services.hub.stats.deliveriesYear"), value: "2.5M+", icon: <Truck /> },
+                { label: t("services.hub.stats.satisfaction"), value: "98%", icon: <Star /> },
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -225,7 +236,7 @@ export default function ServicesHub() {
                 className="bg-white text-blue-600 hover:bg-gray-100 shadow-lg"
               >
                 <Sparkles className="mr-2 h-5 w-5" />
-                Get AI-Powered Recommendations
+                {t("services.hub.aiRecommendations")}
               </Button>
             </Link>
           </motion.div>
@@ -240,7 +251,7 @@ export default function ServicesHub() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
               <Input
                 type="text"
-                placeholder="Search services by name, category, or keyword..."
+                placeholder={t("services.hub.searchPlaceholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 pr-4"
@@ -248,10 +259,10 @@ export default function ServicesHub() {
             </div>
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
               <SelectTrigger className="w-full md:w-[200px]">
-                <SelectValue placeholder="Category" />
+                <SelectValue placeholder={t("services.hub.filters.category")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
+                <SelectItem value="all">{t("services.hub.filters.allCategories")}</SelectItem>
                 {Object.entries(serviceCategories).map(([key, cat]) => (
                   <SelectItem key={key} value={key}>
                     <div className="flex items-center gap-2">
@@ -264,12 +275,12 @@ export default function ServicesHub() {
             </Select>
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="w-full md:w-[180px]">
-                <SelectValue placeholder="Sort by" />
+                <SelectValue placeholder={t("services.hub.filters.sortBy")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="popularity">Most Popular</SelectItem>
-                <SelectItem value="alphabetical">A to Z</SelectItem>
-                <SelectItem value="newest">Newest First</SelectItem>
+                <SelectItem value="popularity">{t("services.hub.filters.mostPopular")}</SelectItem>
+                <SelectItem value="alphabetical">{t("services.hub.filters.aToZ")}</SelectItem>
+                <SelectItem value="newest">{t("services.hub.filters.newestFirst")}</SelectItem>
               </SelectContent>
             </Select>
             <Button
@@ -278,7 +289,7 @@ export default function ServicesHub() {
               disabled={compareServices.length < 2}
             >
               <BarChart3 className="mr-2 h-4 w-4" />
-              Compare ({compareServices.length})
+              {t("services.hub.compare")} ({compareServices.length})
             </Button>
           </div>
         </div>
@@ -287,10 +298,10 @@ export default function ServicesHub() {
       <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <Tabs defaultValue="all" className="space-y-8">
           <TabsList className="grid w-full grid-cols-4 lg:w-auto">
-            <TabsTrigger value="all">All Services</TabsTrigger>
-            <TabsTrigger value="popular">Popular</TabsTrigger>
-            <TabsTrigger value="industries">Industries</TabsTrigger>
-            <TabsTrigger value="categories">Categories</TabsTrigger>
+            <TabsTrigger value="all">{t("services.hub.tabs.allServices")}</TabsTrigger>
+            <TabsTrigger value="popular">{t("services.hub.tabs.popular")}</TabsTrigger>
+            <TabsTrigger value="industries">{t("services.hub.tabs.industries")}</TabsTrigger>
+            <TabsTrigger value="categories">{t("services.hub.tabs.categories")}</TabsTrigger>
           </TabsList>
 
           {/* All Services Tab */}
@@ -320,7 +331,7 @@ export default function ServicesHub() {
                           <div className="absolute -top-2 -right-2 z-10">
                             <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white">
                               <TrendingUp className="mr-1 h-3 w-3" />
-                              Popular
+                              {t("services.hub.badges.popular")}
                             </Badge>
                           </div>
                         )}
@@ -395,7 +406,7 @@ export default function ServicesHub() {
                           <div className="flex gap-2">
                             <Link href={`/services/${service.id}`} className="flex-1">
                               <Button variant="default" className="w-full group">
-                                View Details
+                                {t("services.hub.buttons.viewDetails")}
                                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                               </Button>
                             </Link>
@@ -433,7 +444,7 @@ export default function ServicesHub() {
                             <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                             <span className="text-2xl font-bold">{popular.rating}</span>
                           </div>
-                          <div className="text-sm opacity-90">Customer Rating</div>
+                          <div className="text-sm opacity-90">{t("services.hub.metrics.customerRating")}</div>
                         </div>
                       </div>
                       <h3 className="text-2xl font-bold mb-2">{service.title}</h3>
@@ -443,20 +454,20 @@ export default function ServicesHub() {
                       <div className="grid grid-cols-3 gap-4 mb-6">
                         <div className="text-center">
                           <div className="text-2xl font-bold text-green-600">{popular.growth}</div>
-                          <div className="text-sm text-gray-600">Growth</div>
+                          <div className="text-sm text-gray-600">{t("services.hub.metrics.growth")}</div>
                         </div>
                         <div className="text-center">
                           <div className="text-2xl font-bold text-blue-600">{popular.bookings}</div>
-                          <div className="text-sm text-gray-600">Bookings</div>
+                          <div className="text-sm text-gray-600">{t("services.hub.metrics.bookings")}</div>
                         </div>
                         <div className="text-center">
                           <div className="text-2xl font-bold text-purple-600">24/7</div>
-                          <div className="text-sm text-gray-600">Support</div>
+                          <div className="text-sm text-gray-600">{t("services.hub.metrics.support")}</div>
                         </div>
                       </div>
                       <Link href={`/services/${service.id}`}>
                         <Button className="w-full" size="lg">
-                          Explore {service.title}
+                          {t("services.hub.buttons.explore", { service: service.title })}
                           <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
                       </Link>
@@ -484,7 +495,7 @@ export default function ServicesHub() {
                           <div className="text-4xl">{industry.icon}</div>
                           <div>
                             <CardTitle className="text-xl">{industry.industry}</CardTitle>
-                            <CardDescription>Tailored logistics solutions</CardDescription>
+                            <CardDescription>{t("services.hub.tailoredSolutions")}</CardDescription>
                           </div>
                         </div>
                         <Award className="h-8 w-8 text-yellow-500" />
@@ -494,7 +505,7 @@ export default function ServicesHub() {
                       <div className="mb-4">
                         <h4 className="font-semibold mb-2 flex items-center gap-2">
                           <Target className="h-4 w-4 text-blue-500" />
-                          Key Benefits
+                          {t("services.hub.keyBenefits")}
                         </h4>
                         <ul className="space-y-2">
                           {industry.benefits.map((benefit) => (
@@ -508,7 +519,7 @@ export default function ServicesHub() {
                       <div className="mb-4">
                         <h4 className="font-semibold mb-2 flex items-center gap-2">
                           <Zap className="h-4 w-4 text-yellow-500" />
-                          Recommended Services
+                          {t("services.hub.recommendedServices")}
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {industry.services.map((serviceId) => (
@@ -522,7 +533,7 @@ export default function ServicesHub() {
                       </div>
                       <Link href={`/industries/${industry.industry.toLowerCase()}`}>
                         <Button className="w-full" variant="outline">
-                          View {industry.industry} Solutions
+                          {t("services.hub.buttons.viewSolutions", { industry: industry.industry })}
                           <ChevronRight className="ml-2 h-4 w-4" />
                         </Button>
                       </Link>
@@ -575,7 +586,7 @@ export default function ServicesHub() {
                         className="w-full mt-4"
                         onClick={() => setSelectedCategory(key)}
                       >
-                        View All {category.services.length} Services
+                        {t("services.hub.buttons.viewAllServices", { count: category.services.length })}
                       </Button>
                     </CardContent>
                   </Card>
@@ -591,7 +602,7 @@ export default function ServicesHub() {
             <Card className="max-w-6xl w-full max-h-[90vh] overflow-auto">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle>Service Comparison</CardTitle>
+                  <CardTitle>{t("services.hub.comparison.title")}</CardTitle>
                   <Button variant="ghost" onClick={() => setShowComparison(false)}>
                     ✕
                   </Button>
@@ -602,7 +613,7 @@ export default function ServicesHub() {
                   <table className="w-full">
                     <thead>
                       <tr>
-                        <th className="text-left p-4">Feature</th>
+                        <th className="text-left p-4">{t("services.hub.comparison.feature")}</th>
                         {compareServices.map(id => {
                           const service = services.find(s => s.id === id);
                           return (
@@ -615,7 +626,7 @@ export default function ServicesHub() {
                     </thead>
                     <tbody>
                       <tr>
-                        <td className="p-4 font-medium">Description</td>
+                        <td className="p-4 font-medium">{t("services.hub.comparison.description")}</td>
                         {compareServices.map(id => {
                           const service = services.find(s => s.id === id);
                           return (
@@ -626,7 +637,7 @@ export default function ServicesHub() {
                         })}
                       </tr>
                       <tr className="bg-gray-50">
-                        <td className="p-4 font-medium">Key Features</td>
+                        <td className="p-4 font-medium">{t("services.hub.comparison.keyFeatures")}</td>
                         {compareServices.map(id => {
                           const service = services.find(s => s.id === id);
                           return (
@@ -648,11 +659,11 @@ export default function ServicesHub() {
                 </div>
                 <div className="mt-6 flex justify-end gap-4">
                   <Button variant="outline" onClick={() => setCompareServices([])}>
-                    Clear Comparison
+                    {t("services.hub.comparison.clear")}
                   </Button>
                   <Link href="/quote">
                     <Button>
-                      Get Quote for Selected Services
+                      {t("services.hub.comparison.getQuote")}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>

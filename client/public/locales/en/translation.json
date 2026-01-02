@@ -240,6 +240,117 @@
         "title": "3. Personalized Results",
         "description": "You receive tailored recommendations with match scores and explanations of why each service meets your needs."
       }
+    },
+    "hub": {
+      "hero": {
+        "title": "Global Logistics Solutions",
+        "subtitle": "Comprehensive services tailored to your business needs"
+      },
+      "stats": {
+        "services": "Services",
+        "countries": "Countries",
+        "deliveriesYear": "Deliveries/Year",
+        "satisfaction": "Satisfaction"
+      },
+      "aiRecommendations": "Get AI-Powered Recommendations",
+      "searchPlaceholder": "Search services by name, category, or keyword...",
+      "filters": {
+        "category": "Category",
+        "allCategories": "All Categories",
+        "sortBy": "Sort by",
+        "mostPopular": "Most Popular",
+        "aToZ": "A to Z",
+        "newestFirst": "Newest First"
+      },
+      "compare": "Compare",
+      "tabs": {
+        "allServices": "All Services",
+        "popular": "Popular",
+        "industries": "Industries",
+        "categories": "Categories"
+      },
+      "badges": {
+        "popular": "Popular"
+      },
+      "buttons": {
+        "viewDetails": "View Details",
+        "explore": "Explore {{service}}",
+        "viewSolutions": "View {{industry}} Solutions",
+        "viewAllServices": "View All {{count}} Services"
+      },
+      "metrics": {
+        "customerRating": "Customer Rating",
+        "growth": "Growth",
+        "bookings": "Bookings",
+        "support": "Support"
+      },
+      "tailoredSolutions": "Tailored logistics solutions",
+      "keyBenefits": "Key Benefits",
+      "recommendedServices": "Recommended Services",
+      "categories": {
+        "transportation": {
+          "title": "Transportation & Logistics",
+          "description": "End-to-end freight and cargo solutions"
+        },
+        "warehousing": {
+          "title": "Storage & Fulfillment",
+          "description": "Modern warehousing and distribution"
+        },
+        "customs": {
+          "title": "Compliance & Documentation",
+          "description": "Regulatory and customs expertise"
+        },
+        "digital": {
+          "title": "Digital Solutions",
+          "description": "Technology-driven logistics"
+        },
+        "business": {
+          "title": "Business Services",
+          "description": "Strategic partnerships and growth"
+        }
+      },
+      "industries": {
+        "ecommerce": {
+          "name": "E-commerce",
+          "benefits": {
+            "sameDay": "Same-day delivery",
+            "returns": "Returns management",
+            "multiChannel": "Multi-channel fulfillment"
+          }
+        },
+        "manufacturing": {
+          "name": "Manufacturing",
+          "benefits": {
+            "jit": "JIT delivery",
+            "rawMaterial": "Raw material sourcing",
+            "production": "Production planning"
+          }
+        },
+        "retail": {
+          "name": "Retail",
+          "benefits": {
+            "storeReplenishment": "Store replenishment",
+            "seasonal": "Seasonal inventory",
+            "omnichannel": "Omnichannel logistics"
+          }
+        },
+        "healthcare": {
+          "name": "Healthcare",
+          "benefits": {
+            "temperature": "Temperature control",
+            "regulatory": "Regulatory compliance",
+            "emergency": "Emergency delivery"
+          }
+        }
+      },
+      "comparison": {
+        "title": "Service Comparison",
+        "feature": "Feature",
+        "description": "Description",
+        "keyFeatures": "Key Features",
+        "clear": "Clear Comparison",
+        "getQuote": "Get Quote for Selected Services"
+      }
     }
   },
   "tools": {
