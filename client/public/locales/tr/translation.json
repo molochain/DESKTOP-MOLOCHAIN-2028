@@ -273,6 +273,23 @@
         "getStarted": "Başla",
         "learnMore": "Daha Fazla Bilgi"
       }
+    },
+    "recommender": {
+      "title": "Yapay Zeka Hizmet Önerici",
+      "description": "Özel lojistik ihtiyaçlarınıza göre kişiselleştirilmiş hizmet önerileri alın",
+      "howItWorks": "Yapay Zeka Önericimiz Nasıl Çalışır",
+      "step1": {
+        "title": "1. Gereksinimleri Analiz Et",
+        "description": "Yapay zeka motorumuz, ihtiyaçlarınızı anlamak için özel lojistik gereksinimlerinizi ve iş bağlamınızı analiz eder."
+      },
+      "step2": {
+        "title": "2. Hizmetleri Eşleştir",
+        "description": "Sistem, en iyi eşleşmeleri bulmak için 44 özel hizmetimizin tamamını gereksinimlerinize göre değerlendirir."
+      },
+      "step3": {
+        "title": "3. Kişiselleştirilmiş Sonuçlar",
+        "description": "Her hizmetin neden ihtiyaçlarınızı karşıladığına dair eşleşme puanları ve açıklamalarla özelleştirilmiş öneriler alırsınız."
+      }
     }
   },
   "tools": {

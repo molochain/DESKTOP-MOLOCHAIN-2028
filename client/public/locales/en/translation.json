@@ -223,6 +223,23 @@
         "maritime": "Maritime",
         "rail": "Rail"
       }
+    },
+    "recommender": {
+      "title": "AI Service Recommender",
+      "description": "Get personalized service recommendations based on your specific logistics needs",
+      "howItWorks": "How Our AI Recommender Works",
+      "step1": {
+        "title": "1. Analyze Requirements",
+        "description": "Our AI engine analyzes your specific logistics requirements and business context to understand your needs."
+      },
+      "step2": {
+        "title": "2. Match Services",
+        "description": "The system evaluates all 44 of our specialized services against your requirements to find the best fits."
+      },
+      "step3": {
+        "title": "3. Personalized Results",
+        "description": "You receive tailored recommendations with match scores and explanations of why each service meets your needs."
+      }
     }
   },
   "tools": {
