@@ -14,7 +14,6 @@ RouteRegistry.registerCategory({
     // Root route for auth subdomain redirects to login
     { path: '/', component: Login, layout: 'none', subdomain: 'auth' },
     { path: '/login', component: Login, layout: 'none', subdomain: ['public', 'admin', 'auth'] },
-    { path: '/auth/login', component: Login, layout: 'none', subdomain: ['public', 'admin', 'auth'] },
     { path: '/register', component: Register, layout: 'none', subdomain: ['public', 'auth'] },
     { path: '/forgot-password', component: RequestPasswordReset, layout: 'none', subdomain: ['public', 'admin', 'auth'] },
     { path: '/reset-password', component: ResetPassword, layout: 'none', subdomain: ['public', 'admin', 'auth'] }
