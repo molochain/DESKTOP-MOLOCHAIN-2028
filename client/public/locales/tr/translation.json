@@ -2,3786 +2,431 @@
   "home": {
     "services": {
       "container": {
-        "title": "Container Services",
-        "description": "Comprehensive container handling and management solutions"
+        "title": "Konteyner Hizmetleri",
+        "description": "Kapsamlı konteyner işleme ve yönetim çözümleri"
       },
       "trucking": {
-        "title": "Trucking Services",
-        "description": "Reliable road transportation solutions"
+        "title": "Karayolu Taşımacılığı",
+        "description": "Güvenilir karayolu taşımacılığı çözümleri"
       },
       "airfreight": {
-        "title": "Air Freight Services",
-        "description": "Fast and reliable worldwide air cargo transportation solutions"
+        "title": "Hava Kargo Hizmetleri",
+        "description": "Dünya çapında hızlı ve güvenilir hava kargo taşımacılığı çözümleri"
       },
       "transit": {
-        "title": "Transit Services",
-        "description": "Efficient cargo movement and transit management solutions"
+        "title": "Transit Hizmetleri",
+        "description": "Verimli kargo hareketi ve transit yönetimi çözümleri"
       },
       "crossstaffing": {
-        "title": "Cross-Staffing Services",
-        "description": "Flexible workforce solutions for logistics"
+        "title": "Personel Hizmetleri",
+        "description": "Lojistik için esnek işgücü çözümleri"
       },
       "agency": {
-        "title": "Agency Services",
-        "description": "Professional logistics recruitment solutions"
+        "title": "Acentelik Hizmetleri",
+        "description": "Profesyonel lojistik işe alım çözümleri"
       }
     },
     "projects": {
       "ecommerce": {
-        "title": "Global E-commerce Distribution Network",
-        "description": "Implemented an integrated logistics solution for a major e-commerce platform, reducing delivery times by 40%",
-        "category": "E-commerce"
+        "title": "Küresel E-ticaret Dağıtım Ağı",
+        "description": "Büyük bir e-ticaret platformu için entegre lojistik çözümü uygulandı, teslimat süreleri %40 azaltıldı",
+        "category": "E-ticaret"
       },
       "ai": {
-        "title": "Advanced AI for Logistics Innovation",
-        "description": "Pioneering the development of artificial intelligence solutions to transform logistics planning",
-        "category": "Innovation"
+        "title": "Lojistik İnovasyonu için Gelişmiş Yapay Zeka",
+        "description": "Lojistik planlamasını dönüştürmek için yapay zeka çözümlerinin geliştirilmesinde öncülük",
+        "category": "İnovasyon"
       },
       "future": {
-        "title": "Future of Logistics Initiative",
-        "description": "Transforming the global logistics landscape through breakthrough technologies and sustainable innovations",
-        "category": "Innovation"
+        "title": "Lojistiğin Geleceği Girişimi",
+        "description": "Çığır açan teknolojiler ve sürdürülebilir yeniliklerle küresel lojistik manzarasını dönüştürme",
+        "category": "İnovasyon"
       }
     },
     "analytics": {
-      "badge": "Analytics",
-      "title": "Performance Overview",
-      "subtitle": "Real-time insights into your logistics operations",
+      "badge": "Analitik",
+      "title": "Performans Genel Bakışı",
+      "subtitle": "Lojistik operasyonlarınıza gerçek zamanlı içgörüler",
       "delivery": {
-        "title": "Delivery Performance",
-        "onTimeRate": "On-Time Rate",
-        "avgDelay": "Average Delay",
-        "successRate": "Success Rate"
+        "title": "Teslimat Performansı",
+        "onTimeRate": "Zamanında Teslimat Oranı",
+        "avgDelay": "Ortalama Gecikme",
+        "successRate": "Başarı Oranı"
       },
       "cost": {
-        "title": "Cost Efficiency",
-        "costPerMile": "Cost per Mile",
-        "fuelSavings": "Fuel Savings",
-        "routeOptimization": "Route Optimization"
+        "title": "Maliyet Verimliliği",
+        "costPerMile": "Mil Başına Maliyet",
+        "fuelSavings": "Yakıt Tasarrufu",
+        "routeOptimization": "Rota Optimizasyonu"
       },
       "satisfaction": {
-        "title": "Customer Satisfaction",
-        "npsScore": "NPS Score",
-        "resolutionTime": "Resolution Time",
-        "reviews": "5-Star Reviews"
+        "title": "Müşteri Memnuniyeti",
+        "npsScore": "NPS Puanı",
+        "resolutionTime": "Çözüm Süresi",
+        "reviews": "5-Yıldızlı Değerlendirmeler"
       }
     }
   },
   "stats": {
-    "partners": "Global Partners",
-    "shipments": "Shipments Processed",
-    "networkValue": "Network Value",
-    "integrations": "Active Integrations"
+    "partners": "Küresel Ortaklar",
+    "shipments": "İşlenen Gönderiler",
+    "networkValue": "Ağ Değeri",
+    "integrations": "Aktif Entegrasyonlar"
   },
   "nav": {
-    "home": "Home",
-    "services": "Services",
-    "quote": "Get Quote",
-    "contact": "Contact",
-    "getStarted": "Get Started",
-    "tools": "Tools",
-    "dashboard": "Dashboard",
-    "myDashboard": "My Dashboard",
-    "myDashboardDesc": "Access your personalized dashboard",
-    "profile": "Profile",
-    "profileDesc": "Manage your account settings",
-    "settings": "Settings",
-    "settingsDesc": "Configure your preferences",
-    "allServices": "All Services",
-    "allServicesDesc": "View our complete service catalog",
-    "trackShipment": "Track Shipment",
-    "trackShipmentDesc": "Real-time shipment tracking",
-    "quoteDesc": "Request a custom quote",
-    "solutions": "Solutions",
+    "home": "Ana Sayfa",
+    "services": "Hizmetler",
+    "quote": "Teklif Al",
+    "contact": "İletişim",
+    "getStarted": "Başla",
+    "tools": "Araçlar",
+    "dashboard": "Kontrol Paneli",
+    "myDashboard": "Kontrol Panelim",
+    "myDashboardDesc": "Kişiselleştirilmiş kontrol panelinize erişin",
+    "profile": "Profil",
+    "profileDesc": "Hesap ayarlarınızı yönetin",
+    "settings": "Ayarlar",
+    "settingsDesc": "Tercihlerinizi yapılandırın",
+    "allServices": "Tüm Hizmetler",
+    "allServicesDesc": "Tam hizmet kataloğumuzu görüntüleyin",
+    "trackShipment": "Gönderi Takibi",
+    "trackShipmentDesc": "Gerçek zamanlı gönderi takibi",
+    "quoteDesc": "Özel teklif isteyin",
+    "solutions": "Çözümler",
     "mololink": "MOLOLINK",
-    "mololinkDesc": "Professional logistics network",
-    "ecosystem": "Ecosystem",
-    "ecosystemDesc": "Integrated platform ecosystem",
-    "partners": "Partners",
-    "partnersDesc": "Our trusted partners",
-    "resources": "Resources",
-    "termsOfService": "Terms of Service",
-    "termsDesc": "Legal terms and policies",
-    "privacyPolicy": "Privacy Policy",
-    "privacyDesc": "Data protection and privacy",
-    "contactUs": "Contact Us",
-    "contactDesc": "Get in touch with our team",
-    "company": "Company",
-    "aboutUs": "About Us",
-    "aboutDesc": "Learn about MoloChain",
-    "contactShortDesc": "Get in touch with us",
-    "controlCenter": "Control Center"
+    "mololinkDesc": "Profesyonel lojistik ağı",
+    "ecosystem": "Ekosistem",
+    "ecosystemDesc": "Entegre platform ekosistemi",
+    "partners": "Ortaklar",
+    "partnersDesc": "Güvenilir ortaklarımız",
+    "resources": "Kaynaklar",
+    "termsOfService": "Hizmet Şartları",
+    "termsDesc": "Yasal şartlar ve politikalar",
+    "privacyPolicy": "Gizlilik Politikası",
+    "privacyDesc": "Veri koruma ve gizlilik",
+    "contactUs": "Bize Ulaşın",
+    "contactDesc": "Ekibimizle iletişime geçin",
+    "company": "Şirket",
+    "aboutUs": "Hakkımızda",
+    "aboutDesc": "MoloChain hakkında bilgi edinin",
+    "contactShortDesc": "Bizimle iletişime geçin",
+    "controlCenter": "Kontrol Merkezi"
   },
   "features": {
-    "enterpriseSecured": "Enterprise Secured",
-    "aiPowered": "AI Powered",
-    "smartIntegration": "Smart Integration",
-    "marketSize": "$9.1T Market"
+    "enterpriseSecured": "Kurumsal Güvenlik",
+    "aiPowered": "Yapay Zeka Destekli",
+    "smartIntegration": "Akıllı Entegrasyon",
+    "marketSize": "9.1 Trilyon Dolarlık Pazar"
   },
   "hero": {
-    "title": "Global Logistics Solutions",
-    "subtitle": "Connecting Continents, Delivering Excellence",
-    "description": "Molochain provides end-to-end supply chain solutions with cutting-edge technology and a global network spanning 150+ countries.",
-    "getQuote": "Get a Quote",
-    "learnMore": "Learn More",
-    "badge": "Enterprise Logistics Ecosystem",
-    "isoCertified": "ISO 9001 Certified",
-    "support247": "24/7 Support",
+    "title": "Küresel Lojistik Çözümleri",
+    "subtitle": "Kıtaları Birleştiriyoruz, Mükemmellik Sunuyoruz",
+    "description": "Molochain, en son teknolojiyle ve 150'den fazla ülkeyi kapsayan küresel ağıyla uçtan uca tedarik zinciri çözümleri sunar.",
+    "getQuote": "Teklif Al",
+    "learnMore": "Daha Fazla Bilgi",
+    "badge": "Kurumsal Lojistik Ekosistemi",
+    "isoCertified": "ISO 9001 Sertifikalı",
+    "support247": "7/24 Destek",
     "mololink": "MOLOLINK",
     "molops": "MOLOPS",
-    "onTime": "On-Time 99.9%",
-    "countries": "Countries +150",
-    "imageAlt": "Modern logistics operations"
+    "onTime": "Zamanında Teslimat %99.9",
+    "countries": "150+ Ülke",
+    "imageAlt": "Modern lojistik operasyonları"
   },
   "services": {
-    "title": "Our Services",
-    "subtitle": "Comprehensive logistics solutions for your business needs",
-    "viewAll": "View All Services",
+    "title": "Hizmetlerimiz",
+    "subtitle": "İşletmenizin ihtiyaçları için kapsamlı lojistik çözümler",
+    "viewAll": "Tüm Hizmetleri Gör",
     "freight": {
-      "title": "Freight Shipping",
-      "description": "Global freight solutions for businesses of all sizes"
+      "title": "Yük Taşımacılığı",
+      "description": "Her ölçekteki işletme için küresel nakliye çözümleri",
+      "features": {
+        "global": "Küresel Kapsama",
+        "tracking": "Gerçek Zamanlı Takip",
+        "customs": "Gümrük Yönetimi",
+        "insurance": "Kargo Sigortası"
+      },
+      "benefits": {
+        "reliability": "Güvenilirlik",
+        "speed": "Hızlı Teslimat",
+        "cost": "Rekabetçi Fiyatlar",
+        "expertise": "Sektör Uzmanlığı"
+      }
     },
     "warehouse": {
-      "title": "Warehousing",
-      "description": "Secure storage and inventory management"
+      "title": "Depolama",
+      "description": "Güvenli depolama ve envanter yönetimi",
+      "features": {
+        "security": "7/24 Güvenlik",
+        "inventory": "Envanter Yönetimi",
+        "climate": "Sıcaklık Kontrolü",
+        "handling": "Modern Ekipman"
+      }
     },
     "distribution": {
-      "title": "Distribution",
-      "description": "Efficient distribution networks worldwide"
+      "title": "Dağıtım",
+      "description": "Dünya çapında verimli dağıtım ağları",
+      "features": {
+        "network": "Geniş Ağ",
+        "optimization": "Rota Optimizasyonu",
+        "delivery": "Zamanında Teslimat",
+        "tracking": "Canlı Takip"
+      }
     },
     "customs": {
-      "title": "Customs Clearance",
-      "description": "Expert customs handling and documentation"
-    },
-    "page": {
-      "heroTitle": "MoloChain Global Services",
-      "heroSubtitle": "Comprehensive logistics solutions powered by innovation. From air freight to warehousing, we deliver excellence across 180+ countries.",
-      "searchPlaceholder": "Search services...",
-      "compareServices": "Compare Services",
-      "pricingCalculator": "Pricing Calculator",
-      "aiRecommendations": "AI Recommendations",
-      "filterByCategory": "Filter by Category",
-      "allServices": "All Services",
-      "servicesCount": "{{count}} services",
-      "servicesCount_one": "{{count}} service",
-      "active": "Active",
-      "defaultDescription": "Professional logistics service",
-      "viewDetails": "View Details",
-      "clearFilters": "Clear Filters",
-      "tryAgain": "Try Again",
-      "generalService": "General Service",
-      "stats": {
-        "countries": "Countries",
-        "services": "Services",
-        "yearsExperience": "Years Experience",
-        "activeUsers": "Active Users"
-      },
+      "title": "Gümrük İşlemleri",
+      "description": "Uzman gümrük ve belge yönetimi",
       "features": {
-        "secure": "Secure & Reliable",
-        "support": "24/7 Support",
-        "global": "Global Coverage"
-      },
-      "error": {
-        "title": "Unable to Load Services",
-        "subtitle": "We're having trouble loading our services. Please try again later."
-      },
-      "noResults": {
-        "title": "No Services Found",
-        "subtitle": "Try adjusting your search or filter to find what you're looking for."
-      },
-      "whyChoose": {
-        "title": "Why Choose MoloChain?",
-        "subtitle": "Industry-leading logistics solutions with cutting-edge technology and global reach",
-        "fast": {
-          "title": "Fast & Efficient",
-          "description": "Optimized routes and real-time tracking for fastest delivery times"
-        },
-        "secure": {
-          "title": "Secure & Reliable",
-          "description": "Advanced security protocols and insurance coverage for all shipments"
-        },
-        "custom": {
-          "title": "Custom Solutions",
-          "description": "Tailored logistics strategies to meet your specific business needs"
-        }
-      },
-      "cta": {
-        "title": "Ready to Transform Your Logistics?",
-        "subtitle": "Join thousands of businesses worldwide who trust MoloChain for their logistics needs",
-        "getStarted": "Get Started",
-        "learnMore": "Learn More"
-      },
-      "selectCategory": "Select category",
-      "categories": {
-        "all": "All Services",
-        "transport": "Transport",
-        "warehouse": "Warehouse",
-        "customs": "Customs",
-        "financial": "Financial",
-        "general": "General",
-        "air": "Air Freight",
-        "maritime": "Maritime",
-        "rail": "Rail"
+        "clearance": "Hızlı Gümrükleme",
+        "documentation": "Belge Yönetimi",
+        "compliance": "Mevzuat Uyumu",
+        "consulting": "Uzman Danışmanlık"
       }
     },
-    "recommender": {
-      "title": "AI Service Recommender",
-      "description": "Get personalized service recommendations based on your specific logistics needs",
-      "howItWorks": "How Our AI Recommender Works",
-      "step1": {
-        "title": "1. Analyze Requirements",
-        "description": "Our AI engine analyzes your specific logistics requirements and business context to understand your needs."
-      },
-      "step2": {
-        "title": "2. Match Services",
-        "description": "The system evaluates all 44 of our specialized services against your requirements to find the best fits."
-      },
-      "step3": {
-        "title": "3. Personalized Results",
-        "description": "You receive tailored recommendations with match scores and explanations of why each service meets your needs."
+    "shipping": {
+      "title": "Deniz Taşımacılığı",
+      "description": "Küresel deniz taşımacılığı hizmetleri",
+      "features": {
+        "container": "Konteyner Taşımacılığı",
+        "bulk": "Dökme Yük",
+        "scheduling": "Düzenli Seferler",
+        "ports": "Ana Limanlara Erişim"
       }
     },
-    "hub": {
-      "hero": {
-        "title": "Global Logistics Solutions",
-        "subtitle": "Comprehensive services tailored to your business needs"
-      },
-      "stats": {
-        "services": "Services",
-        "countries": "Countries",
-        "deliveriesYear": "Deliveries/Year",
-        "satisfaction": "Satisfaction"
-      },
-      "aiRecommendations": "Get AI-Powered Recommendations",
-      "searchPlaceholder": "Search services by name, category, or keyword...",
-      "filters": {
-        "category": "Category",
-        "allCategories": "All Categories",
-        "sortBy": "Sort by",
-        "mostPopular": "Most Popular",
-        "aToZ": "A to Z",
-        "newestFirst": "Newest First"
-      },
-      "compare": "Compare",
-      "tabs": {
-        "allServices": "All Services",
-        "popular": "Popular",
-        "industries": "Industries",
-        "categories": "Categories"
-      },
-      "badges": {
-        "popular": "Popular"
-      },
-      "buttons": {
-        "viewDetails": "View Details",
-        "explore": "Explore {{service}}",
-        "viewSolutions": "View {{industry}} Solutions",
-        "viewAllServices": "View All {{count}} Services"
-      },
-      "metrics": {
-        "customerRating": "Customer Rating",
-        "growth": "Growth",
-        "bookings": "Bookings",
-        "support": "Support"
-      },
-      "tailoredSolutions": "Tailored logistics solutions",
-      "keyBenefits": "Key Benefits",
-      "recommendedServices": "Recommended Services",
-      "categories": {
-        "transportation": {
-          "title": "Transportation & Logistics",
-          "description": "End-to-end freight and cargo solutions"
-        },
-        "warehousing": {
-          "title": "Storage & Fulfillment",
-          "description": "Modern warehousing and distribution"
-        },
-        "customs": {
-          "title": "Compliance & Documentation",
-          "description": "Regulatory and customs expertise"
-        },
-        "digital": {
-          "title": "Digital Solutions",
-          "description": "Technology-driven logistics"
-        },
-        "business": {
-          "title": "Business Services",
-          "description": "Strategic partnerships and growth"
-        }
-      },
-      "industries": {
-        "ecommerce": {
-          "name": "E-commerce",
-          "benefits": {
-            "sameDay": "Same-day delivery",
-            "returns": "Returns management",
-            "multiChannel": "Multi-channel fulfillment"
-          }
-        },
-        "manufacturing": {
-          "name": "Manufacturing",
-          "benefits": {
-            "jit": "JIT delivery",
-            "rawMaterial": "Raw material sourcing",
-            "production": "Production planning"
-          }
-        },
-        "retail": {
-          "name": "Retail",
-          "benefits": {
-            "storeReplenishment": "Store replenishment",
-            "seasonal": "Seasonal inventory",
-            "omnichannel": "Omnichannel logistics"
-          }
-        },
-        "healthcare": {
-          "name": "Healthcare",
-          "benefits": {
-            "temperature": "Temperature control",
-            "regulatory": "Regulatory compliance",
-            "emergency": "Emergency delivery"
-          }
-        }
-      },
-      "comparison": {
-        "title": "Service Comparison",
-        "feature": "Feature",
-        "description": "Description",
-        "keyFeatures": "Key Features",
-        "clear": "Clear Comparison",
-        "getQuote": "Get Quote for Selected Services"
-      }
-    },
-    "detail": {
-      "notFound": "Service Not Found",
-      "notFoundDescription": "The service \"{{serviceId}}\" could not be found. It may have been removed or the URL might be incorrect.",
-      "backToServices": "Back to Services"
-    },
-    "enhanced": {
-      "stats": {
-        "responseTime": "Response Time",
-        "coverage": "Coverage",
-        "successRate": "Success Rate",
-        "activeClients": "Active Clients",
-        "global": "Global"
-      },
-      "tabs": {
-        "overview": "Overview",
-        "features": "Features",
-        "testimonials": "Testimonials",
-        "caseStudies": "Case Studies",
-        "faq": "FAQ"
-      },
-      "buttons": {
-        "backToServices": "Back to Services",
-        "bookServiceNow": "Book Service Now",
-        "getInstantQuote": "Get Instant Quote",
-        "contactSales": "Contact Sales",
-        "scheduleService": "Schedule Service",
-        "requestQuote": "Request Quote",
-        "downloadBrochure": "Download Brochure",
-        "liveChatSupport": "Live Chat Support",
-        "loadMoreReviews": "Load More Reviews",
-        "viewAllCaseStudies": "View All Case Studies",
-        "contactSupport": "Contact Support"
-      },
-      "sections": {
-        "keyFeaturesBenefits": "Key Features & Benefits",
-        "features": "Features",
-        "benefits": "Benefits",
-        "serviceDetails": "Service Details",
-        "quickActions": "Quick Actions",
-        "relatedServices": "Related Services",
-        "needHelp": "Need Help?",
-        "needHelpDescription": "Our experts are ready to assist you with your logistics needs.",
-        "stillHaveQuestions": "Still have questions?"
-      },
-      "labels": {
-        "startingFrom": "Starting from",
-        "coverage": "coverage",
-        "certifications": "Certifications",
-        "caseStudy": "Case Study",
-        "client": "Client",
-        "challenge": "Challenge",
-        "solution": "Solution",
-        "results": "Results"
-      },
-      "featureDescription": "Comprehensive implementation ensuring maximum efficiency and reliability.",
-      "modal": {
-        "bookService": "Book {{title}}"
-      },
-      "testimonials": {
-        "default1": "Outstanding {{service}} service! The team went above and beyond to ensure our shipments arrived on time and in perfect condition.",
-        "default2": "The level of professionalism and attention to detail is unmatched. Highly recommend their services for any logistics needs.",
-        "default3": "Reliable and efficient service. The real-time tracking and communication made the entire process smooth and transparent.",
-        "date1": "2 weeks ago",
-        "date2": "1 month ago",
-        "date3": "2 months ago"
-      },
-      "caseStudy": {
-        "defaultTitle": "Streamlining Global Supply Chain",
-        "defaultClient": "Fortune 500 Manufacturer",
-        "defaultChallenge": "Complex international logistics requiring coordination across 15 countries with varying regulations and time-sensitive deliveries.",
-        "defaultSolution": "Implemented comprehensive {{service}} solution with dedicated account management, custom tracking systems, and strategic partnership network.",
-        "result1": "35% reduction in transit times",
-        "result2": "28% cost savings on logistics",
-        "result3": "99.5% on-time delivery rate",
-        "result4": "50% improvement in inventory turnover",
-        "metricCostReduction": "Cost Reduction",
-        "metricTimeSaved": "Time Saved",
-        "metricEfficiencyGain": "Efficiency Gain"
-      },
-      "faq": {
-        "question1": "What makes your {{service}} different from competitors?",
-        "answer1": "We combine cutting-edge technology with decades of industry expertise to deliver customized solutions. Our global network, real-time tracking, and dedicated support team ensure superior service quality.",
-        "question2": "How quickly can I get started?",
-        "answer2": "Most clients can begin using our {{service}} within 24-48 hours. We provide rapid onboarding with dedicated support to ensure smooth integration with your existing operations.",
-        "question3": "What are the pricing options?",
-        "answer3": "We offer flexible pricing models including volume-based discounts, contract rates, and pay-per-use options. Contact our team for a customized quote based on your specific requirements.",
-        "question4": "Do you provide insurance coverage?",
-        "answer4": "Yes, comprehensive insurance coverage is available for all shipments. We offer various coverage levels to match your cargo value and risk tolerance."
-      }
-    },
-    "management": {
-      "title": "Service Management",
-      "subtitle": "Monitor, manage, and configure all system services",
-      "buttons": {
-        "refresh": "Refresh",
-        "createService": "Create Service"
-      },
-      "dialog": {
-        "createTitle": "Create New Service",
-        "createDescription": "Register a new service in the system",
-        "editTitle": "Edit Service",
-        "editDescription": "Update service configuration"
-      },
-      "form": {
-        "serviceCode": "Service Code",
-        "serviceCodePlaceholder": "e.g., payment-service",
-        "serviceName": "Service Name",
-        "serviceNamePlaceholder": "e.g., Payment Processing Service",
-        "description": "Description",
-        "descriptionPlaceholder": "Service description...",
-        "category": "Category",
-        "selectCategory": "Select category",
-        "type": "Type",
-        "selectType": "Select type"
-      },
-      "categories": {
-        "shipping": "Shipping",
-        "warehousing": "Warehousing",
-        "customs": "Customs",
-        "freight": "Freight",
-        "logistics": "Logistics",
-        "ai": "AI",
-        "integration": "Integration",
-        "monitoring": "Monitoring",
-        "performance": "Performance",
-        "other": "Other"
-      },
-      "types": {
-        "internal": "Internal",
-        "external": "External",
-        "integration": "Integration"
-      },
-      "stats": {
-        "totalServices": "Total Services",
-        "activeCount": "{{count}} active",
-        "healthy": "Healthy",
-        "degraded": "Degraded",
-        "unhealthy": "Unhealthy",
-        "categories": "Categories",
-        "requiresAttention": "Requires attention",
-        "criticalIssues": "Critical issues",
-        "serviceCategories": "Service categories"
-      },
-      "tabs": {
-        "overview": "Overview",
-        "monitoring": "Monitoring",
-        "instances": "Instances",
-        "integrations": "Integrations"
-      },
-      "servicesCard": {
-        "title": "Services",
-        "description": "Manage and monitor all registered services"
-      },
-      "search": {
-        "placeholder": "Search services..."
-      },
-      "filters": {
-        "allCategories": "All Categories",
-        "allTypes": "All Types"
-      },
-      "table": {
-        "service": "Service",
-        "category": "Category",
-        "type": "Type",
-        "status": "Status",
-        "health": "Health",
-        "version": "Version",
-        "lastCheck": "Last Check",
-        "never": "Never"
-      },
-      "healthStatus": {
-        "unknown": "Unknown"
-      },
-      "menu": {
-        "actions": "Actions",
-        "viewDetails": "View Details",
-        "restart": "Restart"
-      },
-      "metrics": {
-        "title": "Metrics",
-        "totalRequests": "Total Requests",
-        "successRate": "Success Rate",
-        "avgResponseTime": "Avg Response Time",
-        "errorCount": "Error Count",
-        "uptime": "Uptime"
-      },
-      "monitoring": {
-        "title": "Service Monitoring",
-        "description": "Real-time health and performance monitoring",
-        "dataFor": "Monitoring data for <strong>{{name}}</strong>",
-        "healthHistory": "Health History",
-        "time": "Time",
-        "responseTime": "Response Time",
-        "failures": "Failures",
-        "selectService": "Select a service to view monitoring data"
-      },
-      "instances": {
-        "title": "Service Instances",
-        "description": "Manage service instances and deployments",
-        "comingSoon": "Service instance management coming soon"
-      },
-      "integrations": {
-        "title": "Service Integrations",
-        "description": "Configure external service integrations",
-        "comingSoon": "Integration management coming soon"
-      },
-      "statusOptions": {
-        "active": "Active",
-        "inactive": "Inactive",
-        "maintenance": "Maintenance",
-        "deprecated": "Deprecated"
-      },
-      "toast": {
-        "serviceCreated": "Service Created",
-        "serviceCreatedDescription": "The service has been created successfully.",
-        "createFailed": "Failed to create service",
-        "serviceUpdated": "Service Updated",
-        "serviceUpdatedDescription": "The service has been updated successfully.",
-        "updateFailed": "Failed to update service",
-        "serviceDeleted": "Service Deleted",
-        "serviceDeletedDescription": "The service has been deleted successfully.",
-        "deleteFailed": "Failed to delete service",
-        "restartInitiated": "Service Restart Initiated",
-        "restartInitiatedDescription": "Service {{service}} is being restarted.",
-        "restartFailed": "Failed to restart service"
+    "air": {
+      "title": "Hava Taşımacılığı",
+      "description": "Hızlı hava taşımacılığı hizmetleri",
+      "features": {
+        "express": "Ekspres Teslimat",
+        "worldwide": "Küresel Kapsama",
+        "handling": "Hassas Kargo İşleme",
+        "tracking": "Hassas Takip"
       }
     }
   },
   "tools": {
-    "title": "Transportation Tools",
-    "freightCalculator": "Freight Calculator",
-    "freightCalculatorDesc": "Calculate shipping costs based on weight, dimensions, and destination",
-    "dimensionalWeight": "Dimensional Weight Calculator",
-    "dimensionalWeightDesc": "Calculate volumetric weight for your shipments",
-    "packagingGuide": "Packaging Guide",
-    "packagingGuideDesc": "Get recommendations for optimal packaging solutions",
-    "routePlanner": "Route Planner",
-    "routePlannerDesc": "Plan efficient delivery routes and estimate transit times",
-    "transitTime": "Transit Time Estimator",
-    "transitTimeDesc": "Get estimated delivery times for your shipments",
-    "vehicleSelector": "Vehicle Selector",
-    "vehicleSelectorDesc": "Find the right vehicle type for your cargo"
+    "title": "Taşıma Araçları",
+    "freightCalculator": "Navlun Hesaplayıcı",
+    "freightCalculatorDesc": "Ağırlık, boyut ve varış yerine göre nakliye maliyetlerini hesaplayın",
+    "dimensionalWeight": "Hacimsel Ağırlık Hesaplayıcı",
+    "dimensionalWeightDesc": "Gönderileriniz için hacimsel ağırlığı hesaplayın",
+    "packagingGuide": "Paketleme Kılavuzu",
+    "packagingGuideDesc": "Optimal paketleme çözümleri için öneriler alın",
+    "routePlanner": "Rota Planlayıcı",
+    "routePlannerDesc": "Verimli teslimat rotaları planlayın ve transit süreleri tahmin edin",
+    "transitTime": "Transit Süre Tahmini",
+    "transitTimeDesc": "Gönderileriniz için tahmini teslimat sürelerini alın",
+    "vehicleSelector": "Araç Seçici",
+    "vehicleSelectorDesc": "Kargonuz için doğru araç tipini bulun"
   },
   "whyUs": {
-    "title": "Why Choose Us?",
-    "description": "With years of experience and a global network, we provide reliable and efficient logistics solutions that help your business grow.",
-    "cta": "Get Started Today",
-    "imageAlt": "Shipping Containers"
+    "title": "Neden Biz?",
+    "description": "Yılların deneyimi ve global ağımızla, işletmenizin büyümesine yardımcı olan güvenilir ve verimli lojistik çözümler sunuyoruz.",
+    "cta": "Hemen Başlayın",
+    "imageAlt": "Nakliye Konteynerleri"
   },
   "auth": {
     "login": {
-      "title": "Welcome Back",
-      "description": "Sign in to access the MoloChain platform",
-      "email": "Email Address",
-      "emailPlaceholder": "Enter your email",
-      "password": "Password",
-      "passwordPlaceholder": "Enter your password",
-      "submit": "Sign In",
-      "loggingIn": "Signing in...",
-      "forgotPassword": "Forgot your password?",
-      "rememberMe": "Remember me for 30 days",
-      "noAccount": "New to MoloChain?",
-      "createAccount": "Create an Account",
-      "register": "Register",
-      "agreementPrefix": "By signing in, you agree to our",
-      "termsOfService": "Terms of Service",
-      "and": "and",
-      "privacyPolicy": "Privacy Policy",
-      "nav": {
-        "home": "Home",
-        "register": "Register"
-      },
-      "toast": {
-        "success": "Login Successful",
-        "welcomeBack": "Welcome back, {{username}}!",
-        "failed": "Login Failed",
-        "error": "Error",
-        "fillFields": "Please fill in all fields"
-      }
+      "title": "Tekrar Hoşgeldiniz",
+      "email": "E-posta",
+      "password": "Şifre",
+      "submit": "Giriş Yap",
+      "loggingIn": "Giriş yapılıyor...",
+      "forgotPassword": "Şifremi Unuttum",
+      "noAccount": "Hesabınız yok mu?",
+      "register": "Kayıt Ol"
     },
     "register": {
-      "title": "Create Account",
-      "description": "Create your account to access the MoloChain platform",
-      "username": "Username",
-      "usernamePlaceholder": "johndoe123",
-      "email": "Email",
-      "emailPlaceholder": "john@example.com",
-      "password": "Password",
-      "passwordPlaceholder": "Enter a strong password",
-      "passwordHint": "Min 8 chars, uppercase, lowercase, number & special character",
-      "fullName": "Full Name",
-      "fullNamePlaceholder": "John Doe",
-      "company": "Company (Optional)",
-      "companyPlaceholder": "Your company name",
-      "phone": "Phone Number (Optional)",
-      "phonePlaceholder": "+1 234 567 8900",
-      "submit": "Create Account",
-      "creating": "Creating account...",
-      "haveAccount": "Already have an account?",
-      "login": "Sign In",
-      "securityNotice": "Protected by industry-leading security practices",
-      "toast": {
-        "success": "Registration successful",
-        "successDescription": "Your account has been created. Please log in."
-      },
-      "validation": {
-        "usernameMin": "Username must be at least 3 characters",
-        "usernameMax": "Username must be less than 50 characters",
-        "usernameFormat": "Username can only contain letters, numbers, underscores, and hyphens",
-        "emailInvalid": "Please enter a valid email address",
-        "emailRequired": "Email is required",
-        "passwordMin": "Password must be at least 8 characters",
-        "passwordUppercase": "Password must contain at least one uppercase letter",
-        "passwordLowercase": "Password must contain at least one lowercase letter",
-        "passwordNumber": "Password must contain at least one number",
-        "passwordSpecial": "Password must contain at least one special character",
-        "fullNameMin": "Full name must be at least 2 characters"
-      }
-    },
-    "passwordReset": {
-      "title": "Reset Password",
-      "description": "Enter your email address and we'll send you a link to reset your password",
-      "emailLabel": "Email",
-      "emailPlaceholder": "Enter your email address",
-      "submitButton": "Send Reset Link",
-      "sendingButton": "Sending Reset Link...",
-      "backToLogin": "Back to Login",
-      "noAccount": "Don't have an account?",
-      "signUp": "Sign up",
-      "securityNotice": "Protected by industry-leading security practices",
-      "validation": {
-        "emailInvalid": "Please enter a valid email address"
-      },
-      "toast": {
-        "successTitle": "Password reset email sent",
-        "successDescription": "If your email is registered, you will receive a password reset link.",
-        "failedTitle": "Failed to request password reset",
-        "requestFailed": "Request failed"
-      }
-    },
-    "resetPassword": {
-      "title": "Set New Password",
-      "description": "Create a new secure password for your account",
-      "newPasswordLabel": "New Password",
-      "newPasswordPlaceholder": "Enter your new password",
-      "confirmPasswordLabel": "Confirm Password",
-      "confirmPasswordPlaceholder": "Confirm your new password",
-      "submitButton": "Set New Password",
-      "settingButton": "Setting New Password...",
-      "backToLogin": "Back to Login",
-      "securityNotice": "Protected by industry-leading security practices",
-      "validation": {
-        "passwordMin": "Password must be at least 8 characters long",
-        "passwordMax": "Password cannot exceed 100 characters",
-        "confirmRequired": "Please confirm your password",
-        "passwordsMismatch": "Passwords don't match"
-      },
-      "toast": {
-        "successTitle": "Password reset successful",
-        "successDescription": "Your password has been reset. You can now log in with your new password.",
-        "failedTitle": "Failed to reset password",
-        "resetFailed": "Failed to reset password",
-        "invalidLinkTitle": "Invalid reset link",
-        "invalidLinkDescription": "The password reset link is invalid or expired.",
-        "tokenMissing": "Reset token is missing"
-      }
-    }
-  },
-  "privacy": {
-    "title": "Privacy Policy",
-    "lastUpdated": "Last updated: January 19, 2025",
-    "footer": "This privacy policy is designed to help you understand how we collect, use, and protect your personal information while using our logistics services.",
-    "sections": {
-      "informationWeCollect": {
-        "title": "1. Information We Collect",
-        "description": "We collect various types of information to provide and improve our logistics services:",
-        "personalInfo": {
-          "title": "1.1 Personal Information",
-          "items": {
-            "nameContact": "Name and contact details (email, phone number, address)",
-            "companyInfo": "Company information for business accounts",
-            "shippingInfo": "Shipping and delivery information",
-            "paymentInfo": "Payment and billing information",
-            "accountCredentials": "Account credentials and preferences"
-          }
-        },
-        "automaticInfo": {
-          "title": "1.2 Automatically Collected Information",
-          "items": {
-            "deviceBrowser": "Device and browser information",
-            "ipLocation": "IP address and location data",
-            "usagePatterns": "Usage patterns and preferences",
-            "cookies": "Cookies and similar tracking technologies"
-          }
-        }
-      },
-      "howWeUse": {
-        "title": "2. How We Use Your Information",
-        "description": "We use the collected information for the following purposes:",
-        "items": {
-          "providingServices": "Providing and managing logistics and transportation services",
-          "processingTransactions": "Processing transactions and payments",
-          "sendingUpdates": "Sending service updates and notifications",
-          "improvingServices": "Improving our services and user experience",
-          "analyzingUsage": "Analyzing usage patterns and trends",
-          "legalCompliance": "Complying with legal obligations",
-          "preventingFraud": "Preventing fraud and ensuring security"
-        }
-      },
-      "dataSecurity": {
-        "title": "3. Data Security",
-        "description": "We implement comprehensive security measures to protect your information:",
-        "items": {
-          "encryption": "End-to-end encryption for sensitive data",
-          "securityAudits": "Regular security audits and updates",
-          "secureStorage": "Secure data storage and transmission",
-          "accessControls": "Access controls and authentication",
-          "employeeTraining": "Employee training on data protection"
-        }
-      },
-      "userRights": {
-        "title": "4. User Rights",
-        "description": "You have the following rights regarding your personal data:",
-        "items": {
-          "access": "Access to your personal information",
-          "correction": "Correction of inaccurate data",
-          "deletion": "Deletion of personal data (right to be forgotten)",
-          "portability": "Data portability",
-          "withdrawConsent": "Withdrawal of consent",
-          "objection": "Objection to processing"
-        }
-      },
-      "cookiePolicy": {
-        "title": "5. Cookie Policy",
-        "description": "We use cookies and similar technologies to enhance your experience:",
-        "items": {
-          "essential": "Essential cookies for website functionality",
-          "analytics": "Analytics cookies to improve our services",
-          "preference": "Preference cookies to remember your settings",
-          "thirdParty": "Third-party cookies for additional features"
-        }
-      },
-      "thirdPartyServices": {
-        "title": "6. Third-party Services",
-        "description": "We may share information with trusted third parties:",
-        "items": {
-          "paymentProcessors": "Payment processors for secure transactions",
-          "shippingPartners": "Shipping partners for delivery services",
-          "analyticsProviders": "Analytics providers for service improvement",
-          "cloudProviders": "Cloud service providers for data storage"
-        }
-      },
-      "changes": {
-        "title": "7. Changes to Privacy Policy",
-        "description": "We may update this Privacy Policy periodically. Major changes will be notified via:",
-        "items": {
-          "emailNotifications": "Email notifications to registered users",
-          "websiteAnnouncements": "Website announcements",
-          "appNotifications": "Application notifications"
-        }
-      },
-      "dataRetention": {
-        "title": "8. Data Retention",
-        "description": "We retain your information for as long as necessary to:",
-        "items": {
-          "provideServices": "Provide our services",
-          "legalObligations": "Comply with legal obligations",
-          "resolveDisputes": "Resolve disputes",
-          "enforceAgreements": "Enforce agreements"
-        }
-      },
-      "internationalTransfers": {
-        "title": "9. International Data Transfers",
-        "description": "For international operations, data may be processed in different countries with:",
-        "items": {
-          "safeguards": "Appropriate data protection safeguards",
-          "compliance": "Compliance with international regulations",
-          "contractualClauses": "Standard contractual clauses"
-        }
-      },
-      "contactUs": {
-        "title": "10. Contact Us",
-        "description": "For any privacy-related questions or concerns:",
-        "items": {
-          "email": "Email: privacy@molochain.com",
-          "phone": "Phone: Contact via email",
-          "address": "Address: Maslak Mah. Eski Büyükdere Cad. Ayazağa Yolu, Giz2000 Plaza No:7 Şişli / İstanbul TÜRKİYE"
-        }
-      }
-    }
-  },
-  "terms": {
-    "title": "Terms of Service",
-    "lastUpdated": "Last updated: January 19, 2025",
-    "sections": {
-      "acceptanceOfTerms": {
-        "title": "1. Acceptance of Terms",
-        "description": "By accessing or using MoLogistics services, you agree to be bound by these Terms of Service."
-      },
-      "serviceDescription": {
-        "title": "2. Service Description",
-        "description": "MoLogistics provides logistics and transportation services, including but not limited to:",
-        "items": {
-          "freightShipping": "Freight Shipping",
-          "warehousing": "Warehousing",
-          "distribution": "Distribution"
-        }
-      },
-      "userResponsibilities": {
-        "title": "3. User Responsibilities",
-        "description": "Users of our services agree to:",
-        "items": {
-          "accurateInfo": "Provide accurate shipping information",
-          "lawsCompliance": "Comply with applicable laws and regulations",
-          "accountSecurity": "Maintain account security",
-          "payForServices": "Pay for services as agreed"
-        }
-      },
-      "limitationOfLiability": {
-        "title": "4. Limitation of Liability",
-        "description": "MoLogistics shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of our services."
-      },
-      "contactInfo": {
-        "title": "5. Contact Information",
-        "description": "For questions about these Terms of Service, please contact legal@molochain.com"
-      }
+      "title": "Hesap Oluştur",
+      "username": "Kullanıcı Adı",
+      "email": "E-posta",
+      "password": "Şifre",
+      "fullName": "Ad Soyad",
+      "company": "Şirket (İsteğe bağlı)",
+      "phone": "Telefon Numarası (İsteğe bağlı)",
+      "submit": "Hesap Oluştur",
+      "creating": "Hesap oluşturuluyor...",
+      "haveAccount": "Zaten hesabınız var mı?",
+      "login": "Giriş Yap"
     }
   },
   "about": {
-    "title": "About Molo Logistics",
-    "subtitle": "A leading force in global logistics and transportation",
-    "badge": "About MoloChain",
-    "heroTitle": "Connecting the World Through Logistics",
-    "heroSubtitle": "For over 25 years, MoloChain has been at the forefront of global logistics, delivering innovative solutions that keep businesses moving and economies growing.",
-    "exploreServices": "Explore Our Services",
+    "title": "Molo Lojistik Hakkında",
+    "subtitle": "Küresel lojistik ve taşımacılıkta öncü güç",
     "approach": {
-      "title": "Our Approach",
-      "description": "At Molo, we believe in a human-centric and collaborative approach. Every customer is not just a client but a partner and friend. Our commitment to transparency, trust, and quality service delivery has made us a credible and trustworthy brand in the global transportation industry.",
-      "cta": "Connect With Us"
+      "title": "Yaklaşımımız",
+      "description": "Molo'da insan odaklı ve işbirlikçi bir yaklaşıma inanıyoruz. Her müşteri sadece bir müşteri değil, aynı zamanda bir ortak ve dosttur. Şeffaflık, güven ve kaliteli hizmet sunumuna olan bağlılığımız, bizi küresel taşımacılık sektöründe güvenilir bir marka haline getirdi.",
+      "cta": "Bizimle İletişime Geçin"
     },
     "features": {
       "globalNetwork": {
-        "title": "Global Network",
-        "description": "Operating across Europe, Africa, Russia, USA, Canada, Brazil, and Mexico"
+        "title": "Küresel Ağ",
+        "description": "Avrupa, Afrika, Rusya, ABD, Kanada, Brezilya ve Meksika'da faaliyet gösteriyoruz"
       },
       "trackRecord": {
-        "title": "Proven Track Record",
-        "description": "Over 60,000 TEU containers exported and 18,000 TEU containers imported annually"
+        "title": "Kanıtlanmış Başarı",
+        "description": "Yıllık 60.000'den fazla TEU konteyner ihracatı ve 18.000 TEU konteyner ithalatı"
       },
       "humanCentric": {
-        "title": "Human-Centric",
-        "description": "Building lasting partnerships through collaborative customer relationships"
+        "title": "İnsan Odaklı",
+        "description": "İşbirlikçi müşteri ilişkileriyle kalıcı ortaklıklar kuruyoruz"
       },
       "partnerships": {
-        "title": "Strategic Partnerships",
-        "description": "Collaborating with major commercial companies worldwide"
-      }
-    },
-    "stats": {
-      "countries": {
-        "label": "Countries",
-        "value": "180+",
-        "description": "Global presence across continents"
-      },
-      "services": {
-        "label": "Services",
-        "value": "46+",
-        "description": "Comprehensive logistics solutions"
-      },
-      "yearsExperience": {
-        "label": "Years Experience",
-        "value": "25+",
-        "description": "Industry expertise since 1999"
-      },
-      "activeCustomers": {
-        "label": "Active Customers",
-        "value": "10K+",
-        "description": "Trusted by businesses worldwide"
-      }
-    },
-    "mission": {
-      "badge": "Our Mission",
-      "title": "Empowering Global Trade Through Innovation",
-      "description1": "At MoloChain, we believe that efficient logistics is the backbone of global commerce. Our mission is to provide seamless, technology-driven supply chain solutions that enable businesses of all sizes to compete on the world stage.",
-      "description2": "Founded with a vision to revolutionize logistics, we've grown from a regional freight forwarder to a comprehensive global logistics provider. Today, we serve over 10,000 customers across 180+ countries, offering 46+ specialized services."
-    },
-    "certifications": {
-      "iso": "ISO 9001:2015 Certified",
-      "aeo": "AEO Authorized",
-      "iata": "IATA Member"
-    },
-    "transport": {
-      "land": {
-        "title": "Land",
-        "description": "Global trucking network"
-      },
-      "sea": {
-        "title": "Sea",
-        "description": "Ocean freight excellence"
-      },
-      "air": {
-        "title": "Air",
-        "description": "Express air cargo"
-      },
-      "multimodal": {
-        "title": "Multimodal",
-        "description": "Integrated solutions"
-      }
-    },
-    "values": {
-      "title": "Our Values",
-      "heading": "What Drives Us Forward",
-      "subtitle": "Our core values define who we are and guide every decision we make in serving our customers.",
-      "reliability": {
-        "title": "Reliability",
-        "description": "We deliver on our promises with consistent, dependable service that you can count on."
-      },
-      "innovation": {
-        "title": "Innovation",
-        "description": "Leveraging cutting-edge technology to optimize logistics and drive efficiency."
-      },
-      "customerFocus": {
-        "title": "Customer Focus",
-        "description": "Your success is our priority. We build lasting partnerships through exceptional service."
-      },
-      "transparency": {
-        "title": "Transparency",
-        "description": "Clear communication and real-time visibility throughout your supply chain."
-      },
-      "excellence": {
-        "title": "Excellence",
-        "description": "Committed to continuous improvement and delivering best-in-class solutions."
-      },
-      "integrity": {
-        "title": "Integrity",
-        "description": "Operating with honesty and ethical standards in every business relationship."
-      }
-    },
-    "leadership": {
-      "title": "Our Leadership",
-      "heading": "Expert Team Driving Excellence",
-      "subtitle": "Our leadership team brings decades of combined experience in global logistics and supply chain management.",
-      "executive": {
-        "name": "Executive Team",
-        "role": "Strategic Leadership",
-        "description": "Guiding Molochain's global vision and growth strategy"
-      },
-      "operations": {
-        "name": "Operations Team",
-        "role": "Global Operations",
-        "description": "Managing worldwide logistics network and service delivery"
-      },
-      "technology": {
-        "name": "Technology Team",
-        "role": "Innovation & Tech",
-        "description": "Driving digital transformation and platform development"
-      },
-      "commercial": {
-        "name": "Commercial Team",
-        "role": "Business Development",
-        "description": "Building partnerships and expanding market presence"
+        "title": "Stratejik Ortaklıklar",
+        "description": "Dünya çapında büyük ticari şirketlerle işbirliği"
       }
     },
     "globalPresence": {
-      "title": "Global Presence",
-      "heading": "Strategically Located Worldwide",
-      "subtitle": "Our global network of offices ensures we're always close to where you need us.",
-      "description": "Our strategic network of warehouses and shipping routes spans major global trading hubs, enabling efficient and reliable logistics solutions worldwide."
-    },
-    "offices": {
-      "istanbul": {
-        "city": "Istanbul",
-        "country": "Turkey",
-        "type": "Global Headquarters",
-        "address": "Maslak Business District",
-        "services": [
-          "Operations",
-          "Strategy",
-          "Technology"
-        ]
-      },
-      "dubai": {
-        "city": "Dubai",
-        "country": "UAE",
-        "type": "Regional Hub",
-        "address": "Business Bay",
-        "services": [
-          "Middle East Operations",
-          "Air Freight"
-        ]
-      },
-      "hamburg": {
-        "city": "Hamburg",
-        "country": "Germany",
-        "type": "European Office",
-        "address": "HafenCity",
-        "services": [
-          "European Distribution",
-          "Ocean Freight"
-        ]
-      },
-      "singapore": {
-        "city": "Singapore",
-        "country": "Singapore",
-        "type": "Asia Pacific Hub",
-        "address": "Marina Bay",
-        "services": [
-          "APAC Operations",
-          "Transit Services"
-        ]
-      }
-    },
-    "cta": {
-      "title": "Ready to Partner with MoloChain?",
-      "subtitle": "Join thousands of businesses worldwide who trust MoloChain for their logistics needs. Let's discuss how we can help optimize your supply chain.",
-      "getInTouch": "Get in Touch",
-      "viewServices": "View All Services",
-      "support247": "24/7 Support",
-      "countriesCount": "180+ Countries",
-      "secureReliable": "Secure & Reliable"
+      "title": "Küresel Varlık",
+      "description": "Depo ve nakliye rotalarımızın stratejik ağı, başlıca küresel ticaret merkezlerini kapsayarak dünya çapında verimli ve güvenilir lojistik çözümler sunuyor."
     },
     "expertise": {
-      "title": "Our Expertise",
-      "description1": "Molo is one of the leading organizations active in international transportation, logistics, and foreign trade, holding official licenses in Iran and Turkey. This company offers comprehensive logistics and trade services to and from key global destinations.",
-      "description2": "The company's presence in Iran, Turkey, the UK, the UAE, and China strengthens its global connections and service capabilities. Moreover, Molo's membership in reputable international associations ensures fast and effective communication, enhancing the overall customer experience.",
-      "description3": "Our expertise in shipping trade and freight forwarding combines complex skills, specialized knowledge, and operational execution to ensure safe, economical, and efficient global transportation."
+      "title": "Uzmanlığımız",
+      "description1": "Molo, İran ve Türkiye'de resmi lisanslara sahip, uluslararası taşımacılık, lojistik ve dış ticaret alanında önde gelen kuruluşlardan biridir. Şirketimiz, önemli küresel destinasyonlara kapsamlı lojistik ve ticaret hizmetleri sunmaktadır.",
+      "description2": "Şirketin İran, Türkiye, Birleşik Krallık, BAE ve Çin'deki varlığı, küresel bağlantılarını ve hizmet kapasitesini güçlendiriyor. Ayrıca, Molo'nun saygın uluslararası birliklerdeki üyeliği, hızlı ve etkili iletişimi sağlayarak genel müşteri deneyimini artırıyor.",
+      "description3": "Deniz taşımacılığı ve nakliye alanındaki uzmanlığımız, güvenli, ekonomik ve verimli küresel taşımacılık için karmaşık becerileri, özel bilgi ve operasyonel uygulamayı birleştiriyor."
     },
     "metrics": {
       "exportedContainers": {
-        "value": "60,000+",
-        "label": "TEU Containers Exported Annually"
+        "value": "60.000+",
+        "label": "Yıllık İhraç Edilen TEU Konteyner"
       },
       "importedContainers": {
-        "value": "18,000+",
-        "label": "TEU Containers Imported"
+        "value": "18.000+",
+        "label": "İthal Edilen TEU Konteyner"
       },
       "bulkProjects": {
         "value": "800+",
-        "label": "Bulk Ship Projects Annually"
+        "label": "Yıllık Dökme Yük Projesi"
       },
       "globalPorts": {
         "value": "350+",
-        "label": "Global Ports Serviced"
+        "label": "Hizmet Verilen Küresel Liman"
       }
     },
-    "seo": {
-      "title": "About Us - MoloChain | Global Logistics Solutions",
-      "description": "Learn about MoloChain - a global logistics leader operating in 180+ countries with 25+ years of experience. Discover our mission, values, and commitment to excellence in supply chain solutions."
+    "pricing": {
+      "title": "Fiyatlandırma",
+      "description1": "Fiyatlandırma politikamız pazar ihtiyaçları ve müşteri talepleri analizine dayanır.",
+      "description2": "Pazarı değerlendirmek ve fiyatları optimize etmek için analitik araçlar ve güncel veriler kullanıyoruz.",
+      "description3": "Bu yaklaşım müşterilerimizin güvenini ve sadakatini kazanmamıza yardımcı oluyor."
+    },
+    "growth": {
+      "title": "Stratejik Büyüme",
+      "description1": "Molo Lojistik sürekli olarak hizmetlerini ve küresel erişimini genişletiyor.",
+      "description2": "Müşterilerimize en iyi hizmeti sunmaya kararlıyız.",
+      "description3": "Büyümemiz müşterilerimizin başarısıyla yönlendiriliyor.",
+      "description4": "Odak alanlarımız şunları içerir:",
+      "list1": "Küresel ortak ağımızı genişletmek",
+      "list2": "Verimliliği artırmak için yeni teknolojilere yatırım yapmak",
+      "list3": "Yeni ve yenilikçi lojistik çözümler geliştirmek",
+      "description5": "Sürekli büyümemizin müşterilerimize ve küresel lojistik sektörüne fayda sağlayacağından eminiz."
     }
   },
   "footer": {
     "newsletter": {
-      "title": "Stay Connected",
-      "description": "Get the latest updates on logistics innovations and exclusive offers",
-      "placeholder": "Enter your email",
-      "subscribe": "Subscribe"
+      "title": "Bağlantıda Kalın",
+      "description": "Lojistik yenilikleri ve özel teklifler hakkında en son güncellemeleri alın",
+      "placeholder": "E-posta adresinizi girin",
+      "subscribe": "Abone Ol"
     },
     "brand": {
-      "tagline": "Enterprise Logistics Ecosystem",
-      "description": "Revolutionizing the $9.1 trillion logistics industry with enterprise technology, AI-powered automation, and advanced analytics. Building the future of transparent, efficient global trade."
+      "tagline": "Kurumsal Lojistik Ekosistemi",
+      "description": "9.1 trilyon dolarlık lojistik sektörünü kurumsal teknoloji, yapay zeka destekli otomasyon ve gelişmiş analizlerle dönüştürüyoruz."
     },
     "services": {
-      "title": "Services",
-      "freight": "Freight Shipping",
-      "warehouse": "Warehousing",
-      "distribution": "Distribution",
-      "tracking": "Track Shipment"
+      "title": "Hizmetler",
+      "freight": "Yük Taşımacılığı",
+      "warehouse": "Depolama",
+      "distribution": "Dağıtım",
+      "tracking": "Gönderi Takibi"
     },
     "solutions": {
-      "title": "Solutions",
-      "mololink": "MOLOLINK Platform",
-      "ecosystem": "Ecosystem",
-      "partners": "Our Partners",
-      "allServices": "All Services"
+      "title": "Çözümler",
+      "mololink": "MOLOLINK Platformu",
+      "ecosystem": "Ekosistem",
+      "partners": "Ortaklarımız",
+      "allServices": "Tüm Hizmetler"
     },
     "company": {
-      "title": "Company",
-      "aboutUs": "About Us",
-      "investor": "Investor Relations",
-      "contact": "Contact",
-      "careers": "Careers"
+      "title": "Şirket",
+      "aboutUs": "Hakkımızda",
+      "investor": "Yatırımcı İlişkileri",
+      "contact": "İletişim",
+      "careers": "Kariyer"
     },
     "support": {
-      "title": "Support",
-      "helpSupport": "Help & Support",
-      "getQuote": "Get Quote",
-      "privacy": "Privacy Policy",
-      "terms": "Terms of Service"
+      "title": "Destek",
+      "helpSupport": "Yardım ve Destek",
+      "getQuote": "Teklif Al",
+      "privacy": "Gizlilik Politikası",
+      "terms": "Hizmet Şartları"
     },
     "stats": {
-      "heading": "Enterprise Global Logistics",
-      "subheading": "Transforming the $9.1 Trillion Industry",
-      "globalPartners": "Global Partners",
-      "activeIntegrations": "Active Integrations",
-      "shipmentsProcessed": "Shipments Processed",
-      "networkValue": "Network Value"
+      "heading": "Kurumsal Küresel Lojistik",
+      "subheading": "9.1 Trilyon Dolarlık Sektörü Dönüştürüyoruz",
+      "globalPartners": "Küresel Ortaklar",
+      "activeIntegrations": "Aktif Entegrasyonlar",
+      "shipmentsProcessed": "İşlenen Gönderiler",
+      "networkValue": "Ağ Değeri"
     },
     "trust": {
-      "secured": "Enterprise Secured",
-      "fortune500": "Fortune 500 Trusted",
-      "countries": "150+ Countries",
-      "partners": "10,000+ Partners"
+      "secured": "Kurumsal Güvenlik",
+      "fortune500": "Fortune 500 Güvencesi",
+      "countries": "150+ Ülke",
+      "partners": "10.000+ Ortak"
     },
-    "copyright": "© {{year}} MOLOCHAIN. All rights reserved. Built with excellence and innovation.",
+    "copyright": "© {{year}} MOLOCHAIN. Tüm hakları saklıdır.",
     "links": {
-      "privacy": "Privacy",
-      "terms": "Terms",
-      "cookies": "Cookies",
-      "sitemap": "Sitemap"
+      "privacy": "Gizlilik",
+      "terms": "Şartlar",
+      "cookies": "Çerezler",
+      "sitemap": "Site Haritası"
     }
   },
   "contact": {
-    "title": "Contact Us",
-    "subtitle": "Get in touch with our global network of logistics professionals",
-    "status": {
-      "unavailable": "Real-time agent status updates are temporarily unavailable. Contact information and forms remain fully functional."
-    },
-    "tabs": {
-      "general": "General Inquiries",
-      "offices": "Global Offices",
-      "agents": "Regional Agents",
-      "professional": "Professional Services",
-      "generalInquiries": "General Inquiries",
-      "globalOffices": "Global Offices",
-      "regionalAgents": "Regional Agents",
-      "professionalServices": "Professional Services"
-    },
+    "title": "İletişim",
+    "subtitle": "İletişime Geçin",
     "form": {
-      "title": "Send us a message",
-      "name": "Name",
-      "namePlaceholder": "Your name",
-      "email": "Email",
-      "emailPlaceholder": "Your email",
-      "subject": "Subject",
-      "subjectPlaceholder": "Message subject",
-      "message": "Message",
-      "messagePlaceholder": "Your message",
-      "submit": "Send Message",
-      "placeholders": {
-        "name": "Your name",
-        "email": "Your email",
-        "subject": "Message subject"
-      },
-      "errors": {
-        "nameMinLength": "Name must be at least 2 characters",
-        "invalidEmail": "Invalid email address",
-        "subjectRequired": "Subject is required",
-        "messageMinLength": "Message must be at least 10 characters"
-      }
+      "name": "Ad",
+      "email": "E-posta",
+      "message": "Mesaj",
+      "submit": "Mesaj Gönder"
     },
     "info": {
-      "title": "Contact Information",
-      "centerOffice": "Center Office",
-      "phoneFax": "Phone & Fax",
-      "phoneAndFax": "Phone & Fax",
-      "phone": "Phone",
-      "fax": "Fax",
-      "email": "Email",
-      "hours": "Hours",
-      "whatsapp": "WhatsApp",
-      "address": "Maslak Mah. Eski Büyükdere Cad. Ayazağa Yolu\nGiz2000 Plaza No:7 Şişli / İstanbul TÜRKİYE",
-      "coordinates": "41° 6' 31.3272\"N, 29° 0' 53.8884\"E (41.1087024, 29.014969)",
-      "operatingHours": "Monday - Friday: 9:00 AM - 6:00 PM",
-      "headquartersLocation": "Headquarters Location",
-      "mapPlaceholder": "Map Placeholder",
-      "connected": "Connected",
-      "connectionSuccess": "Real-time connection established successfully"
-    },
-    "offices": {
-      "title": "Global Office Network",
-      "subtitle": "Our strategically located offices ensure seamless logistics operations across continents",
-      "noOffices": "No offices found",
-      "noOfficesHint": "Try adjusting your search or filter criteria",
-      "headquarters": "Headquarters",
-      "regional": "Regional Office",
-      "port": "Port Office",
-      "services": "Services:"
-    },
-    "agents": {
-      "title": "Regional Agents by Country",
-      "subtitle": "Our dedicated agents provide localized expertise and support across regions",
-      "liveEnabled": "Live agent availability enabled",
-      "liveDisabled": "Live agent availability not connected",
-      "hideDashboard": "Hide Dashboard",
-      "showDashboard": "Show Agent Status Dashboard",
-      "noAgents": "No agents found"
-    },
-    "services": {
-      "title": "Specialized Teams",
-      "subtitle": "Contact our specialized teams for expert assistance across various aspects of logistics",
-      "expertise": "Expertise:",
-      "availability": "Availability:",
-      "responseTime": "Response Time:"
-    },
-    "network": {
-      "title": "Global Contact Network",
-      "subtitle": "Our worldwide presence ensures we can serve you wherever you are"
-    },
-    "globalOffices": {
-      "types": {
-        "headquarter": "Headquarters",
-        "regional": "Regional Office",
-        "port": "Port Office"
-      },
-      "istanbul": {
-        "name": "Istanbul Headquarters",
-        "country": "Turkey",
-        "address": "Maslak Mah. Eski Büyükdere Cad. Ayazağa Yolu\nGiz2000 Plaza No:7 Şişli / İstanbul TÜRKİYE",
-        "operatingHours": "Monday - Friday: 9:00 AM - 6:00 PM"
-      },
-      "dubai": {
-        "name": "Dubai Office",
-        "country": "United Arab Emirates",
-        "address": "Business Bay, Dubai, UAE",
-        "operatingHours": "Sunday - Thursday: 8:30 AM - 5:30 PM"
-      },
-      "london": {
-        "name": "London Office",
-        "country": "United Kingdom",
-        "address": "Canary Wharf, London, UK",
-        "operatingHours": "Monday - Friday: 9:00 AM - 5:30 PM"
-      },
-      "shanghai": {
-        "name": "Shanghai Office",
-        "country": "China",
-        "address": "Pudong District, Shanghai, China",
-        "operatingHours": "Monday - Friday: 8:30 AM - 5:30 PM"
-      },
-      "rotterdam": {
-        "name": "Rotterdam Office",
-        "country": "Netherlands",
-        "address": "Port of Rotterdam, Rotterdam, Netherlands",
-        "operatingHours": "Monday - Friday: 8:00 AM - 5:00 PM"
-      },
-      "newyork": {
-        "name": "New York Office",
-        "country": "United States",
-        "address": "Manhattan, New York, NY, USA",
-        "operatingHours": "Monday - Friday: 9:00 AM - 6:00 PM"
-      },
-      "casablanca": {
-        "name": "Casablanca Office",
-        "country": "Morocco",
-        "address": "Port of Casablanca, Casablanca, Morocco",
-        "operatingHours": "Monday - Friday: 8:30 AM - 5:30 PM"
-      },
-      "durban": {
-        "name": "Durban Office",
-        "country": "South Africa",
-        "address": "Port of Durban, Durban, South Africa",
-        "operatingHours": "Monday - Friday: 8:00 AM - 5:00 PM"
-      }
+      "address": "Adres",
+      "phone": "Telefon",
+      "email": "E-posta"
     }
   },
   "cta": {
-    "title": "Ready to Transform Your Logistics?",
-    "subtitle": "Get started today",
-    "button": "Get Started",
-    "learnMore": "Learn More"
+    "title": "Lojistiğinizi Dönüştürmeye Hazır mısınız?",
+    "subtitle": "Bugün başlayın",
+    "button": "Başlayın",
+    "learnMore": "Daha Fazla Bilgi"
   },
   "common": {
-    "loading": "Loading...",
-    "error": "Error",
-    "success": "Success",
-    "unexpectedError": "An unexpected error occurred",
-    "connectionError": "Connection error",
-    "fetchError": "Failed to fetch data",
-    "updateError": "Failed to update",
-    "cancel": "Cancel",
-    "save": "Save",
-    "delete": "Delete",
-    "edit": "Edit",
-    "add": "Add",
-    "back": "Back",
-    "next": "Next",
-    "submit": "Submit",
-    "close": "Close",
-    "yes": "Yes",
-    "no": "No",
-    "confirm": "Confirm",
-    "welcome": "Welcome",
-    "logout": "Logout",
-    "copied": "Copied to clipboard"
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "back": "Geri",
+    "next": "İleri",
+    "submit": "Gönder",
+    "close": "Kapat",
+    "yes": "Evet",
+    "no": "Hayır",
+    "confirm": "Onayla",
+    "welcome": "Hoş Geldiniz",
+    "logout": "Çıkış"
   },
   "language": {
-    "select": "Select Language",
+    "select": "Dil Seçin",
     "english": "English",
     "arabic": "العربية",
     "persian": "فارسی",
     "turkish": "Türkçe"
-  },
-  "ecosystem": {
-    "title": "Ecosystem Control Panel",
-    "globalControl": "Global Control",
-    "subtitle": "Enterprise-grade management and orchestration across 180+ countries",
-    "overview": "Ecosystem Overview",
-    "overviewDescription": "Real-time metrics across the global MoloChain platform",
-    "stats": {
-      "countries": "Countries",
-      "departments": "Departments",
-      "divisions": "Divisions",
-      "systemHealth": "System Health",
-      "activeServices": "Active Services",
-      "activeAlerts": "Active Alerts",
-      "live": "Live",
-      "realtimeStatus": "Real-time Status"
-    },
-    "sections": {
-      "organizationalStructure": "Organizational Structure",
-      "organizationalStructureDesc": "Departments, divisions, and operational units",
-      "systemPerformance": "System Performance",
-      "globalCompliance": "Global Compliance Status",
-      "liveActivityFeed": "Live Activity Feed",
-      "godLayerActions": "GOD Layer Actions",
-      "departmentDashboards": "Department Dashboards"
-    },
-    "departments": {
-      "accounting": "Accounting",
-      "management": "Management",
-      "technology": "Technology",
-      "operations": "Operations",
-      "supplyChain": "Supply Chain",
-      "humanResources": "Human Resources",
-      "legalRisk": "Legal & Risk",
-      "marketing": "Marketing"
-    }
-  },
-  "careers": {
-    "badge": "Careers",
-    "title": "Join Our",
-    "titleHighlight": "Global Team",
-    "subtitle": "Build your career with a company that's revolutionizing global logistics. We're always looking for talented individuals to join our mission.",
-    "viewOpenPositions": "View Open Positions",
-    "whyWorkWithUs": "Why Work With Us",
-    "whyWorkWithUsDescription": "We offer more than just a job. Join a team that values innovation, growth, and work-life balance.",
-    "openPositions": "Open Positions",
-    "openPositionsDescription": "Explore our current openings and find the perfect role for your skills and aspirations.",
-    "searchPlaceholder": "Search positions...",
-    "allDepartments": "All Departments",
-    "applyNow": "Apply Now",
-    "noPositionsFound": "No positions found",
-    "noPositionsFoundDescription": "Try adjusting your search or filter criteria.",
-    "benefits": {
-      "globalOpportunities": {
-        "title": "Global Opportunities",
-        "description": "Work with teams across 150+ countries"
-      },
-      "careerGrowth": {
-        "title": "Career Growth",
-        "description": "Clear paths for advancement and development"
-      },
-      "healthWellness": {
-        "title": "Health & Wellness",
-        "description": "Comprehensive healthcare and wellness programs"
-      },
-      "learningDevelopment": {
-        "title": "Learning & Development",
-        "description": "Continuous training and skill development"
-      },
-      "teamCulture": {
-        "title": "Team Culture",
-        "description": "Collaborative and inclusive work environment"
-      },
-      "recognition": {
-        "title": "Recognition",
-        "description": "Performance-based rewards and recognition"
-      }
-    },
-    "departments": {
-      "operations": "Operations",
-      "technology": "Technology",
-      "sales": "Sales",
-      "analytics": "Analytics",
-      "customerService": "Customer Service",
-      "compliance": "Compliance"
-    },
-    "jobTypes": {
-      "fullTime": "Full-time",
-      "partTime": "Part-time",
-      "contract": "Contract",
-      "remote": "Remote"
-    },
-    "positions": {
-      "seniorLogisticsCoordinator": {
-        "title": "Senior Logistics Coordinator",
-        "location": "Istanbul, Turkey",
-        "description": "Lead logistics operations and coordinate global shipments for major clients."
-      },
-      "fullStackDeveloper": {
-        "title": "Full Stack Developer",
-        "location": "Remote",
-        "description": "Build and maintain our cutting-edge logistics platform and APIs."
-      },
-      "businessDevelopmentManager": {
-        "title": "Business Development Manager",
-        "location": "Dubai, UAE",
-        "description": "Expand our client base and develop strategic partnerships."
-      },
-      "supplyChainAnalyst": {
-        "title": "Supply Chain Analyst",
-        "location": "London, UK",
-        "description": "Analyze supply chain data and optimize logistics operations."
-      },
-      "customerSuccessManager": {
-        "title": "Customer Success Manager",
-        "location": "Rotterdam, Netherlands",
-        "description": "Ensure client satisfaction and manage key accounts."
-      },
-      "customsSpecialist": {
-        "title": "Customs Specialist",
-        "location": "Shanghai, China",
-        "description": "Handle customs documentation and ensure regulatory compliance."
-      }
-    },
-    "cta": {
-      "title": "Don't See the Right Role?",
-      "description": "We're always looking for exceptional talent. Send us your resume and we'll keep you in mind for future opportunities.",
-      "contactUs": "Contact Us"
-    }
-  },
-  "success": {
-    "title": "Thank You!",
-    "subtitle": "Your message has been successfully submitted",
-    "whatHappensNext": "What happens next?",
-    "whatHappensNextDescription": "Our team will review your message and get back to you as soon as possible. You should expect to hear from us within 1-2 business days.",
-    "goToHomepage": "Go to Homepage",
-    "sendAnotherMessage": "Send Another Message"
-  },
-  "notFound": {
-    "title": "404 Page Not Found",
-    "description": "The page you're looking for doesn't exist or has been moved.",
-    "goHome": "Go Home"
-  },
-  "settings": {
-    "title": "System Settings",
-    "description": "Manage API keys, features, and system configuration",
-    "tabs": {
-      "apiKeys": "API Keys",
-      "features": "Features",
-      "performance": "Performance"
-    },
-    "apiKeyManagement": {
-      "title": "API Key Management",
-      "description": "Configure API keys for third-party services. Keep these keys secure and never share them publicly.",
-      "apiKeyLabel": "API Key",
-      "placeholder": "Enter your API key",
-      "notConfiguredPlaceholder": "Not configured",
-      "lastUsed": "Last used"
-    },
-    "apiKeys": {
-      "openai": {
-        "name": "OpenAI API Key",
-        "description": "Required for AI-powered features including chat assistants, content generation, and analytics"
-      },
-      "stripe": {
-        "name": "Stripe Secret Key",
-        "description": "Required for payment processing, subscriptions, and billing management"
-      },
-      "instagram": {
-        "name": "Instagram Access Token",
-        "description": "Required for Instagram marketing features and social media integration"
-      },
-      "googleMaps": {
-        "name": "Google Maps API Key",
-        "description": "Required for location services, route optimization, and mapping features"
-      }
-    },
-    "badges": {
-      "required": "Required",
-      "active": "Active",
-      "notConfigured": "Not Configured"
-    },
-    "buttons": {
-      "edit": "Edit",
-      "cancel": "Cancel",
-      "save": "Save"
-    },
-    "featureConfiguration": {
-      "title": "Feature Configuration",
-      "description": "Enable or disable platform features based on your needs"
-    },
-    "features": {
-      "openAI": {
-        "name": "OpenAI",
-        "description": "AI-powered features including chat and content generation"
-      },
-      "stripe": {
-        "name": "Stripe",
-        "description": "Payment processing and subscription management"
-      },
-      "instagram": {
-        "name": "Instagram",
-        "description": "Instagram marketing and social media integration"
-      },
-      "googleMaps": {
-        "name": "Google Maps",
-        "description": "Location services and mapping features"
-      }
-    },
-    "performance": {
-      "title": "Performance Settings",
-      "description": "Monitor and optimize system performance",
-      "cachePerformance": "Cache Performance",
-      "hitRate": "Hit Rate",
-      "cacheEnabled": "Cache Enabled",
-      "optimizationLevel": "Optimization Level",
-      "levels": {
-        "standard": "Standard",
-        "balanced": "Balanced",
-        "performance": "Performance"
-      }
-    },
-    "alerts": {
-      "securityNotice": {
-        "title": "Security Notice",
-        "description": "API keys are encrypted and stored securely. Never share your API keys in public repositories or client-side code."
-      },
-      "performanceTip": {
-        "title": "Performance Tip",
-        "description": "Enable caching to improve response times. Current cache hit rate is {{hitRate}}%. Target is 85% for optimal performance."
-      }
-    },
-    "toast": {
-      "success": "Success",
-      "error": "Error",
-      "apiKeyUpdated": "API key updated successfully",
-      "apiKeyUpdateFailed": "Failed to update API key",
-      "apiKeyEmpty": "API key cannot be empty",
-      "featureUpdated": "Feature updated successfully"
-    }
-  },
-  "profile": {
-    "title": "My Profile",
-    "memberSince": "Member since",
-    "lastLogin": "Last login",
-    "accountDetails": {
-      "title": "Account Details",
-      "description": "Manage your account information and preferences"
-    },
-    "tabs": {
-      "profile": "Profile",
-      "security": "Security",
-      "preferences": "Preferences",
-      "documents": "Documents"
-    },
-    "labels": {
-      "username": "Username",
-      "email": "Email Address",
-      "role": "Role",
-      "accountStatus": "Account Status",
-      "active": "Active"
-    },
-    "buttons": {
-      "editProfile": "Edit Profile",
-      "changePassword": "Change Password",
-      "viewHistory": "View History",
-      "configure": "Configure",
-      "change": "Change",
-      "uploadDocument": "Upload Document"
-    },
-    "security": {
-      "password": "Password",
-      "passwordLastChanged": "Last changed 3 months ago",
-      "twoFactorAuth": "Two-Factor Authentication",
-      "loginHistory": "Login History",
-      "loginHistoryDescription": "View recent login attempts"
-    },
-    "preferences": {
-      "notifications": "Notifications",
-      "enabled": "Enabled",
-      "disabled": "Disabled",
-      "language": "Language",
-      "theme": "Theme"
-    },
-    "documents": {
-      "noDocuments": "No Documents Available",
-      "noDocumentsDescription": "You haven't uploaded any documents yet"
-    }
-  },
-  "dashboard": {
-    "title": "Welcome to MoloChain",
-    "subtitle": "Global Logistics Command Center",
-    "loading": "Loading dashboard...",
-    "header": {
-      "globalReach": "Global Reach",
-      "countriesValue": "180+ Countries",
-      "activeServices": "Active Services",
-      "modulesValue": "42 Modules",
-      "systemUptime": "System Uptime",
-      "performance": "Performance",
-      "performanceValue": "Optimal"
-    },
-    "metrics": {
-      "countries": "Countries",
-      "departments": "Departments",
-      "divisions": "Divisions",
-      "guides": "GUIDES",
-      "systemUptime": "System Uptime",
-      "activeModules": "Active Modules"
-    },
-    "sections": {
-      "platformAnalytics": "Platform Analytics",
-      "platformAnalyticsDesc": "Real-time metrics across all divisions",
-      "organizationalStructure": "Organizational Structure",
-      "organizationalStructureDesc": "Departments, divisions, and operational units",
-      "systemPerformance": "System Performance",
-      "globalCompliance": "Global Compliance Status",
-      "liveActivityFeed": "Live Activity Feed",
-      "godLayerActions": "GOD Layer Actions"
-    },
-    "toast": {
-      "unauthorized": "Unauthorized",
-      "unauthorizedDescription": "You are logged out. Logging in again..."
-    }
-  },
-  "performance": {
-    "title": "Performance Dashboard",
-    "subtitle": "Real-time system monitoring and metrics",
-    "timeRange": {
-      "5m": "Last 5 min",
-      "15m": "Last 15 min",
-      "1h": "Last 1 hour",
-      "6h": "Last 6 hours",
-      "24h": "Last 24 hours"
-    },
-    "cards": {
-      "cpuUsage": "CPU Usage",
-      "memoryUsage": "Memory Usage",
-      "apiPerformance": "API Performance",
-      "database": "Database",
-      "load": "Load",
-      "rpm": "rpm",
-      "connections": "connections",
-      "errors": "errors",
-      "activeConnections": "active connections",
-      "cacheHitRate": "Cache hit rate"
-    },
-    "tabs": {
-      "system": "System",
-      "api": "API",
-      "database": "Database",
-      "realtime": "Real-time"
-    },
-    "charts": {
-      "cpuUsageOverTime": "CPU Usage Over Time",
-      "memoryUsageTrend": "Memory Usage Trend",
-      "requestRateResponseTime": "Request Rate & Response Time",
-      "errorRate": "Error Rate",
-      "databasePerformance": "Database Performance"
-    },
-    "websocket": {
-      "title": "WebSocket Connections",
-      "activeConnections": "Active Connections",
-      "messagesPerSecond": "Messages/Second"
-    },
-    "cache": {
-      "title": "Cache Performance",
-      "hitRate": "Hit Rate",
-      "keys": "keys"
-    },
-    "alerts": {
-      "highCpu": "High CPU usage detected:",
-      "highMemory": "High memory usage:",
-      "highErrorRate": "Elevated API error rate:"
-    },
-    "toast": {
-      "connectionIssue": "Connection Issue",
-      "connectionIssueDescription": "Real-time updates may be delayed"
-    }
-  },
-  "reports": {
-    "title": "Reports & Analytics",
-    "subtitle": "Comprehensive reporting and data management",
-    "buttons": {
-      "importData": "Import Data",
-      "exportAllData": "Export All Data",
-      "exporting": "Exporting...",
-      "importing": "Importing...",
-      "import": "Import",
-      "cancel": "Cancel"
-    },
-    "tabs": {
-      "organization": "Organization Report",
-      "department": "Department Report",
-      "division": "Division Report"
-    },
-    "sections": {
-      "departmentStatistics": "Department Statistics",
-      "divisionModuleCounts": "Division and module counts by department",
-      "systemHealthOverview": "System Health Overview",
-      "moduleHealthDistribution": "Module health distribution",
-      "complianceStatus": "Compliance Status",
-      "complianceDescription": "Standards compliance across the organization",
-      "healthStatistics": "Health Statistics",
-      "moduleHealthDist": "Module Health Distribution"
-    },
-    "labels": {
-      "selectDepartment": "Select Department",
-      "selectDepartmentDescription": "Choose a department to view detailed report",
-      "selectDivision": "Select Division",
-      "selectDivisionDescription": "Choose a division to view detailed report",
-      "dataType": "Data Type",
-      "jsonFile": "JSON File",
-      "totalModules": "Total Modules",
-      "healthy": "Healthy",
-      "warning": "Warning",
-      "critical": "Critical",
-      "totalDivisions": "Total Divisions",
-      "status": "Status",
-      "divisions": "Divisions",
-      "modules": "Modules",
-      "subDivisions": "Sub-Divisions",
-      "domains": "Domains"
-    },
-    "import": {
-      "title": "Import Data",
-      "description": "Upload a JSON file to bulk import data",
-      "selectPlaceholder": "Select data type",
-      "departments": "Departments",
-      "divisions": "Divisions",
-      "subDivisions": "Sub-Divisions",
-      "domains": "Domains"
-    },
-    "toast": {
-      "exportSuccess": "Success",
-      "exportSuccessDescription": "Data exported successfully",
-      "exportError": "Error",
-      "exportErrorDescription": "Failed to export data",
-      "importSuccess": "Success",
-      "importSuccessDescription": "Data imported successfully",
-      "importError": "Error",
-      "importErrorDescription": "Failed to import data",
-      "invalidFileFormat": "Invalid file format. Please upload a valid JSON file."
-    }
-  },
-  "developer": {
-    "apiPolicies": {
-      "title": "API Policies",
-      "subtitle": "Important information about rate limiting and API versioning",
-      "tabs": {
-        "rateLimiting": "Rate Limiting",
-        "versioning": "API Versioning"
-      },
-      "alerts": {
-        "rateLimitsApply": "Rate Limits Apply",
-        "rateLimitsDescription": "All API endpoints are subject to rate limiting to ensure platform stability and fair usage.",
-        "apiVersioningStrategy": "API Versioning Strategy",
-        "apiVersioningDescription": "Our API uses date-based versioning to ensure backward compatibility while enabling new features.",
-        "needHigherLimits": "Need Higher Limits?",
-        "needHigherLimitsDescription": "If you need higher rate limits, please contact our sales team to discuss Enterprise options."
-      },
-      "rateLimiting": {
-        "title": "Rate Limiting Policy",
-        "description": "MOLOCHAIN implements rate limiting to protect our infrastructure and ensure fair usage of our API resources. Rate limits are applied on a per-endpoint and per-authentication basis.",
-        "tiersTitle": "Rate Limit Tiers",
-        "tiersDescription": "Rate limits vary based on your account tier:",
-        "headersTitle": "Rate Limit Headers",
-        "headersDescription": "All API responses include headers that provide information about your current rate limit status:",
-        "handlingTitle": "Handling Rate Limits",
-        "handlingDescription": "When a rate limit is exceeded, the API will respond with a 429 Too Many Requests status code. Clients should implement proper error handling and backoff strategies.",
-        "bestPractices": "Best Practices for Rate Limiting"
-      },
-      "table": {
-        "tier": "Tier",
-        "rateLimit": "Rate Limit",
-        "burstLimit": "Burst Limit",
-        "notes": "Notes",
-        "header": "Header",
-        "description": "Description",
-        "example": "Example",
-        "version": "Version",
-        "releaseDate": "Release Date",
-        "status": "Status",
-        "endOfLife": "End-of-Life Date"
-      },
-      "tiers": {
-        "developer": "Developer",
-        "developerRate": "60 requests/minute",
-        "developerBurst": "100 requests/minute",
-        "developerNotes": "Free tier for development and testing",
-        "basic": "Basic",
-        "basicRate": "300 requests/minute",
-        "basicBurst": "500 requests/minute",
-        "basicNotes": "For small to medium businesses",
-        "professional": "Professional",
-        "professionalRate": "1,000 requests/minute",
-        "professionalBurst": "1,500 requests/minute",
-        "professionalNotes": "For medium to large businesses",
-        "enterprise": "Enterprise",
-        "enterpriseRate": "5,000+ requests/minute",
-        "enterpriseBurst": "7,500+ requests/minute",
-        "enterpriseNotes": "Custom limits available"
-      },
-      "bestPractices": {
-        "do": "Do",
-        "dont": "Don't",
-        "doList": {
-          "monitor": "Monitor your rate limit usage via response headers",
-          "backoff": "Implement exponential backoff for retries",
-          "cache": "Cache responses when appropriate",
-          "batch": "Batch requests when possible",
-          "optimize": "Optimize your API usage patterns"
-        },
-        "dontList": {
-          "retry": "Repeatedly retry requests without backoff",
-          "ignore": "Ignore rate limit headers",
-          "duplicate": "Make unnecessary duplicate requests",
-          "share": "Share API credentials across multiple applications",
-          "scrape": "Scrape data unnecessarily"
-        }
-      },
-      "codeExamples": {
-        "title": "Code Examples",
-        "handlingHeaders": "Handling Rate Limit Headers",
-        "handlingHeadersDesc": "How to track and respond to rate limit information",
-        "exponentialBackoff": "Implementing Exponential Backoff",
-        "exponentialBackoffDesc": "Advanced retry strategy for rate limited requests",
-        "specifyVersion": "Specifying API Version",
-        "specifyVersionDesc": "Different methods to specify which API version to use",
-        "copyCode": "Copy code"
-      },
-      "versioning": {
-        "title": "API Versioning",
-        "description": "MOLOCHAIN uses a versioning strategy to ensure that changes to our API don't break existing integrations. We provide stable API versions with clear deprecation timelines.",
-        "dateBasedTitle": "Date-Based Versioning",
-        "dateBasedDescription": "We use date-based versioning in the format YYYY-MM-DD. This approach allows us to:",
-        "dateBasedBenefits": {
-          "release": "Release new features without breaking existing integrations",
-          "timeline": "Provide a clear timeline for API changes",
-          "select": "Allow clients to select specific API behavior",
-          "support": "Support multiple API versions simultaneously"
-        },
-        "specifyingVersion": "Specifying API Version",
-        "specifyDescription": "You can specify which API version to use through one of the following methods:",
-        "headerRecommended": "HTTP Header (Recommended)",
-        "urlPath": "URL Path",
-        "acceptHeader": "Accept Header",
-        "defaultVersion": "Default Version",
-        "defaultVersionDescription": "If no version is specified, the API will use the oldest non-deprecated version. However, we strongly recommend always specifying a version explicitly.",
-        "timelineTitle": "API Version Timeline",
-        "statusDefinitions": "Version Status Definitions",
-        "accordion": {
-          "headerInstruction": "Include the X-API-Version header in your request:",
-          "urlInstruction": "Include the major version number in the URL path:",
-          "urlNote": "Note: URL versioning only supports major version numbers (v1, v2, etc.), not specific dates.",
-          "acceptInstruction": "Include the version in the Accept header:"
-        },
-        "statuses": {
-          "current": "Current",
-          "currentDesc": "Latest stable version with all new features",
-          "maintained": "Maintained",
-          "maintainedDesc": "Fully supported with security updates but no new features",
-          "deprecated": "Deprecated",
-          "deprecatedDesc": "Still available but planned for removal, migration recommended",
-          "endOfLife": "End-of-Life",
-          "endOfLifeDesc": "No longer available"
-        }
-      },
-      "headers": {
-        "rateLimitLimit": "The maximum number of requests allowed in the current time window",
-        "rateLimitRemaining": "The number of requests remaining in the current time window",
-        "rateLimitReset": "The Unix timestamp when the rate limit resets",
-        "retryAfter": "The number of seconds to wait before retrying (only present when rate limited)"
-      }
-    },
-    "authGuide": {
-      "title": "API Authentication Guide",
-      "subtitle": "Secure your API interactions with MOLOCHAIN's authentication system",
-      "tabs": {
-        "overview": "Overview",
-        "authentication": "Authentication",
-        "authorization": "Authorization",
-        "examples": "Code Examples",
-        "codeExamples": "Code Examples"
-      },
-      "alerts": {
-        "authVsAuthz": "Authentication vs. Authorization",
-        "authVsAuthzDesc": "Authentication verifies who you are, while authorization determines what you can access."
-      },
-      "overview": {
-        "title": "Authentication Overview",
-        "description": "The MOLOCHAIN platform uses a secure, multi-layered authentication system to protect user data and ensure that only authorized users can access sensitive information.",
-        "methodsTitle": "Authentication Methods",
-        "methodsDescription": "Our API supports multiple authentication methods:",
-        "methods": {
-          "session": "Session-based Authentication",
-          "sessionDesc": "Using HTTP cookies for web applications",
-          "jwt": "JWT Token Authentication",
-          "jwtDesc": "For mobile apps and external integrations",
-          "twoFactor": "Two-Factor Authentication (2FA)",
-          "twoFactorDesc": "Optional additional security layer",
-          "apiKey": "API Key Authentication",
-          "apiKeyDesc": "For server-to-server integrations"
-        }
-      },
-      "flow": {
-        "title": "Authentication Flow",
-        "description": "Standard authentication process for accessing protected resources",
-        "step1": "User Registration or Login",
-        "step1Desc": "Create an account or authenticate with existing credentials",
-        "step2": "Receive Authentication Token",
-        "step2Desc": "Server issues a token or session cookie upon successful authentication",
-        "step3": "Include Token in Requests",
-        "step3Desc": "Attach token to subsequent API requests",
-        "step4": "Token Validation",
-        "step4Desc": "Server validates token for each protected request",
-        "step5": "Token Refresh (when needed)",
-        "step5Desc": "Refresh expired tokens to maintain session"
-      },
-      "security": {
-        "title": "Security Recommendations",
-        "description": "Best practices for implementing secure authentication",
-        "https": "Always use HTTPS for all API requests",
-        "storeTokens": "Store tokens securely (HttpOnly cookies for web apps)",
-        "refresh": "Implement token refresh mechanisms before expiration",
-        "twoFactor": "Enable 2FA for sensitive operations",
-        "validate": "Validate all user inputs server-side",
-        "errorHandling": "Implement proper error handling without exposing sensitive info"
-      },
-      "endpoints": {
-        "title": "Authentication Endpoints",
-        "description": "The following endpoints are used for user authentication in the MOLOCHAIN platform. All authentication requests should be sent with Content-Type: application/json.",
-        "login": {
-          "title": "Login Endpoint",
-          "description": "Authenticate users with email and password",
-          "method": "POST /api/auth/login",
-          "methodDesc": "Authenticates a user and returns a session cookie or JWT token"
-        },
-        "register": {
-          "title": "Registration Endpoint",
-          "description": "Create a new user account",
-          "method": "POST /api/auth/register",
-          "methodDesc": "Creates a new user account"
-        },
-        "refresh": {
-          "title": "Token Refresh Endpoint",
-          "description": "Refresh an expired JWT token",
-          "method": "POST /api/auth/refresh",
-          "methodDesc": "Refreshes an expired JWT token using a refresh token or session cookie"
-        },
-        "logout": {
-          "title": "Logout Endpoint",
-          "description": "Invalidate the current session or token",
-          "method": "POST /api/auth/logout",
-          "methodDesc": "Logs out the current user by invalidating their session or token"
-        }
-      },
-      "table": {
-        "parameter": "Parameter",
-        "type": "Type",
-        "description": "Description",
-        "requestBody": "Request Body",
-        "response": "Response",
-        "role": "Role",
-        "permissions": "Permissions",
-        "scope": "Scope",
-        "statusCode": "Status Code",
-        "error": "Error",
-        "handlingStrategy": "Handling Strategy"
-      },
-      "authorization": {
-        "title": "Authorization",
-        "description": "Once authenticated, users must be authorized to access specific resources. Authorization determines what actions a user can perform.",
-        "methodsTitle": "Authorization Methods",
-        "methodsDescription": "The MOLOCHAIN platform implements the following authorization methods:",
-        "methods": {
-          "rbac": "Role-Based Access Control (RBAC)",
-          "rbacDesc": "Permissions based on user roles",
-          "resource": "Resource-Based Access Control",
-          "resourceDesc": "Permissions based on ownership or relationship to resources",
-          "scoped": "Scoped API Tokens",
-          "scopedDesc": "Tokens with limited permissions for specific operations"
-        },
-        "rolesTitle": "User Roles",
-        "rolesDescription": "The platform defines several roles with different permission levels:",
-        "scopesTitle": "API Token Scopes",
-        "scopesDescription": "When creating API tokens, you can specify scopes to limit their permissions:",
-        "makingRequests": "Making Authorized Requests",
-        "makingRequestsDesc": "How to include authorization information in your API requests",
-        "bearerAuth": "Bearer Token Authentication",
-        "bearerAuthDesc": "Include your JWT token or API key in the Authorization header:",
-        "cookieAuth": "Cookie Authentication",
-        "cookieAuthDesc": "When using cookie-based authentication, include the credentials option in your fetch or axios requests:",
-        "handlingErrors": "Handling Authorization Errors",
-        "handlingErrorsDesc": "Common authorization error responses and how to handle them"
-      },
-      "examples": {
-        "title": "Code Examples",
-        "description": "The following examples demonstrate how to implement authentication and authorization in different programming languages and environments.",
-        "login": "User Login Example",
-        "loginDesc": "How to authenticate users with the login API",
-        "authorizedRequests": "Making Authorized Requests",
-        "authorizedRequestsDesc": "How to include authorization in API requests",
-        "tokenRefresh": "Token Refresh Implementation",
-        "tokenRefreshDesc": "How to implement automatic token refresh",
-        "twoFactor": "Two-Factor Authentication",
-        "twoFactorDesc": "How to implement two-factor authentication verification",
-        "nodejs": "Node.js Authentication Example",
-        "nodejsDesc": "Server-side authentication implementation using Node.js"
-      },
-      "backToPortal": "Back to Developer Portal"
-    },
-    "websocket": {
-      "title": "WebSocket API Guide",
-      "subtitle": "Learn how to integrate with our real-time WebSocket APIs for live updates and notifications",
-      "tabs": {
-        "overview": "Overview",
-        "endpoints": "Endpoints",
-        "authentication": "Authentication",
-        "codeExamples": "Code Examples"
-      },
-      "alert": {
-        "title": "Documentation Purpose",
-        "description": "This documentation covers how to interact with the MOLOCHAIN platform's WebSocket APIs for real-time data."
-      },
-      "sections": {
-        "introduction": "Introduction to WebSockets",
-        "introductionDescription": "WebSockets provide a persistent connection between a client and server, allowing for bi-directional, real-time data transfer. Unlike HTTP, which follows a request-response pattern, WebSockets enable the server to push data to clients without the client having to request it.",
-        "keyBenefits": "Key Benefits",
-        "whenToUse": "When to Use WebSockets",
-        "whenToUseDescription": "WebSockets are ideal for applications that require real-time functionality, such as:"
-      },
-      "benefits": {
-        "realTimeUpdates": "Real-time updates",
-        "realTimeUpdatesDesc": "Receive instant notifications and data updates without polling",
-        "reducedLatency": "Reduced latency",
-        "reducedLatencyDesc": "Minimize communication overhead with persistent connections",
-        "bidirectional": "Bi-directional communication",
-        "bidirectionalDesc": "Enable interactive features and real-time collaboration",
-        "efficientBandwidth": "Efficient bandwidth usage",
-        "efficientBandwidthDesc": "Lower data transfer overhead compared to HTTP polling"
-      },
-      "useCases": {
-        "liveTracking": "Live tracking of shipments and logistics operations",
-        "realTimeNotifications": "Real-time notifications and alerts",
-        "collaborativeEditing": "Collaborative editing and planning",
-        "liveDashboards": "Live dashboards and monitoring",
-        "chatMessaging": "Chat and messaging features"
-      },
-      "cards": {
-        "availableServices": {
-          "title": "Available WebSocket Services",
-          "description": "Our platform offers multiple WebSocket endpoints for specific use cases"
-        },
-        "gettingStarted": {
-          "title": "Getting Started",
-          "description": "Follow these steps to start using our WebSocket APIs"
-        }
-      },
-      "services": {
-        "main": {
-          "title": "Main WebSocket",
-          "description": "General-purpose real-time updates and events"
-        },
-        "tracking": {
-          "title": "Tracking WebSocket",
-          "description": "Real-time shipment and container tracking updates"
-        },
-        "notifications": {
-          "title": "Notifications WebSocket",
-          "description": "User notifications and alerts"
-        },
-        "collaboration": {
-          "title": "Collaboration WebSocket",
-          "description": "Real-time collaborative features"
-        }
-      },
-      "gettingStarted": {
-        "step1": {
-          "title": "Register for an API key",
-          "description": "Required for authenticated WebSocket connections"
-        },
-        "step2": {
-          "title": "Choose the appropriate WebSocket endpoint",
-          "description": "Select the endpoint that matches your requirements"
-        },
-        "step3": {
-          "title": "Implement client-side WebSocket handling",
-          "description": "Use our code examples to connect to the WebSocket service"
-        },
-        "step4": {
-          "title": "Handle connection management",
-          "description": "Implement reconnection logic for robust connectivity"
-        }
-      },
-      "buttons": {
-        "viewCodeExamples": "View Code Examples"
-      },
-      "endpoints": {
-        "title": "WebSocket Endpoints",
-        "description": "Our platform provides multiple WebSocket endpoints, each designed for specific types of real-time communication. Connect to the appropriate endpoint based on your integration needs.",
-        "endpointUrl": "Endpoint URL",
-        "messageTypes": "Message Types",
-        "main": {
-          "title": "Main WebSocket",
-          "description": "General-purpose WebSocket for platform-wide events and updates"
-        },
-        "tracking": {
-          "title": "Tracking WebSocket",
-          "description": "Real-time tracking updates for shipments, containers, and vehicles"
-        },
-        "notifications": {
-          "title": "Notifications WebSocket",
-          "description": "User-specific notifications and alerts"
-        },
-        "collaboration": {
-          "title": "Collaboration WebSocket",
-          "description": "Real-time collaboration features for multi-user interactions"
-        }
-      },
-      "table": {
-        "type": "Type",
-        "direction": "Direction",
-        "description": "Description",
-        "clientToServer": "Client → Server",
-        "serverToClient": "Server → Client",
-        "bidirectional": "Bidirectional"
-      },
-      "messages": {
-        "main": {
-          "auth": "Authentication with JWT token",
-          "systemUpdate": "System-wide updates and announcements",
-          "ping": "Keep-alive message to prevent connection timeout",
-          "pong": "Response to ping message"
-        },
-        "tracking": {
-          "subscribe": "Subscribe to tracking updates for specific shipments",
-          "update": "Real-time location and status updates",
-          "event": "Significant events (e.g., arrival, departure, customs clearance)",
-          "unsubscribe": "Unsubscribe from tracking updates"
-        },
-        "notifications": {
-          "notification": "User notifications (alerts, reminders, updates)",
-          "markRead": "Mark notifications as read",
-          "preferencesUpdate": "Update notification preferences"
-        },
-        "collaboration": {
-          "joinRoom": "Join a collaboration room/session",
-          "leaveRoom": "Leave a collaboration room/session",
-          "documentUpdate": "Real-time document changes",
-          "presenceUpdate": "User presence information (who's online)",
-          "cursorPosition": "Cursor position for collaborative editing"
-        }
-      },
-      "authentication": {
-        "title": "WebSocket Authentication",
-        "description": "All WebSocket connections require authentication to access protected endpoints. After establishing a WebSocket connection, you must send an authentication message to verify your identity.",
-        "methods": {
-          "title": "Authentication Methods",
-          "description": "We support multiple methods for authenticating WebSocket connections:"
-        },
-        "tokenAuth": {
-          "title": "Token-Based Authentication",
-          "description": "Send a JWT token after connecting. This is the recommended method for most applications."
-        },
-        "sessionAuth": {
-          "title": "Session-Based Authentication",
-          "description": "If you have an active session (cookie-based), the WebSocket connection will automatically inherit the session."
-        },
-        "example": {
-          "title": "Authentication Example",
-          "description": "How to authenticate after establishing a WebSocket connection"
-        },
-        "securityNote": {
-          "title": "Security Best Practice",
-          "description": "Never expose your authentication tokens in client-side code that can be viewed publicly. Always use secure WebSocket connections (wss://) in production."
-        }
-      },
-      "examples": {
-        "title": "Code Examples",
-        "description": "The following examples demonstrate how to connect to and interact with our WebSocket APIs in different programming environments.",
-        "tabs": {
-          "browser": "Browser",
-          "nodejs": "Node.js",
-          "python": "Python",
-          "reconnection": "Reconnection"
-        },
-        "browser": {
-          "title": "Browser WebSocket Example",
-          "description": "Basic WebSocket connection using the browser's native WebSocket API"
-        },
-        "nodejs": {
-          "title": "Node.js WebSocket Example",
-          "description": "WebSocket connection using the ws package for Node.js applications"
-        },
-        "python": {
-          "title": "Python WebSocket Example",
-          "description": "WebSocket connection using the websockets library for Python applications"
-        },
-        "reconnection": {
-          "title": "Reconnection Logic",
-          "description": "Robust WebSocket connection with automatic reconnection and exponential backoff"
-        }
-      }
-    },
-    "schemaExplorer": {
-      "title": "Database Schema Explorer",
-      "subtitle": "Explore and analyze your database with {{tables}} tables and {{relationships}} relationships",
-      "stats": {
-        "totalTables": "Total Tables",
-        "totalColumns": "Total Columns",
-        "relationships": "Relationships",
-        "categories": "Categories"
-      },
-      "search": {
-        "placeholder": "Search tables..."
-      },
-      "filter": {
-        "placeholder": "Filter by category",
-        "allCategories": "All Categories"
-      },
-      "viewMode": {
-        "grid": "Grid",
-        "list": "List"
-      },
-      "buttons": {
-        "exportJson": "Export JSON",
-        "exportSql": "Export SQL"
-      },
-      "cards": {
-        "databaseTables": {
-          "title": "Database Tables",
-          "description": "Click on a table to view its structure and relationships"
-        },
-        "tableDetails": {
-          "title": "Table Details",
-          "selectTable": "Select a table to view details",
-          "structureOf": "Structure of {{table}}"
-        }
-      },
-      "tabs": {
-        "columns": "Columns",
-        "relations": "Relations",
-        "annotations": "Annotations"
-      },
-      "error": {
-        "title": "Database Connection Error",
-        "description": "Unable to connect to the database. Please check your connection settings."
-      },
-      "loading": {
-        "title": "Loading Database Schema",
-        "description": "Analyzing your database structure..."
-      },
-      "columnDetails": {
-        "nullable": "Nullable",
-        "notNull": "Not Null",
-        "default": "Default",
-        "pk": "PK",
-        "fk": "FK"
-      },
-      "relationships": {
-        "references": "References",
-        "referencedBy": "Referenced by",
-        "noRelationships": "No relationships found"
-      },
-      "relationshipMap": {
-        "title": "Relationship Map",
-        "description": "Visual representation of table connections",
-        "currentTable": "Current Table",
-        "connections": "connection(s)"
-      },
-      "columns": "columns",
-      "rows": "rows",
-      "uncategorized": "Uncategorized",
-      "selectTablePrompt": "Select a table to view its details",
-      "tablesAvailable": "{{count}} tables available"
-    }
-  },
-  "tracking": {
-    "badge": "Real-Time Tracking",
-    "title": "Shipment Tracking",
-    "subtitle": "Track your shipments in real-time with live updates and detailed timelines",
-    "stats": {
-      "packagesValue": "10M+",
-      "packagesTracked": "Packages Tracked",
-      "updateTimeValue": "< 1s",
-      "updateTime": "Update Time",
-      "countriesValue": "180+",
-      "countries": "Countries"
-    },
-    "form": {
-      "title": "Enter Tracking Number",
-      "description": "Enter your MOLOCHAIN tracking number to get real-time updates on your shipment",
-      "placeholder": "e.g. MOLO-2024120901",
-      "track": "Track",
-      "tracking": "Tracking...",
-      "tryExamples": "Try a real tracking number:"
-    },
-    "tabs": {
-      "timeline": "Timeline",
-      "visualTracking": "Visual Tracking",
-      "details": "Details"
-    },
-    "sections": {
-      "detailedTracking": "Detailed Tracking",
-      "shipmentDetails": "Shipment Details",
-      "shipmentDetailsDescription": "Comprehensive information about your shipment",
-      "shareTracking": "Share Tracking"
-    },
-    "error": {
-      "notFound": "Tracking Not Found",
-      "notFoundDescription": "The tracking number \"{{number}}\" was not found in our system. Please check the tracking number and try again."
-    },
-    "toast": {
-      "activated": "Tracking activated",
-      "activatedDescription": "Looking up shipment {{number}}",
-      "invalidNumber": "Invalid tracking number",
-      "invalidNumberDescription": "Please enter a valid tracking number"
-    }
-  },
-  "admin": {
-    "operations": {
-      "activity": {
-        "title": "Activity Monitoring"
-      },
-      "communications": {
-        "title": "Communications Hub",
-        "subtitle": "Manage form submissions and email settings",
-        "tabs": {
-          "dashboard": "Dashboard",
-          "submissions": "Submissions",
-          "statistics": "Statistics",
-          "templates": "Templates",
-          "settings": "Settings",
-          "apiKeys": "API Keys",
-          "templatesRecipients": "Templates & Recipients",
-          "emailSettings": "Email Settings"
-        },
-        "stats": {
-          "total": "Total",
-          "pending": "Pending",
-          "inReview": "In Review",
-          "responded": "Responded",
-          "closed": "Closed"
-        },
-        "status": {
-          "pending": "pending",
-          "in_review": "in review",
-          "responded": "responded",
-          "closed": "closed"
-        },
-        "form": {
-          "smtpHost": "SMTP Host",
-          "smtpPort": "SMTP Port",
-          "username": "Username",
-          "password": "Password",
-          "fromName": "From Name",
-          "fromEmail": "From Email",
-          "replyTo": "Reply To",
-          "useTls": "Use TLS",
-          "formType": "Form Type",
-          "dateRange": "Date Range",
-          "templateName": "Template Name",
-          "subjectLine": "Subject Line",
-          "emailBody": "Email Body",
-          "name": "Name",
-          "email": "Email",
-          "subdomainName": "Subdomain Name",
-          "description": "Description"
-        },
-        "buttons": {
-          "saveSettings": "Save Settings",
-          "testConnection": "Test Connection",
-          "refresh": "Refresh",
-          "addTemplate": "Add Template",
-          "edit": "Edit",
-          "delete": "Delete",
-          "view": "View",
-          "send": "Send",
-          "addRecipient": "Add Recipient",
-          "createApiKey": "Create API Key",
-          "generateKey": "Generate Key",
-          "cancel": "Cancel",
-          "create": "Create",
-          "update": "Update",
-          "done": "Done"
-        },
-        "table": {
-          "id": "ID",
-          "name": "Name",
-          "email": "Email",
-          "subject": "Subject",
-          "status": "Status",
-          "date": "Date",
-          "actions": "Actions",
-          "formType": "Form Type",
-          "keyPreview": "Key Preview",
-          "subdomain": "Subdomain",
-          "lastUsed": "Last Used",
-          "created": "Created",
-          "never": "Never"
-        },
-        "dialogs": {
-          "addTemplate": "Create Template",
-          "editTemplate": "Edit Template",
-          "updateTemplate": "Update the email template",
-          "createTemplate": "Create a new email template",
-          "apiKey": "API Key",
-          "createApiKey": "Create API Key",
-          "createApiKeyDesc": "Create a new API key for programmatic email access",
-          "addRecipient": "Add Recipient",
-          "addRecipientDesc": "Add a new notification recipient",
-          "submissionDetails": "Submission Details",
-          "submissionDetailsDesc": "View and manage this form submission"
-        },
-        "cards": {
-          "filters": "Filters",
-          "formSubmissions": "Form Submissions",
-          "totalSubmissions": "{{count}} total submissions",
-          "emailSettings": "Email Settings",
-          "emailSettingsDesc": "Configure SMTP settings for outgoing emails",
-          "emailTemplates": "Email Templates",
-          "notificationRecipients": "Notification Recipients",
-          "emailApiKeys": "Email API Keys",
-          "emailApiKeysDesc": "Manage API keys for programmatic email access"
-        },
-        "labels": {
-          "allTypes": "All Types",
-          "allStatus": "All Status",
-          "contact": "Contact",
-          "quote": "Quote",
-          "support": "Support",
-          "feedback": "Feedback",
-          "message": "Message",
-          "submitted": "Submitted",
-          "noSubmissionsFound": "No submissions found",
-          "noTemplatesFound": "No templates found",
-          "noRecipientsFound": "No recipients found",
-          "noApiKeysFound": "No API keys found"
-        },
-        "apiKey": {
-          "warning": "Save this API key now!",
-          "warningDesc": "This is the only time you will see the full key. Copy it and store it securely.",
-          "yourApiKey": "Your API Key",
-          "subdomainDesc": "The subdomain this API key will be associated with",
-          "descriptionOptional": "Description (Optional)"
-        },
-        "toast": {
-          "statusUpdated": "Status updated successfully",
-          "statusUpdateFailed": "Failed to update status",
-          "settingsSaved": "Email settings saved successfully",
-          "settingsSaveFailed": "Failed to save email settings",
-          "connectionSuccess": "Connection test successful",
-          "connectionFailed": "Connection test failed",
-          "templateCreated": "Template created",
-          "templateUpdated": "Template updated",
-          "templateSaveFailed": "Failed to save template",
-          "templateDeleted": "Template deleted",
-          "templateDeleteFailed": "Failed to delete template",
-          "recipientAdded": "Recipient added",
-          "recipientAddFailed": "Failed to add recipient",
-          "recipientRemoved": "Recipient removed",
-          "recipientRemoveFailed": "Failed to remove recipient",
-          "recipientUpdateFailed": "Failed to update recipient",
-          "apiKeyCreated": "API key created successfully",
-          "apiKeyCreateFailed": "Failed to create API key",
-          "apiKeyDeleted": "API key deleted",
-          "apiKeyDeleteFailed": "Failed to delete API key",
-          "apiKeyUpdateFailed": "Failed to update API key",
-          "copiedToClipboard": "Copied to clipboard",
-          "copyFailed": "Failed to copy"
-        }
-      },
-      "microservices": {
-        "title": "Microservices Control Panel",
-        "subtitle": "Real-time monitoring of Docker microservices and system health",
-        "stats": {
-          "total": "Total Services",
-          "totalDesc": "Docker containers monitored",
-          "healthy": "Healthy",
-          "unhealthy": "Unhealthy",
-          "unhealthyDesc": "Needing attention",
-          "healthPercentage": "Health Percentage",
-          "systemUptime": "System Uptime",
-          "healthScore": "{{percentage}}% health score"
-        },
-        "status": {
-          "healthy": "Healthy",
-          "unhealthy": "Unhealthy",
-          "notFound": "Not Found",
-          "starting": "Starting"
-        },
-        "table": {
-          "service": "Service",
-          "category": "Category",
-          "status": "Status",
-          "port": "Port",
-          "containerId": "Container ID",
-          "uptime": "Uptime",
-          "responseTime": "Response",
-          "lastCheck": "Last Check",
-          "actions": "Actions",
-          "noServicesFound": "No services found in this category"
-        },
-        "buttons": {
-          "refresh": "Refresh",
-          "restart": "Request Restart",
-          "viewLogs": "View Container Logs",
-          "details": "Details",
-          "prometheus": "Prometheus",
-          "grafana": "Grafana",
-          "retry": "Retry"
-        },
-        "metrics": {
-          "cpuUsage": "CPU Usage",
-          "memory": "Memory",
-          "disk": "Disk",
-          "network": "Network",
-          "uptime": "Uptime",
-          "load": "Load",
-          "cores": "Cores",
-          "connections": "Connections"
-        },
-        "tabs": {
-          "all": "All"
-        },
-        "cards": {
-          "serviceStatus": "Service Status",
-          "serviceStatusDesc": "Detailed status of each microservice (auto-refresh every 30s)"
-        },
-        "dialogs": {
-          "containerLogs": "Container Logs",
-          "containerLogsDesc": "Last 100 log lines from the container",
-          "noLogs": "No logs available"
-        },
-        "error": {
-          "title": "Error Loading Microservices",
-          "description": "Failed to fetch microservices status. This may require authentication."
-        },
-        "toast": {
-          "refreshed": "Refreshed",
-          "refreshedDesc": "Microservices status updated",
-          "restartRequested": "Restart Requested",
-          "restartFailed": "Restart Failed",
-          "restartFailedDesc": "Failed to send restart signal",
-          "logFetchFailed": "Log Fetch Failed",
-          "logFetchFailedDesc": "Failed to fetch logs"
-        },
-        "labels": {
-          "lastUpdated": "Last updated",
-          "other": "Other"
-        }
-      },
-      "tracking": {
-        "title": "Tracking Providers",
-        "cards": {
-          "addProvider": "Add Tracking Provider",
-          "addProviderDesc": "Configure external tracking providers for shipment tracking integration.",
-          "configuredProviders": "Configured Providers",
-          "configuredProvidersDesc": "Manage your configured tracking providers."
-        },
-        "form": {
-          "providerName": "Provider Name",
-          "providerNamePlaceholder": "Enter provider name...",
-          "providerType": "Provider Type",
-          "providerTypePlaceholder": "Select provider type",
-          "apiKey": "API Key",
-          "apiKeyPlaceholder": "Enter API key...",
-          "apiSecret": "API Secret (Optional)",
-          "apiSecretPlaceholder": "Enter API secret...",
-          "accountNumber": "Account Number (Optional)",
-          "accountNumberPlaceholder": "Enter account number...",
-          "meterNumber": "Meter Number (Optional)",
-          "meterNumberPlaceholder": "Enter meter number...",
-          "enabled": "Enable Provider"
-        },
-        "providerTypes": {
-          "FEDEX": "FedEx",
-          "UPS": "UPS",
-          "DHL": "DHL",
-          "USPS": "USPS",
-          "MAERSK": "Maersk"
-        },
-        "buttons": {
-          "addProvider": "Add Provider"
-        },
-        "table": {
-          "name": "Name",
-          "type": "Type",
-          "apiKey": "API Key",
-          "status": "Status",
-          "actions": "Actions"
-        },
-        "labels": {
-          "loading": "Loading providers...",
-          "noProviders": "No tracking providers configured yet."
-        },
-        "toast": {
-          "providerAdded": "Provider Added",
-          "providerAddedDesc": "The tracking provider has been added successfully.",
-          "error": "Error",
-          "toggleFailed": "Failed to toggle provider status"
-        }
-      }
-    },
-    "dashboards": {
-      "system": {
-        "title": "System Dashboard",
-        "subtitle": "Real-time system monitoring and metrics",
-        "stats": {
-          "cpuUsage": "CPU Usage",
-          "memory": "Memory",
-          "disk": "Disk Usage",
-          "network": "Network",
-          "uptime": "Uptime"
-        },
-        "services": {
-          "databaseservice": "Database Service",
-          "websocketserver": "WebSocket Server",
-          "apigateway": "API Gateway",
-          "cacheservice": "Cache Service",
-          "authenticationservice": "Authentication Service"
-        },
-        "status": {
-          "active": "Active",
-          "degraded": "Degraded",
-          "error": "Error",
-          "maintenance": "Maintenance"
-        },
-        "buttons": {
-          "refresh": "Refresh",
-          "viewDetails": "View Details",
-          "performance": "Performance"
-        },
-        "labels": {
-          "responseTime": "Response time",
-          "uptime": "uptime",
-          "lastCheck": "Last check",
-          "cached": "cached",
-          "totalProcesses": "Total Processes",
-          "active": "Active",
-          "sleeping": "Sleeping"
-        },
-        "sections": {
-          "systemOverview": "System Overview",
-          "serviceStatus": "Service Status",
-          "serviceStatusDesc": "Monitor the health of critical system services",
-          "performanceTrends": "Performance Trends",
-          "performanceTrendsDesc": "24-hour system performance history",
-          "networkActivity": "Network Activity",
-          "processInfo": "Process Information",
-          "processInfoDesc": "System process statistics and management",
-          "systemAlerts": "System Alerts",
-          "systemAlertsDesc": "Recent system alerts and warnings"
-        },
-        "tabs": {
-          "overview": "Overview",
-          "resources": "Resources",
-          "services": "Services",
-          "history": "History",
-          "performance": "Performance",
-          "processes": "Processes",
-          "alerts": "Alerts"
-        },
-        "alerts": {
-          "serviceStatus": "Service is currently {{status}}. Response time: {{responseTime}}ms",
-          "noAlerts": "No active alerts. All systems operational."
-        }
-      },
-      "performance": {
-        "title": "Performance Monitor",
-        "subtitle": "Monitor and optimize system performance",
-        "sections": {
-          "memoryStatus": "Memory Usage",
-          "cachePerformance": "Cache Hit/Miss Ratio",
-          "cachePerformanceDesc": "Current cache performance",
-          "cacheStatistics": "Cache Statistics",
-          "cacheStatisticsDesc": "Detailed cache metrics",
-          "databasePerformance": "Database Latency",
-          "systemResources": "System Resources",
-          "performanceTrends": "Performance Trends",
-          "performanceTrendsDesc": "Real-time performance metrics over the last 5 minutes",
-          "quickActions": "Quick Actions",
-          "quickActionsDesc": "Optimize system performance instantly",
-          "optimizationSettings": "Optimization Settings",
-          "optimizationSettingsDesc": "Configure automatic optimizations",
-          "performanceThresholds": "Performance Thresholds",
-          "performanceThresholdsDesc": "Configure alert thresholds for performance metrics"
-        },
-        "settings": {
-          "memorygc": "Automatic Garbage Collection",
-          "cachewarming": "Cache Warming",
-          "queryoptimization": "Query Optimization",
-          "responsecompression": "Response Compression"
-        },
-        "settingsDesc": {
-          "memorygc": "Automatically run garbage collection when memory usage is high",
-          "cachewarming": "Pre-load frequently accessed data into cache",
-          "queryoptimization": "Optimize database queries for better performance",
-          "responsecompression": "Compress HTTP responses to reduce bandwidth"
-        },
-        "labels": {
-          "heapUsed": "Heap Used",
-          "heapTotal": "Heap Total",
-          "externalMemory": "External Memory",
-          "rss": "RSS",
-          "hitRate": "Cache Hit Rate",
-          "cacheSize": "Cache size",
-          "cpuUsage": "CPU Usage",
-          "uptime": "Uptime",
-          "used": "used",
-          "total": "total",
-          "impact": "impact",
-          "totalSize": "Total Size",
-          "keysStored": "Keys Stored",
-          "evictions": "Evictions"
-        },
-        "buttons": {
-          "runOptimization": "Run Optimization",
-          "start": "Start",
-          "stop": "Stop",
-          "clearCache": "Clear Cache",
-          "refresh": "Refresh",
-          "optimizeMemory": "Optimize Memory",
-          "optimizing": "Optimizing...",
-          "runDiagnostics": "Run Diagnostics"
-        },
-        "switches": {
-          "autoOptimize": "Auto-Optimize"
-        },
-        "impact": {
-          "low": "Low",
-          "medium": "Medium",
-          "high": "High"
-        },
-        "status": {
-          "healthy": "Healthy",
-          "warning": "Warning",
-          "critical": "Critical",
-          "connected": "Connected",
-          "optimal": "Optimal",
-          "needsAttention": "Needs Attention"
-        },
-        "tabs": {
-          "metrics": "Metrics",
-          "optimization": "Optimization",
-          "history": "History",
-          "realtime": "Real-Time",
-          "cache": "Cache Analytics",
-          "settings": "Settings"
-        },
-        "thresholds": {
-          "memoryUsage": "Memory Usage Alert Threshold",
-          "cpuUsage": "CPU Usage Alert Threshold",
-          "cacheHitRate": "Cache Hit Rate Minimum",
-          "databaseLatency": "Database Latency Maximum"
-        },
-        "alerts": {
-          "autoOptimizeEnabled": "Auto-optimization is enabled. The system will automatically optimize performance when needed."
-        }
-      },
-      "websocket": {
-        "title": "WebSocket Diagnostics",
-        "cards": {
-          "connectionMetrics": "Connection Metrics",
-          "performanceMetrics": "Performance Metrics"
-        },
-        "labels": {
-          "connected": "Connected",
-          "disconnected": "Disconnected",
-          "reconnects": "Reconnects",
-          "reconnectAttempts": "Reconnect Attempts",
-          "authenticated": "Authenticated",
-          "lastHeartbeat": "Last Heartbeat",
-          "lastError": "Last Error",
-          "yes": "Yes",
-          "no": "No",
-          "never": "Never",
-          "none": "None"
-        },
-        "metrics": {
-          "totalConnections": "Total Connections",
-          "activeConnections": "Active Connections",
-          "errorCount": "Error Count",
-          "avgLatency": "Avg. Latency",
-          "messagesSent": "Messages Sent",
-          "messagesReceived": "Messages Received",
-          "messagesExchanged": "Messages Exchanged",
-          "avgConnectionDuration": "Avg. Connection Duration"
-        },
-        "buttons": {
-          "connect": "Connect",
-          "disconnect": "Disconnect",
-          "clearLogs": "Clear Logs",
-          "testConnection": "Test Connection",
-          "subscribe": "Subscribe",
-          "unsubscribe": "Unsubscribe",
-          "reconnect": "Reconnect Main WebSocket",
-          "connectHealth": "Connect to Health WebSocket",
-          "refreshStats": "Refresh Stats",
-          "connectDedicated": "Connect to Dedicated Health"
-        },
-        "tabs": {
-          "status": "Status",
-          "logs": "Logs",
-          "testing": "Testing",
-          "subscriptions": "Subscriptions",
-          "main": "Main Connection",
-          "health": "Health Service",
-          "dedicated": "Dedicated Health"
-        },
-        "sections": {
-          "mainConnection": "Main WebSocket Connection",
-          "mainConnectionDesc": "Monitor and diagnose the primary WebSocket connection used by the application.",
-          "healthService": "Health WebSocket Service",
-          "healthServiceDesc": "Connect to the health WebSocket endpoint to test connection stability.",
-          "dedicatedHealth": "Dedicated Health Service",
-          "dedicatedHealthDesc": "Connect to the dedicated health endpoint for low-level WebSocket diagnostics."
-        },
-        "subscriptions": {
-          "systemEvents": "System Events",
-          "trackingUpdates": "Tracking Updates",
-          "notifications": "Notifications"
-        },
-        "alerts": {
-          "connectionError": "Connection Error"
-        }
-      },
-      "health": {
-        "title": "System Health Monitoring",
-        "subtitle": "Real-time monitoring of system performance and health metrics",
-        "sections": {
-          "systemHealth": "System Health",
-          "serviceStatus": "Service Status",
-          "cachePerformance": "Cache Performance",
-          "systemMetrics": "System Metrics",
-          "alertLog": "Alert Log",
-          "overallStatus": "Overall System Status",
-          "performanceTrends": "Performance Trends",
-          "resourceUsage": "Resource Usage",
-          "networkStatistics": "Network Statistics",
-          "cacheHitRateTrend": "Cache Hit Rate Trend"
-        },
-        "status": {
-          "healthy": "Healthy",
-          "degraded": "Degraded",
-          "unhealthy": "Unhealthy"
-        },
-        "severity": {
-          "info": "Info",
-          "warning": "Warning",
-          "error": "Error",
-          "critical": "Critical"
-        },
-        "resources": {
-          "cpuUsage": "CPU Usage",
-          "memory": "Memory Usage",
-          "disk": "Disk Usage",
-          "networkConnections": "Active Connections"
-        },
-        "labels": {
-          "successRate": "Success Rate",
-          "errorRate": "Error Rate",
-          "responseTime": "Response Time",
-          "lastCheck": "Last checked",
-          "databaseLatency": "Database Latency",
-          "uptime": "Uptime",
-          "dataReceived": "Data Received",
-          "dataSent": "Data Sent",
-          "activeInterfaces": "Active Interfaces",
-          "cache": "Cache",
-          "hitRate": "Hit Rate",
-          "hits": "Hits",
-          "misses": "Misses",
-          "keys": "Keys",
-          "size": "Size",
-          "alert": "Alert"
-        },
-        "buttons": {
-          "refresh": "Refresh",
-          "autoRefresh": "Auto-refresh",
-          "clearAlerts": "Clear Alerts"
-        },
-        "tabs": {
-          "overview": "Overview",
-          "services": "Services",
-          "resources": "Resources",
-          "alerts": "Alerts",
-          "metrics": "System Metrics",
-          "cache": "Cache Performance"
-        },
-        "alerts": {
-          "noAlerts": "No Active Alerts",
-          "allSystemsOperational": "All systems are operating normally",
-          "cachePerformance": "Cache Performance Alert",
-          "cachePerformanceDesc": "Cache hit rate is currently below optimal levels. Target is 85% for best performance."
-        }
-      }
-    },
-    "content": {
-      "about": {
-        "buttons": {
-          "addSection": "Add Section",
-          "saveChanges": "Save Changes"
-        },
-        "labels": {
-          "section": "Section",
-          "title": "Title",
-          "content": "Content",
-          "active": "Active"
-        },
-        "newSectionTitle": "New Section",
-        "toast": {
-          "successTitle": "Success",
-          "successDescription": "About page content has been updated",
-          "errorTitle": "Error"
-        }
-      },
-      "branding": {
-        "title": "Branding",
-        "description": "Upload and manage your company logo and favicon",
-        "tabs": {
-          "logoFavicon": "Logo & Favicon",
-          "themeColors": "Theme Colors",
-          "typography": "Typography"
-        },
-        "sections": {
-          "companyLogo": "Company Logo",
-          "favicon": "Favicon",
-          "themeConfiguration": "Theme Configuration",
-          "colorScheme": "Color Scheme",
-          "colorSchemeDescription": "Customize the color scheme and appearance of your platform",
-          "typographySettings": "Typography Settings"
-        },
-        "labels": {
-          "primaryLogo": "Primary Logo",
-          "primaryColor": "Primary Brand Color",
-          "appearance": "Default Color Mode",
-          "borderRadius": "Element Border Radius",
-          "uiVariant": "UI Variant",
-          "noLogo": "No logo uploaded",
-          "noFavicon": "No favicon"
-        },
-        "options": {
-          "light": "Light",
-          "dark": "Dark",
-          "system": "System",
-          "professional": "Professional",
-          "tint": "Tint",
-          "vibrant": "Vibrant"
-        },
-        "buttons": {
-          "uploadLogo": "Upload Logo",
-          "uploadFavicon": "Upload Favicon",
-          "applyTheme": "Apply Theme",
-          "resetToDefault": "Reset to Default"
-        },
-        "placeholders": {
-          "selectVariant": "Select UI variant",
-          "selectAppearance": "Select color mode"
-        },
-        "hints": {
-          "logoSize": "Recommended size: 300x100px. Use PNG for best quality.",
-          "faviconSize": "Recommended size: 32x32px or 64x64px. PNG format preferred.",
-          "primaryColorHint": "This color will be used as the primary color throughout the application",
-          "variantHint": "Professional is subtle, Tint is softer, Vibrant is more colorful",
-          "appearanceHint": "System will follow the user's device preferences"
-        },
-        "preview": {
-          "logo": "Logo Preview",
-          "favicon": "Favicon Preview"
-        },
-        "toast": {
-          "uploadSuccessTitle": "Asset uploaded successfully",
-          "uploadSuccessDescription": "The brand asset has been uploaded and applied.",
-          "uploadErrorTitle": "Upload failed",
-          "themeSuccessTitle": "Theme updated successfully",
-          "themeSuccessDescription": "The brand theme has been updated and applied.",
-          "themeErrorTitle": "Theme update failed"
-        }
-      },
-      "manager": {
-        "title": "Content Management",
-        "tabs": {
-          "aboutPage": "About Page",
-          "services": "Services",
-          "branding": "Branding"
-        },
-        "cards": {
-          "aboutPageContent": "About Page Content",
-          "servicesContent": "Services Content"
-        }
-      },
-      "services": {
-        "buttons": {
-          "addService": "Add Service",
-          "saveChanges": "Save Changes"
-        },
-        "labels": {
-          "service": "Service",
-          "title": "Title",
-          "description": "Description",
-          "icon": "Icon Name",
-          "active": "Active"
-        },
-        "newServiceTitle": "New Service",
-        "toast": {
-          "successTitle": "Success",
-          "successDescription": "Services content has been updated",
-          "errorTitle": "Error"
-        }
-      }
-    },
-    "security": {
-      "activity": {
-        "title": "Admin Activity Dashboard",
-        "description": "Monitor and analyze admin actions and system events",
-        "cards": {
-          "totalActionsToday": "Total Actions Today",
-          "activeAdmins": "Active Admins",
-          "actionTypes": "Action Types",
-          "errorRate": "Error Rate",
-          "actionsByType": "Actions by Type",
-          "actionsByTypeDesc": "Distribution of admin actions today",
-          "mostActiveAdmins": "Most Active Admins",
-          "mostActiveAdminsDesc": "Top 5 admins by action count today",
-          "recentErrorActions": "Recent Error Actions",
-          "recentErrorActionsDesc": "Recent actions that resulted in errors",
-          "recentActivityFeed": "Recent Activity Feed",
-          "recentActivityFeedDesc": "Live stream of recent admin actions",
-          "auditLogs": "Audit Logs",
-          "auditLogsDesc": "Complete audit trail of all admin actions"
-        },
-        "status": {
-          "success": "Success",
-          "error": "Error",
-          "unknown": "Unknown",
-          "pending": "Pending",
-          "failure": "Failure"
-        },
-        "filters": {
-          "search": "Search",
-          "searchPlaceholder": "Search logs...",
-          "action": "Action",
-          "allActions": "All actions",
-          "entityType": "Entity Type",
-          "allTypes": "All types",
-          "status": "Status",
-          "all": "All",
-          "startDate": "Start Date",
-          "endDate": "End Date"
-        },
-        "table": {
-          "timestamp": "Timestamp",
-          "user": "User",
-          "action": "Action",
-          "entityType": "Entity Type",
-          "entityId": "Entity ID",
-          "status": "Status",
-          "ipAddress": "IP Address",
-          "date": "Date",
-          "details": "Details"
-        },
-        "buttons": {
-          "refresh": "Refresh",
-          "filter": "Filter",
-          "clearFilters": "Clear",
-          "export": "Export"
-        },
-        "pagination": {
-          "showing": "Showing {{from}} to {{to}} of {{total}} entries",
-          "page": "Page {{current}} of {{total}}",
-          "previous": "Previous",
-          "next": "Next"
-        },
-        "noDataAvailable": "No data available",
-        "noRecentActivity": "No recent activity",
-        "noLogsFound": "No audit logs found"
-      },
-      "identity": {
-        "title": "Identity & Security Management",
-        "description": "Centralized control for authentication, authorization, and security policies",
-        "tabs": {
-          "dashboard": "Dashboard",
-          "users": "Users",
-          "roles": "Roles",
-          "policies": "Policies",
-          "audit": "Audit",
-          "analytics": "Analytics",
-          "overview": "Overview",
-          "sessions": "Sessions",
-          "incidents": "Incidents",
-          "compliance": "Compliance"
-        },
-        "sections": {
-          "userManagement": "User Management",
-          "roleManagement": "Role Management",
-          "securityPolicies": "Security Policies",
-          "auditLogs": "Audit Logs",
-          "authenticationTrends": "Authentication Trends",
-          "securityEventsByType": "Security Events by Type",
-          "securityScore": "Security Score",
-          "activeThreats": "Active Threats",
-          "authenticationStats": "Authentication Stats",
-          "complianceStatus": "Compliance Status",
-          "userActivity": "User Activity",
-          "systemHealth": "System Health"
-        },
-        "table": {
-          "username": "Username",
-          "email": "Email",
-          "role": "Role",
-          "status": "Status",
-          "twoFactor": "2FA",
-          "lastLogin": "Last Login",
-          "actions": "Actions",
-          "policyName": "Policy Name",
-          "type": "Type",
-          "resource": "Resource",
-          "priority": "Priority",
-          "timestamp": "Timestamp",
-          "user": "User",
-          "action": "Action",
-          "ipAddress": "IP Address",
-          "severity": "Severity"
-        },
-        "status": {
-          "active": "Active",
-          "inactive": "Inactive",
-          "never": "Never"
-        },
-        "roleTypes": {
-          "system": "System",
-          "custom": "Custom"
-        },
-        "buttons": {
-          "refresh": "Refresh",
-          "generateReport": "Generate Report",
-          "editLayout": "Edit Layout",
-          "saveLayout": "Save Layout",
-          "resetToDefault": "Reset to Default",
-          "addUser": "Add User",
-          "addRole": "Add Role",
-          "revokeSession": "Revoke Session",
-          "lockAccount": "Lock Account",
-          "exportReport": "Export Report",
-          "cancel": "Cancel"
-        },
-        "widgetEditor": {
-          "title": "Widget Layout Editor",
-          "description": "Drag widgets to rearrange, toggle visibility, or reset to default layout"
-        },
-        "alerts": {
-          "emergencyModeActive": "Emergency Mode Active",
-          "emergencyModeDesc": "Security lockdown is in effect. Only administrators can access the system."
-        },
-        "filters": {
-          "all": "All",
-          "info": "Info",
-          "warning": "Warning",
-          "critical": "Critical",
-          "searchPlaceholder": "Search logs..."
-        },
-        "dialogs": {
-          "generateComplianceReport": "Generate Compliance Report",
-          "complianceReportDesc": "Select the compliance framework and reporting period",
-          "sessionDetails": "Session Details",
-          "policySettings": "Policy Settings"
-        },
-        "form": {
-          "framework": "Framework",
-          "selectFramework": "Select framework",
-          "reportPeriod": "Report Period",
-          "selectPeriod": "Select period"
-        },
-        "periods": {
-          "monthly": "Monthly",
-          "quarterly": "Quarterly",
-          "annual": "Annual"
-        },
-        "stats": {
-          "totalUsers": "Total Users",
-          "activeSessions": "Active Sessions",
-          "failedLogins": "Failed Logins",
-          "securityScore": "Security Score"
-        },
-        "severity": {
-          "info": "Info",
-          "warning": "Warning",
-          "error": "Error",
-          "critical": "Critical"
-        },
-        "permissionsConfigured": "{{count}} permissions configured"
-      },
-      "settings": {
-        "title": "Security Settings",
-        "tabs": {
-          "settings": "Settings",
-          "accessControl": "Access Control",
-          "auditLogs": "Audit Logs"
-        },
-        "sections": {
-          "authenticationSettings": "Authentication Settings",
-          "authenticationSettingsDesc": "Configure authentication and session security",
-          "securityFeatures": "Security Features",
-          "securityFeaturesDesc": "Additional security and monitoring features",
-          "ipWhitelist": "IP Whitelist",
-          "ipWhitelistDesc": "Restrict access to specific IP addresses",
-          "recentActivity": "Recent Activity",
-          "recentActivityDesc": "Last 50 user actions and system events",
-          "sessionManagement": "Session Management",
-          "passwordPolicy": "Password Policy",
-          "rateLimiting": "Rate Limiting",
-          "securityOverview": "Security Overview"
-        },
-        "overview": {
-          "securityScore": "Security Score",
-          "twoFactorUsers": "2FA Users",
-          "ofTotalUsers": "of {{total}} total users",
-          "failedLogins": "Failed Logins",
-          "inLast24Hours": "in the last 24 hours",
-          "lastScan": "Last Scan",
-          "never": "Never",
-          "totalUsers": "Total Users",
-          "activeUsers": "Active Users",
-          "recentFailedLogins": "Recent Failed Logins",
-          "lastSecurityScan": "Last Security Scan"
-        },
-        "form": {
-          "requireTwoFactor": "Require Two-Factor Authentication",
-          "requireTwoFactorDesc": "Force all users to enable 2FA",
-          "sessionTimeout": "Session Timeout (minutes)",
-          "maxLoginAttempts": "Max Login Attempts",
-          "passwordMinLength": "Minimum Password Length",
-          "passwordComplexity": "Password Complexity",
-          "passwordComplexityDesc": "Require special characters and numbers",
-          "auditLogs": "Audit Logs",
-          "auditLogsDesc": "Track all user actions and changes",
-          "rateLimiting": "Rate Limiting",
-          "rateLimitingDesc": "Limit API requests per user",
-          "ipPlaceholder": "Enter IP address (e.g., 192.168.1.1)",
-          "enabled": "Enabled",
-          "maxRequests": "Max Requests",
-          "windowMinutes": "Window Minutes"
-        },
-        "buttons": {
-          "runSecurityScan": "Run Security Scan",
-          "addIp": "Add IP",
-          "remove": "Remove",
-          "saveChanges": "Save Changes",
-          "updateSettings": "Update Settings"
-        },
-        "noIpAddresses": "No IP addresses in whitelist. All IPs are allowed.",
-        "noAuditLogs": "No audit logs available",
-        "toast": {
-          "successTitle": "Success",
-          "errorTitle": "Error",
-          "settingsUpdated": "Security settings updated successfully",
-          "scanCompleteTitle": "Security Scan Complete",
-          "scanCompleteDesc": "Security vulnerabilities have been scanned and logged",
-          "invalidIpTitle": "Invalid IP Address",
-          "invalidIpDesc": "Please enter a valid IP address"
-        }
-      }
-    },
-    "management": {
-      "pageModule": {
-        "title": "Page & Module Management",
-        "subtitle": "Manage your application's pages, modules, and features",
-        "tabs": {
-          "all": "All Modules",
-          "tree": "Tree View",
-          "table": "Table View"
-        },
-        "stats": {
-          "totalModules": "Total Modules",
-          "acrossAllCategories": "Across all categories",
-          "active": "Active",
-          "currentlyEnabled": "Currently enabled",
-          "protected": "Protected",
-          "requireAuth": "Require authentication",
-          "adminOnly": "Admin Only",
-          "adminModules": "Admin modules"
-        },
-        "table": {
-          "name": "Name",
-          "type": "Type",
-          "category": "Category",
-          "path": "Path",
-          "status": "Status",
-          "auth": "Auth",
-          "visibility": "Visibility",
-          "actions": "Actions"
-        },
-        "types": {
-          "page": "Page",
-          "module": "Module",
-          "service": "Service",
-          "department": "Department"
-        },
-        "categories": {
-          "public": "Public",
-          "protected": "Protected",
-          "admin": "Admin",
-          "developer": "Developer",
-          "department": "Department"
-        },
-        "form": {
-          "name": "Internal Name",
-          "namePlaceholder": "e.g., userDashboard",
-          "displayName": "Display Name",
-          "displayNamePlaceholder": "e.g., User Dashboard",
-          "type": "Type",
-          "selectType": "Select type",
-          "category": "Category",
-          "selectCategory": "Select category",
-          "path": "Route Path",
-          "pathPlaceholder": "e.g., /dashboard",
-          "componentPath": "Component Path",
-          "componentPathPlaceholder": "e.g., @/pages/Dashboard",
-          "description": "Description",
-          "descriptionPlaceholder": "Module description...",
-          "icon": "Icon",
-          "iconPlaceholder": "e.g., Home",
-          "parent": "Parent",
-          "order": "Order",
-          "requiresAuth": "Requires Auth",
-          "requiredRole": "Required Role",
-          "requiredRolePlaceholder": "e.g., admin",
-          "isActive": "Active",
-          "isVisible": "Visible"
-        },
-        "buttons": {
-          "addModule": "Add Module",
-          "addPage": "Add Page",
-          "edit": "Edit",
-          "delete": "Delete",
-          "activate": "Activate",
-          "deactivate": "Deactivate",
-          "show": "Show",
-          "hide": "Hide",
-          "save": "Save",
-          "cancel": "Cancel",
-          "create": "Create",
-          "update": "Update",
-          "saving": "Saving..."
-        },
-        "dialog": {
-          "createTitle": "Create New Module",
-          "editTitle": "Edit Module",
-          "createDescription": "Add a new page or module to your application",
-          "editDescription": "Update module configuration"
-        },
-        "filter": {
-          "searchPlaceholder": "Search modules...",
-          "filterByType": "Filter by type",
-          "filterByCategory": "Filter by category",
-          "allTypes": "All Types",
-          "allCategories": "All Categories"
-        },
-        "views": {
-          "allModulesTitle": "All Modules",
-          "allModulesDesc": "Quick overview of all pages and modules",
-          "treeTitle": "Module Tree",
-          "treeDesc": "Hierarchical view of modules and their relationships",
-          "tableTitle": "Module Table",
-          "tableDesc": "Detailed table view with all module information"
-        },
-        "status": {
-          "active": "Active",
-          "inactive": "Inactive",
-          "disabled": "Disabled"
-        },
-        "loading": "Loading modules...",
-        "toast": {
-          "moduleUpdated": "Module Updated",
-          "moduleUpdatedDesc": "Module activation status has been changed.",
-          "moduleCreated": "Module created successfully",
-          "moduleUpdatedSuccess": "Module updated successfully",
-          "moduleDeleted": "Module Deleted",
-          "moduleDeletedDesc": "Module has been removed from the system.",
-          "deleteFailed": "Delete Failed",
-          "deleteFailedDesc": "Cannot delete module with dependencies",
-          "success": "Success"
-        }
-      },
-      "users": {
-        "title": "User Management",
-        "stats": {
-          "totalUsers": "Total Users",
-          "activeUsers": "Active Users",
-          "adminUsers": "Admin Users",
-          "recentLogins": "Recent Logins"
-        },
-        "tabs": {
-          "users": "Users",
-          "roles": "Roles",
-          "permissions": "Permissions",
-          "activity": "Activity"
-        },
-        "table": {
-          "user": "User",
-          "username": "Username",
-          "email": "Email",
-          "role": "Role",
-          "permissions": "Permissions",
-          "status": "Status",
-          "lastLogin": "Last Login",
-          "actions": "Actions",
-          "never": "Never"
-        },
-        "roles": {
-          "admin": "Admin",
-          "user": "User",
-          "moderator": "Moderator",
-          "manager": "Manager",
-          "analyst": "Analyst"
-        },
-        "permissions": {
-          "read": "Read",
-          "write": "Write",
-          "admin": "Admin",
-          "manage_users": "Manage Users",
-          "manage_system": "Manage System",
-          "view_analytics": "View Analytics",
-          "manage_content": "Manage Content",
-          "manage_settings": "Manage Settings"
-        },
-        "status": {
-          "active": "Active",
-          "inactive": "Inactive"
-        },
-        "form": {
-          "username": "Username",
-          "usernamePlaceholder": "Enter username",
-          "email": "Email",
-          "emailPlaceholder": "Enter email",
-          "password": "Password",
-          "passwordPlaceholder": "Enter password",
-          "role": "Role",
-          "permissions": "Permissions",
-          "activeUser": "Active User"
-        },
-        "buttons": {
-          "addUser": "Add User",
-          "edit": "Edit",
-          "delete": "Delete",
-          "activate": "Activate",
-          "deactivate": "Deactivate",
-          "createUser": "Create User",
-          "updateUser": "Update User",
-          "cancel": "Cancel"
-        },
-        "dialog": {
-          "createTitle": "Create New User",
-          "createDescription": "Add a new user to the system with specified role and permissions.",
-          "editTitle": "Edit User",
-          "editDescription": "Update user information, role, and permissions.",
-          "deleteTitle": "Delete User",
-          "deleteConfirm": "Are you sure you want to delete this user?"
-        },
-        "filter": {
-          "searchPlaceholder": "Search users...",
-          "filterByRole": "Filter by role",
-          "allRoles": "All Roles"
-        },
-        "toast": {
-          "success": "Success",
-          "error": "Error",
-          "userCreated": "User created successfully",
-          "userUpdated": "User updated successfully",
-          "userDeleted": "User deleted successfully",
-          "createFailed": "Failed to create user",
-          "updateFailed": "Failed to update user",
-          "deleteFailed": "Failed to delete user"
-        },
-        "usersCount": "Users ({{count}})"
-      }
-    },
-    "landing": {
-      "badge": "Secure Administration",
-      "title": "Molochain",
-      "titleHighlight": "Admin Portal",
-      "description": "Centralized system administration and management for the Molochain platform. Monitor, configure, and control all aspects of your logistics ecosystem.",
-      "buttons": {
-        "signInSSO": "Sign In with SSO",
-        "exploreFeatures": "Explore Features",
-        "accessPortal": "Access Admin Portal"
-      },
-      "features": {
-        "sectionTitle": "Powerful Administration Tools",
-        "sectionSubtitle": "Everything you need to manage and monitor your Molochain platform",
-        "systemMonitoring": {
-          "title": "System Monitoring",
-          "description": "Real-time monitoring of all system components, performance metrics, and health status across the entire platform."
-        },
-        "userManagement": {
-          "title": "User Management",
-          "description": "Comprehensive user administration with role-based access control, permissions management, and activity tracking."
-        },
-        "securityControls": {
-          "title": "Security Controls",
-          "description": "Advanced security features including authentication policies, audit logs, and threat detection systems."
-        },
-        "analyticsDashboard": {
-          "title": "Analytics Dashboard",
-          "description": "Powerful analytics and reporting tools to gain insights into platform usage, trends, and business metrics."
-        }
-      },
-      "capabilities": {
-        "sectionTitle": "Complete Control at Your Fingertips",
-        "sectionDescription": "The Molochain Admin Portal provides administrators with comprehensive tools to manage every aspect of the platform efficiently and securely.",
-        "healthMonitoring": "Real-time system health monitoring",
-        "rbac": "Role-based access control (RBAC)",
-        "auditLogging": "Comprehensive audit logging",
-        "performanceAnalytics": "Performance analytics",
-        "configManagement": "Configuration management",
-        "integrationControls": "Integration controls"
-      },
-      "metrics": {
-        "uptime": "Uptime SLA",
-        "responseTime": "Response Time",
-        "securityMonitoring": "Security Monitoring",
-        "configOptions": "Config Options"
-      },
-      "cta": {
-        "title": "Ready to Get Started?",
-        "description": "Sign in with your organizational credentials to access the admin portal."
-      },
-      "info": {
-        "authorizedPersonnel": "Authorized Personnel Only"
-      }
-    },
-    "settings": {
-      "title": "Administration Settings",
-      "tabs": {
-        "storage": "Storage",
-        "security": "Security",
-        "database": "Database",
-        "users": "Users",
-        "system": "System"
-      },
-      "security": {
-        "title": "Security Settings",
-        "twoFactor": {
-          "title": "Two-Factor Authentication",
-          "description": "Enforce 2FA for all admin accounts"
-        },
-        "session": {
-          "title": "Session Management",
-          "description": "Session timeout: 30 minutes"
-        },
-        "rateLimit": {
-          "title": "API Rate Limiting",
-          "description": "1000 requests per minute"
-        }
-      },
-      "database": {
-        "title": "Database Settings",
-        "type": {
-          "title": "Database Type",
-          "description": "PostgreSQL 15.2"
-        },
-        "pool": {
-          "title": "Connection Pool",
-          "description": "Max connections: 100"
-        },
-        "backup": {
-          "title": "Backup Schedule",
-          "description": "Daily at 2:00 AM UTC"
-        }
-      },
-      "users": {
-        "title": "User Management",
-        "total": {
-          "title": "Total Users",
-          "description": "Active: 127 | Inactive: 23"
-        },
-        "roles": {
-          "title": "User Roles",
-          "description": "Admin: 5 | Manager: 18 | User: 127"
-        },
-        "registration": {
-          "title": "Registration",
-          "description": "Email verification required"
-        }
-      },
-      "system": {
-        "title": "System Settings",
-        "version": {
-          "title": "Platform Version",
-          "description": "MoloChain v1.0.0"
-        },
-        "environment": {
-          "title": "Environment"
-        },
-        "uptime": {
-          "title": "System Uptime",
-          "description": "99.95% this month"
-        }
-      }
-    }
-  },
-  "caseStudies": {
-    "badge": "Real Results, Real Impact",
-    "title": "Customer Success Stories",
-    "description": "Discover how MoloChain has transformed logistics operations for businesses worldwide. From global shipping optimization to e-commerce fulfillment, see the measurable impact we've delivered for our clients.",
-    "features": {
-      "verified": "Verified Results",
-      "roi": "Measurable ROI",
-      "global": "Global Impact"
-    },
-    "stats": {
-      "successStories": "Success Stories",
-      "industriesServed": "Industries Served",
-      "clientSatisfaction": "Client Satisfaction",
-      "countriesCovered": "Countries Covered"
-    },
-    "filter": {
-      "label": "Filter:",
-      "byIndustry": "Filter by Industry",
-      "allIndustries": "All Industries",
-      "selectIndustry": "Select industry"
-    },
-    "sections": {
-      "allCaseStudies": "All Case Studies",
-      "browseCaseStudies": "Browse our collection of success stories across industries",
-      "featuredCaseStudy": "Featured Case Study"
-    },
-    "cta": {
-      "title": "Ready to Write Your Success Story?",
-      "description": "Join hundreds of businesses that have transformed their logistics operations with MoloChain. Let's discuss how we can help you achieve similar results.",
-      "contactSales": "Contact Sales",
-      "requestDemo": "Request Demo"
-    },
-    "buttons": {
-      "viewCaseStudy": "View Case Study",
-      "loadMore": "Load More"
-    },
-    "count": {
-      "story": "story",
-      "stories": "stories"
-    }
-  },
-  "projects": {
-    "notFound": {
-      "title": "Project Not Found",
-      "description": "The project you're looking for doesn't exist.",
-      "backToProjects": "Back to Projects"
-    },
-    "sections": {
-      "challenge": "Challenge",
-      "solution": "Solution",
-      "results": "Results",
-      "technologiesUsed": "Technologies Used",
-      "testimonials": "Testimonials"
-    },
-    "metrics": {
-      "deliveryTime": "Delivery Time",
-      "efficiency": "Efficiency",
-      "coverage": "Coverage",
-      "carbonReduction": "Carbon Reduction",
-      "temperatureAccuracy": "Temperature Accuracy",
-      "networkCoverage": "Network Coverage",
-      "throughput": "Throughput",
-      "waitTime": "Wait Time",
-      "staffEfficiency": "Staff Efficiency",
-      "aiAccuracy": "AI Accuracy",
-      "processAutomation": "Process Automation",
-      "efficiencyGain": "Efficiency Gain",
-      "connectivity": "Connectivity",
-      "performance": "Performance",
-      "capacity": "Capacity",
-      "automation": "Automation",
-      "sustainability": "Sustainability",
-      "innovation": "Innovation",
-      "impact": "Impact",
-      "adoption": "Adoption"
-    },
-    "details": {
-      "client": "Client",
-      "location": "Location",
-      "startDate": "Start Date",
-      "completionDate": "Completion Date"
-    },
-    "rating": {
-      "stars": "{{count}} stars"
-    }
-  },
-  "brandbook": {
-    "title": "Brand Book",
-    "description": "Complete brand guidelines and assets",
-    "version": "Version {{version}}",
-    "updated": "Updated {{date}}",
-    "sections": {
-      "colors": {
-        "title": "Colors",
-        "description": "Brand color palette with primary, secondary, and semantic colors"
-      },
-      "typography": {
-        "title": "Typography",
-        "description": "Font families, weights, and type scale specifications"
-      },
-      "logos": {
-        "title": "Logos",
-        "description": "Logo variations, usage guidelines, and downloadable assets"
-      },
-      "components": {
-        "title": "Components",
-        "description": "UI component library with live examples and code snippets",
-        "count": "20+ components"
-      },
-      "tokens": {
-        "title": "Design Tokens",
-        "description": "Spacing, border radius, shadows, and animation values"
-      },
-      "guidelines": {
-        "title": "Guidelines",
-        "description": "Usage rules, do's and don'ts, and best practices"
-      }
-    },
-    "buttons": {
-      "downloadBrandKit": "Download Brand Kit",
-      "viewGuidelines": "View Guidelines"
-    },
-    "quickReference": {
-      "title": "Quick Color Reference",
-      "description": "The core Molochain color palette at a glance"
-    },
-    "cards": {
-      "brandName": "Brand Name",
-      "primaryColor": "Primary Color",
-      "primaryFont": "Primary Font"
-    },
-    "counts": {
-      "colors": "{{count}} colors",
-      "typefaces": "{{count}} typefaces",
-      "logoSets": "{{count}} logo sets",
-      "tokens": "{{count}} tokens",
-      "guides": "{{count}} guides"
-    }
   }
 }
