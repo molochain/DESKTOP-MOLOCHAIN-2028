@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { useParams, Link } from 'wouter';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -21,6 +22,7 @@ const departmentComponents: Record<string, React.LazyExoticComponent<() => JSX.E
 };
 
 export default function DepartmentPage() {
+  const { t } = useTranslation();
   const params = useParams<{ slug: string }>();
   const slug = params.slug || '';
   
@@ -28,18 +30,18 @@ export default function DepartmentPage() {
 
   if (!DepartmentComponent) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center" dir={document.documentElement.dir}>
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Department Not Found
+            {t('departments.notFound', 'Department Not Found')}
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            The department "{slug}" does not exist.
+            {t('departments.notFoundDesc', 'The department "{{slug}}" does not exist.', { slug })}
           </p>
           <Link href="/departments">
             <Button data-testid="button-back-departments">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Departments
+              <ArrowLeft className="h-4 w-4 ltr:mr-2 rtl:ml-2" />
+              {t('departments.backToDepartments', 'Back to Departments')}
             </Button>
           </Link>
         </div>
@@ -48,12 +50,12 @@ export default function DepartmentPage() {
   }
 
   return (
-    <div>
+    <div dir={document.documentElement.dir}>
       <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-3">
         <Link href="/departments">
           <Button variant="ghost" size="sm" data-testid="button-back-departments">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            All Departments
+            <ArrowLeft className="h-4 w-4 ltr:mr-2 rtl:ml-2" />
+            {t('departments.allDepartments', 'All Departments')}
           </Button>
         </Link>
       </div>
