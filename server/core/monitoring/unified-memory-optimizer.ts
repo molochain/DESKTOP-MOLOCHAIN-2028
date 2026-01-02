@@ -72,16 +72,7 @@ class UnifiedMemoryOptimizer {
     try {
       const beforeStats = this.getMemoryStats();
       
-      // Clear require cache for unused modules
-      const keysToDelete: string[] = [];
-      for (const key in require.cache) {
-        if (key.includes('node_modules') && !key.includes('essential')) {
-          keysToDelete.push(key);
-        }
-      }
-      keysToDelete.forEach(key => delete require.cache[key]);
-      
-      // Simple, effective garbage collection
+      // Simple, effective garbage collection (ESM compatible)
       if (global.gc) {
         global.gc();
       }
@@ -97,8 +88,7 @@ class UnifiedMemoryOptimizer {
         before: beforeStats.percentage.toFixed(2) + '%',
         after: afterStats.percentage.toFixed(2) + '%',
         improvement: improvement.toFixed(2) + '%',
-        heapReduction: heapReduction.toFixed(2) + ' MB',
-        cacheCleared: keysToDelete.length + ' modules'
+        heapReduction: heapReduction.toFixed(2) + ' MB'
       });
       
     } catch (error) {
