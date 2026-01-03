@@ -58,6 +58,14 @@
     {
       "name": "services-platform-v1",
       "description": "Services Platform v1 API - Mobile-optimized service catalog with 46 services across 19 categories"
+    },
+    {
+      "name": "ecosystem-registry",
+      "description": "Centralized Ecosystem Service Registry - Manages API keys, webhooks, and documentation across all Molochain services"
+    },
+    {
+      "name": "rayanava",
+      "description": "RAYANAVA AI Integration - AI-powered chat, content generation, and business intelligence"
     }
   ],
   "paths": {
@@ -1749,6 +1757,213 @@
           }
         ]
       }
+    },
+    "/ecosystem/registry/services": {
+      "get": {
+        "tags": ["ecosystem-registry"],
+        "summary": "List ecosystem services",
+        "description": "Get all registered services in the Molochain ecosystem",
+        "operationId": "listEcosystemServices",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["active", "inactive", "maintenance"]
+            },
+            "description": "Filter by service status"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of ecosystem services",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EcosystemServicesResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "cookieAuth": [] }]
+      },
+      "post": {
+        "tags": ["ecosystem-registry"],
+        "summary": "Register new service",
+        "description": "Register a new service in the ecosystem (admin only)",
+        "operationId": "registerEcosystemService",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EcosystemServiceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Service registered successfully"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        },
+        "security": [{ "cookieAuth": [] }]
+      }
+    },
+    "/ecosystem/registry/services/{slug}/health": {
+      "get": {
+        "tags": ["ecosystem-registry"],
+        "summary": "Check service health",
+        "description": "Check the health status of a specific ecosystem service",
+        "operationId": "checkEcosystemServiceHealth",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "example": "rayanava"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Service health status"
+          },
+          "404": {
+            "description": "Service not found"
+          }
+        },
+        "security": [{ "cookieAuth": [] }]
+      }
+    },
+    "/ecosystem/registry/webhooks": {
+      "get": {
+        "tags": ["ecosystem-registry"],
+        "summary": "List webhooks",
+        "description": "Get all registered webhook endpoints",
+        "operationId": "listEcosystemWebhooks",
+        "responses": {
+          "200": {
+            "description": "List of webhooks"
+          }
+        },
+        "security": [{ "cookieAuth": [] }]
+      },
+      "post": {
+        "tags": ["ecosystem-registry"],
+        "summary": "Register webhook",
+        "description": "Register a new webhook endpoint for event notifications",
+        "operationId": "registerEcosystemWebhook",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EcosystemWebhookRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Webhook registered"
+          }
+        },
+        "security": [{ "cookieAuth": [] }]
+      }
+    },
+    "/ecosystem/registry/docs": {
+      "get": {
+        "tags": ["ecosystem-registry"],
+        "summary": "Aggregate API documentation",
+        "description": "Get aggregated OpenAPI specs from all ecosystem services",
+        "operationId": "getEcosystemDocs",
+        "responses": {
+          "200": {
+            "description": "Aggregated API documentation"
+          }
+        }
+      }
+    },
+    "/rayanava/status": {
+      "get": {
+        "tags": ["rayanava"],
+        "summary": "Get RAYANAVA status",
+        "description": "Get RAYANAVA AI service status and capabilities",
+        "operationId": "getRayanavaStatus",
+        "responses": {
+          "200": {
+            "description": "RAYANAVA status and capabilities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RayanavaStatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rayanava/chat": {
+      "post": {
+        "tags": ["rayanava"],
+        "summary": "Chat with RAYANAVA",
+        "description": "Send a message to RAYANAVA AI assistant",
+        "operationId": "chatWithRayanava",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RayanavatChatRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "RAYANAVA response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RayanavatChatResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "cookieAuth": [] }]
+      }
+    },
+    "/rayanava/process": {
+      "post": {
+        "tags": ["rayanava"],
+        "summary": "Process AI request",
+        "description": "Process a general AI request through RAYANAVA",
+        "operationId": "processRayanavaRequest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RayanavaProcessRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Processed result"
+          }
+        },
+        "security": [{ "cookieAuth": [] }]
+      }
     }
   },
   "components": {
@@ -3339,6 +3554,95 @@
             "type": "string",
             "format": "date-time"
           }
+        }
+      },
+      "EcosystemServicesResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "services": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/EcosystemService" }
+          }
+        }
+      },
+      "EcosystemService": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string", "example": "RAYANAVA AI Gateway" },
+          "slug": { "type": "string", "example": "rayanava" },
+          "baseUrl": { "type": "string", "example": "http://127.0.0.1:5001" },
+          "healthEndpoint": { "type": "string", "example": "/health" },
+          "status": { "type": "string", "enum": ["active", "inactive", "maintenance"] },
+          "lastHealthCheck": { "type": "string", "format": "date-time", "nullable": true }
+        }
+      },
+      "EcosystemServiceRequest": {
+        "type": "object",
+        "required": ["name", "slug", "baseUrl"],
+        "properties": {
+          "name": { "type": "string" },
+          "slug": { "type": "string" },
+          "baseUrl": { "type": "string" },
+          "healthEndpoint": { "type": "string", "default": "/health" },
+          "metadata": { "type": "object" }
+        }
+      },
+      "EcosystemWebhookRequest": {
+        "type": "object",
+        "required": ["serviceId", "targetUrl", "events"],
+        "properties": {
+          "serviceId": { "type": "integer" },
+          "targetUrl": { "type": "string", "format": "uri" },
+          "events": { "type": "array", "items": { "type": "string" } },
+          "secret": { "type": "string" }
+        }
+      },
+      "RayanavaStatusResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "isActive": { "type": "boolean" },
+              "version": { "type": "string" },
+              "capabilities": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      },
+      "RayanavatChatRequest": {
+        "type": "object",
+        "required": ["message"],
+        "properties": {
+          "message": { "type": "string", "example": "Hello RAYANAVA" },
+          "context": { "type": "object" },
+          "sessionId": { "type": "string" }
+        }
+      },
+      "RayanavatChatResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "response": { "type": "string" },
+              "sessionId": { "type": "string" },
+              "confidence": { "type": "number" }
+            }
+          }
+        }
+      },
+      "RayanavaProcessRequest": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "enum": ["general", "content", "analysis", "intelligence"] },
+          "context": { "type": "object" },
+          "data": { "type": "object" },
+          "requirements": { "type": "object" }
         }
       }
     },

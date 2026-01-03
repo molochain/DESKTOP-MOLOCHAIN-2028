@@ -2393,3 +2393,124 @@ export const apiKeyUsageLogs = pgTable("api_key_usage_logs", {
 }));
 
 export type ApiKeyUsageLog = typeof apiKeyUsageLogs.$inferSelect;
+
+// ============= Ecosystem Services Management =============
+// Molochain Ecosystem API Registry - manages all ecosystem services like RAYANAVA, CMS, OTMS
+
+export const ecosystemServices = pgTable("ecosystem_services", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 100 }).notNull(),
+  slug: varchar("slug", { length: 50 }).notNull().unique(),
+  description: text("description"),
+  baseUrl: varchar("base_url", { length: 500 }).notNull(),
+  healthEndpoint: varchar("health_endpoint", { length: 200 }).default('/health'),
+  apiKeyId: integer("api_key_id").references(() => externalApiKeys.id),
+  webhookSecret: varchar("webhook_secret", { length: 64 }),
+  status: varchar("status", { length: 20 }).notNull().default('inactive'),
+  lastHealthCheck: timestamp("last_health_check"),
+  healthCheckInterval: integer("health_check_interval").default(60),
+  metadata: jsonb("metadata").$type<{
+    version?: string;
+    maintainer?: string;
+    environment?: 'development' | 'staging' | 'production';
+    tags?: string[];
+    capabilities?: string[];
+  }>(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => ({
+  slugIdx: index("ecosystem_services_slug_idx").on(table.slug),
+  statusIdx: index("ecosystem_services_status_idx").on(table.status),
+}));
+
+export const insertEcosystemServiceSchema = createInsertSchema(ecosystemServices).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  lastHealthCheck: true,
+});
+
+export type InsertEcosystemService = z.infer<typeof insertEcosystemServiceSchema>;
+export type EcosystemService = typeof ecosystemServices.$inferSelect;
+
+export const ecosystemServicesRelations = relations(ecosystemServices, ({ one, many }) => ({
+  apiKey: one(externalApiKeys, {
+    fields: [ecosystemServices.apiKeyId],
+    references: [externalApiKeys.id],
+  }),
+  webhooks: many(ecosystemWebhooks),
+  apiDocs: many(ecosystemApiDocs),
+}));
+
+// Ecosystem Webhooks - manage webhook configurations for ecosystem services
+export const ecosystemWebhooks = pgTable("ecosystem_webhooks", {
+  id: serial("id").primaryKey(),
+  serviceId: integer("service_id").notNull().references(() => ecosystemServices.id, { onDelete: 'cascade' }),
+  name: varchar("name", { length: 100 }).notNull(),
+  targetUrl: varchar("target_url", { length: 500 }).notNull(),
+  events: json("events").$type<string[]>().notNull().default([]),
+  secret: varchar("secret", { length: 64 }),
+  isActive: boolean("is_active").notNull().default(true),
+  lastDelivery: timestamp("last_delivery"),
+  lastDeliveryStatus: varchar("last_delivery_status", { length: 20 }),
+  failureCount: integer("failure_count").default(0),
+  maxRetries: integer("max_retries").default(3),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => ({
+  serviceIdx: index("ecosystem_webhooks_service_idx").on(table.serviceId),
+  activeIdx: index("ecosystem_webhooks_active_idx").on(table.isActive),
+}));
+
+export const insertEcosystemWebhookSchema = createInsertSchema(ecosystemWebhooks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  lastDelivery: true,
+  lastDeliveryStatus: true,
+  failureCount: true,
+});
+
+export type InsertEcosystemWebhook = z.infer<typeof insertEcosystemWebhookSchema>;
+export type EcosystemWebhook = typeof ecosystemWebhooks.$inferSelect;
+
+export const ecosystemWebhooksRelations = relations(ecosystemWebhooks, ({ one }) => ({
+  service: one(ecosystemServices, {
+    fields: [ecosystemWebhooks.serviceId],
+    references: [ecosystemServices.id],
+  }),
+}));
+
+// Ecosystem API Documentation - tracks OpenAPI specs for each service
+export const ecosystemApiDocs = pgTable("ecosystem_api_docs", {
+  id: serial("id").primaryKey(),
+  serviceId: integer("service_id").notNull().references(() => ecosystemServices.id, { onDelete: 'cascade' }),
+  title: varchar("title", { length: 200 }),
+  openApiSpecUrl: varchar("openapi_spec_url", { length: 500 }),
+  openApiSpec: jsonb("openapi_spec"),
+  version: varchar("version", { length: 20 }).notNull().default('1.0.0'),
+  lastSync: timestamp("last_sync"),
+  isPublished: boolean("is_published").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => ({
+  serviceIdx: index("ecosystem_api_docs_service_idx").on(table.serviceId),
+  publishedIdx: index("ecosystem_api_docs_published_idx").on(table.isPublished),
+}));
+
+export const insertEcosystemApiDocSchema = createInsertSchema(ecosystemApiDocs).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  lastSync: true,
+});
+
+export type InsertEcosystemApiDoc = z.infer<typeof insertEcosystemApiDocSchema>;
+export type EcosystemApiDoc = typeof ecosystemApiDocs.$inferSelect;
+
+export const ecosystemApiDocsRelations = relations(ecosystemApiDocs, ({ one }) => ({
+  service: one(ecosystemServices, {
+    fields: [ecosystemApiDocs.serviceId],
+    references: [ecosystemServices.id],
+  }),
+}));
