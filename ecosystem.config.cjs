@@ -8,6 +8,13 @@ module.exports = {
     cwd: '/var/www/vhosts/molochain.com/molochain-core',
     instances: 1,
     exec_mode: 'fork',
+    max_memory_restart: '512M',
+    exp_backoff_restart_delay: 100,
+    max_restarts: 10,
+    restart_delay: 1000,
+    autorestart: true,
+    watch: false,
+    node_args: ['--max-old-space-size=512', '--optimize-for-size'],
     env: {
       NODE_ENV: 'production',
       PORT: 5000,
@@ -17,6 +24,9 @@ module.exports = {
     error_file: '/var/www/vhosts/molochain.com/molochain-core/logs/pm2-error.log',
     out_file: '/var/www/vhosts/molochain.com/molochain-core/logs/pm2-out.log',
     merge_logs: true,
-    log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+    log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+    kill_timeout: 5000,
+    listen_timeout: 8000,
+    shutdown_with_message: true
   }]
 };
