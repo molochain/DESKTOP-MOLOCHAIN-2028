@@ -87,3 +87,45 @@ Rest Express is a comprehensive Node.js/TypeScript full-stack application within
 - **Orphaned Files Removed:** DashboardNavigation.tsx, DashboardLayout.tsx, DashboardManager.tsx (unused components)
 - **ESM Compatibility:** Fixed memory optimizer to remove CommonJS require.cache logic
 - **Navigation:** Dashboard/Blockchain menu items removed from public navigation (protected portal routes remain for authenticated users)
+
+## Ecosystem Service Registry (January 2026)
+
+### Centralized Service Management
+The platform now includes a centralized ecosystem registry for managing all microservices, API keys, webhooks, and documentation.
+
+**Registry API:** `/api/ecosystem/registry/`
+- **Services:** `/services` - Register, update, and monitor microservices
+- **Webhooks:** `/webhooks` - Manage webhook subscriptions and delivery
+- **Docs:** `/docs` - API documentation aggregation portal
+
+### Registered Core Services (Phase 1)
+
+| Service | Slug | Base URL | Status |
+|---------|------|----------|--------|
+| API Gateway | `api-gateway` | https://molochain.com/api | Active |
+| Communications Hub | `communications-hub` | https://comms.molochain.com | Pending |
+| Notification Service | `notification-service` | http://172.22.0.1:7020 | Internal |
+| Container Monitor | `container-monitor` | http://172.22.0.1:7030 | Internal |
+| SSL Checker | `ssl-checker` | http://172.22.0.1:7040 | Internal |
+| CMS Sync Service | `cms-sync` | https://cms.molochain.com/api | Active |
+| RAYANAVA AI Gateway | `rayanava` | http://localhost:5000/api/rayanava | Active |
+
+### API Key Format
+- **API Key Prefix:** `mk_eco_` (48 hex chars)
+- **API Secret Prefix:** `msk_eco_` (64 hex chars)
+- **Scopes:** `ecosystem:read`, `ecosystem:write`, `service:{slug}`
+
+### Webhook Events
+Each service registers 3 webhook events for lifecycle tracking:
+- Gateway: `gateway.request.failed`, `gateway.rate_limit.exceeded`, `gateway.auth.failed`
+- Communications: `comms.email.sent`, `comms.email.failed`, `comms.sms.delivered`
+- Notifications: `notification.sent`, `notification.read`, `notification.failed`
+- Containers: `container.unhealthy`, `container.recovered`, `container.stopped`
+- SSL: `ssl.expiring_soon`, `ssl.expired`, `ssl.renewed`
+- CMS: `cms.sync.started`, `cms.sync.completed`, `cms.sync.failed`
+
+### Key Files
+- **Schema:** `shared/schema.ts` (ecosystemServices, ecosystemWebhooks, ecosystemApiDocs)
+- **Routes:** `server/routes/ecosystem-registry.ts`
+- **Registrar:** `server/registrars/ecosystem.registrar.ts`
+- **Seed Script:** `server/scripts/seed-ecosystem-services.ts`
